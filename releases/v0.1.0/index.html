@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://grokify.github.io/aha-go/getting-started/authentication/">
+        <link rel="canonical" href="https://grokify.github.io/aha-go/releases/v0.1.0/">
       
       
-        <link rel="prev" href="../installation/">
+        <link rel="prev" href="../../api-reference/">
       
       
-        <link rel="next" href="../quickstart/">
+        <link rel="next" href="../../specs/ROADMAP/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -24,7 +24,7 @@
     
     
       
-        <title>Authentication - aha-go</title>
+        <title>v0.1.0 - aha-go</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#authentication" class="md-skip">
+        <a href="#v010" class="md-skip">
           Skip to content
         </a>
       
@@ -110,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Authentication
+              v0.1.0
             
           </span>
         </div>
@@ -238,13 +238,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../installation/" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../getting-started/installation/" class="md-tabs__link">
           
   
   
@@ -339,11 +337,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../releases/v0.1.0/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
           
   
   
@@ -445,31 +445,28 @@
       
   
   
-    
   
   
-  
     
     
     
     
-      
-        
-        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
             
   
   
@@ -482,7 +479,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             Getting Started
@@ -496,7 +493,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../installation/" class="md-nav__link">
+      <a href="../../getting-started/installation/" class="md-nav__link">
         
   
   
@@ -516,32 +513,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    Authentication
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../getting-started/authentication/" class="md-nav__link">
         
   
   
@@ -552,203 +527,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#getting-your-api-key" class="md-nav__link">
-    <span class="md-ellipsis">
-      Getting Your API Key
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      Configuration
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Configuration">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#environment-variables" class="md-nav__link">
-    <span class="md-ellipsis">
-      Environment Variables
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#using-a-env-file" class="md-nav__link">
-    <span class="md-ellipsis">
-      Using a .env File
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#shell-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      Shell Configuration
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#programmatic-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      Programmatic Configuration
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Programmatic Configuration">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#using-environment-variables-recommended" class="md-nav__link">
-    <span class="md-ellipsis">
-      Using Environment Variables (Recommended)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#explicit-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      Explicit Configuration
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#from-config-struct" class="md-nav__link">
-    <span class="md-ellipsis">
-      From Config Struct
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#cli-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      CLI Configuration
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#verifying-your-setup" class="md-nav__link">
-    <span class="md-ellipsis">
-      Verifying Your Setup
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Verifying Your Setup">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#with-code" class="md-nav__link">
-    <span class="md-ellipsis">
-      With Code
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#with-cli" class="md-nav__link">
-    <span class="md-ellipsis">
-      With CLI
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#troubleshooting" class="md-nav__link">
-    <span class="md-ellipsis">
-      Troubleshooting
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Troubleshooting">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#unauthorized-error" class="md-nav__link">
-    <span class="md-ellipsis">
-      "unauthorized" Error
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#not-found-error" class="md-nav__link">
-    <span class="md-ellipsis">
-      "not found" Error
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#environment-variables-not-loading" class="md-nav__link">
-    <span class="md-ellipsis">
-      Environment Variables Not Loading
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -761,7 +539,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../quickstart/" class="md-nav__link">
+      <a href="../../getting-started/quickstart/" class="md-nav__link">
         
   
   
@@ -1219,28 +997,31 @@
       
   
   
+    
   
   
+  
     
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
         
           
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
-        
-          
-          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
             
   
   
@@ -1253,7 +1034,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_7">
             <span class="md-nav__icon md-icon"></span>
             Releases
@@ -1264,10 +1045,32 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../releases/v0.1.0/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    v0.1.0
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1278,6 +1081,131 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#highlights" class="md-nav__link">
+    <span class="md-ellipsis">
+      Highlights
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#whats-included" class="md-nav__link">
+    <span class="md-ellipsis">
+      What's Included
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What&#39;s Included">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#core-sdk" class="md-nav__link">
+    <span class="md-ellipsis">
+      Core SDK
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#entity-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Entity Types
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#packages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Packages
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cli-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      CLI Commands
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick Start
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Documentation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contributors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Contributors
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1339,46 +1267,73 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#getting-your-api-key" class="md-nav__link">
+  <a href="#overview" class="md-nav__link">
     <span class="md-ellipsis">
-      Getting Your API Key
+      Overview
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#configuration" class="md-nav__link">
+  <a href="#highlights" class="md-nav__link">
     <span class="md-ellipsis">
-      Configuration
+      Highlights
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Configuration">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#whats-included" class="md-nav__link">
+    <span class="md-ellipsis">
+      What's Included
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What&#39;s Included">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#environment-variables" class="md-nav__link">
+  <a href="#core-sdk" class="md-nav__link">
     <span class="md-ellipsis">
-      Environment Variables
+      Core SDK
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#using-a-env-file" class="md-nav__link">
+  <a href="#entity-types" class="md-nav__link">
     <span class="md-ellipsis">
-      Using a .env File
+      Entity Types
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#shell-configuration" class="md-nav__link">
+  <a href="#packages" class="md-nav__link">
     <span class="md-ellipsis">
-      Shell Configuration
+      Packages
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cli-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      CLI Commands
     </span>
   </a>
   
@@ -1390,128 +1345,29 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#programmatic-configuration" class="md-nav__link">
+  <a href="#quick-start" class="md-nav__link">
     <span class="md-ellipsis">
-      Programmatic Configuration
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Programmatic Configuration">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#using-environment-variables-recommended" class="md-nav__link">
-    <span class="md-ellipsis">
-      Using Environment Variables (Recommended)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#explicit-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      Explicit Configuration
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#from-config-struct" class="md-nav__link">
-    <span class="md-ellipsis">
-      From Config Struct
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#cli-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      CLI Configuration
+      Quick Start
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#verifying-your-setup" class="md-nav__link">
+  <a href="#documentation" class="md-nav__link">
     <span class="md-ellipsis">
-      Verifying Your Setup
+      Documentation
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Verifying Your Setup">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#with-code" class="md-nav__link">
-    <span class="md-ellipsis">
-      With Code
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#with-cli" class="md-nav__link">
-    <span class="md-ellipsis">
-      With CLI
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#troubleshooting" class="md-nav__link">
+  <a href="#contributors" class="md-nav__link">
     <span class="md-ellipsis">
-      Troubleshooting
+      Contributors
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Troubleshooting">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#unauthorized-error" class="md-nav__link">
-    <span class="md-ellipsis">
-      "unauthorized" Error
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#not-found-error" class="md-nav__link">
-    <span class="md-ellipsis">
-      "not found" Error
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#environment-variables-not-loading" class="md-nav__link">
-    <span class="md-ellipsis">
-      Environment Variables Not Loading
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -1534,100 +1390,202 @@
   
 
 
-<h1 id="authentication">Authentication<a class="headerlink" href="#authentication" title="Permanent link">&para;</a></h1>
-<h2 id="getting-your-api-key">Getting Your API Key<a class="headerlink" href="#getting-your-api-key" title="Permanent link">&para;</a></h2>
-<ol>
-<li>Log in to your Aha.io account</li>
-<li>Go to <strong>Settings</strong> → <strong>Account</strong> → <strong>Personal</strong> → <strong>Developer</strong></li>
-<li>Click <strong>Generate API key</strong></li>
-<li>Copy and save your API key securely</li>
-</ol>
-<div class="admonition warning">
-<p class="admonition-title">Keep Your API Key Secret</p>
-<p>Never commit your API key to version control. Use environment variables or a secrets manager.</p>
-</div>
-<h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
-<h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
-<p>Set these environment variables:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">AHA_SUBDOMAIN</span><span class="o">=</span><span class="s2">&quot;yourcompany&quot;</span><span class="w">    </span><span class="c1"># Your Aha.io subdomain</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">AHA_API_KEY</span><span class="o">=</span><span class="s2">&quot;your-api-key&quot;</span><span class="w">      </span><span class="c1"># Your API key</span>
-</code></pre></div>
-<p>The subdomain is the part before <code>.aha.io</code> in your Aha URL (e.g., <code>yourcompany.aha.io</code>).</p>
-<h3 id="using-a-env-file">Using a .env File<a class="headerlink" href="#using-a-env-file" title="Permanent link">&para;</a></h3>
-<p>Create a <code>.env</code> file (add to <code>.gitignore</code>):</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nv">AHA_SUBDOMAIN</span><span class="o">=</span>yourcompany
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nv">AHA_API_KEY</span><span class="o">=</span>your-api-key
-</code></pre></div>
-<p>Load with <a href="https://direnv.net/">direnv</a> or your preferred method.</p>
-<h3 id="shell-configuration">Shell Configuration<a class="headerlink" href="#shell-configuration" title="Permanent link">&para;</a></h3>
-<p>Add to your <code>~/.bashrc</code> or <code>~/.zshrc</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">AHA_SUBDOMAIN</span><span class="o">=</span><span class="s2">&quot;yourcompany&quot;</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">AHA_API_KEY</span><span class="o">=</span><span class="s2">&quot;your-api-key&quot;</span>
-</code></pre></div>
-<h2 id="programmatic-configuration">Programmatic Configuration<a class="headerlink" href="#programmatic-configuration" title="Permanent link">&para;</a></h2>
-<h3 id="using-environment-variables-recommended">Using Environment Variables (Recommended)<a class="headerlink" href="#using-environment-variables-recommended" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nx">client</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">aha</span><span class="p">.</span><span class="nx">NewClient</span><span class="p">()</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="p">}</span>
-</code></pre></div>
-<p>The client automatically reads from <code>AHA_SUBDOMAIN</code> and <code>AHA_API_KEY</code>.</p>
-<h3 id="explicit-configuration">Explicit Configuration<a class="headerlink" href="#explicit-configuration" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nx">client</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">aha</span><span class="p">.</span><span class="nx">NewClientWithConfig</span><span class="p">(</span><span class="nx">aha</span><span class="p">.</span><span class="nx">Config</span><span class="p">{</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="nx">Subdomain</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;yourcompany&quot;</span><span class="p">,</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="nx">APIKey</span><span class="p">:</span><span class="w">    </span><span class="s">&quot;your-api-key&quot;</span><span class="p">,</span>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="p">})</span>
-</code></pre></div>
-<h3 id="from-config-struct">From Config Struct<a class="headerlink" href="#from-config-struct" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nx">cfg</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">aha</span><span class="p">.</span><span class="nx">ConfigFromEnv</span><span class="p">()</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="c1">// Modify if needed</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="nx">cfg</span><span class="p">.</span><span class="nx">Subdomain</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;different-subdomain&quot;</span>
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="nx">client</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">aha</span><span class="p">.</span><span class="nx">NewClientWithConfig</span><span class="p">(</span><span class="nx">cfg</span><span class="p">)</span>
-</code></pre></div>
-<h2 id="cli-configuration">CLI Configuration<a class="headerlink" href="#cli-configuration" title="Permanent link">&para;</a></h2>
-<p>The CLI uses the same environment variables:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># Set credentials</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">AHA_SUBDOMAIN</span><span class="o">=</span><span class="s2">&quot;yourcompany&quot;</span>
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="nb">export</span><span class="w"> </span><span class="nv">AHA_API_KEY</span><span class="o">=</span><span class="s2">&quot;your-api-key&quot;</span>
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="c1"># Verify connection</span>
-<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>aha<span class="w"> </span>user<span class="w"> </span>me
-</code></pre></div>
-<h2 id="verifying-your-setup">Verifying Your Setup<a class="headerlink" href="#verifying-your-setup" title="Permanent link">&para;</a></h2>
-<h3 id="with-code">With Code<a class="headerlink" href="#with-code" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nx">ctx</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Background</span><span class="p">()</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="nx">user</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">GetCurrentUser</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span>
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="s">&quot;Authentication failed:&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">)</span>
-<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="p">}</span>
-<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;Authenticated as: %s %s\n&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">user</span><span class="p">.</span><span class="nx">FirstName</span><span class="p">,</span><span class="w"> </span><span class="nx">user</span><span class="p">.</span><span class="nx">LastName</span><span class="p">)</span>
-</code></pre></div>
-<h3 id="with-cli">With CLI<a class="headerlink" href="#with-cli" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>aha<span class="w"> </span>user<span class="w"> </span>me
-</code></pre></div>
-<p>Expected output:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>ID:    user-123
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>Name:  John Doe
-<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>Email: john@company.com
-</code></pre></div>
-<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
-<h3 id="unauthorized-error">"unauthorized" Error<a class="headerlink" href="#unauthorized-error" title="Permanent link">&para;</a></h3>
+<h1 id="v010">v0.1.0<a class="headerlink" href="#v010" title="Permanent link">&para;</a></h1>
+<p><strong>Release Date:</strong> 2026-06-07</p>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>Initial release of <code>aha-go</code>, a Go SDK for the <a href="https://www.aha.io/">Aha.io</a> product management platform.</p>
+<h2 id="highlights">Highlights<a class="headerlink" href="#highlights" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Verify your API key is correct</li>
-<li>Check that the subdomain matches your Aha.io URL</li>
-<li>Ensure the API key hasn't been revoked</li>
+<li><strong>Go SDK for Aha.io</strong> - Complete API client with support for products, features, ideas, releases, goals, initiatives, epics, requirements, comments, and users</li>
+<li><strong>Strategic Canvas Support</strong> - Create and export Business Model Canvas, Lean Canvas, and Opportunity Canvas with SVG, D2, and Mermaid output formats</li>
+<li><strong>CLI Tool</strong> - Full-featured command-line interface for interacting with Aha.io</li>
+<li><strong>Browser Automation</strong> - go-rod based automation for operations not available via API</li>
+<li><strong>Diagram Rendering</strong> - Generate visual diagrams from Aha.io data</li>
 </ul>
-<h3 id="not-found-error">"not found" Error<a class="headerlink" href="#not-found-error" title="Permanent link">&para;</a></h3>
+<h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>go<span class="w"> </span>get<span class="w"> </span>github.com/grokify/aha-go@v0.1.0
+</code></pre></div>
+<p>Or install the CLI:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>go<span class="w"> </span>install<span class="w"> </span>github.com/grokify/aha-go/cmd/aha@v0.1.0
+</code></pre></div>
+<h2 id="whats-included">What's Included<a class="headerlink" href="#whats-included" title="Permanent link">&para;</a></h2>
+<h3 id="core-sdk">Core SDK<a class="headerlink" href="#core-sdk" title="Permanent link">&para;</a></h3>
 <ul>
-<li>Confirm you have access to the product/resource</li>
-<li>Verify the product key or ID is correct</li>
+<li>Configuration management with environment variable support (<code>AHA_SUBDOMAIN</code>, <code>AHA_API_KEY</code>)</li>
+<li>Functional options pattern for client configuration</li>
+<li>Comprehensive error handling with typed errors (<code>IsNotFound</code>, <code>IsUnauthorized</code>, etc.)</li>
+<li>Pagination support for list operations</li>
 </ul>
-<h3 id="environment-variables-not-loading">Environment Variables Not Loading<a class="headerlink" href="#environment-variables-not-loading" title="Permanent link">&para;</a></h3>
+<h3 id="entity-types">Entity Types<a class="headerlink" href="#entity-types" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Entity</th>
+<th>List</th>
+<th>Get</th>
+<th>Create</th>
+<th>Update</th>
+<th>Delete</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Products</td>
+<td>✓</td>
+<td>✓</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Features</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Ideas</td>
+<td>✓</td>
+<td>✓</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Releases</td>
+<td>✓</td>
+<td>✓</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Goals</td>
+<td>✓</td>
+<td>✓</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Initiatives</td>
+<td>✓</td>
+<td>✓</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Epics</td>
+<td>✓</td>
+<td>✓</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Requirements</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>Comments</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>-</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>Users</td>
+<td>✓</td>
+<td>✓</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<h3 id="packages">Packages<a class="headerlink" href="#packages" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Package</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>aha</code></td>
+<td>Core client and entity types</td>
+</tr>
+<tr>
+<td><code>canvas</code></td>
+<td>Strategic canvas creation and export</td>
+</tr>
+<tr>
+<td><code>browser</code></td>
+<td>Browser automation with go-rod</td>
+</tr>
+<tr>
+<td><code>render</code></td>
+<td>Diagram generation (SVG, D2, Mermaid)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cli-commands">CLI Commands<a class="headerlink" href="#cli-commands" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>aha products list          # List all products
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>aha features list PRODUCT  # List features for a product
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>aha features get FEAT-123  # Get feature details
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>aha canvas create          # Create strategic canvas
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>aha canvas export          # Export canvas to SVG/D2/Mermaid
+</code></pre></div>
+<h2 id="quick-start">Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="s">&quot;context&quot;</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="s">&quot;fmt&quot;</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="s">&quot;log&quot;</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">    </span><span class="nx">aha</span><span class="w"> </span><span class="s">&quot;github.com/grokify/aha-go&quot;</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="p">)</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">    </span><span class="nx">client</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">aha</span><span class="p">.</span><span class="nx">NewClient</span><span class="p">(</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">        </span><span class="nx">aha</span><span class="p">.</span><span class="nx">WithSubdomain</span><span class="p">(</span><span class="s">&quot;mycompany&quot;</span><span class="p">),</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">        </span><span class="nx">aha</span><span class="p">.</span><span class="nx">WithAPIKey</span><span class="p">(</span><span class="s">&quot;your-api-key&quot;</span><span class="p">),</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="w">    </span><span class="p">)</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="w">        </span><span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="w">    </span><span class="nx">ctx</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Background</span><span class="p">()</span>
+<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="w">    </span><span class="nx">products</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">ListProducts</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span>
+<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a><span class="w">        </span><span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a>
+<a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">p</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">products</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a><span class="w">        </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;%s: %s\n&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">p</span><span class="p">.</span><span class="nx">ReferencePrefix</span><span class="p">,</span><span class="w"> </span><span class="nx">p</span><span class="p">.</span><span class="nx">Name</span><span class="p">)</span>
+<a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a><span class="p">}</span>
+</code></pre></div>
+<h2 id="documentation">Documentation<a class="headerlink" href="#documentation" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Ensure variables are exported (<code>export VAR=value</code>, not just <code>VAR=value</code>)</li>
-<li>Check your shell loaded the configuration (<code>echo $AHA_SUBDOMAIN</code>)</li>
-<li>Restart your terminal or source your config file</li>
+<li><a href="../../getting-started/installation/">Getting Started</a></li>
+<li><a href="../../cli/commands/">CLI Reference</a></li>
+<li><a href="../../use-cases/">Use Cases</a></li>
+<li><a href="https://pkg.go.dev/github.com/grokify/aha-go">API Reference</a></li>
+</ul>
+<h2 id="contributors">Contributors<a class="headerlink" href="#contributors" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://github.com/grokify">@grokify</a></li>
 </ul>
 
 
