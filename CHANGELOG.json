@@ -9,7 +9,7 @@
     {
       "version": "v0.1.0",
       "date": "2026-06-07",
-      "commit": "7a194e9",
+      "commit": "7de5d4d",
       "highlights": [
         { "description": "Go SDK for Aha.io product management platform with CLI, browser automation, and diagram rendering" },
         { "description": "Strategic canvas support for Business Model, Lean, and Opportunity canvases with SVG/D2/Mermaid export" }
@@ -23,7 +23,7 @@
         { "description": "CLI with commands for products, features, ideas, releases, goals, initiatives, epics, requirements, comments, users, canvases, and templates", "commit": "6da3d2a" },
         { "description": "OpenAPI specification and ogen-generated API client", "commit": "d91c914" },
         { "description": "Usage examples demonstrating SDK capabilities", "commit": "1f3aea7" },
-        { "description": "Prism-roadmap canvas provider integration", "commit": "7a194e9" }
+        { "description": "Prism-roadmap canvas provider integration", "commit": "fac7d25" }
       ],
       "fixed": [
         { "description": "Downgrade fetchup to v0.2.4 for go-rod compatibility", "commit": "a841b6a" }
