@@ -1,0 +1,10 @@
+{
+  "Business Problem": "<p>User onboarding completion rate is 35%, well below industry benchmark of 60%. This leads to poor retention and wasted acquisition spend.</p>",
+  "Business Outcomes": "<ul><li>Increase onboarding completion to 60%</li><li>Improve 30-day retention by 25%</li><li>Reduce support tickets for \"getting started\" by 50%</li></ul>",
+  "Users": "<p>New users in their first 7 days:</p><ul><li>Individual contributors exploring the tool</li><li>Team leads setting up for their group</li><li>Admins configuring organization settings</li></ul>",
+  "Benefits": "<ul><li>Faster time to value</li><li>Reduced confusion about next steps</li><li>Confidence in using core features</li></ul>",
+  "Solutions": "<ul><li>Progressive onboarding checklist</li><li>Interactive feature tours</li><li>Personalized setup based on role</li><li>Quick wins in first session</li></ul>",
+  "Hypotheses": "<p>We believe that a personalized onboarding checklist will result in higher completion rates. We will know this is true when we see a 20% increase in users completing all onboarding steps within 3 days.</p>",
+  "Riskiest Assumption": "<p>Users want guidance vs self-exploration. If users prefer to explore on their own, a checklist may feel restrictive and reduce engagement.</p>",
+  "Smallest Experiment": "<p>A/B test: Show checklist to 50% of new users for 2 weeks. Measure completion rate, time-to-first-action, and 7-day retention. Success: +15% completion with no retention drop.</p>"
+}

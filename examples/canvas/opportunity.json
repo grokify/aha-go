@@ -1,0 +1,12 @@
+{
+  "Users & Customers": "<p>Enterprise product teams (10+ members)</p><ul><li>Product managers</li><li>Engineering leads</li><li>Designers</li></ul>",
+  "Problems": "<p>Current challenges:</p><ul><li>No single source of truth for product strategy</li><li>Stakeholder alignment takes too long</li><li>Roadmap changes cause confusion</li></ul>",
+  "Solution Ideas": "<ul><li>Visual canvas with real-time collaboration</li><li>Automated stakeholder notifications</li><li>Version history with diff view</li></ul>",
+  "Solutions Today": "<p>Workarounds teams currently use:</p><ul><li>Spreadsheets and documents</li><li>Whiteboard photos</li><li>Manual status emails</li></ul>",
+  "User Value": "<ul><li>Faster alignment (hours vs days)</li><li>Clear visibility into strategy</li><li>Reduced meeting overhead</li></ul>",
+  "Adoption Strategy": "<ul><li>Free tier for small teams</li><li>Self-serve onboarding</li><li>Integration with existing tools (Jira, Slack)</li></ul>",
+  "User Metrics": "<ul><li>Canvas creation rate</li><li>Weekly active users</li><li>Time to first stakeholder share</li></ul>",
+  "Business Problem": "<p>Product teams struggle to maintain strategic alignment as they scale, leading to wasted development effort and missed opportunities.</p>",
+  "Business Metrics": "<ul><li>MRR growth</li><li>Net revenue retention</li><li>Feature adoption rate</li></ul>",
+  "Budget": "<p>Investment: $500K over 6 months</p><ul><li>Engineering: 4 FTE</li><li>Design: 1 FTE</li><li>Product: 1 FTE</li></ul>"
+}
