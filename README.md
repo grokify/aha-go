@@ -1,0 +1,511 @@
+# aha-go
+
+[![CI](https://github.com/grokify/aha-go/actions/workflows/ci.yml/badge.svg)](https://github.com/grokify/aha-go/actions/workflows/ci.yml)
+[![Go Reference](https://pkg.go.dev/badge/github.com/grokify/aha-go.svg)](https://pkg.go.dev/github.com/grokify/aha-go)
+[![Go Report Card](https://goreportcard.com/badge/github.com/grokify/aha-go)](https://goreportcard.com/report/github.com/grokify/aha-go)
+
+Go client for the [Aha.io](https://www.aha.io/) product management API.
+
+## Features
+
+- Type-safe API client generated from OpenAPI specification using [ogen](https://github.com/ogen-go/ogen)
+- Ergonomic wrapper layer for common operations
+- Support for features, ideas, releases, products, and more
+- **Strategic Models (Canvases)**: Opportunity, Lean UX, and Business Model Canvas support
+- **Multiple export formats**: SVG, JSON, D2, and Mermaid
+- **CLI tool** for command-line access to Aha.io
+- Environment-based configuration
+- Comprehensive error handling
+
+## Installation
+
+```bash
+go get github.com/grokify/aha-go
+```
+
+## Quick Start
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "log"
+
+    "github.com/grokify/aha-go"
+)
+
+func main() {
+    // Create client (reads AHA_SUBDOMAIN and AHA_API_KEY from environment)
+    client, err := aha.NewClient()
+    if err != nil {
+        log.Fatal(err)
+    }
+
+    // Or configure explicitly
+    client, err = aha.NewClient(
+        aha.WithSubdomain("mycompany"),
+        aha.WithAPIKey("your-api-key"),
+    )
+    if err != nil {
+        log.Fatal(err)
+    }
+
+    ctx := context.Background()
+
+    // Get a feature
+    feature, err := client.GetFeature(ctx, "PROD-123")
+    if err != nil {
+        if aha.IsNotFound(err) {
+            fmt.Println("Feature not found")
+            return
+        }
+        log.Fatal(err)
+    }
+
+    fmt.Printf("Feature: %s - %s\n", feature.ReferenceNum, feature.Name)
+}
+```
+
+## Configuration
+
+The client can be configured via environment variables or options:
+
+| Environment Variable | Option | Description |
+|---------------------|--------|-------------|
+| `AHA_SUBDOMAIN` | `WithSubdomain()` | Your Aha account subdomain |
+| `AHA_API_KEY` | `WithAPIKey()` | Your Aha API key |
+
+Options take precedence over environment variables.
+
+### Getting an API Key
+
+1. Log in to your Aha account
+2. Go to Settings > Account > API keys
+3. Generate a new API key
+
+## API Coverage
+
+### Features
+
+```go
+// Get a feature by ID or reference number
+feature, err := client.GetFeature(ctx, "PROD-123")
+
+// List features with filtering
+features, err := client.ListFeatures(ctx,
+    aha.WithFeatureQuery("search term"),
+    aha.WithFeatureAssignee("user@example.com"),
+    aha.WithPage(1),
+    aha.WithPerPage(50),
+)
+
+// Create a feature in a release
+feature, err := client.CreateFeature(ctx, "REL-123",
+    aha.WithFeatureName("New Feature"),
+    aha.WithFeatureDescription("Feature description"),
+    aha.WithFeatureAssignee("user@example.com"),
+)
+
+// Update a feature
+feature, err := client.UpdateFeature(ctx, "PROD-123",
+    aha.WithFeatureStatus("In Progress"),
+    aha.WithFeatureRelease("REL-456"),
+)
+```
+
+### Ideas
+
+```go
+// Get an idea
+idea, err := client.GetIdea(ctx, "IDEA-123")
+
+// List ideas
+ideas, err := client.ListIdeas(ctx,
+    aha.WithIdeaQuery("search term"),
+    aha.WithIdeaStatus("Under consideration"),
+)
+```
+
+### Products (Workspaces)
+
+```go
+// List all products
+products, err := client.ListProducts(ctx)
+
+// Get a specific product
+product, err := client.GetProduct(ctx, "PROD")
+```
+
+### Releases
+
+```go
+// List releases for a product
+releases, err := client.ListProductReleases(ctx, "PROD")
+
+// Get a release
+release, err := client.GetRelease(ctx, "PROD-R-1")
+```
+
+### Strategic Models (Canvases)
+
+Strategic models are visual canvases used for product planning:
+
+```go
+// List canvases for a product
+canvases, err := client.ListStrategicModels(ctx, "PROD")
+
+// Get a canvas
+canvas, err := client.GetStrategicModel(ctx, "PROD-SM-1")
+
+// Create a canvas
+canvas, err := client.CreateStrategicModel(ctx, "PROD", aha.StrategicModelCreate{
+    Name: "Q4 Opportunity Assessment",
+    Kind: "Opportunity",
+})
+```
+
+Supported canvas types:
+
+| Type | Description |
+|------|-------------|
+| `Opportunity` | Jeff Patton's 10-block opportunity canvas |
+| `Lean Canvas` | Jeff Gothelf's 8-block Lean UX canvas |
+| `Business Model` | Osterwalder's 9-block Business Model Canvas |
+
+## CLI Tool
+
+Install the CLI:
+
+```bash
+go install github.com/grokify/aha-go/cmd/aha@latest
+```
+
+Configure credentials:
+
+```bash
+export AHA_SUBDOMAIN=mycompany
+export AHA_API_KEY=your-api-key
+```
+
+### Canvas Commands
+
+```bash
+# List canvases
+aha canvas list --product PROD
+
+# Get a canvas
+aha canvas get PROD-SM-1
+
+# Create canvases
+aha canvas create opportunity --product PROD --name "New Feature Assessment"
+aha canvas create leanux --product PROD --name "Onboarding Experiment"
+aha canvas create bmc --product PROD --name "Business Model 2024"
+
+# Update canvas blocks from JSON file
+aha canvas update PROD-SM-1 --file content.json
+
+# Update a single block
+aha canvas update PROD-SM-1 --block "Problems" --content "<p>User problems...</p>"
+
+# Export canvas
+aha canvas export PROD-SM-1 -o canvas.svg
+aha canvas export PROD-SM-1 --format json -o canvas.json
+aha canvas export PROD-SM-1 --format d2 -o canvas.d2
+aha canvas export PROD-SM-1 --format mermaid -o canvas.mmd
+```
+
+### Export Formats
+
+| Format | Description | Extension |
+|--------|-------------|-----------|
+| `svg` | SVG image with dark theme grid layout (default) | `.svg` |
+| `json` | Raw JSON data | `.json` |
+| `d2` | [D2 diagram language](https://d2lang.com) | `.d2` |
+| `mermaid` | [Mermaid diagram syntax](https://mermaid.js.org) | `.mmd` |
+
+### Product Commands
+
+```bash
+# List all products (workspaces)
+aha product list
+
+# Get a product
+aha product get PROD
+```
+
+### Feature Commands
+
+```bash
+# List features
+aha feature list
+aha feature list --query "login"
+aha feature list --assignee user@example.com
+aha feature list --release REL-1
+
+# Get a feature
+aha feature get PROD-123
+
+# Create a feature
+aha feature create --release REL-1 --name "User Authentication"
+aha feature create --release REL-1 --name "OAuth Support" --description "Add OAuth2"
+
+# Update a feature
+aha feature update PROD-123 --name "Updated Name"
+aha feature update PROD-123 --status "In Progress"
+aha feature update PROD-123 --assignee user@example.com --release REL-2
+```
+
+### Release Commands
+
+```bash
+# List releases for a product
+aha release list --product PROD
+
+# Get a release
+aha release get PROD-R-1
+```
+
+### Idea Commands
+
+```bash
+# List ideas
+aha idea list
+aha idea list --query "dashboard"
+aha idea list --status "Under consideration"
+aha idea list --sort popular
+
+# Get an idea
+aha idea get IDEA-123
+```
+
+### Goal Commands
+
+```bash
+# List goals
+aha goal list
+aha goal list --product PROD
+aha goal list --query "revenue"
+
+# Get a goal
+aha goal get PROD-G-1
+```
+
+### Initiative Commands
+
+```bash
+# List initiatives
+aha initiative list
+aha initiative list --product PROD
+aha initiative list --query "mobile"
+
+# Get an initiative
+aha initiative get PROD-I-1
+```
+
+### Epic Commands
+
+```bash
+# List epics
+aha epic list
+aha epic list --product PROD
+aha epic list --query "authentication"
+
+# Get an epic
+aha epic get PROD-E-1
+```
+
+### Requirement Commands
+
+```bash
+# List requirements for a feature
+aha requirement list --feature PROD-123
+
+# Get a requirement
+aha requirement get PROD-123-1
+
+# Create a requirement
+aha requirement create --feature PROD-123 --name "Input validation"
+aha requirement create -f PROD-123 -n "Add tests" --description "Unit tests" --estimate 5
+
+# Update a requirement
+aha requirement update PROD-123-1 --status "In progress"
+aha requirement update PROD-123-1 --work-done 4
+
+# Delete a requirement
+aha requirement delete PROD-123-1
+aha requirement delete PROD-123-1 --force
+```
+
+### User Commands
+
+```bash
+# List all users
+aha user list
+
+# Get a user by ID or email
+aha user get user@example.com
+aha user get 12345678
+
+# Get the current authenticated user
+aha user me
+```
+
+### Comment Commands
+
+```bash
+# List comments on a feature
+aha comment list --feature PROD-123
+
+# List comments on an idea
+aha comment list --idea IDEA-1
+
+# List comments on other resources
+aha comment list --release PROD-R-1
+aha comment list --epic PROD-E-1
+aha comment list --initiative PROD-I-1
+aha comment list --goal PROD-G-1
+
+# Get a comment by ID
+aha comment get 12345678
+
+# Create a comment on a feature
+aha comment create --feature PROD-123 --body "Great progress!"
+
+# Create a comment on an idea
+aha comment create --idea IDEA-1 --body "Internal note"
+
+# Delete a comment
+aha comment delete 12345678
+```
+
+### Shell Completions
+
+Generate shell completion scripts for better CLI experience:
+
+```bash
+# Bash
+source <(aha completion bash)
+
+# Zsh
+aha completion zsh > "${fpath[1]}/_aha"
+
+# Fish
+aha completion fish | source
+
+# PowerShell
+aha completion powershell | Out-String | Invoke-Expression
+```
+
+### Template Commands (Browser Automation)
+
+Strategic model templates cannot be created via API, so these commands use browser automation ([go-rod](https://github.com/go-rod/rod)):
+
+```bash
+# List available predefined templates
+aha template list-predefined
+
+# Create a predefined template (requires browser credentials)
+export AHA_EMAIL=user@example.com
+export AHA_PASSWORD=your-password
+aha template create-predefined capability-stack
+aha template create-predefined feature-canvas --headless=false  # Watch the browser
+```
+
+Available predefined templates:
+
+| Template | Description |
+|----------|-------------|
+| `capability-stack` | Layered capability model (4 layers) |
+| `maturity-model` | Capability maturity assessment grid (5x5) |
+| `opportunity-patton` | Jeff Patton's 10-block opportunity canvas |
+| `feature-canvas` | Nikita Efimov's feature planning canvas |
+
+After creating a template, you can use it via the API:
+
+```bash
+aha canvas create --product PROD --name "My Canvas" --kind "Capability Stack"
+```
+
+## Error Handling
+
+```go
+feature, err := client.GetFeature(ctx, "INVALID")
+if err != nil {
+    switch {
+    case aha.IsNotFound(err):
+        // Handle 404
+    case aha.IsUnauthorized(err):
+        // Handle 401 - check API key
+    case aha.IsForbidden(err):
+        // Handle 403 - check permissions
+    case aha.IsRateLimited(err):
+        // Handle 429 - back off and retry
+    case aha.IsServerError(err):
+        // Handle 5xx - Aha service issue
+    default:
+        // Other error
+    }
+}
+```
+
+## Low-Level API Access
+
+For operations not covered by the high-level wrapper, access the ogen-generated client directly:
+
+```go
+apiClient := client.API()
+// Use apiClient for advanced operations
+```
+
+## Development
+
+### Prerequisites
+
+- Go 1.21+
+- [ogen](https://github.com/ogen-go/ogen) for code generation
+- [golangci-lint](https://golangci-lint.run/) for linting
+
+### Makefile Targets
+
+```bash
+make build          # Build all packages
+make build-cli      # Build CLI to bin/
+make test           # Run tests with race detector
+make test-coverage  # Run tests with coverage report
+make lint           # Run golangci-lint
+make generate       # Generate API client from OpenAPI spec
+make install        # Install CLI to GOPATH/bin
+make clean          # Clean build artifacts
+make check          # Run all checks (fmt, vet, lint, test)
+make completions    # Generate shell completions
+make help           # Show all available targets
+```
+
+### Generate API Client
+
+```bash
+make generate
+```
+
+### Run Tests
+
+```bash
+make test
+```
+
+### Lint
+
+```bash
+make lint
+```
+
+## Related Projects
+
+- [go-aha](https://github.com/grokify/go-aha) - Legacy Aha.io Go client (OpenAPI Generator)
+- [aha-mcp-server](https://github.com/grokify/aha-mcp-server) - MCP server for Aha.io
+
+## License
+
+MIT License - see [LICENSE](LICENSE) for details.
