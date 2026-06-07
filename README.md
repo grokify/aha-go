@@ -32,14 +32,14 @@ Go client for the [Aha.io](https://www.aha.io/) product management API.
 
 ## Features
 
-- Type-safe API client generated from OpenAPI specification using [ogen](https://github.com/ogen-go/ogen)
-- Ergonomic wrapper layer for common operations
-- Support for features, ideas, releases, products, and more
-- **Strategic Models (Canvases)**: Opportunity, Lean UX, and Business Model Canvas support
-- **Multiple export formats**: SVG, JSON, D2, and Mermaid
-- **CLI tool** for command-line access to Aha.io
-- Environment-based configuration
-- Comprehensive error handling
+- 🔒 Type-safe API client generated from OpenAPI specification using [ogen](https://github.com/ogen-go/ogen)
+- 🎯 Ergonomic wrapper layer for common operations
+- 📦 Support for features, ideas, releases, products, and more
+- 🎨 **Strategic Models (Canvases)**: Opportunity, Lean UX, and Business Model Canvas support
+- 📤 **Multiple export formats**: SVG, JSON, D2, and Mermaid
+- ⌨️ **CLI tool** for command-line access to Aha.io
+- ⚙️ Environment-based configuration
+- 🛡️ Comprehensive error handling
 
 ## Installation
 
