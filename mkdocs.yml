@@ -44,11 +44,13 @@ nav:
       - Generating Diagrams: use-cases/diagrams.md
   - Packages:
       - Overview: packages/index.md
+      - graphql: packages/graphql.md
       - canvas: packages/canvas.md
       - browser: packages/browser.md
       - render: packages/render.md
   - API Reference: api-reference.md
   - Releases:
+      - v0.2.0: releases/v0.2.0.md
       - v0.1.0: releases/v0.1.0.md
   - Roadmap: specs/ROADMAP.md
 

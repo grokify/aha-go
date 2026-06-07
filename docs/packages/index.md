@@ -7,6 +7,7 @@
 | Package | Import | Description |
 |---------|--------|-------------|
 | `aha` | `github.com/grokify/aha-go` | Core client and entity types |
+| `graphql` | `github.com/grokify/aha-go/graphql` | GraphQL API client |
 | `canvas` | `github.com/grokify/aha-go/canvas` | Strategic canvas operations |
 | `browser` | `github.com/grokify/aha-go/browser` | HTML entity browser |
 | `render` | `github.com/grokify/aha-go/render` | Diagram generation |
@@ -27,6 +28,24 @@ releases, _ := client.ListReleases(ctx, "PRODUCT")
 ```
 
 ## Sub-packages
+
+### graphql
+
+Execute GraphQL queries against Aha.io's GraphQL API.
+
+```go
+import "github.com/grokify/aha-go/graphql"
+
+client := graphql.NewClient("mycompany", "api-key")
+
+var result graphql.SearchDocumentsResponse
+err := client.Query(ctx, graphql.SearchDocumentsQuery, map[string]any{
+    "query":          "onboarding",
+    "searchableType": []string{"Page"},
+}, &result)
+```
+
+[Full graphql documentation](graphql.md)
 
 ### canvas
 
