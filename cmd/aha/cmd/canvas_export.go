@@ -98,7 +98,7 @@ func runExportCanvas(cmd *cobra.Command, args []string) error {
 		fmt.Print(string(output))
 	} else {
 		// Write to file
-		if err := os.WriteFile(exportOutput, output, 0644); err != nil {
+		if err := os.WriteFile(exportOutput, output, 0o600); err != nil {
 			return fmt.Errorf("failed to write file: %w", err)
 		}
 		fmt.Printf("Exported to %s (%d bytes)\n", exportOutput, len(output))

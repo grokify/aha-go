@@ -1,3 +1,4 @@
+//nolint:dupl // CLI delete commands follow consistent pattern
 package cmd
 
 import (

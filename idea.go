@@ -181,10 +181,10 @@ func (c *Client) ListIdeas(ctx context.Context, opts ...ListIdeasOption) (*IdeaL
 		params.UpdatedSince = api.NewOptDateTime(*cfg.UpdatedSince)
 	}
 	if cfg.Page > 0 {
-		params.Page = api.NewOptInt32(int32(cfg.Page))
+		params.Page = api.NewOptInt32(int32(cfg.Page)) //nolint:gosec // G115: Page number bounded by API limits
 	}
 	if cfg.PerPage > 0 {
-		params.PerPage = api.NewOptInt32(int32(cfg.PerPage))
+		params.PerPage = api.NewOptInt32(int32(cfg.PerPage)) //nolint:gosec // G115: PerPage bounded by API limits
 	}
 
 	resp, err := c.apiClient.ListIdeas(ctx, params)

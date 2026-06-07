@@ -1,3 +1,4 @@
+//nolint:dupl // CLI list commands follow consistent pattern
 package cmd
 
 import (

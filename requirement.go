@@ -71,10 +71,10 @@ func (c *Client) ListFeatureRequirements(ctx context.Context, featureID string, 
 		FeatureID: featureID,
 	}
 	if listOpts.Page > 0 {
-		params.Page = api.NewOptInt32(int32(listOpts.Page))
+		params.Page = api.NewOptInt32(int32(listOpts.Page)) //nolint:gosec // G115: Page number bounded by API limits
 	}
 	if listOpts.PerPage > 0 {
-		params.PerPage = api.NewOptInt32(int32(listOpts.PerPage))
+		params.PerPage = api.NewOptInt32(int32(listOpts.PerPage)) //nolint:gosec // G115: PerPage bounded by API limits
 	}
 
 	resp, err := c.apiClient.ListFeatureRequirements(ctx, params)

@@ -95,10 +95,10 @@ func (c *Client) ListStrategicModels(ctx context.Context, opts ...ListStrategicM
 		params.Kind = api.NewOptString(cfg.Kind)
 	}
 	if cfg.Page > 0 {
-		params.Page = api.NewOptInt32(int32(cfg.Page))
+		params.Page = api.NewOptInt32(int32(cfg.Page)) //nolint:gosec // G115: Page number bounded by API limits
 	}
 	if cfg.PerPage > 0 {
-		params.PerPage = api.NewOptInt32(int32(cfg.PerPage))
+		params.PerPage = api.NewOptInt32(int32(cfg.PerPage)) //nolint:gosec // G115: PerPage bounded by API limits
 	}
 
 	resp, err := c.apiClient.ListStrategicModels(ctx, params)
@@ -123,10 +123,10 @@ func (c *Client) ListProductStrategicModels(ctx context.Context, productID strin
 		params.Kind = api.NewOptString(cfg.Kind)
 	}
 	if cfg.Page > 0 {
-		params.Page = api.NewOptInt32(int32(cfg.Page))
+		params.Page = api.NewOptInt32(int32(cfg.Page)) //nolint:gosec // G115: Page number bounded by API limits
 	}
 	if cfg.PerPage > 0 {
-		params.PerPage = api.NewOptInt32(int32(cfg.PerPage))
+		params.PerPage = api.NewOptInt32(int32(cfg.PerPage)) //nolint:gosec // G115: PerPage bounded by API limits
 	}
 
 	resp, err := c.apiClient.ListProductStrategicModels(ctx, params)

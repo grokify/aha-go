@@ -1,3 +1,4 @@
+//nolint:dupl // Render tests follow consistent pattern across formats
 package render
 
 import (

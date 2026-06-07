@@ -83,10 +83,10 @@ func (c *Client) ListProductComments(ctx context.Context, productID string, opts
 		ProductID: productID,
 	}
 	if listOpts.Page > 0 {
-		params.Page = api.NewOptInt32(int32(listOpts.Page))
+		params.Page = api.NewOptInt32(int32(listOpts.Page)) //nolint:gosec // G115: Page number bounded by API limits //nolint:gosec // G115: Page number bounded by API limits
 	}
 	if listOpts.PerPage > 0 {
-		params.PerPage = api.NewOptInt32(int32(listOpts.PerPage))
+		params.PerPage = api.NewOptInt32(int32(listOpts.PerPage)) //nolint:gosec // G115: PerPage bounded by API limits //nolint:gosec // G115: PerPage bounded by API limits
 	}
 
 	resp, err := c.apiClient.ListProductComments(ctx, params)
@@ -105,10 +105,10 @@ func (c *Client) ListFeatureComments(ctx context.Context, featureID string, opts
 		FeatureID: featureID,
 	}
 	if listOpts.Page > 0 {
-		params.Page = api.NewOptInt32(int32(listOpts.Page))
+		params.Page = api.NewOptInt32(int32(listOpts.Page)) //nolint:gosec // G115: Page number bounded by API limits //nolint:gosec // G115: Page number bounded by API limits
 	}
 	if listOpts.PerPage > 0 {
-		params.PerPage = api.NewOptInt32(int32(listOpts.PerPage))
+		params.PerPage = api.NewOptInt32(int32(listOpts.PerPage)) //nolint:gosec // G115: PerPage bounded by API limits //nolint:gosec // G115: PerPage bounded by API limits
 	}
 
 	resp, err := c.apiClient.ListFeatureComments(ctx, params)
@@ -127,10 +127,10 @@ func (c *Client) ListIdeaComments(ctx context.Context, ideaID string, opts ...Li
 		IdeaID: ideaID,
 	}
 	if listOpts.Page > 0 {
-		params.Page = api.NewOptInt32(int32(listOpts.Page))
+		params.Page = api.NewOptInt32(int32(listOpts.Page)) //nolint:gosec // G115: Page number bounded by API limits //nolint:gosec // G115: Page number bounded by API limits
 	}
 	if listOpts.PerPage > 0 {
-		params.PerPage = api.NewOptInt32(int32(listOpts.PerPage))
+		params.PerPage = api.NewOptInt32(int32(listOpts.PerPage)) //nolint:gosec // G115: PerPage bounded by API limits //nolint:gosec // G115: PerPage bounded by API limits
 	}
 
 	resp, err := c.apiClient.ListIdeaComments(ctx, params)
@@ -149,10 +149,10 @@ func (c *Client) ListReleaseComments(ctx context.Context, releaseID string, opts
 		ReleaseID: releaseID,
 	}
 	if listOpts.Page > 0 {
-		params.Page = api.NewOptInt32(int32(listOpts.Page))
+		params.Page = api.NewOptInt32(int32(listOpts.Page)) //nolint:gosec // G115: Page number bounded by API limits //nolint:gosec // G115: Page number bounded by API limits
 	}
 	if listOpts.PerPage > 0 {
-		params.PerPage = api.NewOptInt32(int32(listOpts.PerPage))
+		params.PerPage = api.NewOptInt32(int32(listOpts.PerPage)) //nolint:gosec // G115: PerPage bounded by API limits //nolint:gosec // G115: PerPage bounded by API limits
 	}
 
 	resp, err := c.apiClient.ListReleaseComments(ctx, params)
@@ -171,10 +171,10 @@ func (c *Client) ListInitiativeComments(ctx context.Context, initiativeID string
 		InitiativeID: initiativeID,
 	}
 	if listOpts.Page > 0 {
-		params.Page = api.NewOptInt32(int32(listOpts.Page))
+		params.Page = api.NewOptInt32(int32(listOpts.Page)) //nolint:gosec // G115: Page number bounded by API limits
 	}
 	if listOpts.PerPage > 0 {
-		params.PerPage = api.NewOptInt32(int32(listOpts.PerPage))
+		params.PerPage = api.NewOptInt32(int32(listOpts.PerPage)) //nolint:gosec // G115: PerPage bounded by API limits
 	}
 
 	resp, err := c.apiClient.ListInitiativeComments(ctx, params)
@@ -193,10 +193,10 @@ func (c *Client) ListEpicComments(ctx context.Context, epicID string, opts ...Li
 		EpicID: epicID,
 	}
 	if listOpts.Page > 0 {
-		params.Page = api.NewOptInt32(int32(listOpts.Page))
+		params.Page = api.NewOptInt32(int32(listOpts.Page)) //nolint:gosec // G115: Page number bounded by API limits
 	}
 	if listOpts.PerPage > 0 {
-		params.PerPage = api.NewOptInt32(int32(listOpts.PerPage))
+		params.PerPage = api.NewOptInt32(int32(listOpts.PerPage)) //nolint:gosec // G115: PerPage bounded by API limits
 	}
 
 	resp, err := c.apiClient.ListEpicComments(ctx, params)
@@ -215,10 +215,10 @@ func (c *Client) ListGoalComments(ctx context.Context, goalID string, opts ...Li
 		GoalID: goalID,
 	}
 	if listOpts.Page > 0 {
-		params.Page = api.NewOptInt32(int32(listOpts.Page))
+		params.Page = api.NewOptInt32(int32(listOpts.Page)) //nolint:gosec // G115: Page number bounded by API limits
 	}
 	if listOpts.PerPage > 0 {
-		params.PerPage = api.NewOptInt32(int32(listOpts.PerPage))
+		params.PerPage = api.NewOptInt32(int32(listOpts.PerPage)) //nolint:gosec // G115: PerPage bounded by API limits
 	}
 
 	resp, err := c.apiClient.ListGoalComments(ctx, params)

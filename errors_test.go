@@ -1,3 +1,4 @@
+//nolint:dupl // Test cases for error helpers follow consistent pattern
 package aha
 
 import (
@@ -282,13 +283,13 @@ func TestIsServerError(t *testing.T) {
 
 func TestWrapError(t *testing.T) {
 	tests := []struct {
-		name          string
-		operation     string
-		err           error
-		wantNil       bool
-		wantAPIError  bool
-		wantStatus    int
-		wantContains  string
+		name         string
+		operation    string
+		err          error
+		wantNil      bool
+		wantAPIError bool
+		wantStatus   int
+		wantContains string
 	}{
 		{
 			name:      "nil error returns nil",

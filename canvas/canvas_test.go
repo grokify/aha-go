@@ -118,13 +118,13 @@ func TestLoadBlocksFromFile(t *testing.T) {
 		"Users & Customers": "<p>Test users</p>",
 		"Problems": "<p>Test problems</p>"
 	}`
-	if err := os.WriteFile(validPath, []byte(validContent), 0644); err != nil {
+	if err := os.WriteFile(validPath, []byte(validContent), 0o600); err != nil {
 		t.Fatal(err)
 	}
 
 	// Create temp file with invalid JSON
 	invalidPath := filepath.Join(tmpDir, "invalid.json")
-	if err := os.WriteFile(invalidPath, []byte("not json"), 0644); err != nil {
+	if err := os.WriteFile(invalidPath, []byte("not json"), 0o600); err != nil {
 		t.Fatal(err)
 	}
 

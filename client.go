@@ -158,5 +158,5 @@ func (c *sdkHTTPClient) Do(req *http.Request) (*http.Response, error) {
 		req.Header.Set("Accept", "application/json")
 	}
 
-	return c.client.Do(req)
+	return c.client.Do(req) //nolint:gosec // G704: URL from client config, not user input
 }
