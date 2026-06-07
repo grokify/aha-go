@@ -5,6 +5,7 @@
 *.so
 *.dylib
 bin/
+aha
 
 # Test binary
 *.test
