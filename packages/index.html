@@ -16,7 +16,7 @@
         <link rel="prev" href="../use-cases/diagrams/">
       
       
-        <link rel="next" href="canvas/">
+        <link rel="next" href="graphql/">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
@@ -343,7 +343,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../releases/v0.1.0/" class="md-tabs__link">
+        <a href="../releases/v0.2.0/" class="md-tabs__link">
           
   
   
@@ -960,6 +960,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#graphql" class="md-nav__link">
+    <span class="md-ellipsis">
+      graphql
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#canvas" class="md-nav__link">
     <span class="md-ellipsis">
       canvas
@@ -1004,6 +1013,29 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="graphql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    graphql
+    
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -1159,6 +1191,29 @@
   
   
     <li class="md-nav__item">
+      <a href="../releases/v0.2.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    v0.2.0
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../releases/v0.1.0/" class="md-nav__link">
         
   
@@ -1259,6 +1314,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#graphql" class="md-nav__link">
+    <span class="md-ellipsis">
+      graphql
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#canvas" class="md-nav__link">
     <span class="md-ellipsis">
       canvas
@@ -1336,6 +1400,11 @@
 <td>Core client and entity types</td>
 </tr>
 <tr>
+<td><code>graphql</code></td>
+<td><code>github.com/grokify/aha-go/graphql</code></td>
+<td>GraphQL API client</td>
+</tr>
+<tr>
 <td><code>canvas</code></td>
 <td><code>github.com/grokify/aha-go/canvas</code></td>
 <td>Strategic canvas operations</td>
@@ -1364,32 +1433,45 @@
 <a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="nx">releases</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">ListReleases</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;PRODUCT&quot;</span><span class="p">)</span>
 </code></pre></div>
 <h2 id="sub-packages">Sub-packages<a class="headerlink" href="#sub-packages" title="Permanent link">&para;</a></h2>
+<h3 id="graphql">graphql<a class="headerlink" href="#graphql" title="Permanent link">&para;</a></h3>
+<p>Execute GraphQL queries against Aha.io's GraphQL API.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">import</span><span class="w"> </span><span class="s">&quot;github.com/grokify/aha-go/graphql&quot;</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="nx">client</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">graphql</span><span class="p">.</span><span class="nx">NewClient</span><span class="p">(</span><span class="s">&quot;mycompany&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;api-key&quot;</span><span class="p">)</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="kd">var</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="nx">graphql</span><span class="p">.</span><span class="nx">SearchDocumentsResponse</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">Query</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nx">graphql</span><span class="p">.</span><span class="nx">SearchDocumentsQuery</span><span class="p">,</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">any</span><span class="p">{</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="s">&quot;query&quot;</span><span class="p">:</span><span class="w">          </span><span class="s">&quot;onboarding&quot;</span><span class="p">,</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span><span class="s">&quot;searchableType&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;Page&quot;</span><span class="p">},</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="p">},</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">result</span><span class="p">)</span>
+</code></pre></div>
+<p><a href="graphql/">Full graphql documentation</a></p>
 <h3 id="canvas">canvas<a class="headerlink" href="#canvas" title="Permanent link">&para;</a></h3>
 <p>Create and export strategic canvases.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">import</span><span class="w"> </span><span class="s">&quot;github.com/grokify/aha-go/canvas&quot;</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="c1">// Create Business Model Canvas</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="nx">bmc</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">canvas</span><span class="p">.</span><span class="nx">BusinessModelCanvas</span><span class="p">{</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="nx">Name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Product BMC&quot;</span><span class="p">,</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="c1">// ...</span>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">import</span><span class="w"> </span><span class="s">&quot;github.com/grokify/aha-go/canvas&quot;</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="c1">// Create Business Model Canvas</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="nx">bmc</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">canvas</span><span class="p">.</span><span class="nx">BusinessModelCanvas</span><span class="p">{</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="nx">Name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Product BMC&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="c1">// ...</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="p">}</span>
 </code></pre></div>
 <p><a href="canvas/">Full canvas documentation</a></p>
 <h3 id="browser">browser<a class="headerlink" href="#browser" title="Permanent link">&para;</a></h3>
 <p>Serve Aha data as a browsable HTML interface.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">import</span><span class="w"> </span><span class="s">&quot;github.com/grokify/aha-go/browser&quot;</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="nx">server</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">browser</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="nx">client</span><span class="p">,</span><span class="w"> </span><span class="nx">browser</span><span class="p">.</span><span class="nx">Options</span><span class="p">{</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="nx">Port</span><span class="p">:</span><span class="w"> </span><span class="mi">8080</span><span class="p">,</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="p">})</span>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="nx">server</span><span class="p">.</span><span class="nx">Start</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">import</span><span class="w"> </span><span class="s">&quot;github.com/grokify/aha-go/browser&quot;</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="nx">server</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">browser</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="nx">client</span><span class="p">,</span><span class="w"> </span><span class="nx">browser</span><span class="p">.</span><span class="nx">Options</span><span class="p">{</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="nx">Port</span><span class="p">:</span><span class="w"> </span><span class="mi">8080</span><span class="p">,</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="p">})</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="nx">server</span><span class="p">.</span><span class="nx">Start</span><span class="p">()</span>
 </code></pre></div>
 <p><a href="browser/">Full browser documentation</a></p>
 <h3 id="render">render<a class="headerlink" href="#render" title="Permanent link">&para;</a></h3>
 <p>Generate diagrams from Aha data.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">import</span><span class="w"> </span><span class="s">&quot;github.com/grokify/aha-go/render&quot;</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="nx">mermaid</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">render</span><span class="p">.</span><span class="nx">ReleasesToMermaid</span><span class="p">(</span><span class="nx">releases</span><span class="p">,</span><span class="w"> </span><span class="nx">render</span><span class="p">.</span><span class="nx">MermaidOptions</span><span class="p">{})</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">import</span><span class="w"> </span><span class="s">&quot;github.com/grokify/aha-go/render&quot;</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="nx">mermaid</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">render</span><span class="p">.</span><span class="nx">ReleasesToMermaid</span><span class="p">(</span><span class="nx">releases</span><span class="p">,</span><span class="w"> </span><span class="nx">render</span><span class="p">.</span><span class="nx">MermaidOptions</span><span class="p">{})</span>
 </code></pre></div>
 <p><a href="render/">Full render documentation</a></p>
 <h2 id="api-reference">API Reference<a class="headerlink" href="#api-reference" title="Permanent link">&para;</a></h2>

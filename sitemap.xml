@@ -41,11 +41,19 @@
          <lastmod>2026-06-07</lastmod>
     </url>
     <url>
+         <loc>https://grokify.github.io/aha-go/packages/graphql/</loc>
+         <lastmod>2026-06-07</lastmod>
+    </url>
+    <url>
          <loc>https://grokify.github.io/aha-go/packages/render/</loc>
          <lastmod>2026-06-07</lastmod>
     </url>
     <url>
          <loc>https://grokify.github.io/aha-go/releases/v0.1.0/</loc>
+         <lastmod>2026-06-07</lastmod>
+    </url>
+    <url>
+         <loc>https://grokify.github.io/aha-go/releases/v0.2.0/</loc>
          <lastmod>2026-06-07</lastmod>
     </url>
     <url>
