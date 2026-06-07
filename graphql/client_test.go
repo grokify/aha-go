@@ -59,17 +59,17 @@ func TestClientEndpoint(t *testing.T) {
 		{
 			name:      "standard subdomain",
 			subdomain: "mycompany",
-			want:      "https://mycompany.aha.io/api/graphql",
+			want:      "https://mycompany.aha.io/api/v2/graphql",
 		},
 		{
 			name:      "empty subdomain",
 			subdomain: "",
-			want:      "https://.aha.io/api/graphql",
+			want:      "https://.aha.io/api/v2/graphql",
 		},
 		{
 			name:      "hyphenated subdomain",
 			subdomain: "my-company",
-			want:      "https://my-company.aha.io/api/graphql",
+			want:      "https://my-company.aha.io/api/v2/graphql",
 		},
 	}
 

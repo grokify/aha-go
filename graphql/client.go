@@ -44,7 +44,8 @@ func (c *Client) Endpoint() string {
 	if c.endpoint != "" {
 		return c.endpoint
 	}
-	return fmt.Sprintf("https://%s.aha.io/api/graphql", c.subdomain)
+	// Aha.io GraphQL API is at /api/v2/graphql (not /api/graphql)
+	return fmt.Sprintf("https://%s.aha.io/api/v2/graphql", c.subdomain)
 }
 
 // SetEndpoint sets a custom endpoint URL (for testing).
