@@ -1,0 +1,71 @@
+site_name: aha-go
+site_description: Go SDK and CLI for Aha.io API
+site_url: https://grokify.github.io/aha-go/
+repo_url: https://github.com/grokify/aha-go
+repo_name: grokify/aha-go
+
+theme:
+  name: material
+  palette:
+    - scheme: slate
+      primary: blue
+      accent: light blue
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+    - scheme: default
+      primary: blue
+      accent: light blue
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.highlight
+    - content.code.copy
+
+nav:
+  - Home: index.md
+  - Getting Started:
+      - Installation: getting-started/installation.md
+      - Authentication: getting-started/authentication.md
+      - Quick Start: getting-started/quickstart.md
+  - CLI:
+      - Overview: cli/index.md
+      - Commands: cli/commands.md
+  - Use Cases:
+      - Overview: use-cases/index.md
+      - Querying Features: use-cases/features.md
+      - Managing Ideas: use-cases/ideas.md
+      - Strategic Canvases: use-cases/canvases.md
+      - Generating Diagrams: use-cases/diagrams.md
+  - Packages:
+      - Overview: packages/index.md
+      - canvas: packages/canvas.md
+      - browser: packages/browser.md
+      - render: packages/render.md
+  - API Reference: api-reference.md
+  - Roadmap: specs/ROADMAP.md
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/grokify/aha-go
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - admonition
+  - pymdownx.details
+  - toc:
+      permalink: true
+  - tables
+
+plugins:
+  - search
