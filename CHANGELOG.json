@@ -7,6 +7,33 @@
   "maintainers": ["grokify"],
   "releases": [
     {
+      "version": "v0.2.0",
+      "date": "2026-06-07",
+      "commit": "3319d8b",
+      "highlights": [
+        { "description": "GraphQL client for Aha.io API with typed queries for search, pages, features, and requirements" }
+      ],
+      "added": [
+        { "description": "GraphQL client package with configurable subdomain, API key, and HTTP client", "commit": "3319d8b" },
+        { "description": "GraphQL query method for executing queries with variables and typed responses", "commit": "3319d8b" },
+        { "description": "Response types for searchDocuments, page, feature, and requirement queries", "commit": "3319d8b" },
+        { "description": "SetEndpoint method for testing with custom GraphQL endpoints", "commit": "3319d8b" }
+      ],
+      "fixed": [
+        { "description": "Resolve golangci-lint errors (G306, G704, G115, dupl, gofmt)", "commit": "fe075ab" }
+      ],
+      "documentation": [
+        { "description": "Add UTF8 icons to README Features section", "commit": "7f8180e" },
+        { "description": "Update README shields and title", "commit": "543afa7" }
+      ],
+      "tests": [
+        { "description": "Comprehensive unit tests for GraphQL client with mock HTTP server", "commit": "3319d8b" }
+      ],
+      "build": [
+        { "description": "Add site/ to gitignore for MkDocs", "commit": "b389917" }
+      ]
+    },
+    {
       "version": "v0.1.0",
       "date": "2026-06-07",
       "commit": "7de5d4d",
