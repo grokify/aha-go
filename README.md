@@ -37,6 +37,7 @@ This SDK providers wrappers around an [`ogen`](https://github.com/ogen-go/ogen) 
 - 🔒 Type-safe API client generated from OpenAPI specification using [ogen](https://github.com/ogen-go/ogen)
 - 🎯 Ergonomic wrapper layer for common operations
 - 📦 Support for features, ideas, releases, products, and more
+- 🔍 **GraphQL API** client for search and document queries
 - 🎨 **Strategic Models (Canvases)**: Opportunity, Lean UX, and Business Model Canvas support
 - 📤 **Multiple export formats**: SVG, JSON, D2, and Mermaid
 - ⌨️ **CLI tool** for command-line access to Aha.io
