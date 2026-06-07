@@ -1,4 +1,4 @@
-# aha-go
+# Go API Client for Aha! (aha.io)
 
 [![Go CI][go-ci-svg]][go-ci-url]
 [![Go Lint][go-lint-svg]][go-lint-url]
@@ -29,6 +29,8 @@
  [license-url]: https://github.com/grokify/aha-go/blob/main/LICENSE
 
 Go client for the [Aha.io](https://www.aha.io/) product management API.
+
+This SDK providers wrappers around an [`ogen`](https://github.com/ogen-go/ogen) generated client. For an API built using OpenAPI Generator see [`github.com/grokify/go-aha`](https://github.com/grokify/go-aha).
 
 ## Features
 
