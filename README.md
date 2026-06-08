@@ -517,11 +517,14 @@ func main() {
 }
 ```
 
-Available queries include: `GetFeature`, `GetPage`, `GetIdea`, `GetRelease`, `GetGoal`, `GetEpic`, `GetInitiative`, `GetRequirement`, `GetProject`, `GetAccount`, and `SearchDocuments`.
+Available operations include:
 
-### Manual Client
+- **Queries**: `GetFeature`, `GetPage`, `GetIdea`, `GetRelease`, `GetGoal`, `GetEpic`, `GetInitiative`, `GetRequirement`, `GetProject`, `GetAccount`, `SearchDocuments`, `GetFeatureWithIntegrations`, `GetFeatureWithLinks`
+- **Mutations**: `UpdateFeatureName`, `UpdateFeatureDescription`, `UpdateFeatureStatus`, `UpdateFeatureTags`, `AssignFeatureToInitiative`, `AssignFeatureToRelease`, `AssignFeatureToEpic`, `AssignFeatureToUser`, `PromoteIdeaToFeature`, `PromoteIdeaToEpic`, `CreateRecordLink`
 
-For custom queries not covered by the generated client:
+### Manual Client (Reference)
+
+The manual client is provided as reference code for users learning to write GraphQL clients without code generation. For production use, the generated client above is recommended.
 
 ```go
 import "github.com/grokify/aha-go/graphql"
