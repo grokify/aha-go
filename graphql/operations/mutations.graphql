@@ -1,0 +1,336 @@
+# Aha.io GraphQL Mutations
+# Write operations for aha-go
+
+# Update feature name
+mutation UpdateFeatureName($id: ID!, $name: String!) {
+  updateFeature(id: $id, attributes: { name: $name }) {
+    feature {
+      id
+      referenceNum
+      name
+      updatedAt
+    }
+    errors {
+      attributes {
+        name
+        fullMessages
+      }
+    }
+  }
+}
+
+# Update feature description
+mutation UpdateFeatureDescription($id: ID!, $description: String!) {
+  updateFeature(id: $id, attributes: { description: $description }) {
+    feature {
+      id
+      referenceNum
+      name
+      description {
+        htmlBody
+      }
+      updatedAt
+    }
+    errors {
+      attributes {
+        name
+        fullMessages
+      }
+    }
+  }
+}
+
+# Assign a feature to an initiative
+mutation AssignFeatureToInitiative($featureId: ID!, $initiativeId: ID!) {
+  updateFeature(
+    id: $featureId
+    attributes: { initiative: { id: $initiativeId } }
+  ) {
+    feature {
+      id
+      referenceNum
+      name
+      initiative {
+        id
+        referenceNum
+        name
+      }
+    }
+    errors {
+      attributes {
+        name
+        fullMessages
+      }
+    }
+  }
+}
+
+# Assign a feature to a release
+mutation AssignFeatureToRelease($featureId: ID!, $releaseId: ID!) {
+  updateFeature(
+    id: $featureId
+    attributes: { release: { id: $releaseId } }
+  ) {
+    feature {
+      id
+      referenceNum
+      name
+      release {
+        id
+        referenceNum
+        name
+      }
+    }
+    errors {
+      attributes {
+        name
+        fullMessages
+      }
+    }
+  }
+}
+
+# Assign a feature to an epic
+mutation AssignFeatureToEpic($featureId: ID!, $epicId: ID!) {
+  updateFeature(
+    id: $featureId
+    attributes: { epic: { id: $epicId } }
+  ) {
+    feature {
+      id
+      referenceNum
+      name
+      epic {
+        id
+        referenceNum
+        name
+      }
+    }
+    errors {
+      attributes {
+        name
+        fullMessages
+      }
+    }
+  }
+}
+
+# Assign a feature to a user
+mutation AssignFeatureToUser($featureId: ID!, $userId: ID!) {
+  updateFeature(
+    id: $featureId
+    attributes: { assignedToUser: { id: $userId } }
+  ) {
+    feature {
+      id
+      referenceNum
+      name
+      assignedToUser {
+        id
+        name
+        email
+      }
+    }
+    errors {
+      attributes {
+        name
+        fullMessages
+      }
+    }
+  }
+}
+
+# Update feature workflow status
+mutation UpdateFeatureStatus($featureId: ID!, $workflowStatusId: ID!) {
+  updateFeature(
+    id: $featureId
+    attributes: { workflowStatus: { id: $workflowStatusId } }
+  ) {
+    feature {
+      id
+      referenceNum
+      name
+      workflowStatus {
+        id
+        name
+      }
+    }
+    errors {
+      attributes {
+        name
+        fullMessages
+      }
+    }
+  }
+}
+
+# Update feature tags
+mutation UpdateFeatureTags($featureId: ID!, $tagList: String!) {
+  updateFeature(
+    id: $featureId
+    attributes: { tagList: $tagList }
+  ) {
+    feature {
+      id
+      referenceNum
+      name
+      tags {
+        id
+        name
+      }
+    }
+    errors {
+      attributes {
+        name
+        fullMessages
+      }
+    }
+  }
+}
+
+# Promote an idea to a feature
+mutation PromoteIdeaToFeature($ideaId: ID!, $releaseId: ID) {
+  promoteIdea(id: $ideaId, type: Feature, releaseId: $releaseId) {
+    idea {
+      id
+      referenceNum
+      name
+    }
+    promotable {
+      ... on Feature {
+        id
+        referenceNum
+        name
+        release {
+          id
+          referenceNum
+          name
+        }
+      }
+    }
+    errors {
+      attributes {
+        name
+        fullMessages
+      }
+    }
+  }
+}
+
+# Promote an idea to an epic
+mutation PromoteIdeaToEpic($ideaId: ID!, $releaseId: ID) {
+  promoteIdea(id: $ideaId, type: Epic, releaseId: $releaseId) {
+    idea {
+      id
+      referenceNum
+      name
+    }
+    promotable {
+      ... on Epic {
+        id
+        referenceNum
+        name
+      }
+    }
+    errors {
+      attributes {
+        name
+        fullMessages
+      }
+    }
+  }
+}
+
+# Create a record link between two records (e.g., feature relates to idea)
+mutation CreateRecordLink(
+  $parentType: LinkableRecordTypesEnum!
+  $parentId: ID!
+  $childType: LinkableRecordTypesEnum!
+  $childId: ID!
+  $linkType: RecordLinkTypeEnum!
+) {
+  createRecordLink(
+    attributes: {
+      parentRecord: { type: $parentType, id: $parentId }
+      childRecord: { type: $childType, id: $childId }
+      linkType: $linkType
+    }
+  ) {
+    recordLink {
+      id
+      linkType
+      relationDescription
+      parentRecordId
+      parentRecordType
+      childRecordId
+      childRecordType
+    }
+    errors {
+      attributes {
+        name
+        fullMessages
+      }
+    }
+  }
+}
+
+# Get feature with integration links (Jira, etc.)
+query GetFeatureWithIntegrations($id: ID!) {
+  feature(id: $id) {
+    id
+    referenceNum
+    name
+    integrationLinks {
+      name
+      url
+      integration {
+        id
+        name
+      }
+    }
+    integrationLinksCount
+    initiative {
+      id
+      referenceNum
+      name
+    }
+    release {
+      id
+      referenceNum
+      name
+    }
+  }
+}
+
+# Get feature with all record links
+query GetFeatureWithLinks($id: ID!) {
+  feature(id: $id) {
+    id
+    referenceNum
+    name
+    parentRecordLinks(
+      filters: {
+        linkType: [RELATES_TO, DEPENDS_ON, BLOCKS, BUILT_AS]
+        recordType: [Feature, Idea, Initiative, Epic]
+      }
+    ) {
+      id
+      linkType
+      relationDescription
+      parentRecordId
+      parentRecordType
+    }
+    childRecordLinks(
+      filters: {
+        linkType: [RELATES_TO, DEPENDS_ON, BLOCKS, BUILT_AS]
+        recordType: [Feature, Idea, Initiative, Epic]
+      }
+    ) {
+      id
+      linkType
+      relationDescription
+      childRecordId
+      childRecordType
+    }
+  }
+}
