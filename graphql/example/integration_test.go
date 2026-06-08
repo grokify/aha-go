@@ -4,36 +4,31 @@ package example_test
 
 import (
 	"context"
-	"os"
 	"testing"
 
+	"github.com/grokify/aha-go/graphql"
 	"github.com/grokify/aha-go/graphql/example"
 )
 
-// TestSearchDocumentsIntegration tests the GraphQL search against a real Aha.io account.
+// TestSearchDocumentsIntegration tests the handwritten GraphQL client.
 // Run with: go test -tags=integration -v ./graphql/example/...
 //
-// Required environment variables (per official Aha API docs):
-//   - AHA_SUBDOMAIN: Your Aha! subdomain (e.g., "yourcompany" for yourcompany.aha.io)
-//   - AHA_API_KEY: Your Aha! API key
+// Credentials can be provided via:
+//   - AHA_SUBDOMAIN + AHA_API_KEY (direct)
+//   - GOAUTH_CREDENTIALS_FILE + GOAUTH_ACCOUNT (goauth file)
 func TestSearchDocumentsIntegration(t *testing.T) {
-	subdomain := os.Getenv("AHA_SUBDOMAIN")
-	if subdomain == "" {
-		t.Skip("AHA_SUBDOMAIN not set, skipping integration test")
+	creds, err := graphql.LoadTestCredentials()
+	if err != nil {
+		t.Skip(graphql.SkipReason())
 	}
 
-	apiKey := os.Getenv("AHA_API_KEY")
-	if apiKey == "" {
-		t.Skip("AHA_API_KEY not set, skipping integration test")
-	}
-
-	client := example.NewClient(subdomain, apiKey)
+	client := example.NewClient(creds.Subdomain, creds.APIKey)
 
 	t.Logf("Testing GraphQL endpoint: %s", client.Endpoint())
 
 	// Test search
 	var result example.SearchDocumentsResponse
-	err := client.Query(context.Background(), example.SearchDocumentsQuery, map[string]any{
+	err = client.Query(context.Background(), example.SearchDocumentsQuery, map[string]any{
 		"query":          "test",
 		"searchableType": []string{"Page"},
 	}, &result)
@@ -52,22 +47,17 @@ func TestSearchDocumentsIntegration(t *testing.T) {
 	}
 }
 
-// TestSearchDocumentsFeatures tests searching for features specifically.
+// TestSearchDocumentsFeaturesIntegration tests searching for features specifically.
 func TestSearchDocumentsFeaturesIntegration(t *testing.T) {
-	subdomain := os.Getenv("AHA_SUBDOMAIN")
-	if subdomain == "" {
-		t.Skip("AHA_SUBDOMAIN not set, skipping integration test")
+	creds, err := graphql.LoadTestCredentials()
+	if err != nil {
+		t.Skip(graphql.SkipReason())
 	}
 
-	apiKey := os.Getenv("AHA_API_KEY")
-	if apiKey == "" {
-		t.Skip("AHA_API_KEY not set, skipping integration test")
-	}
-
-	client := example.NewClient(subdomain, apiKey)
+	client := example.NewClient(creds.Subdomain, creds.APIKey)
 
 	var result example.SearchDocumentsResponse
-	err := client.Query(context.Background(), example.SearchDocumentsQuery, map[string]any{
+	err = client.Query(context.Background(), example.SearchDocumentsQuery, map[string]any{
 		"query":          "feature",
 		"searchableType": []string{"Feature"},
 	}, &result)

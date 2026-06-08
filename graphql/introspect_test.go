@@ -9,25 +9,21 @@ import (
 	"fmt"
 	"io"
 	"net/http"
-	"os"
 	"testing"
+
+	"github.com/grokify/aha-go/graphql"
 )
 
 // TestIntrospection tests if the Aha.io GraphQL API supports introspection.
 // Run with: go test -tags=integration -v -run TestIntrospection ./graphql/...
 //
-// Required environment variables (per official Aha API docs):
-//   - AHA_SUBDOMAIN: Your Aha! subdomain (e.g., "yourcompany" for yourcompany.aha.io)
-//   - AHA_API_KEY: Your Aha! API key
+// Credentials can be provided via:
+//   - AHA_SUBDOMAIN + AHA_API_KEY (direct)
+//   - GOAUTH_CREDENTIALS_FILE + GOAUTH_ACCOUNT (goauth file)
 func TestIntrospection(t *testing.T) {
-	subdomain := os.Getenv("AHA_SUBDOMAIN")
-	if subdomain == "" {
-		t.Skip("AHA_SUBDOMAIN not set, skipping integration test")
-	}
-
-	apiKey := os.Getenv("AHA_API_KEY")
-	if apiKey == "" {
-		t.Skip("AHA_API_KEY not set, skipping integration test")
+	creds, err := graphql.LoadTestCredentials()
+	if err != nil {
+		t.Skip(graphql.SkipReason())
 	}
 
 	// Introspection query to get schema
@@ -48,7 +44,7 @@ func TestIntrospection(t *testing.T) {
 		}
 	}`
 
-	endpoint := fmt.Sprintf("https://%s.aha.io/api/v2/graphql", subdomain)
+	endpoint := fmt.Sprintf("https://%s.aha.io/api/v2/graphql", creds.Subdomain)
 	t.Logf("Testing introspection at: %s", endpoint)
 
 	reqBody := map[string]any{
@@ -61,7 +57,7 @@ func TestIntrospection(t *testing.T) {
 		t.Fatalf("Failed to create request: %v", err)
 	}
 
-	req.Header.Set("Authorization", "Bearer "+apiKey)
+	req.Header.Set("Authorization", "Bearer "+creds.APIKey)
 	req.Header.Set("Content-Type", "application/json")
 
 	resp, err := http.DefaultClient.Do(req)

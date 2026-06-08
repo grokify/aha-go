@@ -4,7 +4,6 @@ package generated_test
 
 import (
 	"context"
-	"os"
 	"testing"
 
 	"github.com/grokify/aha-go/graphql"
@@ -14,20 +13,16 @@ import (
 // TestGenqlientQueries tests the genqlient-generated GraphQL client.
 // Run with: go test -tags=integration -v ./graphql/generated/...
 //
-// Required environment variables (per official Aha API docs):
-//   - AHA_SUBDOMAIN: Your Aha! subdomain (e.g., "yourcompany" for yourcompany.aha.io)
-//   - AHA_API_KEY: Your Aha! API key
+// Credentials can be provided via:
+//   - AHA_SUBDOMAIN + AHA_API_KEY (direct)
+//   - GOAUTH_CREDENTIALS_FILE + GOAUTH_ACCOUNT (goauth file)
 func TestGenqlientQueries(t *testing.T) {
-	subdomain := os.Getenv("AHA_SUBDOMAIN")
-	if subdomain == "" {
-		t.Skip("AHA_SUBDOMAIN not set")
-	}
-	apiKey := os.Getenv("AHA_API_KEY")
-	if apiKey == "" {
-		t.Skip("AHA_API_KEY not set")
+	creds, err := graphql.LoadTestCredentials()
+	if err != nil {
+		t.Skip(graphql.SkipReason())
 	}
 
-	client := graphql.NewGenqlientClient(subdomain, apiKey)
+	client := graphql.NewGenqlientClient(creds.Subdomain, creds.APIKey)
 	ctx := context.Background()
 
 	// Test GetAccount (no ID = current account)
