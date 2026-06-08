@@ -302,6 +302,47 @@ func generateIdeaReport(ctx context.Context, client *aha.Client, product string)
 }
 ```
 
+## Creating Ideas via GraphQL
+
+The GraphQL API provides type-safe mutations for creating ideas:
+
+```go
+import (
+    "github.com/grokify/aha-go/graphql"
+    "github.com/grokify/aha-go/graphql/generated"
+)
+
+client := graphql.NewGenqlientClient("mycompany", "your-api-key")
+
+// Create an idea
+resp, err := generated.CreateIdea(ctx, client,
+    "Dashboard Analytics",  // name
+    "PROJECT-ID",           // projectId
+    nil,                    // skipRequiredFieldsValidation
+)
+if err != nil {
+    log.Fatal(err)
+}
+fmt.Printf("Created: %s\n", resp.CreateIdea.Idea.ReferenceNum)
+```
+
+### With Custom Fields
+
+```go
+// First create the idea
+resp, err := generated.CreateIdea(ctx, client, "Idea Name", "PROJECT-ID", nil)
+
+// Then set custom fields
+_, err = generated.SetCustomFieldValues(ctx, client,
+    resp.CreateIdea.Idea.Id,
+    generated.CustomFieldableTypeEnumIdea,
+    []generated.CustomFieldValueInput{
+        {Key: "customer_name", Value: "Acme Corp"},
+        {Key: "urgency", Value: "High"},
+    },
+)
+```
+
 ## Comments on Ideas
 
 ### List Comments

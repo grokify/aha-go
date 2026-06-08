@@ -132,7 +132,7 @@ func findOverdue(features []aha.Feature) []aha.Feature {
 
 ## Creating Features
 
-### Basic Create
+### REST API
 
 ```go
 feature, err := client.CreateFeature(ctx, "PRODUCT-KEY", aha.CreateFeatureRequest{
@@ -141,7 +141,7 @@ feature, err := client.CreateFeature(ctx, "PRODUCT-KEY", aha.CreateFeatureReques
 })
 ```
 
-### With All Options
+### With All Options (REST)
 
 ```go
 feature, err := client.CreateFeature(ctx, "PRODUCT-KEY", aha.CreateFeatureRequest{
@@ -152,6 +152,48 @@ feature, err := client.CreateFeature(ctx, "PRODUCT-KEY", aha.CreateFeatureReques
     Status:       "Ready for Development",
     Tags:         []string{"security", "authentication"},
 })
+```
+
+### GraphQL API
+
+The GraphQL API provides type-safe mutations for creating features:
+
+```go
+import (
+    "github.com/grokify/aha-go/graphql"
+    "github.com/grokify/aha-go/graphql/generated"
+)
+
+client := graphql.NewGenqlientClient("mycompany", "your-api-key")
+
+// Create a feature in a release
+resp, err := generated.CreateFeatureWithRelease(ctx, client,
+    "User Authentication",
+    "RELEASE-ID",
+    "<p>Implement OAuth2 login flow</p>",
+    "security, authentication",
+    nil,
+)
+fmt.Printf("Created: %s\n", resp.CreateFeature.Feature.ReferenceNum)
+```
+
+### With Custom Fields (GraphQL)
+
+```go
+// First create the feature
+resp, err := generated.CreateFeatureWithRelease(ctx, client,
+    "Feature Name", "RELEASE-ID", "<p>Description</p>", "", nil,
+)
+
+// Then set custom fields
+_, err = generated.SetCustomFieldValues(ctx, client,
+    resp.CreateFeature.Feature.Id,
+    generated.CustomFieldableTypeEnumFeature,
+    []generated.CustomFieldValueInput{
+        {Key: "priority_score", Value: 85},
+        {Key: "customer_segment", Value: "Enterprise"},
+    },
+)
 ```
 
 ## Updating Features
