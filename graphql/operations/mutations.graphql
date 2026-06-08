@@ -334,3 +334,229 @@ query GetFeatureWithLinks($id: ID!) {
     }
   }
 }
+
+# Create a feature with release (most common use case)
+# Use skipRequiredFieldsValidation=true to bypass custom required field validation
+mutation CreateFeatureWithRelease(
+  $name: String!
+  $releaseId: ID!
+  $description: String
+  $tagList: String
+  $skipRequiredFieldsValidation: Boolean
+) {
+  createFeature(
+    attributes: {
+      name: $name
+      release: { id: $releaseId }
+      description: $description
+      tagList: $tagList
+    }
+    skipRequiredFieldsValidation: $skipRequiredFieldsValidation
+  ) {
+    feature {
+      id
+      referenceNum
+      name
+      description {
+        htmlBody
+      }
+      release {
+        id
+        referenceNum
+        name
+      }
+      tags {
+        id
+        name
+      }
+      createdAt
+      updatedAt
+    }
+    errors {
+      attributes {
+        name
+        fullMessages
+      }
+    }
+  }
+}
+
+# Create a feature with project (when release is not yet determined)
+mutation CreateFeatureWithProject(
+  $name: String!
+  $projectId: ID!
+  $description: String
+  $tagList: String
+  $skipRequiredFieldsValidation: Boolean
+) {
+  createFeature(
+    attributes: {
+      name: $name
+      project: { id: $projectId }
+      description: $description
+      tagList: $tagList
+    }
+    skipRequiredFieldsValidation: $skipRequiredFieldsValidation
+  ) {
+    feature {
+      id
+      referenceNum
+      name
+      description {
+        htmlBody
+      }
+      project {
+        id
+        referencePrefix
+        name
+      }
+      tags {
+        id
+        name
+      }
+      createdAt
+      updatedAt
+    }
+    errors {
+      attributes {
+        name
+        fullMessages
+      }
+    }
+  }
+}
+
+# Create a feature with all assignment options
+# Note: Initiative is required (ID!) when specified
+mutation CreateFeatureWithAssignments(
+  $name: String!
+  $releaseId: ID!
+  $description: String
+  $assignedToUserId: ID!
+  $workflowStatusId: ID!
+  $epicId: ID!
+  $initiativeId: ID!
+  $tagList: String
+  $skipRequiredFieldsValidation: Boolean
+) {
+  createFeature(
+    attributes: {
+      name: $name
+      release: { id: $releaseId }
+      description: $description
+      assignedToUser: { id: $assignedToUserId }
+      workflowStatus: { id: $workflowStatusId }
+      epic: { id: $epicId }
+      initiative: { id: $initiativeId }
+      tagList: $tagList
+    }
+    skipRequiredFieldsValidation: $skipRequiredFieldsValidation
+  ) {
+    feature {
+      id
+      referenceNum
+      name
+      description {
+        htmlBody
+      }
+      workflowStatus {
+        id
+        name
+      }
+      assignedToUser {
+        id
+        name
+        email
+      }
+      release {
+        id
+        referenceNum
+        name
+      }
+      epic {
+        id
+        referenceNum
+        name
+      }
+      initiative {
+        id
+        referenceNum
+        name
+      }
+      tags {
+        id
+        name
+      }
+      createdAt
+      updatedAt
+    }
+    errors {
+      attributes {
+        name
+        fullMessages
+      }
+    }
+  }
+}
+
+# Create a new idea
+# Note: Description and tags must be set via separate mutations (UpdateIdea, etc.)
+mutation CreateIdea(
+  $name: String!
+  $projectId: ID!
+  $skipRequiredFieldsValidation: Boolean
+) {
+  createIdea(
+    attributes: {
+      name: $name
+      project: { id: $projectId }
+    }
+    skipRequiredFieldsValidation: $skipRequiredFieldsValidation
+  ) {
+    idea {
+      id
+      referenceNum
+      name
+      workflowStatus {
+        id
+        name
+      }
+      createdAt
+      updatedAt
+    }
+    errors {
+      attributes {
+        name
+        fullMessages
+      }
+    }
+  }
+}
+
+# Set custom field values on a record
+# typename must be one of: Feature, Idea, Epic, Release, Goal, Initiative, etc.
+mutation SetCustomFieldValues(
+  $recordId: ID!
+  $recordTypename: CustomFieldableTypeEnum!
+  $customFieldValues: [CustomFieldValueInput!]!
+) {
+  setCustomFieldValues(
+    attributes: {
+      record: { id: $recordId, typename: $recordTypename }
+      customFieldValues: $customFieldValues
+    }
+  ) {
+    customFieldValues {
+      id
+      key
+      value
+      humanValue
+    }
+    errors {
+      attributes {
+        name
+        fullMessages
+      }
+    }
+  }
+}
