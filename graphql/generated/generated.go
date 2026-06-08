@@ -604,6 +604,80 @@ func (v *CreateRecordLinkResponse) GetCreateRecordLink() *CreateRecordLinkCreate
 	return v.CreateRecordLink
 }
 
+type CustomFieldDefinitionTypeEnum string
+
+const (
+	CustomFieldDefinitionTypeEnumUrlfield                  CustomFieldDefinitionTypeEnum = "UrlField"
+	CustomFieldDefinitionTypeEnumTextfield                 CustomFieldDefinitionTypeEnum = "TextField"
+	CustomFieldDefinitionTypeEnumScorecardfield            CustomFieldDefinitionTypeEnum = "ScorecardField"
+	CustomFieldDefinitionTypeEnumRecordsfield              CustomFieldDefinitionTypeEnum = "RecordsField"
+	CustomFieldDefinitionTypeEnumNotefield                 CustomFieldDefinitionTypeEnum = "NoteField"
+	CustomFieldDefinitionTypeEnumLinkcustomfielddefinition CustomFieldDefinitionTypeEnum = "LinkCustomFieldDefinition"
+	CustomFieldDefinitionTypeEnumNumberfield               CustomFieldDefinitionTypeEnum = "NumberField"
+	CustomFieldDefinitionTypeEnumEquationfield             CustomFieldDefinitionTypeEnum = "EquationField"
+	CustomFieldDefinitionTypeEnumDatefield                 CustomFieldDefinitionTypeEnum = "DateField"
+	CustomFieldDefinitionTypeEnumCheckboxfield             CustomFieldDefinitionTypeEnum = "CheckboxField"
+	CustomFieldDefinitionTypeEnumAttachmentfield           CustomFieldDefinitionTypeEnum = "AttachmentField"
+	CustomFieldDefinitionTypeEnumUsersfield                CustomFieldDefinitionTypeEnum = "UsersField"
+	CustomFieldDefinitionTypeEnumStrategicimperativesfield CustomFieldDefinitionTypeEnum = "StrategicImperativesField"
+	CustomFieldDefinitionTypeEnumReleasesfield             CustomFieldDefinitionTypeEnum = "ReleasesField"
+	CustomFieldDefinitionTypeEnumProjectsfield             CustomFieldDefinitionTypeEnum = "ProjectsField"
+	CustomFieldDefinitionTypeEnumPersonasfield             CustomFieldDefinitionTypeEnum = "PersonasField"
+	CustomFieldDefinitionTypeEnumKeyresultsfield           CustomFieldDefinitionTypeEnum = "KeyResultsField"
+	CustomFieldDefinitionTypeEnumInitiativesfield          CustomFieldDefinitionTypeEnum = "InitiativesField"
+	CustomFieldDefinitionTypeEnumIdeasfield                CustomFieldDefinitionTypeEnum = "IdeasField"
+	CustomFieldDefinitionTypeEnumIdeaorganizationsfield    CustomFieldDefinitionTypeEnum = "IdeaOrganizationsField"
+	CustomFieldDefinitionTypeEnumIdeacategoriesfield       CustomFieldDefinitionTypeEnum = "IdeaCategoriesField"
+	CustomFieldDefinitionTypeEnumFeaturesfield             CustomFieldDefinitionTypeEnum = "FeaturesField"
+	CustomFieldDefinitionTypeEnumEpicsfield                CustomFieldDefinitionTypeEnum = "EpicsField"
+	CustomFieldDefinitionTypeEnumCreativebriefsfield       CustomFieldDefinitionTypeEnum = "CreativeBriefsField"
+	CustomFieldDefinitionTypeEnumCompetitorsfield          CustomFieldDefinitionTypeEnum = "CompetitorsField"
+	CustomFieldDefinitionTypeEnumLinkmasterdetail          CustomFieldDefinitionTypeEnum = "LinkMasterDetail"
+	CustomFieldDefinitionTypeEnumLinkmany                  CustomFieldDefinitionTypeEnum = "LinkMany"
+	CustomFieldDefinitionTypeEnumLinkone                   CustomFieldDefinitionTypeEnum = "LinkOne"
+	CustomFieldDefinitionTypeEnumSelectmultipleeditable    CustomFieldDefinitionTypeEnum = "SelectMultipleEditable"
+	CustomFieldDefinitionTypeEnumSelectmultipleconstant    CustomFieldDefinitionTypeEnum = "SelectMultipleConstant"
+	CustomFieldDefinitionTypeEnumSelecteditable            CustomFieldDefinitionTypeEnum = "SelectEditable"
+	CustomFieldDefinitionTypeEnumSelectconstant            CustomFieldDefinitionTypeEnum = "SelectConstant"
+	CustomFieldDefinitionTypeEnumConditionalchoice         CustomFieldDefinitionTypeEnum = "ConditionalChoice"
+)
+
+var AllCustomFieldDefinitionTypeEnum = []CustomFieldDefinitionTypeEnum{
+	CustomFieldDefinitionTypeEnumUrlfield,
+	CustomFieldDefinitionTypeEnumTextfield,
+	CustomFieldDefinitionTypeEnumScorecardfield,
+	CustomFieldDefinitionTypeEnumRecordsfield,
+	CustomFieldDefinitionTypeEnumNotefield,
+	CustomFieldDefinitionTypeEnumLinkcustomfielddefinition,
+	CustomFieldDefinitionTypeEnumNumberfield,
+	CustomFieldDefinitionTypeEnumEquationfield,
+	CustomFieldDefinitionTypeEnumDatefield,
+	CustomFieldDefinitionTypeEnumCheckboxfield,
+	CustomFieldDefinitionTypeEnumAttachmentfield,
+	CustomFieldDefinitionTypeEnumUsersfield,
+	CustomFieldDefinitionTypeEnumStrategicimperativesfield,
+	CustomFieldDefinitionTypeEnumReleasesfield,
+	CustomFieldDefinitionTypeEnumProjectsfield,
+	CustomFieldDefinitionTypeEnumPersonasfield,
+	CustomFieldDefinitionTypeEnumKeyresultsfield,
+	CustomFieldDefinitionTypeEnumInitiativesfield,
+	CustomFieldDefinitionTypeEnumIdeasfield,
+	CustomFieldDefinitionTypeEnumIdeaorganizationsfield,
+	CustomFieldDefinitionTypeEnumIdeacategoriesfield,
+	CustomFieldDefinitionTypeEnumFeaturesfield,
+	CustomFieldDefinitionTypeEnumEpicsfield,
+	CustomFieldDefinitionTypeEnumCreativebriefsfield,
+	CustomFieldDefinitionTypeEnumCompetitorsfield,
+	CustomFieldDefinitionTypeEnumLinkmasterdetail,
+	CustomFieldDefinitionTypeEnumLinkmany,
+	CustomFieldDefinitionTypeEnumLinkone,
+	CustomFieldDefinitionTypeEnumSelectmultipleeditable,
+	CustomFieldDefinitionTypeEnumSelectmultipleconstant,
+	CustomFieldDefinitionTypeEnumSelecteditable,
+	CustomFieldDefinitionTypeEnumSelectconstant,
+	CustomFieldDefinitionTypeEnumConditionalchoice,
+}
+
 // GetAccountAccount includes the requested fields of the GraphQL type Account.
 // The GraphQL type's documentation follows.
 //
@@ -831,6 +905,273 @@ type GetFeatureResponse struct {
 
 // GetFeature returns GetFeatureResponse.Feature, and is useful for accessing the field via an interface.
 func (v *GetFeatureResponse) GetFeature() GetFeatureFeature { return v.Feature }
+
+// GetFeatureScreenDefinitionFeature includes the requested fields of the GraphQL type Feature.
+// The GraphQL type's documentation follows.
+//
+// A basic record representing work to be done
+type GetFeatureScreenDefinitionFeature struct {
+	Id string `json:"id"`
+	// Reference number of the record. Example: DEV-123
+	ReferenceNum string `json:"referenceNum"`
+	Name         string `json:"name"`
+	// The screen definition for this record
+	ScreenDefinition *GetFeatureScreenDefinitionFeatureScreenDefinition `json:"screenDefinition"`
+}
+
+// GetId returns GetFeatureScreenDefinitionFeature.Id, and is useful for accessing the field via an interface.
+func (v *GetFeatureScreenDefinitionFeature) GetId() string { return v.Id }
+
+// GetReferenceNum returns GetFeatureScreenDefinitionFeature.ReferenceNum, and is useful for accessing the field via an interface.
+func (v *GetFeatureScreenDefinitionFeature) GetReferenceNum() string { return v.ReferenceNum }
+
+// GetName returns GetFeatureScreenDefinitionFeature.Name, and is useful for accessing the field via an interface.
+func (v *GetFeatureScreenDefinitionFeature) GetName() string { return v.Name }
+
+// GetScreenDefinition returns GetFeatureScreenDefinitionFeature.ScreenDefinition, and is useful for accessing the field via an interface.
+func (v *GetFeatureScreenDefinitionFeature) GetScreenDefinition() *GetFeatureScreenDefinitionFeatureScreenDefinition {
+	return v.ScreenDefinition
+}
+
+// GetFeatureScreenDefinitionFeatureScreenDefinition includes the requested fields of the GraphQL type ScreenDefinition.
+// The GraphQL type's documentation follows.
+//
+// A screen definition (custom layout).
+type GetFeatureScreenDefinitionFeatureScreenDefinition struct {
+	Id string `json:"id"`
+	// The screen definition's record type.
+	ScreenableType           ScreenableTypeEnum                                                                                 `json:"screenableType"`
+	ScreenDefinitionControls []GetFeatureScreenDefinitionFeatureScreenDefinitionScreenDefinitionControlsScreenDefinitionControl `json:"screenDefinitionControls"`
+}
+
+// GetId returns GetFeatureScreenDefinitionFeatureScreenDefinition.Id, and is useful for accessing the field via an interface.
+func (v *GetFeatureScreenDefinitionFeatureScreenDefinition) GetId() string { return v.Id }
+
+// GetScreenableType returns GetFeatureScreenDefinitionFeatureScreenDefinition.ScreenableType, and is useful for accessing the field via an interface.
+func (v *GetFeatureScreenDefinitionFeatureScreenDefinition) GetScreenableType() ScreenableTypeEnum {
+	return v.ScreenableType
+}
+
+// GetScreenDefinitionControls returns GetFeatureScreenDefinitionFeatureScreenDefinition.ScreenDefinitionControls, and is useful for accessing the field via an interface.
+func (v *GetFeatureScreenDefinitionFeatureScreenDefinition) GetScreenDefinitionControls() []GetFeatureScreenDefinitionFeatureScreenDefinitionScreenDefinitionControlsScreenDefinitionControl {
+	return v.ScreenDefinitionControls
+}
+
+// GetFeatureScreenDefinitionFeatureScreenDefinitionScreenDefinitionControlsScreenDefinitionControl includes the requested fields of the GraphQL type ScreenDefinitionControl.
+// The GraphQL type's documentation follows.
+//
+// A screen definition control
+type GetFeatureScreenDefinitionFeatureScreenDefinitionScreenDefinitionControlsScreenDefinitionControl struct {
+	Id                    string                                                                                                                 `json:"id"`
+	FieldId               *string                                                                                                                `json:"fieldId"`
+	Required              bool                                                                                                                   `json:"required"`
+	ReadOnly              bool                                                                                                                   `json:"readOnly"`
+	CustomFieldDefinition *GetFeatureScreenDefinitionFeatureScreenDefinitionScreenDefinitionControlsScreenDefinitionControlCustomFieldDefinition `json:"customFieldDefinition"`
+}
+
+// GetId returns GetFeatureScreenDefinitionFeatureScreenDefinitionScreenDefinitionControlsScreenDefinitionControl.Id, and is useful for accessing the field via an interface.
+func (v *GetFeatureScreenDefinitionFeatureScreenDefinitionScreenDefinitionControlsScreenDefinitionControl) GetId() string {
+	return v.Id
+}
+
+// GetFieldId returns GetFeatureScreenDefinitionFeatureScreenDefinitionScreenDefinitionControlsScreenDefinitionControl.FieldId, and is useful for accessing the field via an interface.
+func (v *GetFeatureScreenDefinitionFeatureScreenDefinitionScreenDefinitionControlsScreenDefinitionControl) GetFieldId() *string {
+	return v.FieldId
+}
+
+// GetRequired returns GetFeatureScreenDefinitionFeatureScreenDefinitionScreenDefinitionControlsScreenDefinitionControl.Required, and is useful for accessing the field via an interface.
+func (v *GetFeatureScreenDefinitionFeatureScreenDefinitionScreenDefinitionControlsScreenDefinitionControl) GetRequired() bool {
+	return v.Required
+}
+
+// GetReadOnly returns GetFeatureScreenDefinitionFeatureScreenDefinitionScreenDefinitionControlsScreenDefinitionControl.ReadOnly, and is useful for accessing the field via an interface.
+func (v *GetFeatureScreenDefinitionFeatureScreenDefinitionScreenDefinitionControlsScreenDefinitionControl) GetReadOnly() bool {
+	return v.ReadOnly
+}
+
+// GetCustomFieldDefinition returns GetFeatureScreenDefinitionFeatureScreenDefinitionScreenDefinitionControlsScreenDefinitionControl.CustomFieldDefinition, and is useful for accessing the field via an interface.
+func (v *GetFeatureScreenDefinitionFeatureScreenDefinitionScreenDefinitionControlsScreenDefinitionControl) GetCustomFieldDefinition() *GetFeatureScreenDefinitionFeatureScreenDefinitionScreenDefinitionControlsScreenDefinitionControlCustomFieldDefinition {
+	return v.CustomFieldDefinition
+}
+
+// GetFeatureScreenDefinitionFeatureScreenDefinitionScreenDefinitionControlsScreenDefinitionControlCustomFieldDefinition includes the requested fields of the GraphQL type CustomFieldDefinition.
+// The GraphQL type's documentation follows.
+//
+// A custom field definition.
+type GetFeatureScreenDefinitionFeatureScreenDefinitionScreenDefinitionControlsScreenDefinitionControlCustomFieldDefinition struct {
+	Id   string                        `json:"id"`
+	Key  string                        `json:"key"`
+	Name string                        `json:"name"`
+	Type CustomFieldDefinitionTypeEnum `json:"type"`
+}
+
+// GetId returns GetFeatureScreenDefinitionFeatureScreenDefinitionScreenDefinitionControlsScreenDefinitionControlCustomFieldDefinition.Id, and is useful for accessing the field via an interface.
+func (v *GetFeatureScreenDefinitionFeatureScreenDefinitionScreenDefinitionControlsScreenDefinitionControlCustomFieldDefinition) GetId() string {
+	return v.Id
+}
+
+// GetKey returns GetFeatureScreenDefinitionFeatureScreenDefinitionScreenDefinitionControlsScreenDefinitionControlCustomFieldDefinition.Key, and is useful for accessing the field via an interface.
+func (v *GetFeatureScreenDefinitionFeatureScreenDefinitionScreenDefinitionControlsScreenDefinitionControlCustomFieldDefinition) GetKey() string {
+	return v.Key
+}
+
+// GetName returns GetFeatureScreenDefinitionFeatureScreenDefinitionScreenDefinitionControlsScreenDefinitionControlCustomFieldDefinition.Name, and is useful for accessing the field via an interface.
+func (v *GetFeatureScreenDefinitionFeatureScreenDefinitionScreenDefinitionControlsScreenDefinitionControlCustomFieldDefinition) GetName() string {
+	return v.Name
+}
+
+// GetType returns GetFeatureScreenDefinitionFeatureScreenDefinitionScreenDefinitionControlsScreenDefinitionControlCustomFieldDefinition.Type, and is useful for accessing the field via an interface.
+func (v *GetFeatureScreenDefinitionFeatureScreenDefinitionScreenDefinitionControlsScreenDefinitionControlCustomFieldDefinition) GetType() CustomFieldDefinitionTypeEnum {
+	return v.Type
+}
+
+// GetFeatureScreenDefinitionResponse is returned by GetFeatureScreenDefinition on success.
+type GetFeatureScreenDefinitionResponse struct {
+	// Find a feature by its ID
+	Feature GetFeatureScreenDefinitionFeature `json:"feature"`
+}
+
+// GetFeature returns GetFeatureScreenDefinitionResponse.Feature, and is useful for accessing the field via an interface.
+func (v *GetFeatureScreenDefinitionResponse) GetFeature() GetFeatureScreenDefinitionFeature {
+	return v.Feature
+}
+
+// GetFeatureWithCustomFieldsFeature includes the requested fields of the GraphQL type Feature.
+// The GraphQL type's documentation follows.
+//
+// A basic record representing work to be done
+type GetFeatureWithCustomFieldsFeature struct {
+	Id string `json:"id"`
+	// Reference number of the record. Example: DEV-123
+	ReferenceNum string `json:"referenceNum"`
+	Name         string `json:"name"`
+	// Custom field values
+	CustomFieldValues []GetFeatureWithCustomFieldsFeatureCustomFieldValuesCustomFieldValue `json:"customFieldValues"`
+	// The screen definition for this record
+	ScreenDefinition *GetFeatureWithCustomFieldsFeatureScreenDefinition `json:"screenDefinition"`
+}
+
+// GetId returns GetFeatureWithCustomFieldsFeature.Id, and is useful for accessing the field via an interface.
+func (v *GetFeatureWithCustomFieldsFeature) GetId() string { return v.Id }
+
+// GetReferenceNum returns GetFeatureWithCustomFieldsFeature.ReferenceNum, and is useful for accessing the field via an interface.
+func (v *GetFeatureWithCustomFieldsFeature) GetReferenceNum() string { return v.ReferenceNum }
+
+// GetName returns GetFeatureWithCustomFieldsFeature.Name, and is useful for accessing the field via an interface.
+func (v *GetFeatureWithCustomFieldsFeature) GetName() string { return v.Name }
+
+// GetCustomFieldValues returns GetFeatureWithCustomFieldsFeature.CustomFieldValues, and is useful for accessing the field via an interface.
+func (v *GetFeatureWithCustomFieldsFeature) GetCustomFieldValues() []GetFeatureWithCustomFieldsFeatureCustomFieldValuesCustomFieldValue {
+	return v.CustomFieldValues
+}
+
+// GetScreenDefinition returns GetFeatureWithCustomFieldsFeature.ScreenDefinition, and is useful for accessing the field via an interface.
+func (v *GetFeatureWithCustomFieldsFeature) GetScreenDefinition() *GetFeatureWithCustomFieldsFeatureScreenDefinition {
+	return v.ScreenDefinition
+}
+
+// GetFeatureWithCustomFieldsFeatureCustomFieldValuesCustomFieldValue includes the requested fields of the GraphQL type CustomFieldValue.
+// The GraphQL type's documentation follows.
+//
+// A custom field value on a record
+type GetFeatureWithCustomFieldsFeatureCustomFieldValuesCustomFieldValue struct {
+	// The ID for the custom field value
+	Id string `json:"id"`
+	// The API key for the custom field
+	Key string `json:"key"`
+	// The value for the custom field
+	Value *map[string]any `json:"value"`
+	// The human readable value for the custom field
+	HumanValue *string `json:"humanValue"`
+}
+
+// GetId returns GetFeatureWithCustomFieldsFeatureCustomFieldValuesCustomFieldValue.Id, and is useful for accessing the field via an interface.
+func (v *GetFeatureWithCustomFieldsFeatureCustomFieldValuesCustomFieldValue) GetId() string {
+	return v.Id
+}
+
+// GetKey returns GetFeatureWithCustomFieldsFeatureCustomFieldValuesCustomFieldValue.Key, and is useful for accessing the field via an interface.
+func (v *GetFeatureWithCustomFieldsFeatureCustomFieldValuesCustomFieldValue) GetKey() string {
+	return v.Key
+}
+
+// GetValue returns GetFeatureWithCustomFieldsFeatureCustomFieldValuesCustomFieldValue.Value, and is useful for accessing the field via an interface.
+func (v *GetFeatureWithCustomFieldsFeatureCustomFieldValuesCustomFieldValue) GetValue() *map[string]any {
+	return v.Value
+}
+
+// GetHumanValue returns GetFeatureWithCustomFieldsFeatureCustomFieldValuesCustomFieldValue.HumanValue, and is useful for accessing the field via an interface.
+func (v *GetFeatureWithCustomFieldsFeatureCustomFieldValuesCustomFieldValue) GetHumanValue() *string {
+	return v.HumanValue
+}
+
+// GetFeatureWithCustomFieldsFeatureScreenDefinition includes the requested fields of the GraphQL type ScreenDefinition.
+// The GraphQL type's documentation follows.
+//
+// A screen definition (custom layout).
+type GetFeatureWithCustomFieldsFeatureScreenDefinition struct {
+	ScreenDefinitionControls []GetFeatureWithCustomFieldsFeatureScreenDefinitionScreenDefinitionControlsScreenDefinitionControl `json:"screenDefinitionControls"`
+}
+
+// GetScreenDefinitionControls returns GetFeatureWithCustomFieldsFeatureScreenDefinition.ScreenDefinitionControls, and is useful for accessing the field via an interface.
+func (v *GetFeatureWithCustomFieldsFeatureScreenDefinition) GetScreenDefinitionControls() []GetFeatureWithCustomFieldsFeatureScreenDefinitionScreenDefinitionControlsScreenDefinitionControl {
+	return v.ScreenDefinitionControls
+}
+
+// GetFeatureWithCustomFieldsFeatureScreenDefinitionScreenDefinitionControlsScreenDefinitionControl includes the requested fields of the GraphQL type ScreenDefinitionControl.
+// The GraphQL type's documentation follows.
+//
+// A screen definition control
+type GetFeatureWithCustomFieldsFeatureScreenDefinitionScreenDefinitionControlsScreenDefinitionControl struct {
+	FieldId               *string                                                                                                                `json:"fieldId"`
+	Required              bool                                                                                                                   `json:"required"`
+	CustomFieldDefinition *GetFeatureWithCustomFieldsFeatureScreenDefinitionScreenDefinitionControlsScreenDefinitionControlCustomFieldDefinition `json:"customFieldDefinition"`
+}
+
+// GetFieldId returns GetFeatureWithCustomFieldsFeatureScreenDefinitionScreenDefinitionControlsScreenDefinitionControl.FieldId, and is useful for accessing the field via an interface.
+func (v *GetFeatureWithCustomFieldsFeatureScreenDefinitionScreenDefinitionControlsScreenDefinitionControl) GetFieldId() *string {
+	return v.FieldId
+}
+
+// GetRequired returns GetFeatureWithCustomFieldsFeatureScreenDefinitionScreenDefinitionControlsScreenDefinitionControl.Required, and is useful for accessing the field via an interface.
+func (v *GetFeatureWithCustomFieldsFeatureScreenDefinitionScreenDefinitionControlsScreenDefinitionControl) GetRequired() bool {
+	return v.Required
+}
+
+// GetCustomFieldDefinition returns GetFeatureWithCustomFieldsFeatureScreenDefinitionScreenDefinitionControlsScreenDefinitionControl.CustomFieldDefinition, and is useful for accessing the field via an interface.
+func (v *GetFeatureWithCustomFieldsFeatureScreenDefinitionScreenDefinitionControlsScreenDefinitionControl) GetCustomFieldDefinition() *GetFeatureWithCustomFieldsFeatureScreenDefinitionScreenDefinitionControlsScreenDefinitionControlCustomFieldDefinition {
+	return v.CustomFieldDefinition
+}
+
+// GetFeatureWithCustomFieldsFeatureScreenDefinitionScreenDefinitionControlsScreenDefinitionControlCustomFieldDefinition includes the requested fields of the GraphQL type CustomFieldDefinition.
+// The GraphQL type's documentation follows.
+//
+// A custom field definition.
+type GetFeatureWithCustomFieldsFeatureScreenDefinitionScreenDefinitionControlsScreenDefinitionControlCustomFieldDefinition struct {
+	Key  string `json:"key"`
+	Name string `json:"name"`
+}
+
+// GetKey returns GetFeatureWithCustomFieldsFeatureScreenDefinitionScreenDefinitionControlsScreenDefinitionControlCustomFieldDefinition.Key, and is useful for accessing the field via an interface.
+func (v *GetFeatureWithCustomFieldsFeatureScreenDefinitionScreenDefinitionControlsScreenDefinitionControlCustomFieldDefinition) GetKey() string {
+	return v.Key
+}
+
+// GetName returns GetFeatureWithCustomFieldsFeatureScreenDefinitionScreenDefinitionControlsScreenDefinitionControlCustomFieldDefinition.Name, and is useful for accessing the field via an interface.
+func (v *GetFeatureWithCustomFieldsFeatureScreenDefinitionScreenDefinitionControlsScreenDefinitionControlCustomFieldDefinition) GetName() string {
+	return v.Name
+}
+
+// GetFeatureWithCustomFieldsResponse is returned by GetFeatureWithCustomFields on success.
+type GetFeatureWithCustomFieldsResponse struct {
+	// Find a feature by its ID
+	Feature GetFeatureWithCustomFieldsFeature `json:"feature"`
+}
+
+// GetFeature returns GetFeatureWithCustomFieldsResponse.Feature, and is useful for accessing the field via an interface.
+func (v *GetFeatureWithCustomFieldsResponse) GetFeature() GetFeatureWithCustomFieldsFeature {
+	return v.Feature
+}
 
 // GetFeatureWithIntegrationsFeature includes the requested fields of the GraphQL type Feature.
 // The GraphQL type's documentation follows.
@@ -1432,6 +1773,115 @@ type GetPageResponse struct {
 
 // GetPage returns GetPageResponse.Page, and is useful for accessing the field via an interface.
 func (v *GetPageResponse) GetPage() GetPagePage { return v.Page }
+
+// GetProjectCustomFieldsProject includes the requested fields of the GraphQL type Project.
+// The GraphQL type's documentation follows.
+//
+// An Aha! workspace or team
+type GetProjectCustomFieldsProject struct {
+	Id string `json:"id"`
+	// The reference prefix for the project or team
+	ReferencePrefix string `json:"referencePrefix"`
+	Name            string `json:"name"`
+	// Custom fields available to this team from its own and parent project screens
+	CustomFieldsRelatedToTeam []GetProjectCustomFieldsProjectCustomFieldsRelatedToTeamCustomFieldDefinition `json:"customFieldsRelatedToTeam"`
+}
+
+// GetId returns GetProjectCustomFieldsProject.Id, and is useful for accessing the field via an interface.
+func (v *GetProjectCustomFieldsProject) GetId() string { return v.Id }
+
+// GetReferencePrefix returns GetProjectCustomFieldsProject.ReferencePrefix, and is useful for accessing the field via an interface.
+func (v *GetProjectCustomFieldsProject) GetReferencePrefix() string { return v.ReferencePrefix }
+
+// GetName returns GetProjectCustomFieldsProject.Name, and is useful for accessing the field via an interface.
+func (v *GetProjectCustomFieldsProject) GetName() string { return v.Name }
+
+// GetCustomFieldsRelatedToTeam returns GetProjectCustomFieldsProject.CustomFieldsRelatedToTeam, and is useful for accessing the field via an interface.
+func (v *GetProjectCustomFieldsProject) GetCustomFieldsRelatedToTeam() []GetProjectCustomFieldsProjectCustomFieldsRelatedToTeamCustomFieldDefinition {
+	return v.CustomFieldsRelatedToTeam
+}
+
+// GetProjectCustomFieldsProjectCustomFieldsRelatedToTeamCustomFieldDefinition includes the requested fields of the GraphQL type CustomFieldDefinition.
+// The GraphQL type's documentation follows.
+//
+// A custom field definition.
+type GetProjectCustomFieldsProjectCustomFieldsRelatedToTeamCustomFieldDefinition struct {
+	Id   string                        `json:"id"`
+	Key  string                        `json:"key"`
+	Name string                        `json:"name"`
+	Type CustomFieldDefinitionTypeEnum `json:"type"`
+	// List of options for choice-based custom fields (empty for non-choice fields)
+	CustomFieldOptions []GetProjectCustomFieldsProjectCustomFieldsRelatedToTeamCustomFieldDefinitionCustomFieldOptionsCustomFieldOption `json:"customFieldOptions"`
+}
+
+// GetId returns GetProjectCustomFieldsProjectCustomFieldsRelatedToTeamCustomFieldDefinition.Id, and is useful for accessing the field via an interface.
+func (v *GetProjectCustomFieldsProjectCustomFieldsRelatedToTeamCustomFieldDefinition) GetId() string {
+	return v.Id
+}
+
+// GetKey returns GetProjectCustomFieldsProjectCustomFieldsRelatedToTeamCustomFieldDefinition.Key, and is useful for accessing the field via an interface.
+func (v *GetProjectCustomFieldsProjectCustomFieldsRelatedToTeamCustomFieldDefinition) GetKey() string {
+	return v.Key
+}
+
+// GetName returns GetProjectCustomFieldsProjectCustomFieldsRelatedToTeamCustomFieldDefinition.Name, and is useful for accessing the field via an interface.
+func (v *GetProjectCustomFieldsProjectCustomFieldsRelatedToTeamCustomFieldDefinition) GetName() string {
+	return v.Name
+}
+
+// GetType returns GetProjectCustomFieldsProjectCustomFieldsRelatedToTeamCustomFieldDefinition.Type, and is useful for accessing the field via an interface.
+func (v *GetProjectCustomFieldsProjectCustomFieldsRelatedToTeamCustomFieldDefinition) GetType() CustomFieldDefinitionTypeEnum {
+	return v.Type
+}
+
+// GetCustomFieldOptions returns GetProjectCustomFieldsProjectCustomFieldsRelatedToTeamCustomFieldDefinition.CustomFieldOptions, and is useful for accessing the field via an interface.
+func (v *GetProjectCustomFieldsProjectCustomFieldsRelatedToTeamCustomFieldDefinition) GetCustomFieldOptions() []GetProjectCustomFieldsProjectCustomFieldsRelatedToTeamCustomFieldDefinitionCustomFieldOptionsCustomFieldOption {
+	return v.CustomFieldOptions
+}
+
+// GetProjectCustomFieldsProjectCustomFieldsRelatedToTeamCustomFieldDefinitionCustomFieldOptionsCustomFieldOption includes the requested fields of the GraphQL type CustomFieldOption.
+// The GraphQL type's documentation follows.
+//
+// A custom field option on a custom field value
+type GetProjectCustomFieldsProjectCustomFieldsRelatedToTeamCustomFieldDefinitionCustomFieldOptionsCustomFieldOption struct {
+	// The ID for the custom field option
+	Id string `json:"id"`
+	// The text value for the option
+	Name *string `json:"name"`
+	// Color of the tag surrounding the option
+	Color *int `json:"color"`
+	// The position of the option within the a list of options
+	Position *int `json:"position"`
+}
+
+// GetId returns GetProjectCustomFieldsProjectCustomFieldsRelatedToTeamCustomFieldDefinitionCustomFieldOptionsCustomFieldOption.Id, and is useful for accessing the field via an interface.
+func (v *GetProjectCustomFieldsProjectCustomFieldsRelatedToTeamCustomFieldDefinitionCustomFieldOptionsCustomFieldOption) GetId() string {
+	return v.Id
+}
+
+// GetName returns GetProjectCustomFieldsProjectCustomFieldsRelatedToTeamCustomFieldDefinitionCustomFieldOptionsCustomFieldOption.Name, and is useful for accessing the field via an interface.
+func (v *GetProjectCustomFieldsProjectCustomFieldsRelatedToTeamCustomFieldDefinitionCustomFieldOptionsCustomFieldOption) GetName() *string {
+	return v.Name
+}
+
+// GetColor returns GetProjectCustomFieldsProjectCustomFieldsRelatedToTeamCustomFieldDefinitionCustomFieldOptionsCustomFieldOption.Color, and is useful for accessing the field via an interface.
+func (v *GetProjectCustomFieldsProjectCustomFieldsRelatedToTeamCustomFieldDefinitionCustomFieldOptionsCustomFieldOption) GetColor() *int {
+	return v.Color
+}
+
+// GetPosition returns GetProjectCustomFieldsProjectCustomFieldsRelatedToTeamCustomFieldDefinitionCustomFieldOptionsCustomFieldOption.Position, and is useful for accessing the field via an interface.
+func (v *GetProjectCustomFieldsProjectCustomFieldsRelatedToTeamCustomFieldDefinitionCustomFieldOptionsCustomFieldOption) GetPosition() *int {
+	return v.Position
+}
+
+// GetProjectCustomFieldsResponse is returned by GetProjectCustomFields on success.
+type GetProjectCustomFieldsResponse struct {
+	// Find a project by its ID
+	Project GetProjectCustomFieldsProject `json:"project"`
+}
+
+// GetProject returns GetProjectCustomFieldsResponse.Project, and is useful for accessing the field via an interface.
+func (v *GetProjectCustomFieldsResponse) GetProject() GetProjectCustomFieldsProject { return v.Project }
 
 // GetProjectProject includes the requested fields of the GraphQL type Project.
 // The GraphQL type's documentation follows.
@@ -2555,6 +3005,30 @@ var AllRecordLinkTypeEnum = []RecordLinkTypeEnum{
 	RecordLinkTypeEnumBuiltAs,
 }
 
+type ScreenableTypeEnum string
+
+const (
+	ScreenableTypeEnumTask        ScreenableTypeEnum = "Task"
+	ScreenableTypeEnumRelease     ScreenableTypeEnum = "Release"
+	ScreenableTypeEnumEpic        ScreenableTypeEnum = "Epic"
+	ScreenableTypeEnumFeature     ScreenableTypeEnum = "Feature"
+	ScreenableTypeEnumGoal        ScreenableTypeEnum = "Goal"
+	ScreenableTypeEnumInitiative  ScreenableTypeEnum = "Initiative"
+	ScreenableTypeEnumIdea        ScreenableTypeEnum = "Idea"
+	ScreenableTypeEnumRequirement ScreenableTypeEnum = "Requirement"
+)
+
+var AllScreenableTypeEnum = []ScreenableTypeEnum{
+	ScreenableTypeEnumTask,
+	ScreenableTypeEnumRelease,
+	ScreenableTypeEnumEpic,
+	ScreenableTypeEnumFeature,
+	ScreenableTypeEnumGoal,
+	ScreenableTypeEnumInitiative,
+	ScreenableTypeEnumIdea,
+	ScreenableTypeEnumRequirement,
+}
+
 // SearchDocumentsResponse is returned by SearchDocuments on success.
 type SearchDocumentsResponse struct {
 	// Perform a search for records
@@ -3155,6 +3629,22 @@ type __GetFeatureInput struct {
 // GetId returns __GetFeatureInput.Id, and is useful for accessing the field via an interface.
 func (v *__GetFeatureInput) GetId() string { return v.Id }
 
+// __GetFeatureScreenDefinitionInput is used internally by genqlient
+type __GetFeatureScreenDefinitionInput struct {
+	Id string `json:"id"`
+}
+
+// GetId returns __GetFeatureScreenDefinitionInput.Id, and is useful for accessing the field via an interface.
+func (v *__GetFeatureScreenDefinitionInput) GetId() string { return v.Id }
+
+// __GetFeatureWithCustomFieldsInput is used internally by genqlient
+type __GetFeatureWithCustomFieldsInput struct {
+	Id string `json:"id"`
+}
+
+// GetId returns __GetFeatureWithCustomFieldsInput.Id, and is useful for accessing the field via an interface.
+func (v *__GetFeatureWithCustomFieldsInput) GetId() string { return v.Id }
+
 // __GetFeatureWithIntegrationsInput is used internally by genqlient
 type __GetFeatureWithIntegrationsInput struct {
 	Id string `json:"id"`
@@ -3206,6 +3696,14 @@ func (v *__GetPageInput) GetId() string { return v.Id }
 
 // GetIncludeParent returns __GetPageInput.IncludeParent, and is useful for accessing the field via an interface.
 func (v *__GetPageInput) GetIncludeParent() bool { return v.IncludeParent }
+
+// __GetProjectCustomFieldsInput is used internally by genqlient
+type __GetProjectCustomFieldsInput struct {
+	Id string `json:"id"`
+}
+
+// GetId returns __GetProjectCustomFieldsInput.Id, and is useful for accessing the field via an interface.
+func (v *__GetProjectCustomFieldsInput) GetId() string { return v.Id }
 
 // __GetProjectInput is used internally by genqlient
 type __GetProjectInput struct {
@@ -3722,6 +4220,112 @@ func GetFeature(
 	return data_, err_
 }
 
+// The query executed by GetFeatureScreenDefinition.
+const GetFeatureScreenDefinition_Operation = `
+query GetFeatureScreenDefinition ($id: ID!) {
+	feature(id: $id) {
+		id
+		referenceNum
+		name
+		screenDefinition {
+			id
+			screenableType
+			screenDefinitionControls {
+				id
+				fieldId
+				required
+				readOnly
+				customFieldDefinition {
+					id
+					key
+					name
+					type
+				}
+			}
+		}
+	}
+}
+`
+
+// Get feature with screen definition (required fields)
+func GetFeatureScreenDefinition(
+	ctx_ context.Context,
+	client_ graphql.Client,
+	id string,
+) (data_ *GetFeatureScreenDefinitionResponse, err_ error) {
+	req_ := &graphql.Request{
+		OpName: "GetFeatureScreenDefinition",
+		Query:  GetFeatureScreenDefinition_Operation,
+		Variables: &__GetFeatureScreenDefinitionInput{
+			Id: id,
+		},
+	}
+
+	data_ = &GetFeatureScreenDefinitionResponse{}
+	resp_ := &graphql.Response{Data: data_}
+
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
+	)
+
+	return data_, err_
+}
+
+// The query executed by GetFeatureWithCustomFields.
+const GetFeatureWithCustomFields_Operation = `
+query GetFeatureWithCustomFields ($id: ID!) {
+	feature(id: $id) {
+		id
+		referenceNum
+		name
+		customFieldValues {
+			id
+			key
+			value
+			humanValue
+		}
+		screenDefinition {
+			screenDefinitionControls {
+				fieldId
+				required
+				customFieldDefinition {
+					key
+					name
+				}
+			}
+		}
+	}
+}
+`
+
+// Get feature with custom field values
+func GetFeatureWithCustomFields(
+	ctx_ context.Context,
+	client_ graphql.Client,
+	id string,
+) (data_ *GetFeatureWithCustomFieldsResponse, err_ error) {
+	req_ := &graphql.Request{
+		OpName: "GetFeatureWithCustomFields",
+		Query:  GetFeatureWithCustomFields_Operation,
+		Variables: &__GetFeatureWithCustomFieldsInput{
+			Id: id,
+		},
+	}
+
+	data_ = &GetFeatureWithCustomFieldsResponse{}
+	resp_ := &graphql.Response{Data: data_}
+
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
+	)
+
+	return data_, err_
+}
+
 // The query executed by GetFeatureWithIntegrations.
 const GetFeatureWithIntegrations_Operation = `
 query GetFeatureWithIntegrations ($id: ID!) {
@@ -4055,6 +4659,55 @@ func GetProject(
 	}
 
 	data_ = &GetProjectResponse{}
+	resp_ := &graphql.Response{Data: data_}
+
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
+	)
+
+	return data_, err_
+}
+
+// The query executed by GetProjectCustomFields.
+const GetProjectCustomFields_Operation = `
+query GetProjectCustomFields ($id: ID!) {
+	project(id: $id) {
+		id
+		referencePrefix
+		name
+		customFieldsRelatedToTeam {
+			id
+			key
+			name
+			type
+			customFieldOptions {
+				id
+				name
+				color
+				position
+			}
+		}
+	}
+}
+`
+
+// Get project custom field definitions (fields available to this team)
+func GetProjectCustomFields(
+	ctx_ context.Context,
+	client_ graphql.Client,
+	id string,
+) (data_ *GetProjectCustomFieldsResponse, err_ error) {
+	req_ := &graphql.Request{
+		OpName: "GetProjectCustomFields",
+		Query:  GetProjectCustomFields_Operation,
+		Variables: &__GetProjectCustomFieldsInput{
+			Id: id,
+		},
+	}
+
+	data_ = &GetProjectCustomFieldsResponse{}
 	resp_ := &graphql.Response{Data: data_}
 
 	err_ = client_.MakeRequest(

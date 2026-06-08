@@ -216,3 +216,74 @@ query GetAccount($id: ID) {
     updatedAt
   }
 }
+
+# Get feature with screen definition (required fields)
+query GetFeatureScreenDefinition($id: ID!) {
+  feature(id: $id) {
+    id
+    referenceNum
+    name
+    screenDefinition {
+      id
+      screenableType
+      screenDefinitionControls {
+        id
+        fieldId
+        required
+        readOnly
+        customFieldDefinition {
+          id
+          key
+          name
+          type
+        }
+      }
+    }
+  }
+}
+
+# Get project custom field definitions (fields available to this team)
+query GetProjectCustomFields($id: ID!) {
+  project(id: $id) {
+    id
+    referencePrefix
+    name
+    customFieldsRelatedToTeam {
+      id
+      key
+      name
+      type
+      customFieldOptions {
+        id
+        name
+        color
+        position
+      }
+    }
+  }
+}
+
+# Get feature with custom field values
+query GetFeatureWithCustomFields($id: ID!) {
+  feature(id: $id) {
+    id
+    referenceNum
+    name
+    customFieldValues {
+      id
+      key
+      value
+      humanValue
+    }
+    screenDefinition {
+      screenDefinitionControls {
+        fieldId
+        required
+        customFieldDefinition {
+          key
+          name
+        }
+      }
+    }
+  }
+}
