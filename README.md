@@ -519,8 +519,66 @@ func main() {
 
 Available operations include:
 
-- **Queries**: `GetFeature`, `GetPage`, `GetIdea`, `GetRelease`, `GetGoal`, `GetEpic`, `GetInitiative`, `GetRequirement`, `GetProject`, `GetAccount`, `SearchDocuments`, `GetFeatureWithIntegrations`, `GetFeatureWithLinks`
-- **Mutations**: `UpdateFeatureName`, `UpdateFeatureDescription`, `UpdateFeatureStatus`, `UpdateFeatureTags`, `AssignFeatureToInitiative`, `AssignFeatureToRelease`, `AssignFeatureToEpic`, `AssignFeatureToUser`, `PromoteIdeaToFeature`, `PromoteIdeaToEpic`, `CreateRecordLink`
+- **Queries**: `GetFeature`, `GetPage`, `GetIdea`, `GetRelease`, `GetGoal`, `GetEpic`, `GetInitiative`, `GetRequirement`, `GetProject`, `GetAccount`, `SearchDocuments`, `GetFeatureWithIntegrations`, `GetFeatureWithLinks`, `GetFeatureScreenDefinition`, `GetProjectCustomFields`, `GetFeatureWithCustomFields`
+- **Mutations**: `UpdateFeatureName`, `UpdateFeatureDescription`, `UpdateFeatureStatus`, `UpdateFeatureTags`, `AssignFeatureToInitiative`, `AssignFeatureToRelease`, `AssignFeatureToEpic`, `AssignFeatureToUser`, `PromoteIdeaToFeature`, `PromoteIdeaToEpic`, `CreateRecordLink`, `CreateFeatureWithRelease`, `CreateFeatureWithProject`, `CreateFeatureWithAssignments`, `CreateIdea`, `SetCustomFieldValues`
+
+### Creating Features and Ideas
+
+```go
+// Create a feature in a release
+resp, err := generated.CreateFeatureWithRelease(ctx, client,
+    "My New Feature",           // name
+    "RELEASE-ID",               // releaseId
+    "<p>Description here</p>",  // description
+    "tag1, tag2",               // tagList
+    nil,                        // skipRequiredFieldsValidation
+)
+fmt.Printf("Created: %s\n", resp.CreateFeature.Feature.ReferenceNum)
+
+// Create an idea
+ideaResp, err := generated.CreateIdea(ctx, client,
+    "New Idea",     // name
+    "PROJECT-ID",   // projectId
+    nil,            // skipRequiredFieldsValidation
+)
+```
+
+### Custom Fields
+
+```go
+// Set custom fields on a feature
+resp, err := generated.SetCustomFieldValues(ctx, client,
+    "FEATURE-ID",
+    generated.CustomFieldableTypeEnumFeature,
+    []generated.CustomFieldValueInput{
+        {Key: "priority_score", Value: 85},
+        {Key: "customer_segment", Value: "Enterprise"},
+    },
+)
+```
+
+### Required Field Validation
+
+Helper functions for discovering and validating required fields:
+
+```go
+import "github.com/grokify/aha-go/graphql"
+
+// Discover required fields for features in a project
+reqs, err := graphql.GetFeatureRequirements(ctx, client, "EXISTING-FEATURE-ID")
+
+// Get list of required field IDs
+requiredIDs := reqs.RequiredFieldIDs()
+
+// Validate that all required fields are provided
+missing := graphql.ValidateRequiredFields(reqs, map[string]any{
+    "name": "Feature Name",
+    "description": "Description",
+})
+if len(missing) > 0 {
+    fmt.Printf("Missing required fields: %v\n", missing)
+}
+```
 
 ### Example Client (Learning Reference)
 
