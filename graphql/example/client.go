@@ -1,5 +1,8 @@
-// Package graphql provides a GraphQL client for the Aha.io GraphQL API.
-package graphql
+// Package example provides a handwritten GraphQL client for the Aha.io API.
+// This package serves as example code for users learning to write GraphQL
+// clients without code generation. For production use, see the generated
+// client in github.com/grokify/aha-go/graphql/generated.
+package example
 
 import (
 	"bytes"

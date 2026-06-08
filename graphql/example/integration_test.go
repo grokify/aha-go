@@ -1,17 +1,17 @@
 //go:build integration
 
-package graphql_test
+package example_test
 
 import (
 	"context"
 	"os"
 	"testing"
 
-	"github.com/grokify/aha-go/graphql"
+	"github.com/grokify/aha-go/graphql/example"
 )
 
 // TestSearchDocumentsIntegration tests the GraphQL search against a real Aha.io account.
-// Run with: go test -tags=integration -v ./graphql/...
+// Run with: go test -tags=integration -v ./graphql/example/...
 //
 // Required environment variables (per official Aha API docs):
 //   - AHA_SUBDOMAIN: Your Aha! subdomain (e.g., "yourcompany" for yourcompany.aha.io)
@@ -27,13 +27,13 @@ func TestSearchDocumentsIntegration(t *testing.T) {
 		t.Skip("AHA_API_KEY not set, skipping integration test")
 	}
 
-	client := graphql.NewClient(subdomain, apiKey)
+	client := example.NewClient(subdomain, apiKey)
 
 	t.Logf("Testing GraphQL endpoint: %s", client.Endpoint())
 
 	// Test search
-	var result graphql.SearchDocumentsResponse
-	err := client.Query(context.Background(), graphql.SearchDocumentsQuery, map[string]any{
+	var result example.SearchDocumentsResponse
+	err := client.Query(context.Background(), example.SearchDocumentsQuery, map[string]any{
 		"query":          "test",
 		"searchableType": []string{"Page"},
 	}, &result)
@@ -64,10 +64,10 @@ func TestSearchDocumentsFeaturesIntegration(t *testing.T) {
 		t.Skip("AHA_API_KEY not set, skipping integration test")
 	}
 
-	client := graphql.NewClient(subdomain, apiKey)
+	client := example.NewClient(subdomain, apiKey)
 
-	var result graphql.SearchDocumentsResponse
-	err := client.Query(context.Background(), graphql.SearchDocumentsQuery, map[string]any{
+	var result example.SearchDocumentsResponse
+	err := client.Query(context.Background(), example.SearchDocumentsQuery, map[string]any{
 		"query":          "feature",
 		"searchableType": []string{"Feature"},
 	}, &result)

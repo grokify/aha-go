@@ -1,4 +1,4 @@
-package graphql
+package example
 
 // SearchDocumentsQuery is the GraphQL query for searching documents.
 const SearchDocumentsQuery = `

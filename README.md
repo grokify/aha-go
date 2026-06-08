@@ -522,14 +522,14 @@ Available operations include:
 - **Queries**: `GetFeature`, `GetPage`, `GetIdea`, `GetRelease`, `GetGoal`, `GetEpic`, `GetInitiative`, `GetRequirement`, `GetProject`, `GetAccount`, `SearchDocuments`, `GetFeatureWithIntegrations`, `GetFeatureWithLinks`
 - **Mutations**: `UpdateFeatureName`, `UpdateFeatureDescription`, `UpdateFeatureStatus`, `UpdateFeatureTags`, `AssignFeatureToInitiative`, `AssignFeatureToRelease`, `AssignFeatureToEpic`, `AssignFeatureToUser`, `PromoteIdeaToFeature`, `PromoteIdeaToEpic`, `CreateRecordLink`
 
-### Manual Client (Reference)
+### Example Client (Learning Reference)
 
-The manual client is provided as reference code for users learning to write GraphQL clients without code generation. For production use, the generated client above is recommended.
+The `graphql/example` package provides a handwritten GraphQL client as reference code for users learning to write GraphQL clients without code generation. For production use, the generated client above is recommended.
 
 ```go
-import "github.com/grokify/aha-go/graphql"
+import "github.com/grokify/aha-go/graphql/example"
 
-client := graphql.NewClient("mycompany", "your-api-key")
+client := example.NewClient("mycompany", "your-api-key")
 
 var result struct {
     Feature struct {
@@ -540,7 +540,7 @@ var result struct {
     } `json:"feature"`
 }
 
-err := client.Query(ctx, graphql.GetFeatureQuery, map[string]any{"id": "FEAT-123"}, &result)
+err := client.Query(ctx, example.GetFeatureQuery, map[string]any{"id": "FEAT-123"}, &result)
 ```
 
 ### Regenerating the GraphQL Client

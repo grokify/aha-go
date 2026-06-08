@@ -7,6 +7,7 @@ import (
 	"os"
 
 	"github.com/grokify/aha-go/graphql"
+	"github.com/grokify/aha-go/graphql/generated"
 	"github.com/spf13/cobra"
 )
 
@@ -33,19 +34,11 @@ func runSearch(cmd *cobra.Command, args []string) error {
 	query := args[0]
 
 	// Use global subdomain and apiKey from root.go (populated by PersistentPreRunE)
-	gqlClient := graphql.NewClient(subdomain, apiKey)
+	gqlClient := graphql.NewGenqlientClient(subdomain, apiKey)
 
-	// Debug: print the endpoint
-	fmt.Fprintf(os.Stderr, "GraphQL endpoint: %s\n", gqlClient.Endpoint())
 	fmt.Fprintf(os.Stderr, "Searching for: %q (type: %s)\n", query, searchType)
 
-	variables := map[string]any{
-		"query":          query,
-		"searchableType": []string{searchType},
-	}
-
-	var result graphql.SearchDocumentsResponse
-	err := gqlClient.Query(context.Background(), graphql.SearchDocumentsQuery, variables, &result)
+	result, err := generated.SearchDocuments(context.Background(), gqlClient, query, []string{searchType})
 	if err != nil {
 		return fmt.Errorf("GraphQL query failed: %w", err)
 	}
@@ -67,11 +60,14 @@ func runSearch(cmd *cobra.Command, args []string) error {
 	fmt.Printf("%-15s %-40s %s\n", "TYPE", "NAME", "URL")
 	fmt.Printf("%-15s %-40s %s\n", "----", "----", "---")
 	for _, node := range result.SearchDocuments.Nodes {
-		name := node.Name
+		name := ""
+		if node.Name != nil {
+			name = *node.Name
+		}
 		if len(name) > 38 {
 			name = name[:35] + "..."
 		}
-		fmt.Printf("%-15s %-40s %s\n", node.SearchableType, name, node.URL)
+		fmt.Printf("%-15s %-40s %s\n", node.SearchableType, name, node.Url)
 	}
 
 	return nil

@@ -1,4 +1,4 @@
-package graphql
+package example
 
 // SearchDocumentsResponse is the response from the searchDocuments query.
 type SearchDocumentsResponse struct {

@@ -1,12 +1,6 @@
-// Package graphql provides GraphQL clients for the Aha.io GraphQL API.
+// Package graphql provides a type-safe GraphQL client for the Aha.io API.
 //
-// This package provides two ways to interact with the Aha.io GraphQL API:
-//
-// 1. Manual client (Client) - A simple client for executing raw GraphQL queries
-// 2. Generated client (via genqlient) - Type-safe generated functions
-//
-// For the generated client, use NewGenqlientClient and the functions in the
-// generated subpackage:
+// Use NewGenqlientClient and the functions in the generated subpackage:
 //
 //	import (
 //		"github.com/grokify/aha-go/graphql"
@@ -16,11 +10,8 @@
 //	client := graphql.NewGenqlientClient("mycompany", "api-key")
 //	resp, err := generated.GetFeature(ctx, client, "FEAT-123")
 //
-// For the manual client, use NewClient and the Query method:
-//
-//	client := graphql.NewClient("mycompany", "api-key")
-//	var result MyResponse
-//	err := client.Query(ctx, myQuery, variables, &result)
+// For example code showing how to write a GraphQL client without code
+// generation, see the github.com/grokify/aha-go/graphql/example package.
 package graphql
 
 import (
