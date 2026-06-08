@@ -1199,6 +1199,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tests
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#documentation" class="md-nav__link">
     <span class="md-ellipsis">
       Documentation
@@ -1391,6 +1400,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tests
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#documentation" class="md-nav__link">
     <span class="md-ellipsis">
       Documentation
@@ -1496,6 +1514,10 @@
 <td>Testing support</td>
 <td><code>SetEndpoint()</code> method for mock server testing</td>
 </tr>
+<tr>
+<td>Schema</td>
+<td>Full GraphQL schema definition (8937 lines) via introspection</td>
+</tr>
 </tbody>
 </table>
 <h3 id="predefined-queries">Predefined Queries<a class="headerlink" href="#predefined-queries" title="Permanent link">&para;</a></h3>
@@ -1514,6 +1536,12 @@
 <h2 id="bug-fixes">Bug Fixes<a class="headerlink" href="#bug-fixes" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Resolved golangci-lint errors (G306, G704, G115, dupl, gofmt) across multiple files</li>
+<li>Fixed GraphQL API endpoint to use correct path <code>/api/v2/graphql</code></li>
+</ul>
+<h2 id="tests">Tests<a class="headerlink" href="#tests" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Comprehensive unit tests for GraphQL client with mock HTTP server</li>
+<li>Integration test for GraphQL introspection API</li>
 </ul>
 <h2 id="documentation">Documentation<a class="headerlink" href="#documentation" title="Permanent link">&para;</a></h2>
 <ul>
