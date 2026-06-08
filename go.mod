@@ -7,6 +7,7 @@ require (
 	github.com/go-faster/errors v0.7.1
 	github.com/go-faster/jx v1.2.0
 	github.com/go-rod/rod v0.116.2
+	github.com/grokify/goauth v0.23.30
 	github.com/grokify/prism-roadmap v0.14.0
 	github.com/ogen-go/ogen v1.20.3
 	github.com/spf13/cobra v1.10.2
@@ -33,7 +34,6 @@ require (
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/googleapis/enterprise-certificate-proxy v0.3.15 // indirect
 	github.com/googleapis/gax-go/v2 v2.22.0 // indirect
-	github.com/grokify/goauth v0.23.30 // indirect
 	github.com/grokify/mogo v0.74.4 // indirect
 	github.com/grokify/priority-frameworks v0.2.0 // indirect
 	github.com/grokify/prism-core v0.2.0 // indirect
