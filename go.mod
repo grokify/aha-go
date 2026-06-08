@@ -3,6 +3,7 @@ module github.com/grokify/aha-go
 go 1.25.0
 
 require (
+	github.com/Khan/genqlient v0.8.1
 	github.com/go-faster/errors v0.7.1
 	github.com/go-faster/jx v1.2.0
 	github.com/go-rod/rod v0.116.2
@@ -32,6 +33,7 @@ require (
 	github.com/segmentio/asm v1.2.1 // indirect
 	github.com/shopspring/decimal v1.4.0 // indirect
 	github.com/spf13/pflag v1.0.10 // indirect
+	github.com/vektah/gqlparser/v2 v2.5.19 // indirect
 	github.com/ysmood/fetchup v0.2.4 // indirect
 	github.com/ysmood/goob v0.4.0 // indirect
 	github.com/ysmood/got v0.41.0 // indirect
