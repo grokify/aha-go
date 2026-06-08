@@ -15,6 +15,10 @@ import (
 
 // TestIntrospection tests if the Aha.io GraphQL API supports introspection.
 // Run with: go test -tags=integration -v -run TestIntrospection ./graphql/...
+//
+// Required environment variables (per official Aha API docs):
+//   - AHA_SUBDOMAIN: Your Aha! subdomain (e.g., "yourcompany" for yourcompany.aha.io)
+//   - AHA_API_KEY: Your Aha! API key
 func TestIntrospection(t *testing.T) {
 	subdomain := os.Getenv("AHA_SUBDOMAIN")
 	if subdomain == "" {

@@ -1,4 +1,4 @@
-// +build integration
+//go:build integration
 
 package graphql_test
 
@@ -13,9 +13,9 @@ import (
 // TestSearchDocumentsIntegration tests the GraphQL search against a real Aha.io account.
 // Run with: go test -tags=integration -v ./graphql/...
 //
-// Required environment variables:
-//   - AHA_SUBDOMAIN: Your Aha.io subdomain
-//   - AHA_API_KEY: Your Aha.io API key
+// Required environment variables (per official Aha API docs):
+//   - AHA_SUBDOMAIN: Your Aha! subdomain (e.g., "yourcompany" for yourcompany.aha.io)
+//   - AHA_API_KEY: Your Aha! API key
 func TestSearchDocumentsIntegration(t *testing.T) {
 	subdomain := os.Getenv("AHA_SUBDOMAIN")
 	if subdomain == "" {
