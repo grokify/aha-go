@@ -92,7 +92,8 @@ func (c *Client) APIKey() string {
 }
 
 // DoRaw performs a raw HTTP request to the Aha API.
-// The path should be a relative path like "/api/v1/features/123".
+// The path should be a relative path like "/features/123" (without /api/v1 prefix,
+// since BaseURL() already includes /api/v1).
 // This is useful for API operations not yet covered by typed methods.
 func (c *Client) DoRaw(ctx context.Context, method, path string, body []byte) (*http.Response, error) {
 	url := c.BaseURL() + path
