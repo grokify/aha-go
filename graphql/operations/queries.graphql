@@ -62,6 +62,14 @@ query GetFeature($id: ID!) {
       name
       email
     }
+    release {
+      id
+      referenceNum
+      name
+      releaseDate
+      startOn
+      releasedOn
+    }
     createdAt
     updatedAt
     dueDate
@@ -100,8 +108,37 @@ query GetProject($id: ID!) {
     id
     referencePrefix
     name
+    workspaceType
     createdAt
     updatedAt
+  }
+}
+
+# List projects/products (workspaces and teams)
+query ListProjects($page: Int, $per: Int, $teams: Boolean, $parentId: ID) {
+  projects(
+    filters: { teams: $teams, parentId: $parentId }
+    page: $page
+    per: $per
+  ) {
+    currentPage
+    totalCount
+    totalPages
+    isLastPage
+    nodes {
+      id
+      referencePrefix
+      name
+      workspaceType
+      isTeam
+      createdAt
+      updatedAt
+      parent {
+        id
+        referencePrefix
+        name
+      }
+    }
   }
 }
 
@@ -285,5 +322,89 @@ query GetFeatureWithCustomFields($id: ID!) {
         }
       }
     }
+  }
+}
+
+# List features for a project/product with release info
+# Supports filtering by release ID, pagination, and ordering by position (rank)
+query ListFeatures($projectId: ID!, $page: Int, $per: Int, $releaseId: ID, $orderBy: [FeatureOrderClause!]) {
+  features(
+    filters: { projectId: $projectId, releaseId: $releaseId }
+    order: $orderBy
+    page: $page
+    per: $per
+  ) {
+    nodes {
+      id
+      referenceNum
+      name
+      position
+      tagList
+      project {
+        id
+        name
+        referencePrefix
+      }
+      workflowStatus {
+        id
+        name
+        color
+      }
+      assignedToUser {
+        id
+        name
+        email
+      }
+      release {
+        id
+        referenceNum
+        name
+        releaseDate
+        startOn
+        releasedOn
+      }
+      createdAt
+      updatedAt
+      dueDate
+      startDate
+    }
+    currentPage
+    totalPages
+    totalCount
+    isLastPage
+  }
+}
+
+# List features by release date range
+# Useful for finding features in releases with specific dates
+query ListFeaturesByReleaseDate($projectId: ID!, $page: Int, $per: Int) {
+  features(
+    filters: { projectId: $projectId }
+    page: $page
+    per: $per
+  ) {
+    nodes {
+      id
+      referenceNum
+      name
+      workflowStatus {
+        id
+        name
+      }
+      release {
+        id
+        referenceNum
+        name
+        releaseDate
+        startOn
+        releasedOn
+      }
+      createdAt
+      updatedAt
+    }
+    currentPage
+    totalPages
+    totalCount
+    isLastPage
   }
 }

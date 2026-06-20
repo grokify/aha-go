@@ -1,6 +1,25 @@
 # Aha.io GraphQL Mutations
 # Write operations for aha-go
 
+# Update project/product name
+mutation UpdateProjectName($id: ID!, $name: String!) {
+  updateProject(id: $id, attributes: { name: $name }) {
+    project {
+      id
+      referencePrefix
+      name
+      workspaceType
+      updatedAt
+    }
+    errors {
+      attributes {
+        name
+        fullMessages
+      }
+    }
+  }
+}
+
 # Update feature name
 mutation UpdateFeatureName($id: ID!, $name: String!) {
   updateFeature(id: $id, attributes: { name: $name }) {

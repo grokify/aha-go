@@ -1512,6 +1512,42 @@ var AllCustomFieldableTypeEnum = []CustomFieldableTypeEnum{
 	CustomFieldableTypeEnumIdeaorganization,
 }
 
+type FeatureOrder string
+
+const (
+	// Record position on the workflow board
+	FeatureOrderWorkflowboardposition FeatureOrder = "workflowBoardPosition"
+	// Created date
+	FeatureOrderCreatedat FeatureOrder = "createdAt"
+	// Updated at date
+	FeatureOrderUpdatedat FeatureOrder = "updatedAt"
+	// Generic record position
+	FeatureOrderPosition FeatureOrder = "position"
+	// By release in feature board position order, and then by generic record position
+	FeatureOrderFeatureboardposition FeatureOrder = "featureBoardPosition"
+)
+
+var AllFeatureOrder = []FeatureOrder{
+	FeatureOrderWorkflowboardposition,
+	FeatureOrderCreatedat,
+	FeatureOrderUpdatedat,
+	FeatureOrderPosition,
+	FeatureOrderFeatureboardposition,
+}
+
+type FeatureOrderClause struct {
+	// Sort direction
+	Direction OrderDirection `json:"direction"`
+	// Sort type
+	Name FeatureOrder `json:"name"`
+}
+
+// GetDirection returns FeatureOrderClause.Direction, and is useful for accessing the field via an interface.
+func (v *FeatureOrderClause) GetDirection() OrderDirection { return v.Direction }
+
+// GetName returns FeatureOrderClause.Name, and is useful for accessing the field via an interface.
+func (v *FeatureOrderClause) GetName() FeatureOrder { return v.Name }
+
 // GetAccountAccount includes the requested fields of the GraphQL type Account.
 // The GraphQL type's documentation follows.
 //
@@ -1642,10 +1678,12 @@ type GetFeatureFeature struct {
 	// Current overall workflow status
 	WorkflowStatus GetFeatureFeatureWorkflowStatus  `json:"workflowStatus"`
 	AssignedToUser *GetFeatureFeatureAssignedToUser `json:"assignedToUser"`
-	CreatedAt      time.Time                        `json:"createdAt"`
-	UpdatedAt      time.Time                        `json:"updatedAt"`
-	DueDate        *string                          `json:"dueDate"`
-	StartDate      *string                          `json:"startDate"`
+	// Release this feature belongs to
+	Release   GetFeatureFeatureRelease `json:"release"`
+	CreatedAt time.Time                `json:"createdAt"`
+	UpdatedAt time.Time                `json:"updatedAt"`
+	DueDate   *string                  `json:"dueDate"`
+	StartDate *string                  `json:"startDate"`
 }
 
 // GetId returns GetFeatureFeature.Id, and is useful for accessing the field via an interface.
@@ -1669,6 +1707,9 @@ func (v *GetFeatureFeature) GetWorkflowStatus() GetFeatureFeatureWorkflowStatus 
 func (v *GetFeatureFeature) GetAssignedToUser() *GetFeatureFeatureAssignedToUser {
 	return v.AssignedToUser
 }
+
+// GetRelease returns GetFeatureFeature.Release, and is useful for accessing the field via an interface.
+func (v *GetFeatureFeature) GetRelease() GetFeatureFeatureRelease { return v.Release }
 
 // GetCreatedAt returns GetFeatureFeature.CreatedAt, and is useful for accessing the field via an interface.
 func (v *GetFeatureFeature) GetCreatedAt() time.Time { return v.CreatedAt }
@@ -1710,6 +1751,38 @@ func (v *GetFeatureFeatureDescriptionNote) GetHtmlBody() string { return v.HtmlB
 
 // GetMarkdownBody returns GetFeatureFeatureDescriptionNote.MarkdownBody, and is useful for accessing the field via an interface.
 func (v *GetFeatureFeatureDescriptionNote) GetMarkdownBody() string { return v.MarkdownBody }
+
+// GetFeatureFeatureRelease includes the requested fields of the GraphQL type Release.
+// The GraphQL type's documentation follows.
+//
+// A group of records with a release date or theme
+type GetFeatureFeatureRelease struct {
+	Id string `json:"id"`
+	// Reference number of the record. Example: DEV-123
+	ReferenceNum string  `json:"referenceNum"`
+	Name         string  `json:"name"`
+	ReleaseDate  *string `json:"releaseDate"`
+	StartOn      *string `json:"startOn"`
+	ReleasedOn   *string `json:"releasedOn"`
+}
+
+// GetId returns GetFeatureFeatureRelease.Id, and is useful for accessing the field via an interface.
+func (v *GetFeatureFeatureRelease) GetId() string { return v.Id }
+
+// GetReferenceNum returns GetFeatureFeatureRelease.ReferenceNum, and is useful for accessing the field via an interface.
+func (v *GetFeatureFeatureRelease) GetReferenceNum() string { return v.ReferenceNum }
+
+// GetName returns GetFeatureFeatureRelease.Name, and is useful for accessing the field via an interface.
+func (v *GetFeatureFeatureRelease) GetName() string { return v.Name }
+
+// GetReleaseDate returns GetFeatureFeatureRelease.ReleaseDate, and is useful for accessing the field via an interface.
+func (v *GetFeatureFeatureRelease) GetReleaseDate() *string { return v.ReleaseDate }
+
+// GetStartOn returns GetFeatureFeatureRelease.StartOn, and is useful for accessing the field via an interface.
+func (v *GetFeatureFeatureRelease) GetStartOn() *string { return v.StartOn }
+
+// GetReleasedOn returns GetFeatureFeatureRelease.ReleasedOn, and is useful for accessing the field via an interface.
+func (v *GetFeatureFeatureRelease) GetReleasedOn() *string { return v.ReleasedOn }
 
 // GetFeatureFeatureWorkflowStatus includes the requested fields of the GraphQL type WorkflowStatus.
 // The GraphQL type's documentation follows.
@@ -2724,10 +2797,12 @@ func (v *GetProjectCustomFieldsResponse) GetProject() GetProjectCustomFieldsProj
 type GetProjectProject struct {
 	Id string `json:"id"`
 	// The reference prefix for the project or team
-	ReferencePrefix string    `json:"referencePrefix"`
-	Name            string    `json:"name"`
-	CreatedAt       time.Time `json:"createdAt"`
-	UpdatedAt       time.Time `json:"updatedAt"`
+	ReferencePrefix string `json:"referencePrefix"`
+	Name            string `json:"name"`
+	// The type of workspace (product_workspace, it_workspace, marketing_workspace, etc.)
+	WorkspaceType string    `json:"workspaceType"`
+	CreatedAt     time.Time `json:"createdAt"`
+	UpdatedAt     time.Time `json:"updatedAt"`
 }
 
 // GetId returns GetProjectProject.Id, and is useful for accessing the field via an interface.
@@ -2738,6 +2813,9 @@ func (v *GetProjectProject) GetReferencePrefix() string { return v.ReferencePref
 
 // GetName returns GetProjectProject.Name, and is useful for accessing the field via an interface.
 func (v *GetProjectProject) GetName() string { return v.Name }
+
+// GetWorkspaceType returns GetProjectProject.WorkspaceType, and is useful for accessing the field via an interface.
+func (v *GetProjectProject) GetWorkspaceType() string { return v.WorkspaceType }
 
 // GetCreatedAt returns GetProjectProject.CreatedAt, and is useful for accessing the field via an interface.
 func (v *GetProjectProject) GetCreatedAt() time.Time { return v.CreatedAt }
@@ -2996,6 +3074,487 @@ var AllLinkableRecordTypesEnum = []LinkableRecordTypesEnum{
 	LinkableRecordTypesEnumDiscoveryfile,
 	LinkableRecordTypesEnumTask,
 	LinkableRecordTypesEnumBuilderapplication,
+}
+
+// ListFeaturesByReleaseDateFeaturesFeaturePage includes the requested fields of the GraphQL type FeaturePage.
+// The GraphQL type's documentation follows.
+//
+// A single page of Features
+type ListFeaturesByReleaseDateFeaturesFeaturePage struct {
+	Nodes       []ListFeaturesByReleaseDateFeaturesFeaturePageNodesFeature `json:"nodes"`
+	CurrentPage int                                                        `json:"currentPage"`
+	TotalPages  int                                                        `json:"totalPages"`
+	TotalCount  int                                                        `json:"totalCount"`
+	IsLastPage  bool                                                       `json:"isLastPage"`
+}
+
+// GetNodes returns ListFeaturesByReleaseDateFeaturesFeaturePage.Nodes, and is useful for accessing the field via an interface.
+func (v *ListFeaturesByReleaseDateFeaturesFeaturePage) GetNodes() []ListFeaturesByReleaseDateFeaturesFeaturePageNodesFeature {
+	return v.Nodes
+}
+
+// GetCurrentPage returns ListFeaturesByReleaseDateFeaturesFeaturePage.CurrentPage, and is useful for accessing the field via an interface.
+func (v *ListFeaturesByReleaseDateFeaturesFeaturePage) GetCurrentPage() int { return v.CurrentPage }
+
+// GetTotalPages returns ListFeaturesByReleaseDateFeaturesFeaturePage.TotalPages, and is useful for accessing the field via an interface.
+func (v *ListFeaturesByReleaseDateFeaturesFeaturePage) GetTotalPages() int { return v.TotalPages }
+
+// GetTotalCount returns ListFeaturesByReleaseDateFeaturesFeaturePage.TotalCount, and is useful for accessing the field via an interface.
+func (v *ListFeaturesByReleaseDateFeaturesFeaturePage) GetTotalCount() int { return v.TotalCount }
+
+// GetIsLastPage returns ListFeaturesByReleaseDateFeaturesFeaturePage.IsLastPage, and is useful for accessing the field via an interface.
+func (v *ListFeaturesByReleaseDateFeaturesFeaturePage) GetIsLastPage() bool { return v.IsLastPage }
+
+// ListFeaturesByReleaseDateFeaturesFeaturePageNodesFeature includes the requested fields of the GraphQL type Feature.
+// The GraphQL type's documentation follows.
+//
+// A basic record representing work to be done
+type ListFeaturesByReleaseDateFeaturesFeaturePageNodesFeature struct {
+	Id string `json:"id"`
+	// Reference number of the record. Example: DEV-123
+	ReferenceNum string `json:"referenceNum"`
+	Name         string `json:"name"`
+	// Current overall workflow status
+	WorkflowStatus ListFeaturesByReleaseDateFeaturesFeaturePageNodesFeatureWorkflowStatus `json:"workflowStatus"`
+	// Release this feature belongs to
+	Release   ListFeaturesByReleaseDateFeaturesFeaturePageNodesFeatureRelease `json:"release"`
+	CreatedAt time.Time                                                       `json:"createdAt"`
+	UpdatedAt time.Time                                                       `json:"updatedAt"`
+}
+
+// GetId returns ListFeaturesByReleaseDateFeaturesFeaturePageNodesFeature.Id, and is useful for accessing the field via an interface.
+func (v *ListFeaturesByReleaseDateFeaturesFeaturePageNodesFeature) GetId() string { return v.Id }
+
+// GetReferenceNum returns ListFeaturesByReleaseDateFeaturesFeaturePageNodesFeature.ReferenceNum, and is useful for accessing the field via an interface.
+func (v *ListFeaturesByReleaseDateFeaturesFeaturePageNodesFeature) GetReferenceNum() string {
+	return v.ReferenceNum
+}
+
+// GetName returns ListFeaturesByReleaseDateFeaturesFeaturePageNodesFeature.Name, and is useful for accessing the field via an interface.
+func (v *ListFeaturesByReleaseDateFeaturesFeaturePageNodesFeature) GetName() string { return v.Name }
+
+// GetWorkflowStatus returns ListFeaturesByReleaseDateFeaturesFeaturePageNodesFeature.WorkflowStatus, and is useful for accessing the field via an interface.
+func (v *ListFeaturesByReleaseDateFeaturesFeaturePageNodesFeature) GetWorkflowStatus() ListFeaturesByReleaseDateFeaturesFeaturePageNodesFeatureWorkflowStatus {
+	return v.WorkflowStatus
+}
+
+// GetRelease returns ListFeaturesByReleaseDateFeaturesFeaturePageNodesFeature.Release, and is useful for accessing the field via an interface.
+func (v *ListFeaturesByReleaseDateFeaturesFeaturePageNodesFeature) GetRelease() ListFeaturesByReleaseDateFeaturesFeaturePageNodesFeatureRelease {
+	return v.Release
+}
+
+// GetCreatedAt returns ListFeaturesByReleaseDateFeaturesFeaturePageNodesFeature.CreatedAt, and is useful for accessing the field via an interface.
+func (v *ListFeaturesByReleaseDateFeaturesFeaturePageNodesFeature) GetCreatedAt() time.Time {
+	return v.CreatedAt
+}
+
+// GetUpdatedAt returns ListFeaturesByReleaseDateFeaturesFeaturePageNodesFeature.UpdatedAt, and is useful for accessing the field via an interface.
+func (v *ListFeaturesByReleaseDateFeaturesFeaturePageNodesFeature) GetUpdatedAt() time.Time {
+	return v.UpdatedAt
+}
+
+// ListFeaturesByReleaseDateFeaturesFeaturePageNodesFeatureRelease includes the requested fields of the GraphQL type Release.
+// The GraphQL type's documentation follows.
+//
+// A group of records with a release date or theme
+type ListFeaturesByReleaseDateFeaturesFeaturePageNodesFeatureRelease struct {
+	Id string `json:"id"`
+	// Reference number of the record. Example: DEV-123
+	ReferenceNum string  `json:"referenceNum"`
+	Name         string  `json:"name"`
+	ReleaseDate  *string `json:"releaseDate"`
+	StartOn      *string `json:"startOn"`
+	ReleasedOn   *string `json:"releasedOn"`
+}
+
+// GetId returns ListFeaturesByReleaseDateFeaturesFeaturePageNodesFeatureRelease.Id, and is useful for accessing the field via an interface.
+func (v *ListFeaturesByReleaseDateFeaturesFeaturePageNodesFeatureRelease) GetId() string { return v.Id }
+
+// GetReferenceNum returns ListFeaturesByReleaseDateFeaturesFeaturePageNodesFeatureRelease.ReferenceNum, and is useful for accessing the field via an interface.
+func (v *ListFeaturesByReleaseDateFeaturesFeaturePageNodesFeatureRelease) GetReferenceNum() string {
+	return v.ReferenceNum
+}
+
+// GetName returns ListFeaturesByReleaseDateFeaturesFeaturePageNodesFeatureRelease.Name, and is useful for accessing the field via an interface.
+func (v *ListFeaturesByReleaseDateFeaturesFeaturePageNodesFeatureRelease) GetName() string {
+	return v.Name
+}
+
+// GetReleaseDate returns ListFeaturesByReleaseDateFeaturesFeaturePageNodesFeatureRelease.ReleaseDate, and is useful for accessing the field via an interface.
+func (v *ListFeaturesByReleaseDateFeaturesFeaturePageNodesFeatureRelease) GetReleaseDate() *string {
+	return v.ReleaseDate
+}
+
+// GetStartOn returns ListFeaturesByReleaseDateFeaturesFeaturePageNodesFeatureRelease.StartOn, and is useful for accessing the field via an interface.
+func (v *ListFeaturesByReleaseDateFeaturesFeaturePageNodesFeatureRelease) GetStartOn() *string {
+	return v.StartOn
+}
+
+// GetReleasedOn returns ListFeaturesByReleaseDateFeaturesFeaturePageNodesFeatureRelease.ReleasedOn, and is useful for accessing the field via an interface.
+func (v *ListFeaturesByReleaseDateFeaturesFeaturePageNodesFeatureRelease) GetReleasedOn() *string {
+	return v.ReleasedOn
+}
+
+// ListFeaturesByReleaseDateFeaturesFeaturePageNodesFeatureWorkflowStatus includes the requested fields of the GraphQL type WorkflowStatus.
+// The GraphQL type's documentation follows.
+//
+// A single status within a workflow
+type ListFeaturesByReleaseDateFeaturesFeaturePageNodesFeatureWorkflowStatus struct {
+	Id   string `json:"id"`
+	Name string `json:"name"`
+}
+
+// GetId returns ListFeaturesByReleaseDateFeaturesFeaturePageNodesFeatureWorkflowStatus.Id, and is useful for accessing the field via an interface.
+func (v *ListFeaturesByReleaseDateFeaturesFeaturePageNodesFeatureWorkflowStatus) GetId() string {
+	return v.Id
+}
+
+// GetName returns ListFeaturesByReleaseDateFeaturesFeaturePageNodesFeatureWorkflowStatus.Name, and is useful for accessing the field via an interface.
+func (v *ListFeaturesByReleaseDateFeaturesFeaturePageNodesFeatureWorkflowStatus) GetName() string {
+	return v.Name
+}
+
+// ListFeaturesByReleaseDateResponse is returned by ListFeaturesByReleaseDate on success.
+type ListFeaturesByReleaseDateResponse struct {
+	// List all features in a release, project or program increment
+	Features ListFeaturesByReleaseDateFeaturesFeaturePage `json:"features"`
+}
+
+// GetFeatures returns ListFeaturesByReleaseDateResponse.Features, and is useful for accessing the field via an interface.
+func (v *ListFeaturesByReleaseDateResponse) GetFeatures() ListFeaturesByReleaseDateFeaturesFeaturePage {
+	return v.Features
+}
+
+// ListFeaturesFeaturesFeaturePage includes the requested fields of the GraphQL type FeaturePage.
+// The GraphQL type's documentation follows.
+//
+// A single page of Features
+type ListFeaturesFeaturesFeaturePage struct {
+	Nodes       []ListFeaturesFeaturesFeaturePageNodesFeature `json:"nodes"`
+	CurrentPage int                                           `json:"currentPage"`
+	TotalPages  int                                           `json:"totalPages"`
+	TotalCount  int                                           `json:"totalCount"`
+	IsLastPage  bool                                          `json:"isLastPage"`
+}
+
+// GetNodes returns ListFeaturesFeaturesFeaturePage.Nodes, and is useful for accessing the field via an interface.
+func (v *ListFeaturesFeaturesFeaturePage) GetNodes() []ListFeaturesFeaturesFeaturePageNodesFeature {
+	return v.Nodes
+}
+
+// GetCurrentPage returns ListFeaturesFeaturesFeaturePage.CurrentPage, and is useful for accessing the field via an interface.
+func (v *ListFeaturesFeaturesFeaturePage) GetCurrentPage() int { return v.CurrentPage }
+
+// GetTotalPages returns ListFeaturesFeaturesFeaturePage.TotalPages, and is useful for accessing the field via an interface.
+func (v *ListFeaturesFeaturesFeaturePage) GetTotalPages() int { return v.TotalPages }
+
+// GetTotalCount returns ListFeaturesFeaturesFeaturePage.TotalCount, and is useful for accessing the field via an interface.
+func (v *ListFeaturesFeaturesFeaturePage) GetTotalCount() int { return v.TotalCount }
+
+// GetIsLastPage returns ListFeaturesFeaturesFeaturePage.IsLastPage, and is useful for accessing the field via an interface.
+func (v *ListFeaturesFeaturesFeaturePage) GetIsLastPage() bool { return v.IsLastPage }
+
+// ListFeaturesFeaturesFeaturePageNodesFeature includes the requested fields of the GraphQL type Feature.
+// The GraphQL type's documentation follows.
+//
+// A basic record representing work to be done
+type ListFeaturesFeaturesFeaturePageNodesFeature struct {
+	Id string `json:"id"`
+	// Reference number of the record. Example: DEV-123
+	ReferenceNum string `json:"referenceNum"`
+	Name         string `json:"name"`
+	// Position of the feature when a record_position does not apply
+	Position int `json:"position"`
+	// Comma-separated list of tag names
+	TagList string `json:"tagList"`
+	// Project this feature belongs to
+	Project ListFeaturesFeaturesFeaturePageNodesFeatureProject `json:"project"`
+	// Current overall workflow status
+	WorkflowStatus ListFeaturesFeaturesFeaturePageNodesFeatureWorkflowStatus  `json:"workflowStatus"`
+	AssignedToUser *ListFeaturesFeaturesFeaturePageNodesFeatureAssignedToUser `json:"assignedToUser"`
+	// Release this feature belongs to
+	Release   ListFeaturesFeaturesFeaturePageNodesFeatureRelease `json:"release"`
+	CreatedAt time.Time                                          `json:"createdAt"`
+	UpdatedAt time.Time                                          `json:"updatedAt"`
+	DueDate   *string                                            `json:"dueDate"`
+	StartDate *string                                            `json:"startDate"`
+}
+
+// GetId returns ListFeaturesFeaturesFeaturePageNodesFeature.Id, and is useful for accessing the field via an interface.
+func (v *ListFeaturesFeaturesFeaturePageNodesFeature) GetId() string { return v.Id }
+
+// GetReferenceNum returns ListFeaturesFeaturesFeaturePageNodesFeature.ReferenceNum, and is useful for accessing the field via an interface.
+func (v *ListFeaturesFeaturesFeaturePageNodesFeature) GetReferenceNum() string { return v.ReferenceNum }
+
+// GetName returns ListFeaturesFeaturesFeaturePageNodesFeature.Name, and is useful for accessing the field via an interface.
+func (v *ListFeaturesFeaturesFeaturePageNodesFeature) GetName() string { return v.Name }
+
+// GetPosition returns ListFeaturesFeaturesFeaturePageNodesFeature.Position, and is useful for accessing the field via an interface.
+func (v *ListFeaturesFeaturesFeaturePageNodesFeature) GetPosition() int { return v.Position }
+
+// GetTagList returns ListFeaturesFeaturesFeaturePageNodesFeature.TagList, and is useful for accessing the field via an interface.
+func (v *ListFeaturesFeaturesFeaturePageNodesFeature) GetTagList() string { return v.TagList }
+
+// GetProject returns ListFeaturesFeaturesFeaturePageNodesFeature.Project, and is useful for accessing the field via an interface.
+func (v *ListFeaturesFeaturesFeaturePageNodesFeature) GetProject() ListFeaturesFeaturesFeaturePageNodesFeatureProject {
+	return v.Project
+}
+
+// GetWorkflowStatus returns ListFeaturesFeaturesFeaturePageNodesFeature.WorkflowStatus, and is useful for accessing the field via an interface.
+func (v *ListFeaturesFeaturesFeaturePageNodesFeature) GetWorkflowStatus() ListFeaturesFeaturesFeaturePageNodesFeatureWorkflowStatus {
+	return v.WorkflowStatus
+}
+
+// GetAssignedToUser returns ListFeaturesFeaturesFeaturePageNodesFeature.AssignedToUser, and is useful for accessing the field via an interface.
+func (v *ListFeaturesFeaturesFeaturePageNodesFeature) GetAssignedToUser() *ListFeaturesFeaturesFeaturePageNodesFeatureAssignedToUser {
+	return v.AssignedToUser
+}
+
+// GetRelease returns ListFeaturesFeaturesFeaturePageNodesFeature.Release, and is useful for accessing the field via an interface.
+func (v *ListFeaturesFeaturesFeaturePageNodesFeature) GetRelease() ListFeaturesFeaturesFeaturePageNodesFeatureRelease {
+	return v.Release
+}
+
+// GetCreatedAt returns ListFeaturesFeaturesFeaturePageNodesFeature.CreatedAt, and is useful for accessing the field via an interface.
+func (v *ListFeaturesFeaturesFeaturePageNodesFeature) GetCreatedAt() time.Time { return v.CreatedAt }
+
+// GetUpdatedAt returns ListFeaturesFeaturesFeaturePageNodesFeature.UpdatedAt, and is useful for accessing the field via an interface.
+func (v *ListFeaturesFeaturesFeaturePageNodesFeature) GetUpdatedAt() time.Time { return v.UpdatedAt }
+
+// GetDueDate returns ListFeaturesFeaturesFeaturePageNodesFeature.DueDate, and is useful for accessing the field via an interface.
+func (v *ListFeaturesFeaturesFeaturePageNodesFeature) GetDueDate() *string { return v.DueDate }
+
+// GetStartDate returns ListFeaturesFeaturesFeaturePageNodesFeature.StartDate, and is useful for accessing the field via an interface.
+func (v *ListFeaturesFeaturesFeaturePageNodesFeature) GetStartDate() *string { return v.StartDate }
+
+// ListFeaturesFeaturesFeaturePageNodesFeatureAssignedToUser includes the requested fields of the GraphQL type User.
+type ListFeaturesFeaturesFeaturePageNodesFeatureAssignedToUser struct {
+	Id    *string `json:"id"`
+	Name  string  `json:"name"`
+	Email *string `json:"email"`
+}
+
+// GetId returns ListFeaturesFeaturesFeaturePageNodesFeatureAssignedToUser.Id, and is useful for accessing the field via an interface.
+func (v *ListFeaturesFeaturesFeaturePageNodesFeatureAssignedToUser) GetId() *string { return v.Id }
+
+// GetName returns ListFeaturesFeaturesFeaturePageNodesFeatureAssignedToUser.Name, and is useful for accessing the field via an interface.
+func (v *ListFeaturesFeaturesFeaturePageNodesFeatureAssignedToUser) GetName() string { return v.Name }
+
+// GetEmail returns ListFeaturesFeaturesFeaturePageNodesFeatureAssignedToUser.Email, and is useful for accessing the field via an interface.
+func (v *ListFeaturesFeaturesFeaturePageNodesFeatureAssignedToUser) GetEmail() *string {
+	return v.Email
+}
+
+// ListFeaturesFeaturesFeaturePageNodesFeatureProject includes the requested fields of the GraphQL type Project.
+// The GraphQL type's documentation follows.
+//
+// An Aha! workspace or team
+type ListFeaturesFeaturesFeaturePageNodesFeatureProject struct {
+	Id   string `json:"id"`
+	Name string `json:"name"`
+	// The reference prefix for the project or team
+	ReferencePrefix string `json:"referencePrefix"`
+}
+
+// GetId returns ListFeaturesFeaturesFeaturePageNodesFeatureProject.Id, and is useful for accessing the field via an interface.
+func (v *ListFeaturesFeaturesFeaturePageNodesFeatureProject) GetId() string { return v.Id }
+
+// GetName returns ListFeaturesFeaturesFeaturePageNodesFeatureProject.Name, and is useful for accessing the field via an interface.
+func (v *ListFeaturesFeaturesFeaturePageNodesFeatureProject) GetName() string { return v.Name }
+
+// GetReferencePrefix returns ListFeaturesFeaturesFeaturePageNodesFeatureProject.ReferencePrefix, and is useful for accessing the field via an interface.
+func (v *ListFeaturesFeaturesFeaturePageNodesFeatureProject) GetReferencePrefix() string {
+	return v.ReferencePrefix
+}
+
+// ListFeaturesFeaturesFeaturePageNodesFeatureRelease includes the requested fields of the GraphQL type Release.
+// The GraphQL type's documentation follows.
+//
+// A group of records with a release date or theme
+type ListFeaturesFeaturesFeaturePageNodesFeatureRelease struct {
+	Id string `json:"id"`
+	// Reference number of the record. Example: DEV-123
+	ReferenceNum string  `json:"referenceNum"`
+	Name         string  `json:"name"`
+	ReleaseDate  *string `json:"releaseDate"`
+	StartOn      *string `json:"startOn"`
+	ReleasedOn   *string `json:"releasedOn"`
+}
+
+// GetId returns ListFeaturesFeaturesFeaturePageNodesFeatureRelease.Id, and is useful for accessing the field via an interface.
+func (v *ListFeaturesFeaturesFeaturePageNodesFeatureRelease) GetId() string { return v.Id }
+
+// GetReferenceNum returns ListFeaturesFeaturesFeaturePageNodesFeatureRelease.ReferenceNum, and is useful for accessing the field via an interface.
+func (v *ListFeaturesFeaturesFeaturePageNodesFeatureRelease) GetReferenceNum() string {
+	return v.ReferenceNum
+}
+
+// GetName returns ListFeaturesFeaturesFeaturePageNodesFeatureRelease.Name, and is useful for accessing the field via an interface.
+func (v *ListFeaturesFeaturesFeaturePageNodesFeatureRelease) GetName() string { return v.Name }
+
+// GetReleaseDate returns ListFeaturesFeaturesFeaturePageNodesFeatureRelease.ReleaseDate, and is useful for accessing the field via an interface.
+func (v *ListFeaturesFeaturesFeaturePageNodesFeatureRelease) GetReleaseDate() *string {
+	return v.ReleaseDate
+}
+
+// GetStartOn returns ListFeaturesFeaturesFeaturePageNodesFeatureRelease.StartOn, and is useful for accessing the field via an interface.
+func (v *ListFeaturesFeaturesFeaturePageNodesFeatureRelease) GetStartOn() *string { return v.StartOn }
+
+// GetReleasedOn returns ListFeaturesFeaturesFeaturePageNodesFeatureRelease.ReleasedOn, and is useful for accessing the field via an interface.
+func (v *ListFeaturesFeaturesFeaturePageNodesFeatureRelease) GetReleasedOn() *string {
+	return v.ReleasedOn
+}
+
+// ListFeaturesFeaturesFeaturePageNodesFeatureWorkflowStatus includes the requested fields of the GraphQL type WorkflowStatus.
+// The GraphQL type's documentation follows.
+//
+// A single status within a workflow
+type ListFeaturesFeaturesFeaturePageNodesFeatureWorkflowStatus struct {
+	Id   string `json:"id"`
+	Name string `json:"name"`
+	// Hex color converted to decimal
+	Color int `json:"color"`
+}
+
+// GetId returns ListFeaturesFeaturesFeaturePageNodesFeatureWorkflowStatus.Id, and is useful for accessing the field via an interface.
+func (v *ListFeaturesFeaturesFeaturePageNodesFeatureWorkflowStatus) GetId() string { return v.Id }
+
+// GetName returns ListFeaturesFeaturesFeaturePageNodesFeatureWorkflowStatus.Name, and is useful for accessing the field via an interface.
+func (v *ListFeaturesFeaturesFeaturePageNodesFeatureWorkflowStatus) GetName() string { return v.Name }
+
+// GetColor returns ListFeaturesFeaturesFeaturePageNodesFeatureWorkflowStatus.Color, and is useful for accessing the field via an interface.
+func (v *ListFeaturesFeaturesFeaturePageNodesFeatureWorkflowStatus) GetColor() int { return v.Color }
+
+// ListFeaturesResponse is returned by ListFeatures on success.
+type ListFeaturesResponse struct {
+	// List all features in a release, project or program increment
+	Features ListFeaturesFeaturesFeaturePage `json:"features"`
+}
+
+// GetFeatures returns ListFeaturesResponse.Features, and is useful for accessing the field via an interface.
+func (v *ListFeaturesResponse) GetFeatures() ListFeaturesFeaturesFeaturePage { return v.Features }
+
+// ListProjectsProjectsProjectPage includes the requested fields of the GraphQL type ProjectPage.
+// The GraphQL type's documentation follows.
+//
+// A single page of Projects
+type ListProjectsProjectsProjectPage struct {
+	CurrentPage int                                           `json:"currentPage"`
+	TotalCount  int                                           `json:"totalCount"`
+	TotalPages  int                                           `json:"totalPages"`
+	IsLastPage  bool                                          `json:"isLastPage"`
+	Nodes       []ListProjectsProjectsProjectPageNodesProject `json:"nodes"`
+}
+
+// GetCurrentPage returns ListProjectsProjectsProjectPage.CurrentPage, and is useful for accessing the field via an interface.
+func (v *ListProjectsProjectsProjectPage) GetCurrentPage() int { return v.CurrentPage }
+
+// GetTotalCount returns ListProjectsProjectsProjectPage.TotalCount, and is useful for accessing the field via an interface.
+func (v *ListProjectsProjectsProjectPage) GetTotalCount() int { return v.TotalCount }
+
+// GetTotalPages returns ListProjectsProjectsProjectPage.TotalPages, and is useful for accessing the field via an interface.
+func (v *ListProjectsProjectsProjectPage) GetTotalPages() int { return v.TotalPages }
+
+// GetIsLastPage returns ListProjectsProjectsProjectPage.IsLastPage, and is useful for accessing the field via an interface.
+func (v *ListProjectsProjectsProjectPage) GetIsLastPage() bool { return v.IsLastPage }
+
+// GetNodes returns ListProjectsProjectsProjectPage.Nodes, and is useful for accessing the field via an interface.
+func (v *ListProjectsProjectsProjectPage) GetNodes() []ListProjectsProjectsProjectPageNodesProject {
+	return v.Nodes
+}
+
+// ListProjectsProjectsProjectPageNodesProject includes the requested fields of the GraphQL type Project.
+// The GraphQL type's documentation follows.
+//
+// An Aha! workspace or team
+type ListProjectsProjectsProjectPageNodesProject struct {
+	Id string `json:"id"`
+	// The reference prefix for the project or team
+	ReferencePrefix string `json:"referencePrefix"`
+	Name            string `json:"name"`
+	// The type of workspace (product_workspace, it_workspace, marketing_workspace, etc.)
+	WorkspaceType string `json:"workspaceType"`
+	// True if the project is a team, false if it is a workspace
+	IsTeam    bool      `json:"isTeam"`
+	CreatedAt time.Time `json:"createdAt"`
+	UpdatedAt time.Time `json:"updatedAt"`
+	// The parent of this workspace
+	Parent *ListProjectsProjectsProjectPageNodesProjectParentProject `json:"parent"`
+}
+
+// GetId returns ListProjectsProjectsProjectPageNodesProject.Id, and is useful for accessing the field via an interface.
+func (v *ListProjectsProjectsProjectPageNodesProject) GetId() string { return v.Id }
+
+// GetReferencePrefix returns ListProjectsProjectsProjectPageNodesProject.ReferencePrefix, and is useful for accessing the field via an interface.
+func (v *ListProjectsProjectsProjectPageNodesProject) GetReferencePrefix() string {
+	return v.ReferencePrefix
+}
+
+// GetName returns ListProjectsProjectsProjectPageNodesProject.Name, and is useful for accessing the field via an interface.
+func (v *ListProjectsProjectsProjectPageNodesProject) GetName() string { return v.Name }
+
+// GetWorkspaceType returns ListProjectsProjectsProjectPageNodesProject.WorkspaceType, and is useful for accessing the field via an interface.
+func (v *ListProjectsProjectsProjectPageNodesProject) GetWorkspaceType() string {
+	return v.WorkspaceType
+}
+
+// GetIsTeam returns ListProjectsProjectsProjectPageNodesProject.IsTeam, and is useful for accessing the field via an interface.
+func (v *ListProjectsProjectsProjectPageNodesProject) GetIsTeam() bool { return v.IsTeam }
+
+// GetCreatedAt returns ListProjectsProjectsProjectPageNodesProject.CreatedAt, and is useful for accessing the field via an interface.
+func (v *ListProjectsProjectsProjectPageNodesProject) GetCreatedAt() time.Time { return v.CreatedAt }
+
+// GetUpdatedAt returns ListProjectsProjectsProjectPageNodesProject.UpdatedAt, and is useful for accessing the field via an interface.
+func (v *ListProjectsProjectsProjectPageNodesProject) GetUpdatedAt() time.Time { return v.UpdatedAt }
+
+// GetParent returns ListProjectsProjectsProjectPageNodesProject.Parent, and is useful for accessing the field via an interface.
+func (v *ListProjectsProjectsProjectPageNodesProject) GetParent() *ListProjectsProjectsProjectPageNodesProjectParentProject {
+	return v.Parent
+}
+
+// ListProjectsProjectsProjectPageNodesProjectParentProject includes the requested fields of the GraphQL type Project.
+// The GraphQL type's documentation follows.
+//
+// An Aha! workspace or team
+type ListProjectsProjectsProjectPageNodesProjectParentProject struct {
+	Id string `json:"id"`
+	// The reference prefix for the project or team
+	ReferencePrefix string `json:"referencePrefix"`
+	Name            string `json:"name"`
+}
+
+// GetId returns ListProjectsProjectsProjectPageNodesProjectParentProject.Id, and is useful for accessing the field via an interface.
+func (v *ListProjectsProjectsProjectPageNodesProjectParentProject) GetId() string { return v.Id }
+
+// GetReferencePrefix returns ListProjectsProjectsProjectPageNodesProjectParentProject.ReferencePrefix, and is useful for accessing the field via an interface.
+func (v *ListProjectsProjectsProjectPageNodesProjectParentProject) GetReferencePrefix() string {
+	return v.ReferencePrefix
+}
+
+// GetName returns ListProjectsProjectsProjectPageNodesProjectParentProject.Name, and is useful for accessing the field via an interface.
+func (v *ListProjectsProjectsProjectPageNodesProjectParentProject) GetName() string { return v.Name }
+
+// ListProjectsResponse is returned by ListProjects on success.
+type ListProjectsResponse struct {
+	// List visible projects/teams in an account
+	Projects ListProjectsProjectsProjectPage `json:"projects"`
+}
+
+// GetProjects returns ListProjectsResponse.Projects, and is useful for accessing the field via an interface.
+func (v *ListProjectsResponse) GetProjects() ListProjectsProjectsProjectPage { return v.Projects }
+
+type OrderDirection string
+
+const (
+	// Ascending
+	OrderDirectionAsc OrderDirection = "ASC"
+	// Descending
+	OrderDirectionDesc OrderDirection = "DESC"
+)
+
+var AllOrderDirection = []OrderDirection{
+	OrderDirectionAsc,
+	OrderDirectionDesc,
 }
 
 // PromoteIdeaToEpicPromoteIdeaPromoteIdeaPayload includes the requested fields of the GraphQL type PromoteIdeaPayload.
@@ -4467,6 +5026,106 @@ func (v *UpdateFeatureTagsUpdateFeatureUpdateFeaturePayloadFeatureTagsTag) GetNa
 	return v.Name
 }
 
+// UpdateProjectNameResponse is returned by UpdateProjectName on success.
+type UpdateProjectNameResponse struct {
+	// Update a project with new data
+	UpdateProject *UpdateProjectNameUpdateProjectUpdateProjectPayload `json:"updateProject"`
+}
+
+// GetUpdateProject returns UpdateProjectNameResponse.UpdateProject, and is useful for accessing the field via an interface.
+func (v *UpdateProjectNameResponse) GetUpdateProject() *UpdateProjectNameUpdateProjectUpdateProjectPayload {
+	return v.UpdateProject
+}
+
+// UpdateProjectNameUpdateProjectUpdateProjectPayload includes the requested fields of the GraphQL type UpdateProjectPayload.
+// The GraphQL type's documentation follows.
+//
+// Autogenerated return type of UpdateProject.
+type UpdateProjectNameUpdateProjectUpdateProjectPayload struct {
+	Project *UpdateProjectNameUpdateProjectUpdateProjectPayloadProject `json:"project"`
+	Errors  UpdateProjectNameUpdateProjectUpdateProjectPayloadErrors   `json:"errors"`
+}
+
+// GetProject returns UpdateProjectNameUpdateProjectUpdateProjectPayload.Project, and is useful for accessing the field via an interface.
+func (v *UpdateProjectNameUpdateProjectUpdateProjectPayload) GetProject() *UpdateProjectNameUpdateProjectUpdateProjectPayloadProject {
+	return v.Project
+}
+
+// GetErrors returns UpdateProjectNameUpdateProjectUpdateProjectPayload.Errors, and is useful for accessing the field via an interface.
+func (v *UpdateProjectNameUpdateProjectUpdateProjectPayload) GetErrors() UpdateProjectNameUpdateProjectUpdateProjectPayloadErrors {
+	return v.Errors
+}
+
+// UpdateProjectNameUpdateProjectUpdateProjectPayloadErrors includes the requested fields of the GraphQL type Errors.
+// The GraphQL type's documentation follows.
+//
+// All errors on invalid attributes
+type UpdateProjectNameUpdateProjectUpdateProjectPayloadErrors struct {
+	// Error details for each invalid attribute
+	Attributes []UpdateProjectNameUpdateProjectUpdateProjectPayloadErrorsAttributesAttributeErrors `json:"attributes"`
+}
+
+// GetAttributes returns UpdateProjectNameUpdateProjectUpdateProjectPayloadErrors.Attributes, and is useful for accessing the field via an interface.
+func (v *UpdateProjectNameUpdateProjectUpdateProjectPayloadErrors) GetAttributes() []UpdateProjectNameUpdateProjectUpdateProjectPayloadErrorsAttributesAttributeErrors {
+	return v.Attributes
+}
+
+// UpdateProjectNameUpdateProjectUpdateProjectPayloadErrorsAttributesAttributeErrors includes the requested fields of the GraphQL type AttributeErrors.
+// The GraphQL type's documentation follows.
+//
+// A set of errors on a single attribute
+type UpdateProjectNameUpdateProjectUpdateProjectPayloadErrorsAttributesAttributeErrors struct {
+	// Name of the attribute with the error, or 'base' for errors that apply to the entire record
+	Name string `json:"name"`
+	// Full messages, ready to be presented
+	FullMessages []string `json:"fullMessages"`
+}
+
+// GetName returns UpdateProjectNameUpdateProjectUpdateProjectPayloadErrorsAttributesAttributeErrors.Name, and is useful for accessing the field via an interface.
+func (v *UpdateProjectNameUpdateProjectUpdateProjectPayloadErrorsAttributesAttributeErrors) GetName() string {
+	return v.Name
+}
+
+// GetFullMessages returns UpdateProjectNameUpdateProjectUpdateProjectPayloadErrorsAttributesAttributeErrors.FullMessages, and is useful for accessing the field via an interface.
+func (v *UpdateProjectNameUpdateProjectUpdateProjectPayloadErrorsAttributesAttributeErrors) GetFullMessages() []string {
+	return v.FullMessages
+}
+
+// UpdateProjectNameUpdateProjectUpdateProjectPayloadProject includes the requested fields of the GraphQL type Project.
+// The GraphQL type's documentation follows.
+//
+// An Aha! workspace or team
+type UpdateProjectNameUpdateProjectUpdateProjectPayloadProject struct {
+	Id string `json:"id"`
+	// The reference prefix for the project or team
+	ReferencePrefix string `json:"referencePrefix"`
+	Name            string `json:"name"`
+	// The type of workspace (product_workspace, it_workspace, marketing_workspace, etc.)
+	WorkspaceType string    `json:"workspaceType"`
+	UpdatedAt     time.Time `json:"updatedAt"`
+}
+
+// GetId returns UpdateProjectNameUpdateProjectUpdateProjectPayloadProject.Id, and is useful for accessing the field via an interface.
+func (v *UpdateProjectNameUpdateProjectUpdateProjectPayloadProject) GetId() string { return v.Id }
+
+// GetReferencePrefix returns UpdateProjectNameUpdateProjectUpdateProjectPayloadProject.ReferencePrefix, and is useful for accessing the field via an interface.
+func (v *UpdateProjectNameUpdateProjectUpdateProjectPayloadProject) GetReferencePrefix() string {
+	return v.ReferencePrefix
+}
+
+// GetName returns UpdateProjectNameUpdateProjectUpdateProjectPayloadProject.Name, and is useful for accessing the field via an interface.
+func (v *UpdateProjectNameUpdateProjectUpdateProjectPayloadProject) GetName() string { return v.Name }
+
+// GetWorkspaceType returns UpdateProjectNameUpdateProjectUpdateProjectPayloadProject.WorkspaceType, and is useful for accessing the field via an interface.
+func (v *UpdateProjectNameUpdateProjectUpdateProjectPayloadProject) GetWorkspaceType() string {
+	return v.WorkspaceType
+}
+
+// GetUpdatedAt returns UpdateProjectNameUpdateProjectUpdateProjectPayloadProject.UpdatedAt, and is useful for accessing the field via an interface.
+func (v *UpdateProjectNameUpdateProjectUpdateProjectPayloadProject) GetUpdatedAt() time.Time {
+	return v.UpdatedAt
+}
+
 // __AssignFeatureToEpicInput is used internally by genqlient
 type __AssignFeatureToEpicInput struct {
 	FeatureId string `json:"featureId"`
@@ -4775,6 +5434,66 @@ type __GetRequirementInput struct {
 // GetId returns __GetRequirementInput.Id, and is useful for accessing the field via an interface.
 func (v *__GetRequirementInput) GetId() string { return v.Id }
 
+// __ListFeaturesByReleaseDateInput is used internally by genqlient
+type __ListFeaturesByReleaseDateInput struct {
+	ProjectId string `json:"projectId"`
+	Page      *int   `json:"page"`
+	Per       *int   `json:"per"`
+}
+
+// GetProjectId returns __ListFeaturesByReleaseDateInput.ProjectId, and is useful for accessing the field via an interface.
+func (v *__ListFeaturesByReleaseDateInput) GetProjectId() string { return v.ProjectId }
+
+// GetPage returns __ListFeaturesByReleaseDateInput.Page, and is useful for accessing the field via an interface.
+func (v *__ListFeaturesByReleaseDateInput) GetPage() *int { return v.Page }
+
+// GetPer returns __ListFeaturesByReleaseDateInput.Per, and is useful for accessing the field via an interface.
+func (v *__ListFeaturesByReleaseDateInput) GetPer() *int { return v.Per }
+
+// __ListFeaturesInput is used internally by genqlient
+type __ListFeaturesInput struct {
+	ProjectId string               `json:"projectId"`
+	Page      *int                 `json:"page"`
+	Per       *int                 `json:"per"`
+	ReleaseId *string              `json:"releaseId"`
+	OrderBy   []FeatureOrderClause `json:"orderBy"`
+}
+
+// GetProjectId returns __ListFeaturesInput.ProjectId, and is useful for accessing the field via an interface.
+func (v *__ListFeaturesInput) GetProjectId() string { return v.ProjectId }
+
+// GetPage returns __ListFeaturesInput.Page, and is useful for accessing the field via an interface.
+func (v *__ListFeaturesInput) GetPage() *int { return v.Page }
+
+// GetPer returns __ListFeaturesInput.Per, and is useful for accessing the field via an interface.
+func (v *__ListFeaturesInput) GetPer() *int { return v.Per }
+
+// GetReleaseId returns __ListFeaturesInput.ReleaseId, and is useful for accessing the field via an interface.
+func (v *__ListFeaturesInput) GetReleaseId() *string { return v.ReleaseId }
+
+// GetOrderBy returns __ListFeaturesInput.OrderBy, and is useful for accessing the field via an interface.
+func (v *__ListFeaturesInput) GetOrderBy() []FeatureOrderClause { return v.OrderBy }
+
+// __ListProjectsInput is used internally by genqlient
+type __ListProjectsInput struct {
+	Page     *int    `json:"page"`
+	Per      *int    `json:"per"`
+	Teams    *bool   `json:"teams"`
+	ParentId *string `json:"parentId"`
+}
+
+// GetPage returns __ListProjectsInput.Page, and is useful for accessing the field via an interface.
+func (v *__ListProjectsInput) GetPage() *int { return v.Page }
+
+// GetPer returns __ListProjectsInput.Per, and is useful for accessing the field via an interface.
+func (v *__ListProjectsInput) GetPer() *int { return v.Per }
+
+// GetTeams returns __ListProjectsInput.Teams, and is useful for accessing the field via an interface.
+func (v *__ListProjectsInput) GetTeams() *bool { return v.Teams }
+
+// GetParentId returns __ListProjectsInput.ParentId, and is useful for accessing the field via an interface.
+func (v *__ListProjectsInput) GetParentId() *string { return v.ParentId }
+
 // __PromoteIdeaToEpicInput is used internally by genqlient
 type __PromoteIdeaToEpicInput struct {
 	IdeaId    string  `json:"ideaId"`
@@ -4878,6 +5597,18 @@ func (v *__UpdateFeatureTagsInput) GetFeatureId() string { return v.FeatureId }
 
 // GetTagList returns __UpdateFeatureTagsInput.TagList, and is useful for accessing the field via an interface.
 func (v *__UpdateFeatureTagsInput) GetTagList() string { return v.TagList }
+
+// __UpdateProjectNameInput is used internally by genqlient
+type __UpdateProjectNameInput struct {
+	Id   string `json:"id"`
+	Name string `json:"name"`
+}
+
+// GetId returns __UpdateProjectNameInput.Id, and is useful for accessing the field via an interface.
+func (v *__UpdateProjectNameInput) GetId() string { return v.Id }
+
+// GetName returns __UpdateProjectNameInput.Name, and is useful for accessing the field via an interface.
+func (v *__UpdateProjectNameInput) GetName() string { return v.Name }
 
 // The mutation executed by AssignFeatureToEpic.
 const AssignFeatureToEpic_Operation = `
@@ -5538,6 +6269,14 @@ query GetFeature ($id: ID!) {
 			name
 			email
 		}
+		release {
+			id
+			referenceNum
+			name
+			releaseDate
+			startOn
+			releasedOn
+		}
 		createdAt
 		updatedAt
 		dueDate
@@ -5990,6 +6729,7 @@ query GetProject ($id: ID!) {
 		id
 		referencePrefix
 		name
+		workspaceType
 		createdAt
 		updatedAt
 	}
@@ -6163,6 +6903,207 @@ func GetRequirement(
 	}
 
 	data_ = &GetRequirementResponse{}
+	resp_ := &graphql.Response{Data: data_}
+
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
+	)
+
+	return data_, err_
+}
+
+// The query executed by ListFeatures.
+const ListFeatures_Operation = `
+query ListFeatures ($projectId: ID!, $page: Int, $per: Int, $releaseId: ID, $orderBy: [FeatureOrderClause!]) {
+	features(filters: {projectId:$projectId,releaseId:$releaseId}, order: $orderBy, page: $page, per: $per) {
+		nodes {
+			id
+			referenceNum
+			name
+			position
+			tagList
+			project {
+				id
+				name
+				referencePrefix
+			}
+			workflowStatus {
+				id
+				name
+				color
+			}
+			assignedToUser {
+				id
+				name
+				email
+			}
+			release {
+				id
+				referenceNum
+				name
+				releaseDate
+				startOn
+				releasedOn
+			}
+			createdAt
+			updatedAt
+			dueDate
+			startDate
+		}
+		currentPage
+		totalPages
+		totalCount
+		isLastPage
+	}
+}
+`
+
+// List features for a project/product with release info
+// Supports filtering by release ID, pagination, and ordering by position (rank)
+func ListFeatures(
+	ctx_ context.Context,
+	client_ graphql.Client,
+	projectId string,
+	page *int,
+	per *int,
+	releaseId *string,
+	orderBy []FeatureOrderClause,
+) (data_ *ListFeaturesResponse, err_ error) {
+	req_ := &graphql.Request{
+		OpName: "ListFeatures",
+		Query:  ListFeatures_Operation,
+		Variables: &__ListFeaturesInput{
+			ProjectId: projectId,
+			Page:      page,
+			Per:       per,
+			ReleaseId: releaseId,
+			OrderBy:   orderBy,
+		},
+	}
+
+	data_ = &ListFeaturesResponse{}
+	resp_ := &graphql.Response{Data: data_}
+
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
+	)
+
+	return data_, err_
+}
+
+// The query executed by ListFeaturesByReleaseDate.
+const ListFeaturesByReleaseDate_Operation = `
+query ListFeaturesByReleaseDate ($projectId: ID!, $page: Int, $per: Int) {
+	features(filters: {projectId:$projectId}, page: $page, per: $per) {
+		nodes {
+			id
+			referenceNum
+			name
+			workflowStatus {
+				id
+				name
+			}
+			release {
+				id
+				referenceNum
+				name
+				releaseDate
+				startOn
+				releasedOn
+			}
+			createdAt
+			updatedAt
+		}
+		currentPage
+		totalPages
+		totalCount
+		isLastPage
+	}
+}
+`
+
+// List features by release date range
+// Useful for finding features in releases with specific dates
+func ListFeaturesByReleaseDate(
+	ctx_ context.Context,
+	client_ graphql.Client,
+	projectId string,
+	page *int,
+	per *int,
+) (data_ *ListFeaturesByReleaseDateResponse, err_ error) {
+	req_ := &graphql.Request{
+		OpName: "ListFeaturesByReleaseDate",
+		Query:  ListFeaturesByReleaseDate_Operation,
+		Variables: &__ListFeaturesByReleaseDateInput{
+			ProjectId: projectId,
+			Page:      page,
+			Per:       per,
+		},
+	}
+
+	data_ = &ListFeaturesByReleaseDateResponse{}
+	resp_ := &graphql.Response{Data: data_}
+
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
+	)
+
+	return data_, err_
+}
+
+// The query executed by ListProjects.
+const ListProjects_Operation = `
+query ListProjects ($page: Int, $per: Int, $teams: Boolean, $parentId: ID) {
+	projects(filters: {teams:$teams,parentId:$parentId}, page: $page, per: $per) {
+		currentPage
+		totalCount
+		totalPages
+		isLastPage
+		nodes {
+			id
+			referencePrefix
+			name
+			workspaceType
+			isTeam
+			createdAt
+			updatedAt
+			parent {
+				id
+				referencePrefix
+				name
+			}
+		}
+	}
+}
+`
+
+// List projects/products (workspaces and teams)
+func ListProjects(
+	ctx_ context.Context,
+	client_ graphql.Client,
+	page *int,
+	per *int,
+	teams *bool,
+	parentId *string,
+) (data_ *ListProjectsResponse, err_ error) {
+	req_ := &graphql.Request{
+		OpName: "ListProjects",
+		Query:  ListProjects_Operation,
+		Variables: &__ListProjectsInput{
+			Page:     page,
+			Per:      per,
+			Teams:    teams,
+			ParentId: parentId,
+		},
+	}
+
+	data_ = &ListProjectsResponse{}
 	resp_ := &graphql.Response{Data: data_}
 
 	err_ = client_.MakeRequest(
@@ -6576,6 +7517,55 @@ func UpdateFeatureTags(
 	}
 
 	data_ = &UpdateFeatureTagsResponse{}
+	resp_ := &graphql.Response{Data: data_}
+
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
+	)
+
+	return data_, err_
+}
+
+// The mutation executed by UpdateProjectName.
+const UpdateProjectName_Operation = `
+mutation UpdateProjectName ($id: ID!, $name: String!) {
+	updateProject(id: $id, attributes: {name:$name}) {
+		project {
+			id
+			referencePrefix
+			name
+			workspaceType
+			updatedAt
+		}
+		errors {
+			attributes {
+				name
+				fullMessages
+			}
+		}
+	}
+}
+`
+
+// Update project/product name
+func UpdateProjectName(
+	ctx_ context.Context,
+	client_ graphql.Client,
+	id string,
+	name string,
+) (data_ *UpdateProjectNameResponse, err_ error) {
+	req_ := &graphql.Request{
+		OpName: "UpdateProjectName",
+		Query:  UpdateProjectName_Operation,
+		Variables: &__UpdateProjectNameInput{
+			Id:   id,
+			Name: name,
+		},
+	}
+
+	data_ = &UpdateProjectNameResponse{}
 	resp_ := &graphql.Response{Data: data_}
 
 	err_ = client_.MakeRequest(
