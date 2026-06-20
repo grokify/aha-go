@@ -237,10 +237,10 @@ func (c *Client) CreateInitiative(ctx context.Context, productID string, opts ..
 		initiative.WorkflowStatus = api.NewOptString(cfg.WorkflowStatus)
 	}
 	if cfg.StartDate != nil {
-		initiative.StartDate = api.NewOptDate(*cfg.StartDate)
+		initiative.StartDate = api.NewOptNilDate(*cfg.StartDate)
 	}
 	if cfg.EndDate != nil {
-		initiative.EndDate = api.NewOptDate(*cfg.EndDate)
+		initiative.EndDate = api.NewOptNilDate(*cfg.EndDate)
 	}
 	if cfg.Value != nil {
 		initiative.Value = api.NewOptFloat64(*cfg.Value)
@@ -306,10 +306,10 @@ func (c *Client) UpdateInitiative(ctx context.Context, id string, opts ...Update
 		initiative.WorkflowStatus = api.NewOptString(cfg.WorkflowStatus)
 	}
 	if cfg.StartDate != nil {
-		initiative.StartDate = api.NewOptDate(*cfg.StartDate)
+		initiative.StartDate = api.NewOptNilDate(*cfg.StartDate)
 	}
 	if cfg.EndDate != nil {
-		initiative.EndDate = api.NewOptDate(*cfg.EndDate)
+		initiative.EndDate = api.NewOptNilDate(*cfg.EndDate)
 	}
 	if cfg.Value != nil {
 		initiative.Value = api.NewOptFloat64(*cfg.Value)

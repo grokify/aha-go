@@ -279,10 +279,10 @@ func (c *Client) CreateFeature(ctx context.Context, releaseID string, opts ...Cr
 		feature.Tags = api.NewOptString(cfg.Tags)
 	}
 	if cfg.StartDate != nil {
-		feature.StartDate = api.NewOptDate(*cfg.StartDate)
+		feature.StartDate = api.NewOptNilDate(*cfg.StartDate)
 	}
 	if cfg.DueDate != nil {
-		feature.DueDate = api.NewOptDate(*cfg.DueDate)
+		feature.DueDate = api.NewOptNilDate(*cfg.DueDate)
 	}
 	if cfg.OriginalEstimate != "" {
 		feature.OriginalEstimateText = api.NewOptString(cfg.OriginalEstimate)
@@ -396,10 +396,10 @@ func (c *Client) UpdateFeature(ctx context.Context, id string, opts ...UpdateFea
 		feature.Tags = api.NewOptString(cfg.Tags)
 	}
 	if cfg.StartDate != nil {
-		feature.StartDate = api.NewOptDate(*cfg.StartDate)
+		feature.StartDate = api.NewOptNilDate(*cfg.StartDate)
 	}
 	if cfg.DueDate != nil {
-		feature.DueDate = api.NewOptDate(*cfg.DueDate)
+		feature.DueDate = api.NewOptNilDate(*cfg.DueDate)
 	}
 	if cfg.Release != "" {
 		feature.Release = api.NewOptString(cfg.Release)

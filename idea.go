@@ -209,7 +209,10 @@ func ideaFromAPI(i api.Idea) *Idea {
 		idea.Votes = v
 	}
 	if v, ok := i.Description.Get(); ok {
-		idea.Description = v
+		// Description is now an object with Body and HtmlBody fields
+		if body, hasBody := v.Body.Get(); hasBody {
+			idea.Description = body
+		}
 	}
 	if v, ok := i.StatusChangedAt.Get(); ok {
 		idea.StatusChangedAt = &v

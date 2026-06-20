@@ -109,13 +109,13 @@ func (c *Client) UpdateRelease(ctx context.Context, id string, opts ...UpdateRel
 		release.Name = api.NewOptString(cfg.Name)
 	}
 	if cfg.StartDate != nil {
-		release.StartDate = api.NewOptDate(*cfg.StartDate)
+		release.StartDate = api.NewOptNilDate(*cfg.StartDate)
 	}
 	if cfg.ReleaseDate != nil {
-		release.ReleaseDate = api.NewOptDate(*cfg.ReleaseDate)
+		release.ReleaseDate = api.NewOptNilDate(*cfg.ReleaseDate)
 	}
 	if cfg.ExternalReleaseDate != nil {
-		release.ExternalReleaseDate = api.NewOptDate(*cfg.ExternalReleaseDate)
+		release.ExternalReleaseDate = api.NewOptNilDate(*cfg.ExternalReleaseDate)
 	}
 	if cfg.DevelopmentStartedOn != nil {
 		release.DevelopmentStartedOn = api.NewOptDate(*cfg.DevelopmentStartedOn)

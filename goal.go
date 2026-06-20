@@ -210,10 +210,10 @@ func (c *Client) CreateGoal(ctx context.Context, productID string, opts ...Creat
 		goal.WorkflowStatus = api.NewOptString(cfg.WorkflowStatus)
 	}
 	if cfg.StartDate != nil {
-		goal.StartDate = api.NewOptDate(*cfg.StartDate)
+		goal.StartDate = api.NewOptNilDate(*cfg.StartDate)
 	}
 	if cfg.EndDate != nil {
-		goal.EndDate = api.NewOptDate(*cfg.EndDate)
+		goal.EndDate = api.NewOptNilDate(*cfg.EndDate)
 	}
 
 	req := &api.GoalCreateRequest{
@@ -284,10 +284,10 @@ func (c *Client) UpdateGoal(ctx context.Context, id string, opts ...UpdateGoalOp
 		goal.WorkflowStatus = api.NewOptString(cfg.WorkflowStatus)
 	}
 	if cfg.StartDate != nil {
-		goal.StartDate = api.NewOptDate(*cfg.StartDate)
+		goal.StartDate = api.NewOptNilDate(*cfg.StartDate)
 	}
 	if cfg.EndDate != nil {
-		goal.EndDate = api.NewOptDate(*cfg.EndDate)
+		goal.EndDate = api.NewOptNilDate(*cfg.EndDate)
 	}
 	if cfg.Progress != nil {
 		goal.Progress = api.NewOptFloat32(float32(*cfg.Progress))

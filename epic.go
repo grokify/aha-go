@@ -211,10 +211,10 @@ func (c *Client) CreateEpic(ctx context.Context, releaseID string, opts ...Creat
 		epic.WorkflowStatus = api.NewOptString(cfg.WorkflowStatus)
 	}
 	if cfg.StartDate != nil {
-		epic.StartDate = api.NewOptDate(*cfg.StartDate)
+		epic.StartDate = api.NewOptNilDate(*cfg.StartDate)
 	}
 	if cfg.DueDate != nil {
-		epic.DueDate = api.NewOptDate(*cfg.DueDate)
+		epic.DueDate = api.NewOptNilDate(*cfg.DueDate)
 	}
 	if cfg.Color != "" {
 		epic.Color = api.NewOptString(cfg.Color)
@@ -293,10 +293,10 @@ func (c *Client) UpdateEpic(ctx context.Context, id string, opts ...UpdateEpicOp
 		epic.WorkflowStatus = api.NewOptString(cfg.WorkflowStatus)
 	}
 	if cfg.StartDate != nil {
-		epic.StartDate = api.NewOptDate(*cfg.StartDate)
+		epic.StartDate = api.NewOptNilDate(*cfg.StartDate)
 	}
 	if cfg.DueDate != nil {
-		epic.DueDate = api.NewOptDate(*cfg.DueDate)
+		epic.DueDate = api.NewOptNilDate(*cfg.DueDate)
 	}
 	if cfg.Progress != nil {
 		epic.Progress = api.NewOptFloat32(float32(*cfg.Progress))
