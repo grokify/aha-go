@@ -21,7 +21,16 @@ List all products in your account.
 
 ```bash
 aha product list
+aha product list --with-idea-portals
+aha product list --updated-since 2024-01-01
+aha product list --output json
 ```
+
+| Flag | Description |
+|------|-------------|
+| `--with-idea-portals` | Only list products with idea portals |
+| `--updated-since` | Filter to products updated after date (ISO8601 or YYYY-MM-DD) |
+| `--tree` | Show as tree structure |
 
 ### product get
 
@@ -29,7 +38,54 @@ Get details for a specific product.
 
 ```bash
 aha product get PRODUCT-KEY
+aha product get PRODUCT-KEY --output json
 ```
+
+### product create
+
+Create a new product or product line.
+
+```bash
+# Create a product
+aha product create --name "My Product" --prefix PROD
+
+# Create with description
+aha product create --name "My Product" --prefix PROD --description "Product description"
+
+# Create under a product line
+aha product create --name "My Product" --prefix PROD --parent PORT
+
+# Create a product line
+aha product create --name "My Portfolio" --prefix PORT --product-line --product-line-type portfolio
+```
+
+| Flag | Description |
+|------|-------------|
+| `--name`, `-n` | Product name (required) |
+| `--prefix`, `-p` | Reference prefix (required) |
+| `--description`, `-d` | Product description (HTML allowed) |
+| `--parent` | Parent product line ID or prefix |
+| `--workspace-type` | Workspace type (product_workspace, it_workspace, etc.) |
+| `--product-line` | Create as a product line |
+| `--product-line-type` | Product line type (required with --product-line) |
+
+### product update
+
+Update an existing product.
+
+```bash
+aha product update PROD --name "New Name"
+aha product update PROD --description "Updated description"
+aha product update PROD --parent PORT
+```
+
+| Flag | Description |
+|------|-------------|
+| `--name`, `-n` | New product name |
+| `--prefix`, `-p` | New reference prefix |
+| `--description`, `-d` | New description (HTML allowed) |
+| `--parent` | New parent product line ID or prefix |
+| `--workspace-type` | New workspace type |
 
 ## feature
 

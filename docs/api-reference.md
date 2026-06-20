@@ -126,8 +126,33 @@ type Goal struct {
 ### Products
 
 ```go
-func (c *Client) ListProducts(ctx context.Context) ([]Product, error)
+func (c *Client) ListProducts(ctx context.Context, opts ...ListProductsOption) (*ProductList, error)
 func (c *Client) GetProduct(ctx context.Context, id string) (*Product, error)
+func (c *Client) CreateProduct(ctx context.Context, name, referencePrefix string, opts ...CreateProductOption) (*Product, error)
+func (c *Client) CreateProductLine(ctx context.Context, name, referencePrefix, productLineType string, opts ...CreateProductOption) (*Product, error)
+func (c *Client) UpdateProduct(ctx context.Context, id string, opts ...UpdateProductOption) (*Product, error)
+```
+
+#### Product Options
+
+```go
+// ListProducts options
+func WithUpdatedSince(t time.Time) ListProductsOption
+func WithIdeaPortals() ListProductsOption
+func WithProductsPage(page int) ListProductsOption
+func WithProductsPerPage(perPage int) ListProductsOption
+
+// CreateProduct options
+func WithProductDescription(desc string) CreateProductOption
+func WithProductParentID(parentID string) CreateProductOption
+func WithProductWorkspaceType(workspaceType string) CreateProductOption
+
+// UpdateProduct options
+func WithUpdateProductName(name string) UpdateProductOption
+func WithUpdateProductReferencePrefix(prefix string) UpdateProductOption
+func WithUpdateProductDescription(desc string) UpdateProductOption
+func WithUpdateProductParentID(parentID string) UpdateProductOption
+func WithUpdateProductWorkspaceType(workspaceType string) UpdateProductOption
 ```
 
 ### Features

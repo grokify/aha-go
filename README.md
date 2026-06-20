@@ -161,8 +161,29 @@ ideas, err := client.ListIdeas(ctx,
 // List all products
 products, err := client.ListProducts(ctx)
 
+// List with filters
+products, err := client.ListProducts(ctx,
+    aha.WithUpdatedSince(time.Now().AddDate(0, -1, 0)),
+    aha.WithIdeaPortals(),
+)
+
 // Get a specific product
 product, err := client.GetProduct(ctx, "PROD")
+
+// Create a product
+product, err := client.CreateProduct(ctx, "My Product", "PROD",
+    aha.WithProductDescription("Product description"),
+    aha.WithProductParentID("PORTFOLIO"),
+)
+
+// Create a product line
+product, err := client.CreateProductLine(ctx, "My Portfolio", "PORT", "portfolio")
+
+// Update a product
+product, err := client.UpdateProduct(ctx, "PROD",
+    aha.WithUpdateProductName("New Name"),
+    aha.WithUpdateProductDescription("Updated description"),
+)
 ```
 
 ### Releases
@@ -257,9 +278,23 @@ aha canvas export PROD-SM-1 --format mermaid -o canvas.mmd
 ```bash
 # List all products (workspaces)
 aha product list
+aha product list --with-idea-portals
+aha product list --updated-since 2024-01-01
 
 # Get a product
 aha product get PROD
+aha product get PROD --output json
+
+# Create a product
+aha product create --name "My Product" --prefix PROD
+aha product create --name "My Product" --prefix PROD --description "Description" --parent PORT
+
+# Create a product line
+aha product create --name "My Portfolio" --prefix PORT --product-line --product-line-type portfolio
+
+# Update a product
+aha product update PROD --name "New Name"
+aha product update PROD --description "Updated description"
 ```
 
 ### Feature Commands
