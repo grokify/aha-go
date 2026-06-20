@@ -47,3 +47,37 @@ Enable querying features by release date or name, supporting aha-studio's cached
 - Custom field support
 - Tasks/To-dos (list, get, create, update, delete)
 - Pages (list, get)
+
+## Technical Debt
+
+### Browser Automation: go-rod to chromedp Migration
+
+**Status:** Planned (non-blocking)
+
+The `browser` package uses [go-rod](https://github.com/go-rod/rod) for UI automation to create canvas templates (Aha.io has no API for template creation). However, go-rod appears unmaintained:
+
+- Last meaningful code update: 2024
+- Last release: v0.116.2 (July 2024)
+- Recent commits: Logo/sponsor updates only (2025-2026)
+- Dependency conflict: Requires pinned `fetchup v0.2.4`; newer versions have breaking API changes
+
+**Current mitigation:** Pin `fetchup v0.2.4` in go.mod.
+
+**Migration plan:**
+
+| Phase | Description |
+|-------|-------------|
+| 1. Research | Evaluate chromedp API for aha-go use cases |
+| 2. Wrapper | Create high-level wrapper around chromedp (rod's appeal was its abstractions) |
+| 3. Migrate | Replace go-rod with chromedp wrapper in `browser` package |
+| 4. Test | Verify template creation still works |
+| 5. Remove | Remove go-rod and fetchup pin |
+
+**Why chromedp:**
+
+- Written in Go (go-first approach)
+- Actively maintained by Google
+- No external binary dependencies
+- Uses same Chrome DevTools Protocol as go-rod
+
+**Non-blocking:** This migration is technical debt cleanup, not a release blocker. The pinned dependency works correctly.
