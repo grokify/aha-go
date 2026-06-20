@@ -5,7 +5,7 @@
 *.so
 *.dylib
 bin/
-aha
+/aha
 
 # Test binary
 *.test
@@ -30,6 +30,7 @@ Thumbs.db
 # Local config
 .env
 .env.local
+.envrc
 *.local.yaml
 
 # MkDocs
