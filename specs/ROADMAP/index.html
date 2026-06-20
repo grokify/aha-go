@@ -1230,6 +1230,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="In Progress">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#feature-release-query-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      Feature-Release Query Support
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1291,6 +1306,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="In Progress">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#feature-release-query-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      Feature-Release Query Support
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1347,7 +1377,39 @@
 <li>[x] Predefined canvas templates (capability-stack, maturity-model, opportunity-patton, feature-canvas)</li>
 </ul>
 <h2 id="in-progress">In Progress<a class="headerlink" href="#in-progress" title="Permanent link">&para;</a></h2>
-<p>None currently.</p>
+<h3 id="feature-release-query-support">Feature-Release Query Support<a class="headerlink" href="#feature-release-query-support" title="Permanent link">&para;</a></h3>
+<p>Enable querying features by release date or name, supporting aha-studio's cached query capabilities.</p>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ListFeaturesDetailed</code></td>
+<td>🔄 In Progress</td>
+<td>SDK method to list features with full details including release</td>
+</tr>
+<tr>
+<td>Feature release_id in sync</td>
+<td>🔄 In Progress</td>
+<td>Ensure FeatureMeta includes release reference for sync</td>
+</tr>
+<tr>
+<td>CLI <code>--release-date</code> flag</td>
+<td>🔲 Planned</td>
+<td><code>aha feature list --release-date 2026-10-31</code></td>
+</tr>
+<tr>
+<td>CLI <code>--release-name</code> flag</td>
+<td>🔲 Planned</td>
+<td><code>aha feature list --release-name "Q4 2026"</code></td>
+</tr>
+</tbody>
+</table>
 <h2 id="future-considerations">Future Considerations<a class="headerlink" href="#future-considerations" title="Permanent link">&para;</a></h2>
 <ul>
 <li>MCP server for AI assistant integration</li>

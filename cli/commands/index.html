@@ -726,6 +726,24 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#product-create" class="md-nav__link">
+    <span class="md-ellipsis">
+      product create
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#product-update" class="md-nav__link">
+    <span class="md-ellipsis">
+      product update
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1779,6 +1797,24 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#product-create" class="md-nav__link">
+    <span class="md-ellipsis">
+      product create
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#product-update" class="md-nav__link">
+    <span class="md-ellipsis">
+      product update
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2277,16 +2313,130 @@
 <h3 id="product-list">product list<a class="headerlink" href="#product-list" title="Permanent link">&para;</a></h3>
 <p>List all products in your account.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>aha<span class="w"> </span>product<span class="w"> </span>list
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>aha<span class="w"> </span>product<span class="w"> </span>list<span class="w"> </span>--with-idea-portals
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>aha<span class="w"> </span>product<span class="w"> </span>list<span class="w"> </span>--updated-since<span class="w"> </span><span class="m">2024</span>-01-01
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>aha<span class="w"> </span>product<span class="w"> </span>list<span class="w"> </span>--output<span class="w"> </span>json
 </code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Flag</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--with-idea-portals</code></td>
+<td>Only list products with idea portals</td>
+</tr>
+<tr>
+<td><code>--updated-since</code></td>
+<td>Filter to products updated after date (ISO8601 or YYYY-MM-DD)</td>
+</tr>
+<tr>
+<td><code>--tree</code></td>
+<td>Show as tree structure</td>
+</tr>
+</tbody>
+</table>
 <h3 id="product-get">product get<a class="headerlink" href="#product-get" title="Permanent link">&para;</a></h3>
 <p>Get details for a specific product.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>aha<span class="w"> </span>product<span class="w"> </span>get<span class="w"> </span>PRODUCT-KEY
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>aha<span class="w"> </span>product<span class="w"> </span>get<span class="w"> </span>PRODUCT-KEY<span class="w"> </span>--output<span class="w"> </span>json
 </code></pre></div>
+<h3 id="product-create">product create<a class="headerlink" href="#product-create" title="Permanent link">&para;</a></h3>
+<p>Create a new product or product line.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Create a product</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>aha<span class="w"> </span>product<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span><span class="s2">&quot;My Product&quot;</span><span class="w"> </span>--prefix<span class="w"> </span>PROD
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># Create with description</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>aha<span class="w"> </span>product<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span><span class="s2">&quot;My Product&quot;</span><span class="w"> </span>--prefix<span class="w"> </span>PROD<span class="w"> </span>--description<span class="w"> </span><span class="s2">&quot;Product description&quot;</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="c1"># Create under a product line</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>aha<span class="w"> </span>product<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span><span class="s2">&quot;My Product&quot;</span><span class="w"> </span>--prefix<span class="w"> </span>PROD<span class="w"> </span>--parent<span class="w"> </span>PORT
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="c1"># Create a product line</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>aha<span class="w"> </span>product<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span><span class="s2">&quot;My Portfolio&quot;</span><span class="w"> </span>--prefix<span class="w"> </span>PORT<span class="w"> </span>--product-line<span class="w"> </span>--product-line-type<span class="w"> </span>portfolio
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Flag</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--name</code>, <code>-n</code></td>
+<td>Product name (required)</td>
+</tr>
+<tr>
+<td><code>--prefix</code>, <code>-p</code></td>
+<td>Reference prefix (required)</td>
+</tr>
+<tr>
+<td><code>--description</code>, <code>-d</code></td>
+<td>Product description (HTML allowed)</td>
+</tr>
+<tr>
+<td><code>--parent</code></td>
+<td>Parent product line ID or prefix</td>
+</tr>
+<tr>
+<td><code>--workspace-type</code></td>
+<td>Workspace type (product_workspace, it_workspace, etc.)</td>
+</tr>
+<tr>
+<td><code>--product-line</code></td>
+<td>Create as a product line</td>
+</tr>
+<tr>
+<td><code>--product-line-type</code></td>
+<td>Product line type (required with --product-line)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="product-update">product update<a class="headerlink" href="#product-update" title="Permanent link">&para;</a></h3>
+<p>Update an existing product.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>aha<span class="w"> </span>product<span class="w"> </span>update<span class="w"> </span>PROD<span class="w"> </span>--name<span class="w"> </span><span class="s2">&quot;New Name&quot;</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>aha<span class="w"> </span>product<span class="w"> </span>update<span class="w"> </span>PROD<span class="w"> </span>--description<span class="w"> </span><span class="s2">&quot;Updated description&quot;</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>aha<span class="w"> </span>product<span class="w"> </span>update<span class="w"> </span>PROD<span class="w"> </span>--parent<span class="w"> </span>PORT
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Flag</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--name</code>, <code>-n</code></td>
+<td>New product name</td>
+</tr>
+<tr>
+<td><code>--prefix</code>, <code>-p</code></td>
+<td>New reference prefix</td>
+</tr>
+<tr>
+<td><code>--description</code>, <code>-d</code></td>
+<td>New description (HTML allowed)</td>
+</tr>
+<tr>
+<td><code>--parent</code></td>
+<td>New parent product line ID or prefix</td>
+</tr>
+<tr>
+<td><code>--workspace-type</code></td>
+<td>New workspace type</td>
+</tr>
+</tbody>
+</table>
 <h2 id="feature">feature<a class="headerlink" href="#feature" title="Permanent link">&para;</a></h2>
 <p>Manage features.</p>
 <h3 id="feature-list">feature list<a class="headerlink" href="#feature-list" title="Permanent link">&para;</a></h3>
 <p>List features in a product.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>aha<span class="w"> </span>feature<span class="w"> </span>list<span class="w"> </span>--product<span class="w"> </span>PRODUCT-KEY<span class="w"> </span><span class="o">[</span>flags<span class="o">]</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>aha<span class="w"> </span>feature<span class="w"> </span>list<span class="w"> </span>--product<span class="w"> </span>PRODUCT-KEY<span class="w"> </span><span class="o">[</span>flags<span class="o">]</span>
 </code></pre></div>
 <table>
 <thead>
@@ -2320,11 +2470,11 @@
 </table>
 <h3 id="feature-get">feature get<a class="headerlink" href="#feature-get" title="Permanent link">&para;</a></h3>
 <p>Get a feature by reference number.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>aha<span class="w"> </span>feature<span class="w"> </span>get<span class="w"> </span>FEAT-123
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>aha<span class="w"> </span>feature<span class="w"> </span>get<span class="w"> </span>FEAT-123
 </code></pre></div>
 <h3 id="feature-create">feature create<a class="headerlink" href="#feature-create" title="Permanent link">&para;</a></h3>
 <p>Create a new feature.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>aha<span class="w"> </span>feature<span class="w"> </span>create<span class="w"> </span>--product<span class="w"> </span>PRODUCT-KEY<span class="w"> </span>--name<span class="w"> </span><span class="s2">&quot;Feature Name&quot;</span><span class="w"> </span><span class="o">[</span>flags<span class="o">]</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>aha<span class="w"> </span>feature<span class="w"> </span>create<span class="w"> </span>--product<span class="w"> </span>PRODUCT-KEY<span class="w"> </span>--name<span class="w"> </span><span class="s2">&quot;Feature Name&quot;</span><span class="w"> </span><span class="o">[</span>flags<span class="o">]</span>
 </code></pre></div>
 <table>
 <thead>
@@ -2358,7 +2508,7 @@
 </table>
 <h3 id="feature-update">feature update<a class="headerlink" href="#feature-update" title="Permanent link">&para;</a></h3>
 <p>Update an existing feature.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>aha<span class="w"> </span>feature<span class="w"> </span>update<span class="w"> </span>FEAT-123<span class="w"> </span><span class="o">[</span>flags<span class="o">]</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>aha<span class="w"> </span>feature<span class="w"> </span>update<span class="w"> </span>FEAT-123<span class="w"> </span><span class="o">[</span>flags<span class="o">]</span>
 </code></pre></div>
 <table>
 <thead>
@@ -2390,7 +2540,7 @@
 <p>View customer ideas.</p>
 <h3 id="idea-list">idea list<a class="headerlink" href="#idea-list" title="Permanent link">&para;</a></h3>
 <p>List ideas in a product.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>aha<span class="w"> </span>idea<span class="w"> </span>list<span class="w"> </span>--product<span class="w"> </span>PRODUCT-KEY<span class="w"> </span><span class="o">[</span>flags<span class="o">]</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>aha<span class="w"> </span>idea<span class="w"> </span>list<span class="w"> </span>--product<span class="w"> </span>PRODUCT-KEY<span class="w"> </span><span class="o">[</span>flags<span class="o">]</span>
 </code></pre></div>
 <table>
 <thead>
@@ -2416,23 +2566,23 @@
 </table>
 <h3 id="idea-get">idea get<a class="headerlink" href="#idea-get" title="Permanent link">&para;</a></h3>
 <p>Get an idea by reference number.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>aha<span class="w"> </span>idea<span class="w"> </span>get<span class="w"> </span>IDEA-456
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>aha<span class="w"> </span>idea<span class="w"> </span>get<span class="w"> </span>IDEA-456
 </code></pre></div>
 <h2 id="epic">epic<a class="headerlink" href="#epic" title="Permanent link">&para;</a></h2>
 <p>View epics.</p>
 <h3 id="epic-list">epic list<a class="headerlink" href="#epic-list" title="Permanent link">&para;</a></h3>
 <p>List epics in a product.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>aha<span class="w"> </span>epic<span class="w"> </span>list<span class="w"> </span>--product<span class="w"> </span>PRODUCT-KEY
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>aha<span class="w"> </span>epic<span class="w"> </span>list<span class="w"> </span>--product<span class="w"> </span>PRODUCT-KEY
 </code></pre></div>
 <h3 id="epic-get">epic get<a class="headerlink" href="#epic-get" title="Permanent link">&para;</a></h3>
 <p>Get an epic by reference number.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>aha<span class="w"> </span>epic<span class="w"> </span>get<span class="w"> </span>EPIC-789
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>aha<span class="w"> </span>epic<span class="w"> </span>get<span class="w"> </span>EPIC-789
 </code></pre></div>
 <h2 id="release">release<a class="headerlink" href="#release" title="Permanent link">&para;</a></h2>
 <p>View releases.</p>
 <h3 id="release-list">release list<a class="headerlink" href="#release-list" title="Permanent link">&para;</a></h3>
 <p>List releases in a product.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>aha<span class="w"> </span>release<span class="w"> </span>list<span class="w"> </span>--product<span class="w"> </span>PRODUCT-KEY<span class="w"> </span><span class="o">[</span>flags<span class="o">]</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>aha<span class="w"> </span>release<span class="w"> </span>list<span class="w"> </span>--product<span class="w"> </span>PRODUCT-KEY<span class="w"> </span><span class="o">[</span>flags<span class="o">]</span>
 </code></pre></div>
 <table>
 <thead>
@@ -2454,41 +2604,41 @@
 </table>
 <h3 id="release-get">release get<a class="headerlink" href="#release-get" title="Permanent link">&para;</a></h3>
 <p>Get a release by reference number.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>aha<span class="w"> </span>release<span class="w"> </span>get<span class="w"> </span>REL-2024Q1
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>aha<span class="w"> </span>release<span class="w"> </span>get<span class="w"> </span>REL-2024Q1
 </code></pre></div>
 <h2 id="initiative">initiative<a class="headerlink" href="#initiative" title="Permanent link">&para;</a></h2>
 <p>View strategic initiatives.</p>
 <h3 id="initiative-list">initiative list<a class="headerlink" href="#initiative-list" title="Permanent link">&para;</a></h3>
 <p>List initiatives.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>aha<span class="w"> </span>initiative<span class="w"> </span>list<span class="w"> </span>--product<span class="w"> </span>PRODUCT-KEY
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>aha<span class="w"> </span>initiative<span class="w"> </span>list<span class="w"> </span>--product<span class="w"> </span>PRODUCT-KEY
 </code></pre></div>
 <h3 id="initiative-get">initiative get<a class="headerlink" href="#initiative-get" title="Permanent link">&para;</a></h3>
 <p>Get an initiative by reference number.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>aha<span class="w"> </span>initiative<span class="w"> </span>get<span class="w"> </span>INIT-123
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>aha<span class="w"> </span>initiative<span class="w"> </span>get<span class="w"> </span>INIT-123
 </code></pre></div>
 <h2 id="goal">goal<a class="headerlink" href="#goal" title="Permanent link">&para;</a></h2>
 <p>View goals.</p>
 <h3 id="goal-list">goal list<a class="headerlink" href="#goal-list" title="Permanent link">&para;</a></h3>
 <p>List goals.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>aha<span class="w"> </span>goal<span class="w"> </span>list<span class="w"> </span>--product<span class="w"> </span>PRODUCT-KEY
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>aha<span class="w"> </span>goal<span class="w"> </span>list<span class="w"> </span>--product<span class="w"> </span>PRODUCT-KEY
 </code></pre></div>
 <h3 id="goal-get">goal get<a class="headerlink" href="#goal-get" title="Permanent link">&para;</a></h3>
 <p>Get a goal by reference number.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>aha<span class="w"> </span>goal<span class="w"> </span>get<span class="w"> </span>GOAL-456
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>aha<span class="w"> </span>goal<span class="w"> </span>get<span class="w"> </span>GOAL-456
 </code></pre></div>
 <h2 id="requirement">requirement<a class="headerlink" href="#requirement" title="Permanent link">&para;</a></h2>
 <p>Manage feature requirements.</p>
 <h3 id="requirement-list">requirement list<a class="headerlink" href="#requirement-list" title="Permanent link">&para;</a></h3>
 <p>List requirements for a feature.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>aha<span class="w"> </span>requirement<span class="w"> </span>list<span class="w"> </span>--feature<span class="w"> </span>FEAT-123
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>aha<span class="w"> </span>requirement<span class="w"> </span>list<span class="w"> </span>--feature<span class="w"> </span>FEAT-123
 </code></pre></div>
 <h3 id="requirement-get">requirement get<a class="headerlink" href="#requirement-get" title="Permanent link">&para;</a></h3>
 <p>Get a requirement by ID.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>aha<span class="w"> </span>requirement<span class="w"> </span>get<span class="w"> </span>REQ-789
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>aha<span class="w"> </span>requirement<span class="w"> </span>get<span class="w"> </span>REQ-789
 </code></pre></div>
 <h3 id="requirement-create">requirement create<a class="headerlink" href="#requirement-create" title="Permanent link">&para;</a></h3>
 <p>Create a requirement on a feature.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>aha<span class="w"> </span>requirement<span class="w"> </span>create<span class="w"> </span>--feature<span class="w"> </span>FEAT-123<span class="w"> </span>--name<span class="w"> </span><span class="s2">&quot;Requirement&quot;</span><span class="w"> </span><span class="o">[</span>flags<span class="o">]</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>aha<span class="w"> </span>requirement<span class="w"> </span>create<span class="w"> </span>--feature<span class="w"> </span>FEAT-123<span class="w"> </span>--name<span class="w"> </span><span class="s2">&quot;Requirement&quot;</span><span class="w"> </span><span class="o">[</span>flags<span class="o">]</span>
 </code></pre></div>
 <table>
 <thead>
@@ -2514,88 +2664,88 @@
 </table>
 <h3 id="requirement-update">requirement update<a class="headerlink" href="#requirement-update" title="Permanent link">&para;</a></h3>
 <p>Update a requirement.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>aha<span class="w"> </span>requirement<span class="w"> </span>update<span class="w"> </span>REQ-789<span class="w"> </span>--name<span class="w"> </span><span class="s2">&quot;Updated Name&quot;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>aha<span class="w"> </span>requirement<span class="w"> </span>update<span class="w"> </span>REQ-789<span class="w"> </span>--name<span class="w"> </span><span class="s2">&quot;Updated Name&quot;</span>
 </code></pre></div>
 <h3 id="requirement-delete">requirement delete<a class="headerlink" href="#requirement-delete" title="Permanent link">&para;</a></h3>
 <p>Delete a requirement.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>aha<span class="w"> </span>requirement<span class="w"> </span>delete<span class="w"> </span>REQ-789
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>aha<span class="w"> </span>requirement<span class="w"> </span>delete<span class="w"> </span>REQ-789
 </code></pre></div>
 <h2 id="comment">comment<a class="headerlink" href="#comment" title="Permanent link">&para;</a></h2>
 <p>Manage comments on entities.</p>
 <h3 id="comment-list">comment list<a class="headerlink" href="#comment-list" title="Permanent link">&para;</a></h3>
 <p>List comments.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>aha<span class="w"> </span>comment<span class="w"> </span>list<span class="w"> </span>--feature<span class="w"> </span>FEAT-123
-<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>aha<span class="w"> </span>comment<span class="w"> </span>list<span class="w"> </span>--idea<span class="w"> </span>IDEA-456
-<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>aha<span class="w"> </span>comment<span class="w"> </span>list<span class="w"> </span>--product<span class="w"> </span>PRODUCT-KEY
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>aha<span class="w"> </span>comment<span class="w"> </span>list<span class="w"> </span>--feature<span class="w"> </span>FEAT-123
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>aha<span class="w"> </span>comment<span class="w"> </span>list<span class="w"> </span>--idea<span class="w"> </span>IDEA-456
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>aha<span class="w"> </span>comment<span class="w"> </span>list<span class="w"> </span>--product<span class="w"> </span>PRODUCT-KEY
 </code></pre></div>
 <h3 id="comment-get">comment get<a class="headerlink" href="#comment-get" title="Permanent link">&para;</a></h3>
 <p>Get a comment by ID.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>aha<span class="w"> </span>comment<span class="w"> </span>get<span class="w"> </span>COMMENT-ID
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>aha<span class="w"> </span>comment<span class="w"> </span>get<span class="w"> </span>COMMENT-ID
 </code></pre></div>
 <h3 id="comment-create">comment create<a class="headerlink" href="#comment-create" title="Permanent link">&para;</a></h3>
 <p>Add a comment.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>aha<span class="w"> </span>comment<span class="w"> </span>create<span class="w"> </span>--feature<span class="w"> </span>FEAT-123<span class="w"> </span>--body<span class="w"> </span><span class="s2">&quot;Comment text&quot;</span>
-<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>aha<span class="w"> </span>comment<span class="w"> </span>create<span class="w"> </span>--idea<span class="w"> </span>IDEA-456<span class="w"> </span>--body<span class="w"> </span><span class="s2">&quot;Comment text&quot;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>aha<span class="w"> </span>comment<span class="w"> </span>create<span class="w"> </span>--feature<span class="w"> </span>FEAT-123<span class="w"> </span>--body<span class="w"> </span><span class="s2">&quot;Comment text&quot;</span>
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>aha<span class="w"> </span>comment<span class="w"> </span>create<span class="w"> </span>--idea<span class="w"> </span>IDEA-456<span class="w"> </span>--body<span class="w"> </span><span class="s2">&quot;Comment text&quot;</span>
 </code></pre></div>
 <h3 id="comment-delete">comment delete<a class="headerlink" href="#comment-delete" title="Permanent link">&para;</a></h3>
 <p>Delete a comment.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>aha<span class="w"> </span>comment<span class="w"> </span>delete<span class="w"> </span>COMMENT-ID
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>aha<span class="w"> </span>comment<span class="w"> </span>delete<span class="w"> </span>COMMENT-ID
 </code></pre></div>
 <h2 id="user">user<a class="headerlink" href="#user" title="Permanent link">&para;</a></h2>
 <p>View users.</p>
 <h3 id="user-list">user list<a class="headerlink" href="#user-list" title="Permanent link">&para;</a></h3>
 <p>List users in the account.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>aha<span class="w"> </span>user<span class="w"> </span>list
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>aha<span class="w"> </span>user<span class="w"> </span>list
 </code></pre></div>
 <h3 id="user-get">user get<a class="headerlink" href="#user-get" title="Permanent link">&para;</a></h3>
 <p>Get a user by ID or email.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>aha<span class="w"> </span>user<span class="w"> </span>get<span class="w"> </span>USER-ID
-<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>aha<span class="w"> </span>user<span class="w"> </span>get<span class="w"> </span>user@company.com
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>aha<span class="w"> </span>user<span class="w"> </span>get<span class="w"> </span>USER-ID
+<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>aha<span class="w"> </span>user<span class="w"> </span>get<span class="w"> </span>user@company.com
 </code></pre></div>
 <h3 id="user-me">user me<a class="headerlink" href="#user-me" title="Permanent link">&para;</a></h3>
 <p>Get the current authenticated user.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>aha<span class="w"> </span>user<span class="w"> </span>me
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>aha<span class="w"> </span>user<span class="w"> </span>me
 </code></pre></div>
 <h2 id="canvas">canvas<a class="headerlink" href="#canvas" title="Permanent link">&para;</a></h2>
 <p>Create and export strategic canvases.</p>
 <h3 id="canvas-list">canvas list<a class="headerlink" href="#canvas-list" title="Permanent link">&para;</a></h3>
 <p>List canvases in a product.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>aha<span class="w"> </span>canvas<span class="w"> </span>list<span class="w"> </span>--product<span class="w"> </span>PRODUCT-KEY
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>aha<span class="w"> </span>canvas<span class="w"> </span>list<span class="w"> </span>--product<span class="w"> </span>PRODUCT-KEY
 </code></pre></div>
 <h3 id="canvas-get">canvas get<a class="headerlink" href="#canvas-get" title="Permanent link">&para;</a></h3>
 <p>Get a canvas by ID.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>aha<span class="w"> </span>canvas<span class="w"> </span>get<span class="w"> </span>CANVAS-ID
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>aha<span class="w"> </span>canvas<span class="w"> </span>get<span class="w"> </span>CANVAS-ID
 </code></pre></div>
 <h3 id="canvas-create-bmc">canvas create bmc<a class="headerlink" href="#canvas-create-bmc" title="Permanent link">&para;</a></h3>
 <p>Create a Business Model Canvas.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>aha<span class="w"> </span>canvas<span class="w"> </span>create<span class="w"> </span>bmc<span class="w"> </span>--product<span class="w"> </span>PRODUCT-KEY<span class="w"> </span>--name<span class="w"> </span><span class="s2">&quot;My BMC&quot;</span><span class="w"> </span>--file<span class="w"> </span>bmc.json
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>aha<span class="w"> </span>canvas<span class="w"> </span>create<span class="w"> </span>bmc<span class="w"> </span>--product<span class="w"> </span>PRODUCT-KEY<span class="w"> </span>--name<span class="w"> </span><span class="s2">&quot;My BMC&quot;</span><span class="w"> </span>--file<span class="w"> </span>bmc.json
 </code></pre></div>
 <h3 id="canvas-create-leanux">canvas create leanux<a class="headerlink" href="#canvas-create-leanux" title="Permanent link">&para;</a></h3>
 <p>Create a Lean UX Canvas.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>aha<span class="w"> </span>canvas<span class="w"> </span>create<span class="w"> </span>leanux<span class="w"> </span>--product<span class="w"> </span>PRODUCT-KEY<span class="w"> </span>--name<span class="w"> </span><span class="s2">&quot;My Lean UX&quot;</span><span class="w"> </span>--file<span class="w"> </span>leanux.json
+<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>aha<span class="w"> </span>canvas<span class="w"> </span>create<span class="w"> </span>leanux<span class="w"> </span>--product<span class="w"> </span>PRODUCT-KEY<span class="w"> </span>--name<span class="w"> </span><span class="s2">&quot;My Lean UX&quot;</span><span class="w"> </span>--file<span class="w"> </span>leanux.json
 </code></pre></div>
 <h3 id="canvas-create-opportunity">canvas create opportunity<a class="headerlink" href="#canvas-create-opportunity" title="Permanent link">&para;</a></h3>
 <p>Create an Opportunity Canvas.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>aha<span class="w"> </span>canvas<span class="w"> </span>create<span class="w"> </span>opportunity<span class="w"> </span>--product<span class="w"> </span>PRODUCT-KEY<span class="w"> </span>--name<span class="w"> </span><span class="s2">&quot;Opportunity&quot;</span><span class="w"> </span>--file<span class="w"> </span>opp.json
+<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>aha<span class="w"> </span>canvas<span class="w"> </span>create<span class="w"> </span>opportunity<span class="w"> </span>--product<span class="w"> </span>PRODUCT-KEY<span class="w"> </span>--name<span class="w"> </span><span class="s2">&quot;Opportunity&quot;</span><span class="w"> </span>--file<span class="w"> </span>opp.json
 </code></pre></div>
 <h3 id="canvas-export">canvas export<a class="headerlink" href="#canvas-export" title="Permanent link">&para;</a></h3>
 <p>Export a canvas to various formats.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>aha<span class="w"> </span>canvas<span class="w"> </span><span class="nb">export</span><span class="w"> </span>CANVAS-ID<span class="w"> </span>--format<span class="w"> </span>png<span class="w"> </span>--output<span class="w"> </span>canvas.png
-<a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>aha<span class="w"> </span>canvas<span class="w"> </span><span class="nb">export</span><span class="w"> </span>CANVAS-ID<span class="w"> </span>--format<span class="w"> </span>pdf<span class="w"> </span>--output<span class="w"> </span>canvas.pdf
+<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>aha<span class="w"> </span>canvas<span class="w"> </span><span class="nb">export</span><span class="w"> </span>CANVAS-ID<span class="w"> </span>--format<span class="w"> </span>png<span class="w"> </span>--output<span class="w"> </span>canvas.png
+<a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a>aha<span class="w"> </span>canvas<span class="w"> </span><span class="nb">export</span><span class="w"> </span>CANVAS-ID<span class="w"> </span>--format<span class="w"> </span>pdf<span class="w"> </span>--output<span class="w"> </span>canvas.pdf
 </code></pre></div>
 <h2 id="completion">completion<a class="headerlink" href="#completion" title="Permanent link">&para;</a></h2>
 <p>Generate shell completion scripts.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="c1"># Bash</span>
-<a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a>aha<span class="w"> </span>completion<span class="w"> </span>bash
-<a id="__codelineno-34-3" name="__codelineno-34-3" href="#__codelineno-34-3"></a>
-<a id="__codelineno-34-4" name="__codelineno-34-4" href="#__codelineno-34-4"></a><span class="c1"># Zsh</span>
-<a id="__codelineno-34-5" name="__codelineno-34-5" href="#__codelineno-34-5"></a>aha<span class="w"> </span>completion<span class="w"> </span>zsh
-<a id="__codelineno-34-6" name="__codelineno-34-6" href="#__codelineno-34-6"></a>
-<a id="__codelineno-34-7" name="__codelineno-34-7" href="#__codelineno-34-7"></a><span class="c1"># Fish</span>
-<a id="__codelineno-34-8" name="__codelineno-34-8" href="#__codelineno-34-8"></a>aha<span class="w"> </span>completion<span class="w"> </span>fish
-<a id="__codelineno-34-9" name="__codelineno-34-9" href="#__codelineno-34-9"></a>
-<a id="__codelineno-34-10" name="__codelineno-34-10" href="#__codelineno-34-10"></a><span class="c1"># PowerShell</span>
-<a id="__codelineno-34-11" name="__codelineno-34-11" href="#__codelineno-34-11"></a>aha<span class="w"> </span>completion<span class="w"> </span>powershell
+<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="c1"># Bash</span>
+<a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a>aha<span class="w"> </span>completion<span class="w"> </span>bash
+<a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a>
+<a id="__codelineno-36-4" name="__codelineno-36-4" href="#__codelineno-36-4"></a><span class="c1"># Zsh</span>
+<a id="__codelineno-36-5" name="__codelineno-36-5" href="#__codelineno-36-5"></a>aha<span class="w"> </span>completion<span class="w"> </span>zsh
+<a id="__codelineno-36-6" name="__codelineno-36-6" href="#__codelineno-36-6"></a>
+<a id="__codelineno-36-7" name="__codelineno-36-7" href="#__codelineno-36-7"></a><span class="c1"># Fish</span>
+<a id="__codelineno-36-8" name="__codelineno-36-8" href="#__codelineno-36-8"></a>aha<span class="w"> </span>completion<span class="w"> </span>fish
+<a id="__codelineno-36-9" name="__codelineno-36-9" href="#__codelineno-36-9"></a>
+<a id="__codelineno-36-10" name="__codelineno-36-10" href="#__codelineno-36-10"></a><span class="c1"># PowerShell</span>
+<a id="__codelineno-36-11" name="__codelineno-36-11" href="#__codelineno-36-11"></a>aha<span class="w"> </span>completion<span class="w"> </span>powershell
 </code></pre></div>
 
 
