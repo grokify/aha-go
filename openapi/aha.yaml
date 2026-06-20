@@ -466,10 +466,21 @@ paths:
     get:
       operationId: listProducts
       summary: List products
-      description: Get all products (workspaces)
+      description: Get all products (workspaces) including Aha! Develop teams
       tags:
         - Products
       parameters:
+        - name: updated_since
+          in: query
+          description: UTC timestamp (ISO8601). Only products updated after this time.
+          schema:
+            type: string
+            format: date-time
+        - name: with_idea_portals
+          in: query
+          description: Set to true to list only products with idea portals
+          schema:
+            type: boolean
         - name: page
           in: query
           schema:
@@ -488,6 +499,26 @@ paths:
               schema:
                 $ref: "#/components/schemas/ProductsResponse"
 
+    post:
+      operationId: createProduct
+      summary: Create product
+      description: Create a new product or product line
+      tags:
+        - Products
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProductCreateRequest"
+      responses:
+        "200":
+          description: Created product
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductResponse"
+
   /products/{product_id}:
     get:
       operationId: getProduct
@@ -505,6 +536,33 @@ paths:
       responses:
         "200":
           description: Product details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductResponse"
+
+    put:
+      operationId: updateProduct
+      summary: Update product
+      description: Update an existing product
+      tags:
+        - Products
+      parameters:
+        - name: product_id
+          in: path
+          required: true
+          description: Product ID or reference prefix
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProductUpdateRequest"
+      responses:
+        "200":
+          description: Updated product
           content:
             application/json:
               schema:
@@ -1671,9 +1729,11 @@ components:
         start_date:
           type: string
           format: date
+          nullable: true
         due_date:
           type: string
           format: date
+          nullable: true
         product_id:
           type: string
         url:
@@ -1775,9 +1835,11 @@ components:
         start_date:
           type: string
           format: date
+          nullable: true
         due_date:
           type: string
           format: date
+          nullable: true
         original_estimate_text:
           type: string
           description: "Effort estimate (e.g., 2d, 4h, 30min, 5p)"
@@ -1809,9 +1871,11 @@ components:
         start_date:
           type: string
           format: date
+          nullable: true
         due_date:
           type: string
           format: date
+          nullable: true
         release:
           type: string
           description: Release ID to move feature to
@@ -1955,6 +2019,18 @@ components:
           type: string
           description: Updated comment text content
 
+    # Description can be either a string or an object with body/html_body fields
+    # The Aha API returns description as an object for Ideas but sometimes as a string
+    DescriptionObject:
+      type: object
+      properties:
+        body:
+          type: string
+          description: Plain text description
+        html_body:
+          type: string
+          description: HTML formatted description
+
     # Idea schemas
     Idea:
       type: object
@@ -1972,7 +2048,7 @@ components:
         name:
           type: string
         description:
-          type: string
+          $ref: "#/components/schemas/DescriptionObject"
         votes:
           type: integer
         created_at:
@@ -2055,9 +2131,11 @@ components:
         start_date:
           type: string
           format: date
+          nullable: true
         due_date:
           type: string
           format: date
+          nullable: true
         created_at:
           type: string
           format: date-time
@@ -2147,10 +2225,12 @@ components:
         start_date:
           type: string
           format: date
+          nullable: true
           description: Epic start date
         due_date:
           type: string
           format: date
+          nullable: true
           description: Epic due date
         color:
           type: string
@@ -2182,9 +2262,11 @@ components:
         start_date:
           type: string
           format: date
+          nullable: true
         due_date:
           type: string
           format: date
+          nullable: true
         progress:
           type: number
           format: float
@@ -2225,9 +2307,11 @@ components:
         start_date:
           type: string
           format: date
+          nullable: true
         end_date:
           type: string
           format: date
+          nullable: true
         created_at:
           type: string
           format: date-time
@@ -2304,10 +2388,12 @@ components:
         start_date:
           type: string
           format: date
+          nullable: true
           description: Goal start date
         end_date:
           type: string
           format: date
+          nullable: true
           description: Goal end date
         workflow_status:
           type: string
@@ -2333,10 +2419,12 @@ components:
         start_date:
           type: string
           format: date
+          nullable: true
           description: Goal start date
         end_date:
           type: string
           format: date
+          nullable: true
           description: Goal end date
         progress:
           type: number
@@ -2364,8 +2452,17 @@ components:
           type: string
         name:
           type: string
+        description:
+          type: string
+          description: Product description (HTML allowed)
         product_line:
           type: boolean
+        parent_id:
+          type: string
+          description: ID of the parent product line
+        workspace_type:
+          type: string
+          description: Type of workspace (product_workspace, it_workspace, marketing_workspace, etc.)
         created_at:
           type: string
           format: date-time
@@ -2392,6 +2489,9 @@ components:
           type: string
         product_line:
           type: boolean
+        workspace_type:
+          type: string
+          description: Type of workspace
         created_at:
           type: string
           format: date-time
@@ -2411,6 +2511,69 @@ components:
             $ref: "#/components/schemas/ProductMeta"
         pagination:
           $ref: "#/components/schemas/Pagination"
+
+    ProductCreateRequest:
+      type: object
+      required:
+        - product
+      properties:
+        product:
+          $ref: "#/components/schemas/ProductCreate"
+
+    ProductCreate:
+      type: object
+      required:
+        - name
+        - reference_prefix
+      properties:
+        name:
+          type: string
+          description: Name of the product
+        reference_prefix:
+          type: string
+          description: Abbreviation used as prefix on all features
+        description:
+          type: string
+          description: Description of the product (HTML allowed)
+        parent_id:
+          type: string
+          description: Numeric ID or prefix of parent product line
+        workspace_type:
+          type: string
+          description: Type of workspace (product_workspace, it_workspace, marketing_workspace, etc.)
+        product_line:
+          type: boolean
+          description: Set to true to create a product line
+        product_line_type:
+          type: string
+          description: Required if creating a product line
+
+    ProductUpdateRequest:
+      type: object
+      required:
+        - product
+      properties:
+        product:
+          $ref: "#/components/schemas/ProductUpdate"
+
+    ProductUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the product
+        reference_prefix:
+          type: string
+          description: Abbreviation used as prefix on all features
+        description:
+          type: string
+          description: Description of the product (HTML allowed)
+        parent_id:
+          type: string
+          description: Numeric ID or prefix of parent product line
+        workspace_type:
+          type: string
+          description: Type of workspace
 
     # Requirement schemas
     Requirement:
@@ -2569,12 +2732,15 @@ components:
         start_date:
           type: string
           format: date
+          nullable: true
         release_date:
           type: string
           format: date
+          nullable: true
         external_release_date:
           type: string
           format: date
+          nullable: true
         released:
           type: boolean
         parking_lot:
@@ -2616,12 +2782,15 @@ components:
         start_date:
           type: string
           format: date
+          nullable: true
         release_date:
           type: string
           format: date
+          nullable: true
         external_release_date:
           type: string
           format: date
+          nullable: true
         development_started_on:
           type: string
           format: date
@@ -2661,9 +2830,11 @@ components:
         start_date:
           type: string
           format: date
+          nullable: true
         end_date:
           type: string
           format: date
+          nullable: true
         progress:
           type: number
           format: double
@@ -2748,9 +2919,11 @@ components:
         start_date:
           type: string
           format: date
+          nullable: true
         end_date:
           type: string
           format: date
+          nullable: true
         value:
           type: number
           format: double
@@ -2782,9 +2955,11 @@ components:
         start_date:
           type: string
           format: date
+          nullable: true
         end_date:
           type: string
           format: date
+          nullable: true
         value:
           type: number
           format: double
