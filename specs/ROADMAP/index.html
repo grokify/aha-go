@@ -1256,6 +1256,30 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#technical-debt" class="md-nav__link">
+    <span class="md-ellipsis">
+      Technical Debt
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Technical Debt">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#browser-automation-go-rod-to-chromedp-migration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Browser Automation: go-rod to chromedp Migration
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1329,6 +1353,30 @@
       Future Considerations
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#technical-debt" class="md-nav__link">
+    <span class="md-ellipsis">
+      Technical Debt
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Technical Debt">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#browser-automation-go-rod-to-chromedp-migration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Browser Automation: go-rod to chromedp Migration
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1420,6 +1468,56 @@
 <li>Tasks/To-dos (list, get, create, update, delete)</li>
 <li>Pages (list, get)</li>
 </ul>
+<h2 id="technical-debt">Technical Debt<a class="headerlink" href="#technical-debt" title="Permanent link">&para;</a></h2>
+<h3 id="browser-automation-go-rod-to-chromedp-migration">Browser Automation: go-rod to chromedp Migration<a class="headerlink" href="#browser-automation-go-rod-to-chromedp-migration" title="Permanent link">&para;</a></h3>
+<p><strong>Status:</strong> Planned (non-blocking)</p>
+<p>The <code>browser</code> package uses <a href="https://github.com/go-rod/rod">go-rod</a> for UI automation to create canvas templates (Aha.io has no API for template creation). However, go-rod appears unmaintained:</p>
+<ul>
+<li>Last meaningful code update: 2024</li>
+<li>Last release: v0.116.2 (July 2024)</li>
+<li>Recent commits: Logo/sponsor updates only (2025-2026)</li>
+<li>Dependency conflict: Requires pinned <code>fetchup v0.2.4</code>; newer versions have breaking API changes</li>
+</ul>
+<p><strong>Current mitigation:</strong> Pin <code>fetchup v0.2.4</code> in go.mod.</p>
+<p><strong>Migration plan:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Research</td>
+<td>Evaluate chromedp API for aha-go use cases</td>
+</tr>
+<tr>
+<td>2. Wrapper</td>
+<td>Create high-level wrapper around chromedp (rod's appeal was its abstractions)</td>
+</tr>
+<tr>
+<td>3. Migrate</td>
+<td>Replace go-rod with chromedp wrapper in <code>browser</code> package</td>
+</tr>
+<tr>
+<td>4. Test</td>
+<td>Verify template creation still works</td>
+</tr>
+<tr>
+<td>5. Remove</td>
+<td>Remove go-rod and fetchup pin</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Why chromedp:</strong></p>
+<ul>
+<li>Written in Go (go-first approach)</li>
+<li>Actively maintained by Google</li>
+<li>No external binary dependencies</li>
+<li>Uses same Chrome DevTools Protocol as go-rod</li>
+</ul>
+<p><strong>Non-blocking:</strong> This migration is technical debt cleanup, not a release blocker. The pinned dependency works correctly.</p>
 
 
 
