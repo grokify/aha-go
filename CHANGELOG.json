@@ -7,6 +7,21 @@
   "maintainers": ["grokify"],
   "releases": [
     {
+      "version": "v0.4.1",
+      "date": "2026-06-18",
+      "highlights": [
+        { "description": "Fix null date field decoding in API responses" }
+      ],
+      "fixed": [
+        { "description": "Nullable date fields (start_date, due_date, end_date, release_date, external_release_date) now decode correctly when API returns null", "issue": "64" },
+        { "description": "DoRaw method documentation clarifies path format (no /api/v1 prefix needed)" }
+      ],
+      "changed": [
+        { "description": "OpenAPI spec updated with nullable: true for date fields across Feature, Epic, Goal, Initiative, and Release schemas" },
+        { "description": "High-level wrapper methods use NewOptNilDate for nullable date field assignment" }
+      ]
+    },
+    {
       "version": "v0.4.0",
       "date": "2026-06-08",
       "commit": "31229b3927d0aad24e80b33eef80a890432b9ec8",

@@ -519,7 +519,7 @@ func main() {
 
 Available operations include:
 
-- **Queries**: `GetFeature`, `GetPage`, `GetIdea`, `GetRelease`, `GetGoal`, `GetEpic`, `GetInitiative`, `GetRequirement`, `GetProject`, `GetAccount`, `SearchDocuments`, `GetFeatureWithIntegrations`, `GetFeatureWithLinks`, `GetFeatureScreenDefinition`, `GetProjectCustomFields`, `GetFeatureWithCustomFields`
+- **Queries**: `ListFeatures`, `GetFeature`, `GetPage`, `GetIdea`, `GetRelease`, `GetGoal`, `GetEpic`, `GetInitiative`, `GetRequirement`, `GetProject`, `GetAccount`, `SearchDocuments`, `GetFeatureWithIntegrations`, `GetFeatureWithLinks`, `GetFeatureScreenDefinition`, `GetProjectCustomFields`, `GetFeatureWithCustomFields`
 - **Mutations**: `UpdateFeatureName`, `UpdateFeatureDescription`, `UpdateFeatureStatus`, `UpdateFeatureTags`, `AssignFeatureToInitiative`, `AssignFeatureToRelease`, `AssignFeatureToEpic`, `AssignFeatureToUser`, `PromoteIdeaToFeature`, `PromoteIdeaToEpic`, `CreateRecordLink`, `CreateFeatureWithRelease`, `CreateFeatureWithProject`, `CreateFeatureWithAssignments`, `CreateIdea`, `SetCustomFieldValues`
 
 ### Creating Features and Ideas
