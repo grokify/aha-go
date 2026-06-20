@@ -7,18 +7,47 @@
   "maintainers": ["grokify"],
   "releases": [
     {
-      "version": "v0.4.1",
-      "date": "2026-06-18",
+      "version": "v0.5.0",
+      "date": "2026-06-20",
+      "commit": "e0ab2c1",
       "highlights": [
-        { "description": "Fix null date field decoding in API responses" }
+        { "description": "Product CRUD operations (create, update, list with filters)" },
+        { "description": "ListFeatures GraphQL query with release info, position, and tags" },
+        { "description": "Tree-structured product listing with GraphQL support" }
+      ],
+      "added": [
+        { "description": "CreateProduct and CreateProductLine SDK methods", "commit": "844155b" },
+        { "description": "UpdateProduct SDK method with functional options", "commit": "844155b" },
+        { "description": "ListProducts filtering: WithUpdatedSince, WithIdeaPortals", "commit": "844155b" },
+        { "description": "ListFeatures GraphQL query with release_id, release_date, position, tagList, project fields", "commit": "af59927" },
+        { "description": "ListProjects GraphQL query with parentId filter for tree traversal", "commit": "af59927" },
+        { "description": "UpdateFeatureRank GraphQL mutation", "commit": "af59927" },
+        { "description": "CLI: aha product create command", "commit": "17e306f" },
+        { "description": "CLI: aha product update command", "commit": "17e306f" },
+        { "description": "CLI: aha product list --with-idea-portals and --updated-since flags", "commit": "bedcdbe" },
+        { "description": "CLI: Tree-structured product list output with GraphQL backend", "commit": "bedcdbe" },
+        { "description": "CLI: Enhanced product get output with workspace_type, parent_id, description", "commit": "50c36d3" }
       ],
       "fixed": [
-        { "description": "Nullable date fields (start_date, due_date, end_date, release_date, external_release_date) now decode correctly when API returns null", "issue": "64" },
-        { "description": "DoRaw method documentation clarifies path format (no /api/v1 prefix needed)" }
+        { "description": "Nullable date fields (start_date, due_date, end_date, release_date, external_release_date) now decode correctly when API returns null", "commit": "e0985d5", "issue": "64" },
+        { "description": "Idea description field handles object format from API (body/html_body)", "commit": "e0985d5" },
+        { "description": "Pin fetchup v0.2.4 for go-rod v0.116.2 compatibility", "commit": "2fc96ad" }
       ],
       "changed": [
-        { "description": "OpenAPI spec updated with nullable: true for date fields across Feature, Epic, Goal, Initiative, and Release schemas" },
-        { "description": "High-level wrapper methods use NewOptNilDate for nullable date field assignment" }
+        { "description": "OpenAPI spec: Add product create/update endpoints", "commit": "e568fcc" },
+        { "description": "OpenAPI spec: Add nullable: true to date fields across schemas", "commit": "e568fcc" },
+        { "description": "OpenAPI spec: Add DescriptionObject schema for Idea descriptions", "commit": "e568fcc" },
+        { "description": "Regenerate ogen client from updated OpenAPI spec", "commit": "beb8821" }
+      ],
+      "documentation": [
+        { "description": "Document go-rod dependency situation and chromedp migration plan", "commit": "e0ab2c1" },
+        { "description": "Add product create/update documentation to README and docs", "commit": "ed56045" },
+        { "description": "Clarify DoRaw path format (no /api/v1 prefix needed)", "commit": "7477552" },
+        { "description": "Update GraphQL package documentation with ListFeatures", "commit": "a6f4527" }
+      ],
+      "dependencies": [
+        { "description": "Bump actions/checkout from 6 to 7", "commit": "4743859" },
+        { "description": "Bump github.com/ogen-go/ogen from 1.20.3 to 1.22.0", "commit": "f902982" }
       ]
     },
     {
