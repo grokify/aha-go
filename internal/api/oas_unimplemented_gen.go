@@ -40,6 +40,15 @@ func (UnimplementedHandler) CreateIdeaComment(ctx context.Context, req *CommentC
 	return r, ht.ErrNotImplemented
 }
 
+// CreateProduct implements createProduct operation.
+//
+// Create a new product or product line.
+//
+// POST /products
+func (UnimplementedHandler) CreateProduct(ctx context.Context, req *ProductCreateRequest) (r *ProductResponse, _ error) {
+	return r, ht.ErrNotImplemented
+}
+
 // CreateProductGoal implements createProductGoal operation.
 //
 // Create a new goal in a product.
@@ -375,7 +384,7 @@ func (UnimplementedHandler) ListProductWorkflows(ctx context.Context, params Lis
 
 // ListProducts implements listProducts operation.
 //
-// Get all products (workspaces).
+// Get all products (workspaces) including Aha! Develop teams.
 //
 // GET /products
 func (UnimplementedHandler) ListProducts(ctx context.Context, params ListProductsParams) (r *ProductsResponse, _ error) {
@@ -460,6 +469,15 @@ func (UnimplementedHandler) UpdateGoal(ctx context.Context, req *GoalUpdateReque
 //
 // PUT /initiatives/{initiative_id}
 func (UnimplementedHandler) UpdateInitiative(ctx context.Context, req *InitiativeUpdateRequest, params UpdateInitiativeParams) (r *InitiativeResponse, _ error) {
+	return r, ht.ErrNotImplemented
+}
+
+// UpdateProduct implements updateProduct operation.
+//
+// Update an existing product.
+//
+// PUT /products/{product_id}
+func (UnimplementedHandler) UpdateProduct(ctx context.Context, req *ProductUpdateRequest, params UpdateProductParams) (r *ProductResponse, _ error) {
 	return r, ht.ErrNotImplemented
 }
 

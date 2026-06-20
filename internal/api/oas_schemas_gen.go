@@ -548,6 +548,34 @@ type DeleteCommentNoContent struct{}
 // DeleteRequirementNoContent is response for DeleteRequirement operation.
 type DeleteRequirementNoContent struct{}
 
+// Ref: #/components/schemas/DescriptionObject
+type DescriptionObject struct {
+	// Plain text description.
+	Body OptString `json:"body"`
+	// HTML formatted description.
+	HTMLBody OptString `json:"html_body"`
+}
+
+// GetBody returns the value of Body.
+func (s *DescriptionObject) GetBody() OptString {
+	return s.Body
+}
+
+// GetHTMLBody returns the value of HTMLBody.
+func (s *DescriptionObject) GetHTMLBody() OptString {
+	return s.HTMLBody
+}
+
+// SetBody sets the value of Body.
+func (s *DescriptionObject) SetBody(val OptString) {
+	s.Body = val
+}
+
+// SetHTMLBody sets the value of HTMLBody.
+func (s *DescriptionObject) SetHTMLBody(val OptString) {
+	s.HTMLBody = val
+}
+
 // Ref: #/components/schemas/Epic
 type Epic struct {
 	ID           string    `json:"id"`
@@ -558,8 +586,8 @@ type Epic struct {
 	Progress OptFloat32 `json:"progress"`
 	// Source of progress calculation.
 	ProgressSource OptString   `json:"progress_source"`
-	StartDate      OptDate     `json:"start_date"`
-	DueDate        OptDate     `json:"due_date"`
+	StartDate      OptNilDate  `json:"start_date"`
+	DueDate        OptNilDate  `json:"due_date"`
 	CreatedAt      time.Time   `json:"created_at"`
 	UpdatedAt      OptDateTime `json:"updated_at"`
 	// Web UI URL.
@@ -606,12 +634,12 @@ func (s *Epic) GetProgressSource() OptString {
 }
 
 // GetStartDate returns the value of StartDate.
-func (s *Epic) GetStartDate() OptDate {
+func (s *Epic) GetStartDate() OptNilDate {
 	return s.StartDate
 }
 
 // GetDueDate returns the value of DueDate.
-func (s *Epic) GetDueDate() OptDate {
+func (s *Epic) GetDueDate() OptNilDate {
 	return s.DueDate
 }
 
@@ -701,12 +729,12 @@ func (s *Epic) SetProgressSource(val OptString) {
 }
 
 // SetStartDate sets the value of StartDate.
-func (s *Epic) SetStartDate(val OptDate) {
+func (s *Epic) SetStartDate(val OptNilDate) {
 	s.StartDate = val
 }
 
 // SetDueDate sets the value of DueDate.
-func (s *Epic) SetDueDate(val OptDate) {
+func (s *Epic) SetDueDate(val OptNilDate) {
 	s.DueDate = val
 }
 
@@ -774,9 +802,9 @@ type EpicCreate struct {
 	// Workflow status ID or name.
 	WorkflowStatus OptString `json:"workflow_status"`
 	// Epic start date.
-	StartDate OptDate `json:"start_date"`
+	StartDate OptNilDate `json:"start_date"`
 	// Epic due date.
-	DueDate OptDate `json:"due_date"`
+	DueDate OptNilDate `json:"due_date"`
 	// Epic color.
 	Color OptString `json:"color"`
 	// Initiative ID or reference.
@@ -799,12 +827,12 @@ func (s *EpicCreate) GetWorkflowStatus() OptString {
 }
 
 // GetStartDate returns the value of StartDate.
-func (s *EpicCreate) GetStartDate() OptDate {
+func (s *EpicCreate) GetStartDate() OptNilDate {
 	return s.StartDate
 }
 
 // GetDueDate returns the value of DueDate.
-func (s *EpicCreate) GetDueDate() OptDate {
+func (s *EpicCreate) GetDueDate() OptNilDate {
 	return s.DueDate
 }
 
@@ -834,12 +862,12 @@ func (s *EpicCreate) SetWorkflowStatus(val OptString) {
 }
 
 // SetStartDate sets the value of StartDate.
-func (s *EpicCreate) SetStartDate(val OptDate) {
+func (s *EpicCreate) SetStartDate(val OptNilDate) {
 	s.StartDate = val
 }
 
 // SetDueDate sets the value of DueDate.
-func (s *EpicCreate) SetDueDate(val OptDate) {
+func (s *EpicCreate) SetDueDate(val OptNilDate) {
 	s.DueDate = val
 }
 
@@ -962,9 +990,9 @@ type EpicUpdate struct {
 	// Epic description (HTML allowed).
 	Description OptString `json:"description"`
 	// Workflow status ID or name.
-	WorkflowStatus OptString `json:"workflow_status"`
-	StartDate      OptDate   `json:"start_date"`
-	DueDate        OptDate   `json:"due_date"`
+	WorkflowStatus OptString  `json:"workflow_status"`
+	StartDate      OptNilDate `json:"start_date"`
+	DueDate        OptNilDate `json:"due_date"`
 	// Progress percentage (0-100) when progress_source is manual.
 	Progress OptFloat32 `json:"progress"`
 	Color    OptString  `json:"color"`
@@ -988,12 +1016,12 @@ func (s *EpicUpdate) GetWorkflowStatus() OptString {
 }
 
 // GetStartDate returns the value of StartDate.
-func (s *EpicUpdate) GetStartDate() OptDate {
+func (s *EpicUpdate) GetStartDate() OptNilDate {
 	return s.StartDate
 }
 
 // GetDueDate returns the value of DueDate.
-func (s *EpicUpdate) GetDueDate() OptDate {
+func (s *EpicUpdate) GetDueDate() OptNilDate {
 	return s.DueDate
 }
 
@@ -1028,12 +1056,12 @@ func (s *EpicUpdate) SetWorkflowStatus(val OptString) {
 }
 
 // SetStartDate sets the value of StartDate.
-func (s *EpicUpdate) SetStartDate(val OptDate) {
+func (s *EpicUpdate) SetStartDate(val OptNilDate) {
 	s.StartDate = val
 }
 
 // SetDueDate sets the value of DueDate.
-func (s *EpicUpdate) SetDueDate(val OptDate) {
+func (s *EpicUpdate) SetDueDate(val OptNilDate) {
 	s.DueDate = val
 }
 
@@ -1101,8 +1129,8 @@ type Feature struct {
 	Description  OptString   `json:"description"`
 	CreatedAt    time.Time   `json:"created_at"`
 	UpdatedAt    OptDateTime `json:"updated_at"`
-	StartDate    OptDate     `json:"start_date"`
-	DueDate      OptDate     `json:"due_date"`
+	StartDate    OptNilDate  `json:"start_date"`
+	DueDate      OptNilDate  `json:"due_date"`
 	ProductID    OptString   `json:"product_id"`
 	// Web UI URL.
 	URL OptString `json:"url"`
@@ -1151,12 +1179,12 @@ func (s *Feature) GetUpdatedAt() OptDateTime {
 }
 
 // GetStartDate returns the value of StartDate.
-func (s *Feature) GetStartDate() OptDate {
+func (s *Feature) GetStartDate() OptNilDate {
 	return s.StartDate
 }
 
 // GetDueDate returns the value of DueDate.
-func (s *Feature) GetDueDate() OptDate {
+func (s *Feature) GetDueDate() OptNilDate {
 	return s.DueDate
 }
 
@@ -1256,12 +1284,12 @@ func (s *Feature) SetUpdatedAt(val OptDateTime) {
 }
 
 // SetStartDate sets the value of StartDate.
-func (s *Feature) SetStartDate(val OptDate) {
+func (s *Feature) SetStartDate(val OptNilDate) {
 	s.StartDate = val
 }
 
 // SetDueDate sets the value of DueDate.
-func (s *Feature) SetDueDate(val OptDate) {
+func (s *Feature) SetDueDate(val OptNilDate) {
 	s.DueDate = val
 }
 
@@ -1341,9 +1369,9 @@ type FeatureCreate struct {
 	// User email to assign.
 	AssignedToUser OptString `json:"assigned_to_user"`
 	// Comma-separated tags.
-	Tags      OptString `json:"tags"`
-	StartDate OptDate   `json:"start_date"`
-	DueDate   OptDate   `json:"due_date"`
+	Tags      OptString  `json:"tags"`
+	StartDate OptNilDate `json:"start_date"`
+	DueDate   OptNilDate `json:"due_date"`
 	// Effort estimate (e.g., 2d, 4h, 30min, 5p).
 	OriginalEstimateText OptString `json:"original_estimate_text"`
 	// Initiative ID or name.
@@ -1376,12 +1404,12 @@ func (s *FeatureCreate) GetTags() OptString {
 }
 
 // GetStartDate returns the value of StartDate.
-func (s *FeatureCreate) GetStartDate() OptDate {
+func (s *FeatureCreate) GetStartDate() OptNilDate {
 	return s.StartDate
 }
 
 // GetDueDate returns the value of DueDate.
-func (s *FeatureCreate) GetDueDate() OptDate {
+func (s *FeatureCreate) GetDueDate() OptNilDate {
 	return s.DueDate
 }
 
@@ -1421,12 +1449,12 @@ func (s *FeatureCreate) SetTags(val OptString) {
 }
 
 // SetStartDate sets the value of StartDate.
-func (s *FeatureCreate) SetStartDate(val OptDate) {
+func (s *FeatureCreate) SetStartDate(val OptNilDate) {
 	s.StartDate = val
 }
 
 // SetDueDate sets the value of DueDate.
-func (s *FeatureCreate) SetDueDate(val OptDate) {
+func (s *FeatureCreate) SetDueDate(val OptNilDate) {
 	s.DueDate = val
 }
 
@@ -1544,13 +1572,13 @@ func (*FeatureResponse) getFeatureRes() {}
 
 // Ref: #/components/schemas/FeatureUpdate
 type FeatureUpdate struct {
-	Name           OptString `json:"name"`
-	Description    OptString `json:"description"`
-	WorkflowStatus OptString `json:"workflow_status"`
-	AssignedToUser OptString `json:"assigned_to_user"`
-	Tags           OptString `json:"tags"`
-	StartDate      OptDate   `json:"start_date"`
-	DueDate        OptDate   `json:"due_date"`
+	Name           OptString  `json:"name"`
+	Description    OptString  `json:"description"`
+	WorkflowStatus OptString  `json:"workflow_status"`
+	AssignedToUser OptString  `json:"assigned_to_user"`
+	Tags           OptString  `json:"tags"`
+	StartDate      OptNilDate `json:"start_date"`
+	DueDate        OptNilDate `json:"due_date"`
 	// Release ID to move feature to.
 	Release               OptString `json:"release"`
 	OriginalEstimateText  OptString `json:"original_estimate_text"`
@@ -1585,12 +1613,12 @@ func (s *FeatureUpdate) GetTags() OptString {
 }
 
 // GetStartDate returns the value of StartDate.
-func (s *FeatureUpdate) GetStartDate() OptDate {
+func (s *FeatureUpdate) GetStartDate() OptNilDate {
 	return s.StartDate
 }
 
 // GetDueDate returns the value of DueDate.
-func (s *FeatureUpdate) GetDueDate() OptDate {
+func (s *FeatureUpdate) GetDueDate() OptNilDate {
 	return s.DueDate
 }
 
@@ -1645,12 +1673,12 @@ func (s *FeatureUpdate) SetTags(val OptString) {
 }
 
 // SetStartDate sets the value of StartDate.
-func (s *FeatureUpdate) SetStartDate(val OptDate) {
+func (s *FeatureUpdate) SetStartDate(val OptNilDate) {
 	s.StartDate = val
 }
 
 // SetDueDate sets the value of DueDate.
-func (s *FeatureUpdate) SetDueDate(val OptDate) {
+func (s *FeatureUpdate) SetDueDate(val OptNilDate) {
 	s.DueDate = val
 }
 
@@ -1767,8 +1795,8 @@ type Goal struct {
 	ProgressSource OptString `json:"progress_source"`
 	// Goal status.
 	Status    OptString   `json:"status"`
-	StartDate OptDate     `json:"start_date"`
-	EndDate   OptDate     `json:"end_date"`
+	StartDate OptNilDate  `json:"start_date"`
+	EndDate   OptNilDate  `json:"end_date"`
 	CreatedAt time.Time   `json:"created_at"`
 	UpdatedAt OptDateTime `json:"updated_at"`
 	// Web UI URL.
@@ -1816,12 +1844,12 @@ func (s *Goal) GetStatus() OptString {
 }
 
 // GetStartDate returns the value of StartDate.
-func (s *Goal) GetStartDate() OptDate {
+func (s *Goal) GetStartDate() OptNilDate {
 	return s.StartDate
 }
 
 // GetEndDate returns the value of EndDate.
-func (s *Goal) GetEndDate() OptDate {
+func (s *Goal) GetEndDate() OptNilDate {
 	return s.EndDate
 }
 
@@ -1896,12 +1924,12 @@ func (s *Goal) SetStatus(val OptString) {
 }
 
 // SetStartDate sets the value of StartDate.
-func (s *Goal) SetStartDate(val OptDate) {
+func (s *Goal) SetStartDate(val OptNilDate) {
 	s.StartDate = val
 }
 
 // SetEndDate sets the value of EndDate.
-func (s *Goal) SetEndDate(val OptDate) {
+func (s *Goal) SetEndDate(val OptNilDate) {
 	s.EndDate = val
 }
 
@@ -1947,9 +1975,9 @@ type GoalCreate struct {
 	// Goal description (HTML allowed).
 	Description OptString `json:"description"`
 	// Goal start date.
-	StartDate OptDate `json:"start_date"`
+	StartDate OptNilDate `json:"start_date"`
 	// Goal end date.
-	EndDate OptDate `json:"end_date"`
+	EndDate OptNilDate `json:"end_date"`
 	// Workflow status ID or name.
 	WorkflowStatus OptString `json:"workflow_status"`
 }
@@ -1965,12 +1993,12 @@ func (s *GoalCreate) GetDescription() OptString {
 }
 
 // GetStartDate returns the value of StartDate.
-func (s *GoalCreate) GetStartDate() OptDate {
+func (s *GoalCreate) GetStartDate() OptNilDate {
 	return s.StartDate
 }
 
 // GetEndDate returns the value of EndDate.
-func (s *GoalCreate) GetEndDate() OptDate {
+func (s *GoalCreate) GetEndDate() OptNilDate {
 	return s.EndDate
 }
 
@@ -1990,12 +2018,12 @@ func (s *GoalCreate) SetDescription(val OptString) {
 }
 
 // SetStartDate sets the value of StartDate.
-func (s *GoalCreate) SetStartDate(val OptDate) {
+func (s *GoalCreate) SetStartDate(val OptNilDate) {
 	s.StartDate = val
 }
 
 // SetEndDate sets the value of EndDate.
-func (s *GoalCreate) SetEndDate(val OptDate) {
+func (s *GoalCreate) SetEndDate(val OptNilDate) {
 	s.EndDate = val
 }
 
@@ -2113,9 +2141,9 @@ type GoalUpdate struct {
 	// Goal description (HTML allowed).
 	Description OptString `json:"description"`
 	// Goal start date.
-	StartDate OptDate `json:"start_date"`
+	StartDate OptNilDate `json:"start_date"`
 	// Goal end date.
-	EndDate OptDate `json:"end_date"`
+	EndDate OptNilDate `json:"end_date"`
 	// Progress percentage (0-100) when progress_source is manual.
 	Progress OptFloat32 `json:"progress"`
 	// Workflow status ID or name.
@@ -2133,12 +2161,12 @@ func (s *GoalUpdate) GetDescription() OptString {
 }
 
 // GetStartDate returns the value of StartDate.
-func (s *GoalUpdate) GetStartDate() OptDate {
+func (s *GoalUpdate) GetStartDate() OptNilDate {
 	return s.StartDate
 }
 
 // GetEndDate returns the value of EndDate.
-func (s *GoalUpdate) GetEndDate() OptDate {
+func (s *GoalUpdate) GetEndDate() OptNilDate {
 	return s.EndDate
 }
 
@@ -2163,12 +2191,12 @@ func (s *GoalUpdate) SetDescription(val OptString) {
 }
 
 // SetStartDate sets the value of StartDate.
-func (s *GoalUpdate) SetStartDate(val OptDate) {
+func (s *GoalUpdate) SetStartDate(val OptNilDate) {
 	s.StartDate = val
 }
 
 // SetEndDate sets the value of EndDate.
-func (s *GoalUpdate) SetEndDate(val OptDate) {
+func (s *GoalUpdate) SetEndDate(val OptNilDate) {
 	s.EndDate = val
 }
 
@@ -2225,17 +2253,17 @@ func (s *GoalsResponse) SetPagination(val OptPagination) {
 
 // Ref: #/components/schemas/Idea
 type Idea struct {
-	ID              string            `json:"id"`
-	ReferenceNum    string            `json:"reference_num"`
-	Name            string            `json:"name"`
-	Description     OptString         `json:"description"`
-	Votes           OptInt            `json:"votes"`
-	CreatedAt       time.Time         `json:"created_at"`
-	UpdatedAt       time.Time         `json:"updated_at"`
-	StatusChangedAt OptDateTime       `json:"status_changed_at"`
-	WorkflowStatus  OptWorkflowStatus `json:"workflow_status"`
-	Categories      []Category        `json:"categories"`
-	Feature         OptIdeaFeature    `json:"feature"`
+	ID              string               `json:"id"`
+	ReferenceNum    string               `json:"reference_num"`
+	Name            string               `json:"name"`
+	Description     OptDescriptionObject `json:"description"`
+	Votes           OptInt               `json:"votes"`
+	CreatedAt       time.Time            `json:"created_at"`
+	UpdatedAt       time.Time            `json:"updated_at"`
+	StatusChangedAt OptDateTime          `json:"status_changed_at"`
+	WorkflowStatus  OptWorkflowStatus    `json:"workflow_status"`
+	Categories      []Category           `json:"categories"`
+	Feature         OptIdeaFeature       `json:"feature"`
 }
 
 // GetID returns the value of ID.
@@ -2254,7 +2282,7 @@ func (s *Idea) GetName() string {
 }
 
 // GetDescription returns the value of Description.
-func (s *Idea) GetDescription() OptString {
+func (s *Idea) GetDescription() OptDescriptionObject {
 	return s.Description
 }
 
@@ -2309,7 +2337,7 @@ func (s *Idea) SetName(val string) {
 }
 
 // SetDescription sets the value of Description.
-func (s *Idea) SetDescription(val OptString) {
+func (s *Idea) SetDescription(val OptDescriptionObject) {
 	s.Description = val
 }
 
@@ -2481,8 +2509,8 @@ type Initiative struct {
 	Value          OptFloat64 `json:"value"`
 	Effort         OptFloat64 `json:"effort"`
 	Presented      OptBool    `json:"presented"`
-	StartDate      OptDate    `json:"start_date"`
-	EndDate        OptDate    `json:"end_date"`
+	StartDate      OptNilDate `json:"start_date"`
+	EndDate        OptNilDate `json:"end_date"`
 	Progress       OptFloat64 `json:"progress"`
 	ProgressSource OptString  `json:"progress_source"`
 	// Web UI URL.
@@ -2542,12 +2570,12 @@ func (s *Initiative) GetPresented() OptBool {
 }
 
 // GetStartDate returns the value of StartDate.
-func (s *Initiative) GetStartDate() OptDate {
+func (s *Initiative) GetStartDate() OptNilDate {
 	return s.StartDate
 }
 
 // GetEndDate returns the value of EndDate.
-func (s *Initiative) GetEndDate() OptDate {
+func (s *Initiative) GetEndDate() OptNilDate {
 	return s.EndDate
 }
 
@@ -2642,12 +2670,12 @@ func (s *Initiative) SetPresented(val OptBool) {
 }
 
 // SetStartDate sets the value of StartDate.
-func (s *Initiative) SetStartDate(val OptDate) {
+func (s *Initiative) SetStartDate(val OptNilDate) {
 	s.StartDate = val
 }
 
 // SetEndDate sets the value of EndDate.
-func (s *Initiative) SetEndDate(val OptDate) {
+func (s *Initiative) SetEndDate(val OptNilDate) {
 	s.EndDate = val
 }
 
@@ -2704,8 +2732,8 @@ type InitiativeCreate struct {
 	Description OptString `json:"description"`
 	// Workflow status ID or name.
 	WorkflowStatus OptString  `json:"workflow_status"`
-	StartDate      OptDate    `json:"start_date"`
-	EndDate        OptDate    `json:"end_date"`
+	StartDate      OptNilDate `json:"start_date"`
+	EndDate        OptNilDate `json:"end_date"`
 	Value          OptFloat64 `json:"value"`
 	Effort         OptFloat64 `json:"effort"`
 	Color          OptString  `json:"color"`
@@ -2728,12 +2756,12 @@ func (s *InitiativeCreate) GetWorkflowStatus() OptString {
 }
 
 // GetStartDate returns the value of StartDate.
-func (s *InitiativeCreate) GetStartDate() OptDate {
+func (s *InitiativeCreate) GetStartDate() OptNilDate {
 	return s.StartDate
 }
 
 // GetEndDate returns the value of EndDate.
-func (s *InitiativeCreate) GetEndDate() OptDate {
+func (s *InitiativeCreate) GetEndDate() OptNilDate {
 	return s.EndDate
 }
 
@@ -2773,12 +2801,12 @@ func (s *InitiativeCreate) SetWorkflowStatus(val OptString) {
 }
 
 // SetStartDate sets the value of StartDate.
-func (s *InitiativeCreate) SetStartDate(val OptDate) {
+func (s *InitiativeCreate) SetStartDate(val OptNilDate) {
 	s.StartDate = val
 }
 
 // SetEndDate sets the value of EndDate.
-func (s *InitiativeCreate) SetEndDate(val OptDate) {
+func (s *InitiativeCreate) SetEndDate(val OptNilDate) {
 	s.EndDate = val
 }
 
@@ -2909,8 +2937,8 @@ type InitiativeUpdate struct {
 	Name           OptString  `json:"name"`
 	Description    OptString  `json:"description"`
 	WorkflowStatus OptString  `json:"workflow_status"`
-	StartDate      OptDate    `json:"start_date"`
-	EndDate        OptDate    `json:"end_date"`
+	StartDate      OptNilDate `json:"start_date"`
+	EndDate        OptNilDate `json:"end_date"`
 	Value          OptFloat64 `json:"value"`
 	Effort         OptFloat64 `json:"effort"`
 	Color          OptString  `json:"color"`
@@ -2933,12 +2961,12 @@ func (s *InitiativeUpdate) GetWorkflowStatus() OptString {
 }
 
 // GetStartDate returns the value of StartDate.
-func (s *InitiativeUpdate) GetStartDate() OptDate {
+func (s *InitiativeUpdate) GetStartDate() OptNilDate {
 	return s.StartDate
 }
 
 // GetEndDate returns the value of EndDate.
-func (s *InitiativeUpdate) GetEndDate() OptDate {
+func (s *InitiativeUpdate) GetEndDate() OptNilDate {
 	return s.EndDate
 }
 
@@ -2978,12 +3006,12 @@ func (s *InitiativeUpdate) SetWorkflowStatus(val OptString) {
 }
 
 // SetStartDate sets the value of StartDate.
-func (s *InitiativeUpdate) SetStartDate(val OptDate) {
+func (s *InitiativeUpdate) SetStartDate(val OptNilDate) {
 	s.StartDate = val
 }
 
 // SetEndDate sets the value of EndDate.
-func (s *InitiativeUpdate) SetEndDate(val OptDate) {
+func (s *InitiativeUpdate) SetEndDate(val OptNilDate) {
 	s.EndDate = val
 }
 
@@ -3390,6 +3418,52 @@ func (o OptDateTime) Get() (v time.Time, ok bool) {
 
 // Or returns value if set, or given parameter if does not.
 func (o OptDateTime) Or(d time.Time) time.Time {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptDescriptionObject returns new OptDescriptionObject with value set to v.
+func NewOptDescriptionObject(v DescriptionObject) OptDescriptionObject {
+	return OptDescriptionObject{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptDescriptionObject is optional DescriptionObject.
+type OptDescriptionObject struct {
+	Value DescriptionObject
+	Set   bool
+}
+
+// IsSet returns true if OptDescriptionObject was set.
+func (o OptDescriptionObject) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptDescriptionObject) Reset() {
+	var v DescriptionObject
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptDescriptionObject) SetTo(v DescriptionObject) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptDescriptionObject) Get() (v DescriptionObject, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptDescriptionObject) Or(d DescriptionObject) DescriptionObject {
 	if v, ok := o.Get(); ok {
 		return v
 	}
@@ -4086,6 +4160,69 @@ func (o OptListIdeasSort) Or(d ListIdeasSort) ListIdeasSort {
 	return d
 }
 
+// NewOptNilDate returns new OptNilDate with value set to v.
+func NewOptNilDate(v time.Time) OptNilDate {
+	return OptNilDate{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptNilDate is optional nullable time.Time.
+type OptNilDate struct {
+	Value time.Time
+	Set   bool
+	Null  bool
+}
+
+// IsSet returns true if OptNilDate was set.
+func (o OptNilDate) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptNilDate) Reset() {
+	var v time.Time
+	o.Value = v
+	o.Set = false
+	o.Null = false
+}
+
+// SetTo sets value to v.
+func (o *OptNilDate) SetTo(v time.Time) {
+	o.Set = true
+	o.Null = false
+	o.Value = v
+}
+
+// IsNull returns true if value is Null.
+func (o OptNilDate) IsNull() bool { return o.Null }
+
+// SetToNull sets value to null.
+func (o *OptNilDate) SetToNull() {
+	o.Set = true
+	o.Null = true
+	var v time.Time
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptNilDate) Get() (v time.Time, ok bool) {
+	if o.Null {
+		return v, false
+	}
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptNilDate) Or(d time.Time) time.Time {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
 // NewOptPagination returns new OptPagination with value set to v.
 func NewOptPagination(v Pagination) OptPagination {
 	return OptPagination{
@@ -4677,10 +4814,16 @@ func (s *Pagination) SetCurrentPage(val OptInt64) {
 
 // Ref: #/components/schemas/Product
 type Product struct {
-	ID                OptString   `json:"id"`
-	ReferencePrefix   OptString   `json:"reference_prefix"`
-	Name              OptString   `json:"name"`
-	ProductLine       OptBool     `json:"product_line"`
+	ID              OptString `json:"id"`
+	ReferencePrefix OptString `json:"reference_prefix"`
+	Name            OptString `json:"name"`
+	// Product description (HTML allowed).
+	Description OptString `json:"description"`
+	ProductLine OptBool   `json:"product_line"`
+	// ID of the parent product line.
+	ParentID OptString `json:"parent_id"`
+	// Type of workspace (product_workspace, it_workspace, marketing_workspace, etc.).
+	WorkspaceType     OptString   `json:"workspace_type"`
 	CreatedAt         OptDateTime `json:"created_at"`
 	UpdatedAt         OptDateTime `json:"updated_at"`
 	URL               OptString   `json:"url"`
@@ -4704,9 +4847,24 @@ func (s *Product) GetName() OptString {
 	return s.Name
 }
 
+// GetDescription returns the value of Description.
+func (s *Product) GetDescription() OptString {
+	return s.Description
+}
+
 // GetProductLine returns the value of ProductLine.
 func (s *Product) GetProductLine() OptBool {
 	return s.ProductLine
+}
+
+// GetParentID returns the value of ParentID.
+func (s *Product) GetParentID() OptString {
+	return s.ParentID
+}
+
+// GetWorkspaceType returns the value of WorkspaceType.
+func (s *Product) GetWorkspaceType() OptString {
+	return s.WorkspaceType
 }
 
 // GetCreatedAt returns the value of CreatedAt.
@@ -4754,9 +4912,24 @@ func (s *Product) SetName(val OptString) {
 	s.Name = val
 }
 
+// SetDescription sets the value of Description.
+func (s *Product) SetDescription(val OptString) {
+	s.Description = val
+}
+
 // SetProductLine sets the value of ProductLine.
 func (s *Product) SetProductLine(val OptBool) {
 	s.ProductLine = val
+}
+
+// SetParentID sets the value of ParentID.
+func (s *Product) SetParentID(val OptString) {
+	s.ParentID = val
+}
+
+// SetWorkspaceType sets the value of WorkspaceType.
+func (s *Product) SetWorkspaceType(val OptString) {
+	s.WorkspaceType = val
 }
 
 // SetCreatedAt sets the value of CreatedAt.
@@ -4789,13 +4962,118 @@ func (s *Product) SetHasMasterFeatures(val OptBool) {
 	s.HasMasterFeatures = val
 }
 
+// Ref: #/components/schemas/ProductCreate
+type ProductCreate struct {
+	// Name of the product.
+	Name string `json:"name"`
+	// Abbreviation used as prefix on all features.
+	ReferencePrefix string `json:"reference_prefix"`
+	// Description of the product (HTML allowed).
+	Description OptString `json:"description"`
+	// Numeric ID or prefix of parent product line.
+	ParentID OptString `json:"parent_id"`
+	// Type of workspace (product_workspace, it_workspace, marketing_workspace, etc.).
+	WorkspaceType OptString `json:"workspace_type"`
+	// Set to true to create a product line.
+	ProductLine OptBool `json:"product_line"`
+	// Required if creating a product line.
+	ProductLineType OptString `json:"product_line_type"`
+}
+
+// GetName returns the value of Name.
+func (s *ProductCreate) GetName() string {
+	return s.Name
+}
+
+// GetReferencePrefix returns the value of ReferencePrefix.
+func (s *ProductCreate) GetReferencePrefix() string {
+	return s.ReferencePrefix
+}
+
+// GetDescription returns the value of Description.
+func (s *ProductCreate) GetDescription() OptString {
+	return s.Description
+}
+
+// GetParentID returns the value of ParentID.
+func (s *ProductCreate) GetParentID() OptString {
+	return s.ParentID
+}
+
+// GetWorkspaceType returns the value of WorkspaceType.
+func (s *ProductCreate) GetWorkspaceType() OptString {
+	return s.WorkspaceType
+}
+
+// GetProductLine returns the value of ProductLine.
+func (s *ProductCreate) GetProductLine() OptBool {
+	return s.ProductLine
+}
+
+// GetProductLineType returns the value of ProductLineType.
+func (s *ProductCreate) GetProductLineType() OptString {
+	return s.ProductLineType
+}
+
+// SetName sets the value of Name.
+func (s *ProductCreate) SetName(val string) {
+	s.Name = val
+}
+
+// SetReferencePrefix sets the value of ReferencePrefix.
+func (s *ProductCreate) SetReferencePrefix(val string) {
+	s.ReferencePrefix = val
+}
+
+// SetDescription sets the value of Description.
+func (s *ProductCreate) SetDescription(val OptString) {
+	s.Description = val
+}
+
+// SetParentID sets the value of ParentID.
+func (s *ProductCreate) SetParentID(val OptString) {
+	s.ParentID = val
+}
+
+// SetWorkspaceType sets the value of WorkspaceType.
+func (s *ProductCreate) SetWorkspaceType(val OptString) {
+	s.WorkspaceType = val
+}
+
+// SetProductLine sets the value of ProductLine.
+func (s *ProductCreate) SetProductLine(val OptBool) {
+	s.ProductLine = val
+}
+
+// SetProductLineType sets the value of ProductLineType.
+func (s *ProductCreate) SetProductLineType(val OptString) {
+	s.ProductLineType = val
+}
+
+// Ref: #/components/schemas/ProductCreateRequest
+type ProductCreateRequest struct {
+	Product ProductCreate `json:"product"`
+}
+
+// GetProduct returns the value of Product.
+func (s *ProductCreateRequest) GetProduct() ProductCreate {
+	return s.Product
+}
+
+// SetProduct sets the value of Product.
+func (s *ProductCreateRequest) SetProduct(val ProductCreate) {
+	s.Product = val
+}
+
 // Ref: #/components/schemas/ProductMeta
 type ProductMeta struct {
-	ID              OptString   `json:"id"`
-	ReferencePrefix OptString   `json:"reference_prefix"`
-	Name            OptString   `json:"name"`
-	ProductLine     OptBool     `json:"product_line"`
-	CreatedAt       OptDateTime `json:"created_at"`
+	ID              OptString `json:"id"`
+	ReferencePrefix OptString `json:"reference_prefix"`
+	Name            OptString `json:"name"`
+	ProductLine     OptBool   `json:"product_line"`
+	// Type of workspace.
+	WorkspaceType OptString   `json:"workspace_type"`
+	CreatedAt     OptDateTime `json:"created_at"`
 }
 
 // GetID returns the value of ID.
@@ -4816,6 +5094,11 @@ func (s *ProductMeta) GetName() OptString {
 // GetProductLine returns the value of ProductLine.
 func (s *ProductMeta) GetProductLine() OptBool {
 	return s.ProductLine
+}
+
+// GetWorkspaceType returns the value of WorkspaceType.
+func (s *ProductMeta) GetWorkspaceType() OptString {
+	return s.WorkspaceType
 }
 
 // GetCreatedAt returns the value of CreatedAt.
@@ -4843,6 +5126,11 @@ func (s *ProductMeta) SetProductLine(val OptBool) {
 	s.ProductLine = val
 }
 
+// SetWorkspaceType sets the value of WorkspaceType.
+func (s *ProductMeta) SetWorkspaceType(val OptString) {
+	s.WorkspaceType = val
+}
+
 // SetCreatedAt sets the value of CreatedAt.
 func (s *ProductMeta) SetCreatedAt(val OptDateTime) {
 	s.CreatedAt = val
@@ -4860,6 +5148,85 @@ func (s *ProductResponse) GetProduct() OptProduct {
 
 // SetProduct sets the value of Product.
 func (s *ProductResponse) SetProduct(val OptProduct) {
+	s.Product = val
+}
+
+// Ref: #/components/schemas/ProductUpdate
+type ProductUpdate struct {
+	// Name of the product.
+	Name OptString `json:"name"`
+	// Abbreviation used as prefix on all features.
+	ReferencePrefix OptString `json:"reference_prefix"`
+	// Description of the product (HTML allowed).
+	Description OptString `json:"description"`
+	// Numeric ID or prefix of parent product line.
+	ParentID OptString `json:"parent_id"`
+	// Type of workspace.
+	WorkspaceType OptString `json:"workspace_type"`
+}
+
+// GetName returns the value of Name.
+func (s *ProductUpdate) GetName() OptString {
+	return s.Name
+}
+
+// GetReferencePrefix returns the value of ReferencePrefix.
+func (s *ProductUpdate) GetReferencePrefix() OptString {
+	return s.ReferencePrefix
+}
+
+// GetDescription returns the value of Description.
+func (s *ProductUpdate) GetDescription() OptString {
+	return s.Description
+}
+
+// GetParentID returns the value of ParentID.
+func (s *ProductUpdate) GetParentID() OptString {
+	return s.ParentID
+}
+
+// GetWorkspaceType returns the value of WorkspaceType.
+func (s *ProductUpdate) GetWorkspaceType() OptString {
+	return s.WorkspaceType
+}
+
+// SetName sets the value of Name.
+func (s *ProductUpdate) SetName(val OptString) {
+	s.Name = val
+}
+
+// SetReferencePrefix sets the value of ReferencePrefix.
+func (s *ProductUpdate) SetReferencePrefix(val OptString) {
+	s.ReferencePrefix = val
+}
+
+// SetDescription sets the value of Description.
+func (s *ProductUpdate) SetDescription(val OptString) {
+	s.Description = val
+}
+
+// SetParentID sets the value of ParentID.
+func (s *ProductUpdate) SetParentID(val OptString) {
+	s.ParentID = val
+}
+
+// SetWorkspaceType sets the value of WorkspaceType.
+func (s *ProductUpdate) SetWorkspaceType(val OptString) {
+	s.WorkspaceType = val
+}
+
+// Ref: #/components/schemas/ProductUpdateRequest
+type ProductUpdateRequest struct {
+	Product ProductUpdate `json:"product"`
+}
+
+// GetProduct returns the value of Product.
+func (s *ProductUpdateRequest) GetProduct() ProductUpdate {
+	return s.Product
+}
+
+// SetProduct sets the value of Product.
+func (s *ProductUpdateRequest) SetProduct(val ProductUpdate) {
 	s.Product = val
 }
 
@@ -4891,16 +5258,16 @@ func (s *ProductsResponse) SetPagination(val OptPagination) {
 
 // Ref: #/components/schemas/Release
 type Release struct {
-	ID                  OptString `json:"id"`
-	ReferenceNum        OptString `json:"reference_num"`
-	Name                OptString `json:"name"`
-	StartDate           OptDate   `json:"start_date"`
-	ReleaseDate         OptDate   `json:"release_date"`
-	ExternalReleaseDate OptDate   `json:"external_release_date"`
-	Released            OptBool   `json:"released"`
-	ParkingLot          OptBool   `json:"parking_lot"`
-	URL                 OptString `json:"url"`
-	Resource            OptString `json:"resource"`
+	ID                  OptString  `json:"id"`
+	ReferenceNum        OptString  `json:"reference_num"`
+	Name                OptString  `json:"name"`
+	StartDate           OptNilDate `json:"start_date"`
+	ReleaseDate         OptNilDate `json:"release_date"`
+	ExternalReleaseDate OptNilDate `json:"external_release_date"`
+	Released            OptBool    `json:"released"`
+	ParkingLot          OptBool    `json:"parking_lot"`
+	URL                 OptString  `json:"url"`
+	Resource            OptString  `json:"resource"`
 }
 
 // GetID returns the value of ID.
@@ -4919,17 +5286,17 @@ func (s *Release) GetName() OptString {
 }
 
 // GetStartDate returns the value of StartDate.
-func (s *Release) GetStartDate() OptDate {
+func (s *Release) GetStartDate() OptNilDate {
 	return s.StartDate
 }
 
 // GetReleaseDate returns the value of ReleaseDate.
-func (s *Release) GetReleaseDate() OptDate {
+func (s *Release) GetReleaseDate() OptNilDate {
 	return s.ReleaseDate
 }
 
 // GetExternalReleaseDate returns the value of ExternalReleaseDate.
-func (s *Release) GetExternalReleaseDate() OptDate {
+func (s *Release) GetExternalReleaseDate() OptNilDate {
 	return s.ExternalReleaseDate
 }
 
@@ -4969,17 +5336,17 @@ func (s *Release) SetName(val OptString) {
 }
 
 // SetStartDate sets the value of StartDate.
-func (s *Release) SetStartDate(val OptDate) {
+func (s *Release) SetStartDate(val OptNilDate) {
 	s.StartDate = val
 }
 
 // SetReleaseDate sets the value of ReleaseDate.
-func (s *Release) SetReleaseDate(val OptDate) {
+func (s *Release) SetReleaseDate(val OptNilDate) {
 	s.ReleaseDate = val
 }
 
 // SetExternalReleaseDate sets the value of ExternalReleaseDate.
-func (s *Release) SetExternalReleaseDate(val OptDate) {
+func (s *Release) SetExternalReleaseDate(val OptNilDate) {
 	s.ExternalReleaseDate = val
 }
 
@@ -5020,12 +5387,12 @@ func (s *ReleaseResponse) SetRelease(val OptRelease) {
 
 // Ref: #/components/schemas/ReleaseUpdate
 type ReleaseUpdate struct {
-	Name                 OptString `json:"name"`
-	StartDate            OptDate   `json:"start_date"`
-	ReleaseDate          OptDate   `json:"release_date"`
-	ExternalReleaseDate  OptDate   `json:"external_release_date"`
-	DevelopmentStartedOn OptDate   `json:"development_started_on"`
-	ParkingLot           OptBool   `json:"parking_lot"`
+	Name                 OptString  `json:"name"`
+	StartDate            OptNilDate `json:"start_date"`
+	ReleaseDate          OptNilDate `json:"release_date"`
+	ExternalReleaseDate  OptNilDate `json:"external_release_date"`
+	DevelopmentStartedOn OptDate    `json:"development_started_on"`
+	ParkingLot           OptBool    `json:"parking_lot"`
 }
 
 // GetName returns the value of Name.
@@ -5034,17 +5401,17 @@ func (s *ReleaseUpdate) GetName() OptString {
 }
 
 // GetStartDate returns the value of StartDate.
-func (s *ReleaseUpdate) GetStartDate() OptDate {
+func (s *ReleaseUpdate) GetStartDate() OptNilDate {
 	return s.StartDate
 }
 
 // GetReleaseDate returns the value of ReleaseDate.
-func (s *ReleaseUpdate) GetReleaseDate() OptDate {
+func (s *ReleaseUpdate) GetReleaseDate() OptNilDate {
 	return s.ReleaseDate
 }
 
 // GetExternalReleaseDate returns the value of ExternalReleaseDate.
-func (s *ReleaseUpdate) GetExternalReleaseDate() OptDate {
+func (s *ReleaseUpdate) GetExternalReleaseDate() OptNilDate {
 	return s.ExternalReleaseDate
 }
 
@@ -5064,17 +5431,17 @@ func (s *ReleaseUpdate) SetName(val OptString) {
 }
 
 // SetStartDate sets the value of StartDate.
-func (s *ReleaseUpdate) SetStartDate(val OptDate) {
+func (s *ReleaseUpdate) SetStartDate(val OptNilDate) {
 	s.StartDate = val
 }
 
 // SetReleaseDate sets the value of ReleaseDate.
-func (s *ReleaseUpdate) SetReleaseDate(val OptDate) {
+func (s *ReleaseUpdate) SetReleaseDate(val OptNilDate) {
 	s.ReleaseDate = val
 }
 
 // SetExternalReleaseDate sets the value of ExternalReleaseDate.
-func (s *ReleaseUpdate) SetExternalReleaseDate(val OptDate) {
+func (s *ReleaseUpdate) SetExternalReleaseDate(val OptNilDate) {
 	s.ExternalReleaseDate = val
 }
 

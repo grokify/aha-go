@@ -46,6 +46,12 @@ type Invoker interface {
 	//
 	// POST /ideas/{idea_id}/comments
 	CreateIdeaComment(ctx context.Context, request *CommentCreateRequest, params CreateIdeaCommentParams) (*CommentResponse, error)
+	// CreateProduct invokes createProduct operation.
+	//
+	// Create a new product or product line.
+	//
+	// POST /products
+	CreateProduct(ctx context.Context, request *ProductCreateRequest) (*ProductResponse, error)
 	// CreateProductGoal invokes createProductGoal operation.
 	//
 	// Create a new goal in a product.
@@ -270,7 +276,7 @@ type Invoker interface {
 	ListProductWorkflows(ctx context.Context, params ListProductWorkflowsParams) (*WorkflowsResponse, error)
 	// ListProducts invokes listProducts operation.
 	//
-	// Get all products (workspaces).
+	// Get all products (workspaces) including Aha! Develop teams.
 	//
 	// GET /products
 	ListProducts(ctx context.Context, params ListProductsParams) (*ProductsResponse, error)
@@ -328,6 +334,12 @@ type Invoker interface {
 	//
 	// PUT /initiatives/{initiative_id}
 	UpdateInitiative(ctx context.Context, request *InitiativeUpdateRequest, params UpdateInitiativeParams) (*InitiativeResponse, error)
+	// UpdateProduct invokes updateProduct operation.
+	//
+	// Update an existing product.
+	//
+	// PUT /products/{product_id}
+	UpdateProduct(ctx context.Context, request *ProductUpdateRequest, params UpdateProductParams) (*ProductResponse, error)
 	// UpdateRelease invokes updateRelease operation.
 	//
 	// Update an existing release.
@@ -775,6 +787,116 @@ func (c *Client) sendCreateIdeaComment(ctx context.Context, request *CommentCrea
 
 	stage = "DecodeResponse"
 	result, err := decodeCreateIdeaCommentResponse(resp)
+	if err != nil {
+		return res, errors.Wrap(err, "decode response")
+	}
+
+	return result, nil
+}
+
+// CreateProduct invokes createProduct operation.
+//
+// Create a new product or product line.
+//
+// POST /products
+func (c *Client) CreateProduct(ctx context.Context, request *ProductCreateRequest) (*ProductResponse, error) {
+	res, err := c.sendCreateProduct(ctx, request)
+	return res, err
+}
+
+func (c *Client) sendCreateProduct(ctx context.Context, request *ProductCreateRequest) (res *ProductResponse, err error) {
+	otelAttrs := []attribute.KeyValue{
+		otelogen.OperationID("createProduct"),
+		semconv.HTTPRequestMethodKey.String("POST"),
+		semconv.URLTemplateKey.String("/products"),
+	}
+	otelAttrs = append(otelAttrs, c.cfg.Attributes...)
+
+	// Run stopwatch.
+	startTime := time.Now()
+	defer func() {
+		// Use floating point division here for higher precision (instead of Millisecond method).
+		elapsedDuration := time.Since(startTime)
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
+	}()
+
+	// Increment request counter.
+	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
+
+	// Start a span for this request.
+	ctx, span := c.cfg.Tracer.Start(ctx, CreateProductOperation,
+		trace.WithAttributes(otelAttrs...),
+		clientSpanKind,
+	)
+	// Track stage for error reporting.
+	var stage string
+	defer func() {
+		if err != nil {
+			span.RecordError(err)
+			span.SetStatus(codes.Error, stage)
+			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
+		}
+		span.End()
+	}()
+
+	stage = "BuildURL"
+	u := uri.Clone(c.requestURL(ctx))
+	var pathParts [1]string
+	pathParts[0] = "/products"
+	uri.AddPathParts(u, pathParts[:]...)
+
+	stage = "EncodeRequest"
+	r, err := ht.NewRequest(ctx, "POST", u)
+	if err != nil {
+		return res, errors.Wrap(err, "create request")
+	}
+	if err := encodeCreateProductRequest(request, r); err != nil {
+		return res, errors.Wrap(err, "encode request")
+	}
+
+	{
+		type bitset = [1]uint8
+		var satisfied bitset
+		{
+			stage = "Security:BearerAuth"
+			switch err := c.securityBearerAuth(ctx, CreateProductOperation, r); {
+			case err == nil: // if NO error
+				satisfied[0] |= 1 << 0
+			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
+				// Skip this security.
+			default:
+				return res, errors.Wrap(err, "security \"BearerAuth\"")
+			}
+		}
+
+		if ok := func() bool {
+		nextRequirement:
+			for _, requirement := range []bitset{
+				{0b00000001},
+			} {
+				for i, mask := range requirement {
+					if satisfied[i]&mask != mask {
+						continue nextRequirement
+					}
+				}
+				return true
+			}
+			return false
+		}(); !ok {
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
+		}
+	}
+
+	stage = "SendRequest"
+	resp, err := c.cfg.Client.Do(r)
+	if err != nil {
+		return res, errors.Wrap(err, "do request")
+	}
+	body := resp.Body
+	defer body.Close()
+
+	stage = "DecodeResponse"
+	result, err := decodeCreateProductResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
 	}
@@ -6337,7 +6459,7 @@ func (c *Client) sendListProductWorkflows(ctx context.Context, params ListProduc
 
 // ListProducts invokes listProducts operation.
 //
-// Get all products (workspaces).
+// Get all products (workspaces) including Aha! Develop teams.
 //
 // GET /products
 func (c *Client) ListProducts(ctx context.Context, params ListProductsParams) (*ProductsResponse, error) {
@@ -6388,6 +6510,40 @@ func (c *Client) sendListProducts(ctx context.Context, params ListProductsParams
 
 	stage = "EncodeQueryParams"
 	q := uri.NewQueryEncoder()
+	{
+		// Encode "updated_since" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "updated_since",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if val, ok := params.UpdatedSince.Get(); ok {
+				return e.EncodeValue(conv.DateTimeToString(val))
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	{
+		// Encode "with_idea_portals" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "with_idea_portals",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if val, ok := params.WithIdeaPortals.Get(); ok {
+				return e.EncodeValue(conv.BoolToString(val))
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
 	{
 		// Encode "page" parameter.
 		cfg := uri.QueryParameterEncodingConfig{
@@ -7748,6 +7904,134 @@ func (c *Client) sendUpdateInitiative(ctx context.Context, request *InitiativeUp
 
 	stage = "DecodeResponse"
 	result, err := decodeUpdateInitiativeResponse(resp)
+	if err != nil {
+		return res, errors.Wrap(err, "decode response")
+	}
+
+	return result, nil
+}
+
+// UpdateProduct invokes updateProduct operation.
+//
+// Update an existing product.
+//
+// PUT /products/{product_id}
+func (c *Client) UpdateProduct(ctx context.Context, request *ProductUpdateRequest, params UpdateProductParams) (*ProductResponse, error) {
+	res, err := c.sendUpdateProduct(ctx, request, params)
+	return res, err
+}
+
+func (c *Client) sendUpdateProduct(ctx context.Context, request *ProductUpdateRequest, params UpdateProductParams) (res *ProductResponse, err error) {
+	otelAttrs := []attribute.KeyValue{
+		otelogen.OperationID("updateProduct"),
+		semconv.HTTPRequestMethodKey.String("PUT"),
+		semconv.URLTemplateKey.String("/products/{product_id}"),
+	}
+	otelAttrs = append(otelAttrs, c.cfg.Attributes...)
+
+	// Run stopwatch.
+	startTime := time.Now()
+	defer func() {
+		// Use floating point division here for higher precision (instead of Millisecond method).
+		elapsedDuration := time.Since(startTime)
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
+	}()
+
+	// Increment request counter.
+	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
+
+	// Start a span for this request.
+	ctx, span := c.cfg.Tracer.Start(ctx, UpdateProductOperation,
+		trace.WithAttributes(otelAttrs...),
+		clientSpanKind,
+	)
+	// Track stage for error reporting.
+	var stage string
+	defer func() {
+		if err != nil {
+			span.RecordError(err)
+			span.SetStatus(codes.Error, stage)
+			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
+		}
+		span.End()
+	}()
+
+	stage = "BuildURL"
+	u := uri.Clone(c.requestURL(ctx))
+	var pathParts [2]string
+	pathParts[0] = "/products/"
+	{
+		// Encode "product_id" parameter.
+		e := uri.NewPathEncoder(uri.PathEncoderConfig{
+			Param:   "product_id",
+			Style:   uri.PathStyleSimple,
+			Explode: false,
+		})
+		if err := func() error {
+			return e.EncodeValue(conv.StringToString(params.ProductID))
+		}(); err != nil {
+			return res, errors.Wrap(err, "encode path")
+		}
+		encoded, err := e.Result()
+		if err != nil {
+			return res, errors.Wrap(err, "encode path")
+		}
+		pathParts[1] = encoded
+	}
+	uri.AddPathParts(u, pathParts[:]...)
+
+	stage = "EncodeRequest"
+	r, err := ht.NewRequest(ctx, "PUT", u)
+	if err != nil {
+		return res, errors.Wrap(err, "create request")
+	}
+	if err := encodeUpdateProductRequest(request, r); err != nil {
+		return res, errors.Wrap(err, "encode request")
+	}
+
+	{
+		type bitset = [1]uint8
+		var satisfied bitset
+		{
+			stage = "Security:BearerAuth"
+			switch err := c.securityBearerAuth(ctx, UpdateProductOperation, r); {
+			case err == nil: // if NO error
+				satisfied[0] |= 1 << 0
+			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
+				// Skip this security.
+			default:
+				return res, errors.Wrap(err, "security \"BearerAuth\"")
+			}
+		}
+
+		if ok := func() bool {
+		nextRequirement:
+			for _, requirement := range []bitset{
+				{0b00000001},
+			} {
+				for i, mask := range requirement {
+					if satisfied[i]&mask != mask {
+						continue nextRequirement
+					}
+				}
+				return true
+			}
+			return false
+		}(); !ok {
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
+		}
+	}
+
+	stage = "SendRequest"
+	resp, err := c.cfg.Client.Do(r)
+	if err != nil {
+		return res, errors.Wrap(err, "do request")
+	}
+	body := resp.Body
+	defer body.Close()
+
+	stage = "DecodeResponse"
+	result, err := decodeUpdateProductResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
 	}

@@ -26,6 +26,12 @@ type Handler interface {
 	//
 	// POST /ideas/{idea_id}/comments
 	CreateIdeaComment(ctx context.Context, req *CommentCreateRequest, params CreateIdeaCommentParams) (*CommentResponse, error)
+	// CreateProduct implements createProduct operation.
+	//
+	// Create a new product or product line.
+	//
+	// POST /products
+	CreateProduct(ctx context.Context, req *ProductCreateRequest) (*ProductResponse, error)
 	// CreateProductGoal implements createProductGoal operation.
 	//
 	// Create a new goal in a product.
@@ -250,7 +256,7 @@ type Handler interface {
 	ListProductWorkflows(ctx context.Context, params ListProductWorkflowsParams) (*WorkflowsResponse, error)
 	// ListProducts implements listProducts operation.
 	//
-	// Get all products (workspaces).
+	// Get all products (workspaces) including Aha! Develop teams.
 	//
 	// GET /products
 	ListProducts(ctx context.Context, params ListProductsParams) (*ProductsResponse, error)
@@ -308,6 +314,12 @@ type Handler interface {
 	//
 	// PUT /initiatives/{initiative_id}
 	UpdateInitiative(ctx context.Context, req *InitiativeUpdateRequest, params UpdateInitiativeParams) (*InitiativeResponse, error)
+	// UpdateProduct implements updateProduct operation.
+	//
+	// Update an existing product.
+	//
+	// PUT /products/{product_id}
+	UpdateProduct(ctx context.Context, req *ProductUpdateRequest, params UpdateProductParams) (*ProductResponse, error)
 	// UpdateRelease implements updateRelease operation.
 	//
 	// Update an existing release.

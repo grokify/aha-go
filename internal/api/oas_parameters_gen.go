@@ -5181,11 +5181,33 @@ func decodeListProductWorkflowsParams(args [1]string, argsEscaped bool, r *http.
 
 // ListProductsParams is parameters of listProducts operation.
 type ListProductsParams struct {
-	Page    OptInt32 `json:",omitempty,omitzero"`
-	PerPage OptInt32 `json:",omitempty,omitzero"`
+	// UTC timestamp (ISO8601). Only products updated after this time.
+	UpdatedSince OptDateTime `json:",omitempty,omitzero"`
+	// Set to true to list only products with idea portals.
+	WithIdeaPortals OptBool  `json:",omitempty,omitzero"`
+	Page            OptInt32 `json:",omitempty,omitzero"`
+	PerPage         OptInt32 `json:",omitempty,omitzero"`
 }
 
 func unpackListProductsParams(packed middleware.Parameters) (params ListProductsParams) {
+	{
+		key := middleware.ParameterKey{
+			Name: "updated_since",
+			In:   "query",
+		}
+		if v, ok := packed[key]; ok {
+			params.UpdatedSince = v.(OptDateTime)
+		}
+	}
+	{
+		key := middleware.ParameterKey{
+			Name: "with_idea_portals",
+			In:   "query",
+		}
+		if v, ok := packed[key]; ok {
+			params.WithIdeaPortals = v.(OptBool)
+		}
+	}
 	{
 		key := middleware.ParameterKey{
 			Name: "page",
@@ -5209,6 +5231,88 @@ func unpackListProductsParams(packed middleware.Parameters) (params ListProducts
 
 func decodeListProductsParams(args [0]string, argsEscaped bool, r *http.Request) (params ListProductsParams, _ error) {
 	q := uri.NewQueryDecoder(r.URL.Query())
+	// Decode query: updated_since.
+	if err := func() error {
+		cfg := uri.QueryParameterDecodingConfig{
+			Name:    "updated_since",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.HasParam(cfg); err == nil {
+			if err := q.DecodeParam(cfg, func(d uri.Decoder) error {
+				var paramsDotUpdatedSinceVal time.Time
+				if err := func() error {
+					val, err := d.DecodeValue()
+					if err != nil {
+						return err
+					}
+
+					c, err := conv.ToDateTime(val)
+					if err != nil {
+						return err
+					}
+
+					paramsDotUpdatedSinceVal = c
+					return nil
+				}(); err != nil {
+					return err
+				}
+				params.UpdatedSince.SetTo(paramsDotUpdatedSinceVal)
+				return nil
+			}); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		return params, &ogenerrors.DecodeParamError{
+			Name: "updated_since",
+			In:   "query",
+			Err:  err,
+		}
+	}
+	// Decode query: with_idea_portals.
+	if err := func() error {
+		cfg := uri.QueryParameterDecodingConfig{
+			Name:    "with_idea_portals",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.HasParam(cfg); err == nil {
+			if err := q.DecodeParam(cfg, func(d uri.Decoder) error {
+				var paramsDotWithIdeaPortalsVal bool
+				if err := func() error {
+					val, err := d.DecodeValue()
+					if err != nil {
+						return err
+					}
+
+					c, err := conv.ToBool(val)
+					if err != nil {
+						return err
+					}
+
+					paramsDotWithIdeaPortalsVal = c
+					return nil
+				}(); err != nil {
+					return err
+				}
+				params.WithIdeaPortals.SetTo(paramsDotWithIdeaPortalsVal)
+				return nil
+			}); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		return params, &ogenerrors.DecodeParamError{
+			Name: "with_idea_portals",
+			In:   "query",
+			Err:  err,
+		}
+	}
 	// Decode query: page.
 	if err := func() error {
 		cfg := uri.QueryParameterDecodingConfig{
@@ -6237,6 +6341,72 @@ func decodeUpdateInitiativeParams(args [1]string, argsEscaped bool, r *http.Requ
 	}(); err != nil {
 		return params, &ogenerrors.DecodeParamError{
 			Name: "initiative_id",
+			In:   "path",
+			Err:  err,
+		}
+	}
+	return params, nil
+}
+
+// UpdateProductParams is parameters of updateProduct operation.
+type UpdateProductParams struct {
+	// Product ID or reference prefix.
+	ProductID string
+}
+
+func unpackUpdateProductParams(packed middleware.Parameters) (params UpdateProductParams) {
+	{
+		key := middleware.ParameterKey{
+			Name: "product_id",
+			In:   "path",
+		}
+		params.ProductID = packed[key].(string)
+	}
+	return params
+}
+
+func decodeUpdateProductParams(args [1]string, argsEscaped bool, r *http.Request) (params UpdateProductParams, _ error) {
+	// Decode path: product_id.
+	if err := func() error {
+		param := args[0]
+		if argsEscaped {
+			unescaped, err := url.PathUnescape(args[0])
+			if err != nil {
+				return errors.Wrap(err, "unescape path")
+			}
+			param = unescaped
+		}
+		if len(param) > 0 {
+			d := uri.NewPathDecoder(uri.PathDecoderConfig{
+				Param:   "product_id",
+				Value:   param,
+				Style:   uri.PathStyleSimple,
+				Explode: false,
+			})
+
+			if err := func() error {
+				val, err := d.DecodeValue()
+				if err != nil {
+					return err
+				}
+
+				c, err := conv.ToString(val)
+				if err != nil {
+					return err
+				}
+
+				params.ProductID = c
+				return nil
+			}(); err != nil {
+				return err
+			}
+		} else {
+			return validate.ErrFieldRequired
+		}
+		return nil
+	}(); err != nil {
+		return params, &ogenerrors.DecodeParamError{
+			Name: "product_id",
 			In:   "path",
 			Err:  err,
 		}

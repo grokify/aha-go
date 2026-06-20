@@ -52,6 +52,20 @@ func encodeCreateIdeaCommentRequest(
 	return nil
 }
 
+func encodeCreateProductRequest(
+	req *ProductCreateRequest,
+	r *http.Request,
+) error {
+	const contentType = "application/json"
+	e := new(jx.Encoder)
+	{
+		req.Encode(e)
+	}
+	encoded := e.Bytes()
+	ht.SetBody(r, bytes.NewReader(encoded), contentType)
+	return nil
+}
+
 func encodeCreateProductGoalRequest(
 	req *GoalCreateRequest,
 	r *http.Request,
@@ -180,6 +194,20 @@ func encodeUpdateGoalRequest(
 
 func encodeUpdateInitiativeRequest(
 	req *InitiativeUpdateRequest,
+	r *http.Request,
+) error {
+	const contentType = "application/json"
+	e := new(jx.Encoder)
+	{
+		req.Encode(e)
+	}
+	encoded := e.Bytes()
+	ht.SetBody(r, bytes.NewReader(encoded), contentType)
+	return nil
+}
+
+func encodeUpdateProductRequest(
+	req *ProductUpdateRequest,
 	r *http.Request,
 ) error {
 	const contentType = "application/json"
