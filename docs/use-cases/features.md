@@ -23,6 +23,32 @@ for _, f := range features {
 aha feature list --product PRODUCT-KEY
 ```
 
+### With Release Information (GraphQL)
+
+The REST API feature listing doesn't include release details. Use GraphQL to get features with release info:
+
+```go
+import (
+    "github.com/grokify/aha-go/graphql"
+    "github.com/grokify/aha-go/graphql/generated"
+)
+
+client := graphql.NewGenqlientClient("mycompany", "your-api-key")
+
+// List features with release information
+resp, err := generated.ListFeatures(ctx, client, 1, 50)
+if err != nil {
+    log.Fatal(err)
+}
+
+for _, f := range resp.Features.Nodes {
+    fmt.Printf("%s: %s\n", f.ReferenceNum, f.Name)
+    if f.Release != nil {
+        fmt.Printf("  Release: %s (date: %s)\n", f.Release.Name, f.Release.ReleaseDate)
+    }
+}
+```
+
 ## Filtering Features
 
 ### By Status

@@ -27,7 +27,16 @@ This document tracks planned enhancements for the aha-go CLI.
 
 ## In Progress
 
-None currently.
+### Feature-Release Query Support
+
+Enable querying features by release date or name, supporting aha-studio's cached query capabilities.
+
+| Item | Status | Description |
+|------|--------|-------------|
+| `ListFeaturesDetailed` | 🔄 In Progress | SDK method to list features with full details including release |
+| Feature release_id in sync | 🔄 In Progress | Ensure FeatureMeta includes release reference for sync |
+| CLI `--release-date` flag | 🔲 Planned | `aha feature list --release-date 2026-10-31` |
+| CLI `--release-name` flag | 🔲 Planned | `aha feature list --release-name "Q4 2026"` |
 
 ## Future Considerations
 

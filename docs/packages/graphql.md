@@ -93,10 +93,33 @@ for _, node := range resp.SearchDocuments.Nodes {
 }
 ```
 
+### ListFeatures
+
+List features with release information (not available via REST API).
+
+```go
+resp, err := generated.ListFeatures(ctx, client, 1, 50) // page, perPage
+if err != nil {
+    log.Fatal(err)
+}
+
+for _, feature := range resp.Features.Nodes {
+    fmt.Printf("Feature: %s\n", feature.Name)
+    if feature.Release != nil {
+        fmt.Printf("  Release: %s (date: %s)\n",
+            feature.Release.Name,
+            feature.Release.ReleaseDate)
+    }
+}
+```
+
+**Note:** The GraphQL `ListFeatures` query includes release information (`release_id`, `release_date`) that is not available in the REST API's feature listing.
+
 ### Available Queries
 
 | Query | Description |
 |-------|-------------|
+| `ListFeatures` | List features with release info (pagination) |
 | `GetFeature` | Get feature by reference number |
 | `GetPage` | Get page by reference number |
 | `GetIdea` | Get idea by reference number |
