@@ -6,10 +6,6 @@ require (
 	github.com/Khan/genqlient v0.8.1
 	github.com/go-faster/errors v0.7.1
 	github.com/go-faster/jx v1.2.0
-	github.com/grokify/goauth v0.23.30
-	github.com/grokify/prism-roadmap v0.14.0
-	github.com/ogen-go/ogen v1.22.0
-	github.com/spf13/cobra v1.10.2
 
 	// Browser automation for template creation (no API available).
 	// go-rod v0.116.2 (July 2024) requires fetchup v0.2.4; newer fetchup versions
@@ -17,6 +13,10 @@ require (
 	// TODO: Consider migrating to chromedp with a high-level wrapper.
 	// See: docs/specs/ROADMAP.md for migration plan.
 	github.com/go-rod/rod v0.116.2
+	github.com/grokify/goauth v0.23.30
+	github.com/grokify/prism-roadmap v0.14.1
+	github.com/ogen-go/ogen v1.22.0
+	github.com/spf13/cobra v1.10.2
 	github.com/ysmood/fetchup v0.2.4 // indirect; pinned for go-rod v0.116.2 compatibility
 	go.opentelemetry.io/otel v1.44.0
 	go.opentelemetry.io/otel/metric v1.44.0
@@ -43,7 +43,7 @@ require (
 	github.com/googleapis/gax-go/v2 v2.22.0 // indirect
 	github.com/grokify/mogo v0.74.6 // indirect
 	github.com/grokify/priority-frameworks v0.2.0 // indirect
-	github.com/grokify/prism-core v0.2.0 // indirect
+	github.com/grokify/prism-core v0.3.0 // indirect
 	github.com/huandu/xstrings v1.5.0 // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/jessevdk/go-flags v1.6.1 // indirect
