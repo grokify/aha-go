@@ -7,6 +7,45 @@
   "maintainers": ["grokify"],
   "releases": [
     {
+      "version": "v0.6.0",
+      "date": "2026-07-13",
+      "commit": "fac552f",
+      "highlights": [
+        { "description": "UpdateIdea SDK method with functional options" },
+        { "description": "Custom field definitions API for querying field metadata and options" },
+        { "description": "Functional options for UpdateInitiative and UpdateStrategicModel" }
+      ],
+      "added": [
+        { "description": "UpdateIdea SDK method with functional options", "commit": "5d88fcd" },
+        { "description": "ListCustomFieldDefinitions SDK method to list all custom field definitions", "commit": "f11d5f3" },
+        { "description": "ListProductCustomFieldDefinitions SDK method to list definitions for a product", "commit": "f11d5f3" },
+        { "description": "ListCustomFieldOptions SDK method to list options for select fields", "commit": "f11d5f3" },
+        { "description": "WithUpdateInitiativeName, WithUpdateInitiativeDescription, WithUpdateInitiativeStatus options", "commit": "e676e3f" },
+        { "description": "WithUpdateInitiativeStartDate, WithUpdateInitiativeEndDate options", "commit": "e676e3f" },
+        { "description": "WithUpdateInitiativeValue, WithUpdateInitiativeEffort, WithUpdateInitiativeColor options", "commit": "e676e3f" },
+        { "description": "WithUpdateInitiativePresented option", "commit": "e676e3f" },
+        { "description": "WithUpdateStrategicModelName, WithUpdateStrategicModelDescription options", "commit": "e676e3f" },
+        { "description": "OpenAPI: PUT /ideas/{idea_id} endpoint for updating ideas", "commit": "5274c17" },
+        { "description": "OpenAPI: Custom field definition endpoints and schemas", "commit": "5274c17" }
+      ],
+      "fixed": [
+        { "description": "Initiative description now parses nested DescriptionObject.Body structure", "commit": "e97ed2c" },
+        { "description": "Pin fetchup v0.2.4 for go-rod v0.116.2 compatibility", "commit": "fac552f" },
+        { "description": "OpenAPI: StrategicModel progress field now nullable", "commit": "5274c17" }
+      ],
+      "changed": [
+        { "description": "Regenerate ogen client from updated OpenAPI spec", "commit": "5640892" }
+      ],
+      "documentation": [
+        { "description": "Add UpdateIdea to API reference", "commit": "d3dbf0e" },
+        { "description": "Remove Go Report Card badge from README", "commit": "ff7f9f8" }
+      ],
+      "dependencies": [
+        { "description": "Bump github.com/ogen-go/ogen from 1.22.0 to 1.23.0", "commit": "a854099" },
+        { "description": "Bump github.com/grokify/prism-roadmap from 0.14.0 to 0.14.1", "commit": "d0231e4" }
+      ]
+    },
+    {
       "version": "v0.5.0",
       "date": "2026-06-20",
       "commit": "e0ab2c1",
