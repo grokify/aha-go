@@ -9,7 +9,7 @@
     {
       "version": "v0.6.0",
       "date": "2026-07-13",
-      "commit": "fac552f",
+      "commit": "8f62642",
       "highlights": [
         { "description": "UpdateIdea SDK method with functional options" },
         { "description": "Custom field definitions API for querying field metadata and options" },
@@ -26,7 +26,8 @@
         { "description": "WithUpdateInitiativePresented option", "commit": "e676e3f" },
         { "description": "WithUpdateStrategicModelName, WithUpdateStrategicModelDescription options", "commit": "e676e3f" },
         { "description": "OpenAPI: PUT /ideas/{idea_id} endpoint for updating ideas", "commit": "5274c17" },
-        { "description": "OpenAPI: Custom field definition endpoints and schemas", "commit": "5274c17" }
+        { "description": "OpenAPI: Custom field definition endpoints and schemas", "commit": "5274c17" },
+        { "description": "CLI: aha idea update command", "commit": "8633150" }
       ],
       "fixed": [
         { "description": "Initiative description now parses nested DescriptionObject.Body structure", "commit": "e97ed2c" },
@@ -37,6 +38,7 @@
         { "description": "Regenerate ogen client from updated OpenAPI spec", "commit": "5640892" }
       ],
       "documentation": [
+        { "description": "Add UpdateIdea and custom field definitions to README and api-reference", "commit": "8f62642" },
         { "description": "Add UpdateIdea to API reference", "commit": "d3dbf0e" },
         { "description": "Remove Go Report Card badge from README", "commit": "ff7f9f8" }
       ],

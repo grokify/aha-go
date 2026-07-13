@@ -189,6 +189,37 @@ func (c *Client) ListReleases(ctx context.Context, productID string, opts ...Opt
 func (c *Client) GetRelease(ctx context.Context, ref string) (*Release, error)
 ```
 
+### Custom Field Definitions
+
+```go
+func (c *Client) ListCustomFieldDefinitions(ctx context.Context) ([]CustomFieldDefinition, error)
+func (c *Client) ListProductCustomFieldDefinitions(ctx context.Context, productID string) ([]CustomFieldDefinition, error)
+func (c *Client) ListCustomFieldOptions(ctx context.Context, fieldID string) ([]CustomFieldOption, error)
+```
+
+#### Custom Field Types
+
+```go
+type CustomFieldDefinition struct {
+    ID                  string
+    Name                string
+    Key                 string
+    Type                string
+    CustomFieldableType string // Feature, Initiative, Epic, etc.
+    InternalName        string
+    Position            int64
+    APIType             string
+    AllowsOtherOption   bool
+}
+
+type CustomFieldOption struct {
+    ID       string
+    Value    string
+    Position int64
+    Color    string
+}
+```
+
 ### Comments
 
 ```go

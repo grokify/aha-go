@@ -150,6 +150,28 @@ ideas, err := client.ListIdeas(ctx,
     aha.WithIdeaQuery("search term"),
     aha.WithIdeaStatus("Under consideration"),
 )
+
+// Update an idea
+idea, err := client.UpdateIdea(ctx, "IDEA-123",
+    aha.WithUpdateIdeaName("Updated Name"),
+    aha.WithUpdateIdeaDescription("New description"),
+    aha.WithUpdateIdeaStatus("Under consideration"),
+    aha.WithUpdateIdeaCategories([]string{"category-id"}),
+    aha.WithUpdateIdeaVisibility("public"),
+)
+```
+
+### Custom Field Definitions
+
+```go
+// List all custom field definitions
+defs, err := client.ListCustomFieldDefinitions(ctx)
+
+// List definitions for a specific product
+defs, err := client.ListProductCustomFieldDefinitions(ctx, "PROD")
+
+// List options for a select field
+opts, err := client.ListCustomFieldOptions(ctx, "field-id")
 ```
 
 ### Products (Workspaces)
@@ -337,6 +359,11 @@ aha idea list --sort popular
 
 # Get an idea
 aha idea get IDEA-123
+
+# Update an idea
+aha idea update IDEA-123 --name "Updated Name"
+aha idea update IDEA-123 --status "Under consideration"
+aha idea update IDEA-123 --description "New description"
 ```
 
 ### Goal Commands
