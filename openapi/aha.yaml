@@ -462,6 +462,33 @@ paths:
               schema:
                 $ref: "#/components/schemas/IdeaResponse"
 
+    put:
+      operationId: updateIdea
+      summary: Update idea
+      description: Update an existing idea
+      tags:
+        - Ideas
+      parameters:
+        - name: idea_id
+          in: path
+          required: true
+          description: Idea ID or reference number
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/IdeaUpdateRequest"
+      responses:
+        "200":
+          description: Updated idea
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/IdeaResponse"
+
   /products:
     get:
       operationId: listProducts
@@ -1681,6 +1708,66 @@ paths:
               schema:
                 $ref: "#/components/schemas/StrategicModelComponentResponse"
 
+  # Custom Field Definitions
+  /custom_field_definitions:
+    get:
+      operationId: listCustomFieldDefinitions
+      summary: List all custom field definitions
+      description: Returns all custom field definitions across all products
+      tags:
+        - CustomFields
+      responses:
+        "200":
+          description: List of custom field definitions
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CustomFieldDefinitionListResponse"
+
+  /products/{product_id}/custom_field_definitions:
+    get:
+      operationId: listProductCustomFieldDefinitions
+      summary: List custom field definitions for a product
+      description: Returns custom field definitions for a specific product
+      tags:
+        - CustomFields
+      parameters:
+        - name: product_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Product ID or reference prefix
+      responses:
+        "200":
+          description: List of custom field definitions
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CustomFieldDefinitionListResponse"
+
+  /custom_field_definitions/{id}/options:
+    get:
+      operationId: listCustomFieldOptions
+      summary: List options for a custom field
+      description: Returns available options for select/choice custom fields
+      tags:
+        - CustomFields
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Custom field definition ID
+      responses:
+        "200":
+          description: List of custom field options
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CustomFieldOptionListResponse"
+
 components:
   securitySchemes:
     bearerAuth:
@@ -1887,6 +1974,34 @@ components:
           type: string
         release_phase:
           type: string
+
+    # Idea update schemas
+    IdeaUpdateRequest:
+      type: object
+      required:
+        - idea
+      properties:
+        idea:
+          $ref: "#/components/schemas/IdeaUpdate"
+
+    IdeaUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        workflow_status:
+          type: string
+          description: Workflow status ID or name
+        categories:
+          type: array
+          items:
+            type: string
+          description: Category IDs or names
+        visibility:
+          type: string
+          description: Visibility (e.g., public, private)
 
     # Comment schemas
     Comment:
@@ -2813,7 +2928,7 @@ components:
         name:
           type: string
         description:
-          type: string
+          $ref: '#/components/schemas/DescriptionObject'
         color:
           type: string
         position:
@@ -2838,6 +2953,7 @@ components:
         progress:
           type: number
           format: double
+          nullable: true
         progress_source:
           type: string
         url:
@@ -3071,6 +3187,72 @@ components:
         value: {}
         type:
           type: string
+
+    CustomFieldDefinition:
+      type: object
+      required:
+        - id
+        - name
+        - key
+        - type
+        - custom_fieldable_type
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+          description: Display name of the field
+        key:
+          type: string
+          description: Internal reference key
+        type:
+          type: string
+          description: Field type (e.g., CustomFieldDefinitions::SelectConstant)
+        custom_fieldable_type:
+          type: string
+          description: Record type the field applies to (Feature, Initiative, etc.)
+        internal_name:
+          type: string
+          nullable: true
+          description: Internal system name
+        position:
+          type: integer
+          description: Display order position
+        api_type:
+          type: string
+          description: API type for the field
+        allows_other_option:
+          type: boolean
+          description: Whether "Other" option is allowed for select fields
+
+    CustomFieldDefinitionListResponse:
+      type: object
+      properties:
+        custom_field_definitions:
+          type: array
+          items:
+            $ref: "#/components/schemas/CustomFieldDefinition"
+
+    CustomFieldOption:
+      type: object
+      properties:
+        id:
+          type: string
+        value:
+          type: string
+        position:
+          type: integer
+        color:
+          type: string
+          nullable: true
+
+    CustomFieldOptionListResponse:
+      type: object
+      properties:
+        custom_field_options:
+          type: array
+          items:
+            $ref: "#/components/schemas/CustomFieldOption"
 
     IntegrationField:
       type: object
