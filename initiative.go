@@ -395,8 +395,10 @@ func initiativeFromAPI(i api.Initiative) *Initiative {
 		CreatedAt:    i.CreatedAt,
 	}
 
-	if v, ok := i.Description.Get(); ok {
-		initiative.Description = v
+	if desc, ok := i.Description.Get(); ok {
+		if body, ok := desc.Body.Get(); ok {
+			initiative.Description = body
+		}
 	}
 	if v, ok := i.Color.Get(); ok {
 		initiative.Color = v
