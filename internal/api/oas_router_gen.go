@@ -19,14 +19,20 @@ var (
 	rn40AllowedHeaders = map[string]string{
 		"GET": "Authorization",
 	}
+	rn43AllowedHeaders = map[string]string{
+		"GET": "Authorization",
+	}
+	rn45AllowedHeaders = map[string]string{
+		"GET": "Authorization",
+	}
 	rn29AllowedHeaders = map[string]string{
 		"GET": "Authorization",
 		"PUT": "Authorization,Content-Type",
 	}
-	rn39AllowedHeaders = map[string]string{
+	rn44AllowedHeaders = map[string]string{
 		"GET": "Authorization",
 	}
-	rn41AllowedHeaders = map[string]string{
+	rn46AllowedHeaders = map[string]string{
 		"GET": "Authorization",
 	}
 	rn2AllowedHeaders = map[string]string{
@@ -41,34 +47,35 @@ var (
 		"GET":  "Authorization",
 		"POST": "Authorization,Content-Type",
 	}
-	rn43AllowedHeaders = map[string]string{
+	rn48AllowedHeaders = map[string]string{
 		"GET": "Authorization",
 	}
 	rn31AllowedHeaders = map[string]string{
 		"GET": "Authorization",
 		"PUT": "Authorization,Content-Type",
 	}
-	rn42AllowedHeaders = map[string]string{
+	rn47AllowedHeaders = map[string]string{
 		"GET": "Authorization",
 	}
-	rn44AllowedHeaders = map[string]string{
+	rn49AllowedHeaders = map[string]string{
 		"GET": "Authorization",
 	}
 	rn8AllowedHeaders = map[string]string{
 		"GET": "Authorization",
+		"PUT": "Authorization,Content-Type",
 	}
 	rn9AllowedHeaders = map[string]string{
 		"GET":  "Authorization",
 		"POST": "Authorization,Content-Type",
 	}
-	rn46AllowedHeaders = map[string]string{
+	rn51AllowedHeaders = map[string]string{
 		"GET": "Authorization",
 	}
 	rn34AllowedHeaders = map[string]string{
 		"GET": "Authorization",
 		"PUT": "Authorization,Content-Type",
 	}
-	rn45AllowedHeaders = map[string]string{
+	rn50AllowedHeaders = map[string]string{
 		"GET": "Authorization",
 	}
 	rn27AllowedHeaders = map[string]string{
@@ -82,10 +89,13 @@ var (
 		"GET": "Authorization",
 		"PUT": "Authorization,Content-Type",
 	}
-	rn47AllowedHeaders = map[string]string{
+	rn52AllowedHeaders = map[string]string{
 		"GET": "Authorization",
 	}
-	rn48AllowedHeaders = map[string]string{
+	rn54AllowedHeaders = map[string]string{
+		"GET": "Authorization",
+	}
+	rn55AllowedHeaders = map[string]string{
 		"GET": "Authorization",
 	}
 	rn13AllowedHeaders = map[string]string{
@@ -96,21 +106,21 @@ var (
 		"GET":  "Authorization",
 		"POST": "Authorization,Content-Type",
 	}
-	rn49AllowedHeaders = map[string]string{
+	rn56AllowedHeaders = map[string]string{
 		"GET": "Authorization",
 	}
 	rn16AllowedHeaders = map[string]string{
 		"GET":  "Authorization",
 		"POST": "Authorization,Content-Type",
 	}
-	rn50AllowedHeaders = map[string]string{
+	rn57AllowedHeaders = map[string]string{
 		"GET": "Authorization",
 	}
 	rn18AllowedHeaders = map[string]string{
 		"GET": "Authorization",
 		"PUT": "Authorization,Content-Type",
 	}
-	rn51AllowedHeaders = map[string]string{
+	rn58AllowedHeaders = map[string]string{
 		"GET": "Authorization",
 	}
 	rn19AllowedHeaders = map[string]string{
@@ -125,17 +135,17 @@ var (
 		"GET":    "Authorization",
 		"PUT":    "Authorization,Content-Type",
 	}
-	rn52AllowedHeaders = map[string]string{
+	rn59AllowedHeaders = map[string]string{
 		"GET": "Authorization",
 	}
 	rn36AllowedHeaders = map[string]string{
 		"GET": "Authorization",
 		"PUT": "Authorization,Content-Type",
 	}
-	rn55AllowedHeaders = map[string]string{
+	rn62AllowedHeaders = map[string]string{
 		"PUT": "Authorization,Content-Type",
 	}
-	rn53AllowedHeaders = map[string]string{
+	rn60AllowedHeaders = map[string]string{
 		"GET": "Authorization",
 	}
 	rn38AllowedHeaders = map[string]string{
@@ -194,48 +204,138 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 				break
 			}
 			switch elem[0] {
-			case 'c': // Prefix: "comments/"
+			case 'c': // Prefix: "c"
 
-				if l := len("comments/"); len(elem) >= l && elem[0:l] == "comments/" {
+				if l := len("c"); len(elem) >= l && elem[0:l] == "c" {
 					elem = elem[l:]
 				} else {
 					break
 				}
 
-				// Param: "comment_id"
-				// Leaf parameter, slashes are prohibited
-				idx := strings.IndexByte(elem, '/')
-				if idx >= 0 {
+				if len(elem) == 0 {
 					break
 				}
-				args[0] = elem
-				elem = ""
+				switch elem[0] {
+				case 'o': // Prefix: "omments/"
 
-				if len(elem) == 0 {
-					// Leaf node.
-					switch r.Method {
-					case "DELETE":
-						s.handleDeleteCommentRequest([1]string{
-							args[0],
-						}, elemIsEscaped, w, r)
-					case "GET":
-						s.handleGetCommentRequest([1]string{
-							args[0],
-						}, elemIsEscaped, w, r)
-					case "PUT":
-						s.handleUpdateCommentRequest([1]string{
-							args[0],
-						}, elemIsEscaped, w, r)
-					default:
-						s.notAllowed(w, r, notAllowedParams{
-							allowedMethods: "DELETE,GET,PUT",
-							allowedHeaders: rn23AllowedHeaders,
-							acceptPost:     "",
-							acceptPatch:    "",
-						})
+					if l := len("omments/"); len(elem) >= l && elem[0:l] == "omments/" {
+						elem = elem[l:]
+					} else {
+						break
 					}
 
-					return
+					// Param: "comment_id"
+					// Leaf parameter, slashes are prohibited
+					idx := strings.IndexByte(elem, '/')
+					if idx >= 0 {
+						break
+					}
+					args[0] = elem
+					elem = ""
+
+					if len(elem) == 0 {
+						// Leaf node.
+						switch r.Method {
+						case "DELETE":
+							s.handleDeleteCommentRequest([1]string{
+								args[0],
+							}, elemIsEscaped, w, r)
+						case "GET":
+							s.handleGetCommentRequest([1]string{
+								args[0],
+							}, elemIsEscaped, w, r)
+						case "PUT":
+							s.handleUpdateCommentRequest([1]string{
+								args[0],
+							}, elemIsEscaped, w, r)
+						default:
+							s.notAllowed(w, r, notAllowedParams{
+								allowedMethods: "DELETE,GET,PUT",
+								allowedHeaders: rn23AllowedHeaders,
+								acceptPost:     "",
+								acceptPatch:    "",
+							})
+						}
+
+						return
+					}
+
+				case 'u': // Prefix: "ustom_field_definitions"
+
+					if l := len("ustom_field_definitions"); len(elem) >= l && elem[0:l] == "ustom_field_definitions" {
+						elem = elem[l:]
+					} else {
+						break
+					}
+
+					if len(elem) == 0 {
+						switch r.Method {
+						case "GET":
+							s.handleListCustomFieldDefinitionsRequest([0]string{}, elemIsEscaped, w, r)
+						default:
+							s.notAllowed(w, r, notAllowedParams{
+								allowedMethods: "GET",
+								allowedHeaders: rn40AllowedHeaders,
+								acceptPost:     "",
+								acceptPatch:    "",
+							})
+						}
+
+						return
+					}
+					switch elem[0] {
+					case '/': // Prefix: "/"
+
+						if l := len("/"); len(elem) >= l && elem[0:l] == "/" {
+							elem = elem[l:]
+						} else {
+							break
+						}
+
+						// Param: "id"
+						// Match until "/"
+						idx := strings.IndexByte(elem, '/')
+						if idx < 0 {
+							idx = len(elem)
+						}
+						args[0] = elem[:idx]
+						elem = elem[idx:]
+
+						if len(elem) == 0 {
+							break
+						}
+						switch elem[0] {
+						case '/': // Prefix: "/options"
+
+							if l := len("/options"); len(elem) >= l && elem[0:l] == "/options" {
+								elem = elem[l:]
+							} else {
+								break
+							}
+
+							if len(elem) == 0 {
+								// Leaf node.
+								switch r.Method {
+								case "GET":
+									s.handleListCustomFieldOptionsRequest([1]string{
+										args[0],
+									}, elemIsEscaped, w, r)
+								default:
+									s.notAllowed(w, r, notAllowedParams{
+										allowedMethods: "GET",
+										allowedHeaders: rn43AllowedHeaders,
+										acceptPost:     "",
+										acceptPatch:    "",
+									})
+								}
+
+								return
+							}
+
+						}
+
+					}
+
 				}
 
 			case 'e': // Prefix: "epics"
@@ -253,7 +353,7 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 					default:
 						s.notAllowed(w, r, notAllowedParams{
 							allowedMethods: "GET",
-							allowedHeaders: rn40AllowedHeaders,
+							allowedHeaders: rn45AllowedHeaders,
 							acceptPost:     "",
 							acceptPatch:    "",
 						})
@@ -319,7 +419,7 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 							default:
 								s.notAllowed(w, r, notAllowedParams{
 									allowedMethods: "GET",
-									allowedHeaders: rn39AllowedHeaders,
+									allowedHeaders: rn44AllowedHeaders,
 									acceptPost:     "",
 									acceptPatch:    "",
 								})
@@ -347,7 +447,7 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 					default:
 						s.notAllowed(w, r, notAllowedParams{
 							allowedMethods: "GET",
-							allowedHeaders: rn41AllowedHeaders,
+							allowedHeaders: rn46AllowedHeaders,
 							acceptPost:     "",
 							acceptPatch:    "",
 						})
@@ -490,7 +590,7 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 					default:
 						s.notAllowed(w, r, notAllowedParams{
 							allowedMethods: "GET",
-							allowedHeaders: rn43AllowedHeaders,
+							allowedHeaders: rn48AllowedHeaders,
 							acceptPost:     "",
 							acceptPatch:    "",
 						})
@@ -556,7 +656,7 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 							default:
 								s.notAllowed(w, r, notAllowedParams{
 									allowedMethods: "GET",
-									allowedHeaders: rn42AllowedHeaders,
+									allowedHeaders: rn47AllowedHeaders,
 									acceptPost:     "",
 									acceptPatch:    "",
 								})
@@ -596,7 +696,7 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 						default:
 							s.notAllowed(w, r, notAllowedParams{
 								allowedMethods: "GET",
-								allowedHeaders: rn44AllowedHeaders,
+								allowedHeaders: rn49AllowedHeaders,
 								acceptPost:     "",
 								acceptPatch:    "",
 							})
@@ -628,9 +728,13 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 								s.handleGetIdeaRequest([1]string{
 									args[0],
 								}, elemIsEscaped, w, r)
+							case "PUT":
+								s.handleUpdateIdeaRequest([1]string{
+									args[0],
+								}, elemIsEscaped, w, r)
 							default:
 								s.notAllowed(w, r, notAllowedParams{
-									allowedMethods: "GET",
+									allowedMethods: "GET,PUT",
 									allowedHeaders: rn8AllowedHeaders,
 									acceptPost:     "",
 									acceptPatch:    "",
@@ -690,7 +794,7 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 						default:
 							s.notAllowed(w, r, notAllowedParams{
 								allowedMethods: "GET",
-								allowedHeaders: rn46AllowedHeaders,
+								allowedHeaders: rn51AllowedHeaders,
 								acceptPost:     "",
 								acceptPatch:    "",
 							})
@@ -756,7 +860,7 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 								default:
 									s.notAllowed(w, r, notAllowedParams{
 										allowedMethods: "GET",
-										allowedHeaders: rn45AllowedHeaders,
+										allowedHeaders: rn50AllowedHeaders,
 										acceptPost:     "",
 										acceptPatch:    "",
 									})
@@ -873,31 +977,72 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 							break
 						}
 						switch elem[0] {
-						case 'c': // Prefix: "comments"
+						case 'c': // Prefix: "c"
 
-							if l := len("comments"); len(elem) >= l && elem[0:l] == "comments" {
+							if l := len("c"); len(elem) >= l && elem[0:l] == "c" {
 								elem = elem[l:]
 							} else {
 								break
 							}
 
 							if len(elem) == 0 {
-								// Leaf node.
-								switch r.Method {
-								case "GET":
-									s.handleListProductCommentsRequest([1]string{
-										args[0],
-									}, elemIsEscaped, w, r)
-								default:
-									s.notAllowed(w, r, notAllowedParams{
-										allowedMethods: "GET",
-										allowedHeaders: rn47AllowedHeaders,
-										acceptPost:     "",
-										acceptPatch:    "",
-									})
+								break
+							}
+							switch elem[0] {
+							case 'o': // Prefix: "omments"
+
+								if l := len("omments"); len(elem) >= l && elem[0:l] == "omments" {
+									elem = elem[l:]
+								} else {
+									break
 								}
 
-								return
+								if len(elem) == 0 {
+									// Leaf node.
+									switch r.Method {
+									case "GET":
+										s.handleListProductCommentsRequest([1]string{
+											args[0],
+										}, elemIsEscaped, w, r)
+									default:
+										s.notAllowed(w, r, notAllowedParams{
+											allowedMethods: "GET",
+											allowedHeaders: rn52AllowedHeaders,
+											acceptPost:     "",
+											acceptPatch:    "",
+										})
+									}
+
+									return
+								}
+
+							case 'u': // Prefix: "ustom_field_definitions"
+
+								if l := len("ustom_field_definitions"); len(elem) >= l && elem[0:l] == "ustom_field_definitions" {
+									elem = elem[l:]
+								} else {
+									break
+								}
+
+								if len(elem) == 0 {
+									// Leaf node.
+									switch r.Method {
+									case "GET":
+										s.handleListProductCustomFieldDefinitionsRequest([1]string{
+											args[0],
+										}, elemIsEscaped, w, r)
+									default:
+										s.notAllowed(w, r, notAllowedParams{
+											allowedMethods: "GET",
+											allowedHeaders: rn54AllowedHeaders,
+											acceptPost:     "",
+											acceptPatch:    "",
+										})
+									}
+
+									return
+								}
+
 							}
 
 						case 'e': // Prefix: "epics"
@@ -918,7 +1063,7 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 								default:
 									s.notAllowed(w, r, notAllowedParams{
 										allowedMethods: "GET",
-										allowedHeaders: rn48AllowedHeaders,
+										allowedHeaders: rn55AllowedHeaders,
 										acceptPost:     "",
 										acceptPatch:    "",
 									})
@@ -1007,7 +1152,7 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 								default:
 									s.notAllowed(w, r, notAllowedParams{
 										allowedMethods: "GET",
-										allowedHeaders: rn49AllowedHeaders,
+										allowedHeaders: rn56AllowedHeaders,
 										acceptPost:     "",
 										acceptPatch:    "",
 									})
@@ -1065,7 +1210,7 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 								default:
 									s.notAllowed(w, r, notAllowedParams{
 										allowedMethods: "GET",
-										allowedHeaders: rn50AllowedHeaders,
+										allowedHeaders: rn57AllowedHeaders,
 										acceptPost:     "",
 										acceptPatch:    "",
 									})
@@ -1161,7 +1306,7 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 								default:
 									s.notAllowed(w, r, notAllowedParams{
 										allowedMethods: "GET",
-										allowedHeaders: rn51AllowedHeaders,
+										allowedHeaders: rn58AllowedHeaders,
 										acceptPost:     "",
 										acceptPatch:    "",
 									})
@@ -1293,7 +1438,7 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 					default:
 						s.notAllowed(w, r, notAllowedParams{
 							allowedMethods: "GET",
-							allowedHeaders: rn52AllowedHeaders,
+							allowedHeaders: rn59AllowedHeaders,
 							acceptPost:     "",
 							acceptPatch:    "",
 						})
@@ -1369,7 +1514,7 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 							default:
 								s.notAllowed(w, r, notAllowedParams{
 									allowedMethods: "PUT",
-									allowedHeaders: rn55AllowedHeaders,
+									allowedHeaders: rn62AllowedHeaders,
 									acceptPost:     "",
 									acceptPatch:    "",
 								})
@@ -1397,7 +1542,7 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 					default:
 						s.notAllowed(w, r, notAllowedParams{
 							allowedMethods: "GET",
-							allowedHeaders: rn53AllowedHeaders,
+							allowedHeaders: rn60AllowedHeaders,
 							acceptPost:     "",
 							acceptPatch:    "",
 						})
@@ -1544,56 +1689,144 @@ func (s *Server) FindPath(method string, u *url.URL) (r Route, _ bool) {
 				break
 			}
 			switch elem[0] {
-			case 'c': // Prefix: "comments/"
+			case 'c': // Prefix: "c"
 
-				if l := len("comments/"); len(elem) >= l && elem[0:l] == "comments/" {
+				if l := len("c"); len(elem) >= l && elem[0:l] == "c" {
 					elem = elem[l:]
 				} else {
 					break
 				}
 
-				// Param: "comment_id"
-				// Leaf parameter, slashes are prohibited
-				idx := strings.IndexByte(elem, '/')
-				if idx >= 0 {
+				if len(elem) == 0 {
 					break
 				}
-				args[0] = elem
-				elem = ""
+				switch elem[0] {
+				case 'o': // Prefix: "omments/"
 
-				if len(elem) == 0 {
-					// Leaf node.
-					switch method {
-					case "DELETE":
-						r.name = DeleteCommentOperation
-						r.summary = "Delete comment"
-						r.operationID = "deleteComment"
-						r.operationGroup = ""
-						r.pathPattern = "/comments/{comment_id}"
-						r.args = args
-						r.count = 1
-						return r, true
-					case "GET":
-						r.name = GetCommentOperation
-						r.summary = "Get comment"
-						r.operationID = "getComment"
-						r.operationGroup = ""
-						r.pathPattern = "/comments/{comment_id}"
-						r.args = args
-						r.count = 1
-						return r, true
-					case "PUT":
-						r.name = UpdateCommentOperation
-						r.summary = "Update comment"
-						r.operationID = "updateComment"
-						r.operationGroup = ""
-						r.pathPattern = "/comments/{comment_id}"
-						r.args = args
-						r.count = 1
-						return r, true
-					default:
-						return
+					if l := len("omments/"); len(elem) >= l && elem[0:l] == "omments/" {
+						elem = elem[l:]
+					} else {
+						break
 					}
+
+					// Param: "comment_id"
+					// Leaf parameter, slashes are prohibited
+					idx := strings.IndexByte(elem, '/')
+					if idx >= 0 {
+						break
+					}
+					args[0] = elem
+					elem = ""
+
+					if len(elem) == 0 {
+						// Leaf node.
+						switch method {
+						case "DELETE":
+							r.name = DeleteCommentOperation
+							r.summary = "Delete comment"
+							r.operationID = "deleteComment"
+							r.operationGroup = ""
+							r.pathPattern = "/comments/{comment_id}"
+							r.args = args
+							r.count = 1
+							return r, true
+						case "GET":
+							r.name = GetCommentOperation
+							r.summary = "Get comment"
+							r.operationID = "getComment"
+							r.operationGroup = ""
+							r.pathPattern = "/comments/{comment_id}"
+							r.args = args
+							r.count = 1
+							return r, true
+						case "PUT":
+							r.name = UpdateCommentOperation
+							r.summary = "Update comment"
+							r.operationID = "updateComment"
+							r.operationGroup = ""
+							r.pathPattern = "/comments/{comment_id}"
+							r.args = args
+							r.count = 1
+							return r, true
+						default:
+							return
+						}
+					}
+
+				case 'u': // Prefix: "ustom_field_definitions"
+
+					if l := len("ustom_field_definitions"); len(elem) >= l && elem[0:l] == "ustom_field_definitions" {
+						elem = elem[l:]
+					} else {
+						break
+					}
+
+					if len(elem) == 0 {
+						switch method {
+						case "GET":
+							r.name = ListCustomFieldDefinitionsOperation
+							r.summary = "List all custom field definitions"
+							r.operationID = "listCustomFieldDefinitions"
+							r.operationGroup = ""
+							r.pathPattern = "/custom_field_definitions"
+							r.args = args
+							r.count = 0
+							return r, true
+						default:
+							return
+						}
+					}
+					switch elem[0] {
+					case '/': // Prefix: "/"
+
+						if l := len("/"); len(elem) >= l && elem[0:l] == "/" {
+							elem = elem[l:]
+						} else {
+							break
+						}
+
+						// Param: "id"
+						// Match until "/"
+						idx := strings.IndexByte(elem, '/')
+						if idx < 0 {
+							idx = len(elem)
+						}
+						args[0] = elem[:idx]
+						elem = elem[idx:]
+
+						if len(elem) == 0 {
+							break
+						}
+						switch elem[0] {
+						case '/': // Prefix: "/options"
+
+							if l := len("/options"); len(elem) >= l && elem[0:l] == "/options" {
+								elem = elem[l:]
+							} else {
+								break
+							}
+
+							if len(elem) == 0 {
+								// Leaf node.
+								switch method {
+								case "GET":
+									r.name = ListCustomFieldOptionsOperation
+									r.summary = "List options for a custom field"
+									r.operationID = "listCustomFieldOptions"
+									r.operationGroup = ""
+									r.pathPattern = "/custom_field_definitions/{id}/options"
+									r.args = args
+									r.count = 1
+									return r, true
+								default:
+									return
+								}
+							}
+
+						}
+
+					}
+
 				}
 
 			case 'e': // Prefix: "epics"
@@ -2002,6 +2235,15 @@ func (s *Server) FindPath(method string, u *url.URL) (r Route, _ bool) {
 								r.args = args
 								r.count = 1
 								return r, true
+							case "PUT":
+								r.name = UpdateIdeaOperation
+								r.summary = "Update idea"
+								r.operationID = "updateIdea"
+								r.operationGroup = ""
+								r.pathPattern = "/ideas/{idea_id}"
+								r.args = args
+								r.count = 1
+								return r, true
 							default:
 								return
 							}
@@ -2254,29 +2496,68 @@ func (s *Server) FindPath(method string, u *url.URL) (r Route, _ bool) {
 							break
 						}
 						switch elem[0] {
-						case 'c': // Prefix: "comments"
+						case 'c': // Prefix: "c"
 
-							if l := len("comments"); len(elem) >= l && elem[0:l] == "comments" {
+							if l := len("c"); len(elem) >= l && elem[0:l] == "c" {
 								elem = elem[l:]
 							} else {
 								break
 							}
 
 							if len(elem) == 0 {
-								// Leaf node.
-								switch method {
-								case "GET":
-									r.name = ListProductCommentsOperation
-									r.summary = "List comments in a product"
-									r.operationID = "listProductComments"
-									r.operationGroup = ""
-									r.pathPattern = "/products/{product_id}/comments"
-									r.args = args
-									r.count = 1
-									return r, true
-								default:
-									return
+								break
+							}
+							switch elem[0] {
+							case 'o': // Prefix: "omments"
+
+								if l := len("omments"); len(elem) >= l && elem[0:l] == "omments" {
+									elem = elem[l:]
+								} else {
+									break
 								}
+
+								if len(elem) == 0 {
+									// Leaf node.
+									switch method {
+									case "GET":
+										r.name = ListProductCommentsOperation
+										r.summary = "List comments in a product"
+										r.operationID = "listProductComments"
+										r.operationGroup = ""
+										r.pathPattern = "/products/{product_id}/comments"
+										r.args = args
+										r.count = 1
+										return r, true
+									default:
+										return
+									}
+								}
+
+							case 'u': // Prefix: "ustom_field_definitions"
+
+								if l := len("ustom_field_definitions"); len(elem) >= l && elem[0:l] == "ustom_field_definitions" {
+									elem = elem[l:]
+								} else {
+									break
+								}
+
+								if len(elem) == 0 {
+									// Leaf node.
+									switch method {
+									case "GET":
+										r.name = ListProductCustomFieldDefinitionsOperation
+										r.summary = "List custom field definitions for a product"
+										r.operationID = "listProductCustomFieldDefinitions"
+										r.operationGroup = ""
+										r.pathPattern = "/products/{product_id}/custom_field_definitions"
+										r.args = args
+										r.count = 1
+										return r, true
+									default:
+										return
+									}
+								}
+
 							}
 
 						case 'e': // Prefix: "epics"

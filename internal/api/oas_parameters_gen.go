@@ -1401,6 +1401,72 @@ func decodeGetUserParams(args [1]string, argsEscaped bool, r *http.Request) (par
 	return params, nil
 }
 
+// ListCustomFieldOptionsParams is parameters of listCustomFieldOptions operation.
+type ListCustomFieldOptionsParams struct {
+	// Custom field definition ID.
+	ID string
+}
+
+func unpackListCustomFieldOptionsParams(packed middleware.Parameters) (params ListCustomFieldOptionsParams) {
+	{
+		key := middleware.ParameterKey{
+			Name: "id",
+			In:   "path",
+		}
+		params.ID = packed[key].(string)
+	}
+	return params
+}
+
+func decodeListCustomFieldOptionsParams(args [1]string, argsEscaped bool, r *http.Request) (params ListCustomFieldOptionsParams, _ error) {
+	// Decode path: id.
+	if err := func() error {
+		param := args[0]
+		if argsEscaped {
+			unescaped, err := url.PathUnescape(args[0])
+			if err != nil {
+				return errors.Wrap(err, "unescape path")
+			}
+			param = unescaped
+		}
+		if len(param) > 0 {
+			d := uri.NewPathDecoder(uri.PathDecoderConfig{
+				Param:   "id",
+				Value:   param,
+				Style:   uri.PathStyleSimple,
+				Explode: false,
+			})
+
+			if err := func() error {
+				val, err := d.DecodeValue()
+				if err != nil {
+					return err
+				}
+
+				c, err := conv.ToString(val)
+				if err != nil {
+					return err
+				}
+
+				params.ID = c
+				return nil
+			}(); err != nil {
+				return err
+			}
+		} else {
+			return validate.ErrFieldRequired
+		}
+		return nil
+	}(); err != nil {
+		return params, &ogenerrors.DecodeParamError{
+			Name: "id",
+			In:   "path",
+			Err:  err,
+		}
+	}
+	return params, nil
+}
+
 // ListEpicCommentsParams is parameters of listEpicComments operation.
 type ListEpicCommentsParams struct {
 	// Epic ID or reference number.
@@ -4216,6 +4282,72 @@ func decodeListProductCommentsParams(args [1]string, argsEscaped bool, r *http.R
 	return params, nil
 }
 
+// ListProductCustomFieldDefinitionsParams is parameters of listProductCustomFieldDefinitions operation.
+type ListProductCustomFieldDefinitionsParams struct {
+	// Product ID or reference prefix.
+	ProductID string
+}
+
+func unpackListProductCustomFieldDefinitionsParams(packed middleware.Parameters) (params ListProductCustomFieldDefinitionsParams) {
+	{
+		key := middleware.ParameterKey{
+			Name: "product_id",
+			In:   "path",
+		}
+		params.ProductID = packed[key].(string)
+	}
+	return params
+}
+
+func decodeListProductCustomFieldDefinitionsParams(args [1]string, argsEscaped bool, r *http.Request) (params ListProductCustomFieldDefinitionsParams, _ error) {
+	// Decode path: product_id.
+	if err := func() error {
+		param := args[0]
+		if argsEscaped {
+			unescaped, err := url.PathUnescape(args[0])
+			if err != nil {
+				return errors.Wrap(err, "unescape path")
+			}
+			param = unescaped
+		}
+		if len(param) > 0 {
+			d := uri.NewPathDecoder(uri.PathDecoderConfig{
+				Param:   "product_id",
+				Value:   param,
+				Style:   uri.PathStyleSimple,
+				Explode: false,
+			})
+
+			if err := func() error {
+				val, err := d.DecodeValue()
+				if err != nil {
+					return err
+				}
+
+				c, err := conv.ToString(val)
+				if err != nil {
+					return err
+				}
+
+				params.ProductID = c
+				return nil
+			}(); err != nil {
+				return err
+			}
+		} else {
+			return validate.ErrFieldRequired
+		}
+		return nil
+	}(); err != nil {
+		return params, &ogenerrors.DecodeParamError{
+			Name: "product_id",
+			In:   "path",
+			Err:  err,
+		}
+	}
+	return params, nil
+}
+
 // ListProductEpicsParams is parameters of listProductEpics operation.
 type ListProductEpicsParams struct {
 	// Product ID or reference prefix.
@@ -6275,6 +6407,72 @@ func decodeUpdateGoalParams(args [1]string, argsEscaped bool, r *http.Request) (
 	}(); err != nil {
 		return params, &ogenerrors.DecodeParamError{
 			Name: "goal_id",
+			In:   "path",
+			Err:  err,
+		}
+	}
+	return params, nil
+}
+
+// UpdateIdeaParams is parameters of updateIdea operation.
+type UpdateIdeaParams struct {
+	// Idea ID or reference number.
+	IdeaID string
+}
+
+func unpackUpdateIdeaParams(packed middleware.Parameters) (params UpdateIdeaParams) {
+	{
+		key := middleware.ParameterKey{
+			Name: "idea_id",
+			In:   "path",
+		}
+		params.IdeaID = packed[key].(string)
+	}
+	return params
+}
+
+func decodeUpdateIdeaParams(args [1]string, argsEscaped bool, r *http.Request) (params UpdateIdeaParams, _ error) {
+	// Decode path: idea_id.
+	if err := func() error {
+		param := args[0]
+		if argsEscaped {
+			unescaped, err := url.PathUnescape(args[0])
+			if err != nil {
+				return errors.Wrap(err, "unescape path")
+			}
+			param = unescaped
+		}
+		if len(param) > 0 {
+			d := uri.NewPathDecoder(uri.PathDecoderConfig{
+				Param:   "idea_id",
+				Value:   param,
+				Style:   uri.PathStyleSimple,
+				Explode: false,
+			})
+
+			if err := func() error {
+				val, err := d.DecodeValue()
+				if err != nil {
+					return err
+				}
+
+				c, err := conv.ToString(val)
+				if err != nil {
+					return err
+				}
+
+				params.IdeaID = c
+				return nil
+			}(); err != nil {
+				return err
+			}
+		} else {
+			return validate.ErrFieldRequired
+		}
+		return nil
+	}(); err != nil {
+		return params, &ogenerrors.DecodeParamError{
+			Name: "idea_id",
 			In:   "path",
 			Err:  err,
 		}

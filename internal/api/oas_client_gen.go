@@ -166,6 +166,18 @@ type Invoker interface {
 	//
 	// GET /users/{user_id}
 	GetUser(ctx context.Context, params GetUserParams) (*UserResponse, error)
+	// ListCustomFieldDefinitions invokes listCustomFieldDefinitions operation.
+	//
+	// Returns all custom field definitions across all products.
+	//
+	// GET /custom_field_definitions
+	ListCustomFieldDefinitions(ctx context.Context) (*CustomFieldDefinitionListResponse, error)
+	// ListCustomFieldOptions invokes listCustomFieldOptions operation.
+	//
+	// Returns available options for select/choice custom fields.
+	//
+	// GET /custom_field_definitions/{id}/options
+	ListCustomFieldOptions(ctx context.Context, params ListCustomFieldOptionsParams) (*CustomFieldOptionListResponse, error)
 	// ListEpicComments invokes listEpicComments operation.
 	//
 	// Get all comments on an epic.
@@ -238,6 +250,12 @@ type Invoker interface {
 	//
 	// GET /products/{product_id}/comments
 	ListProductComments(ctx context.Context, params ListProductCommentsParams) (*CommentsResponse, error)
+	// ListProductCustomFieldDefinitions invokes listProductCustomFieldDefinitions operation.
+	//
+	// Returns custom field definitions for a specific product.
+	//
+	// GET /products/{product_id}/custom_field_definitions
+	ListProductCustomFieldDefinitions(ctx context.Context, params ListProductCustomFieldDefinitionsParams) (*CustomFieldDefinitionListResponse, error)
 	// ListProductEpics invokes listProductEpics operation.
 	//
 	// Get all epics for a product.
@@ -328,6 +346,12 @@ type Invoker interface {
 	//
 	// PUT /goals/{goal_id}
 	UpdateGoal(ctx context.Context, request *GoalUpdateRequest, params UpdateGoalParams) (*GoalResponse, error)
+	// UpdateIdea invokes updateIdea operation.
+	//
+	// Update an existing idea.
+	//
+	// PUT /ideas/{idea_id}
+	UpdateIdea(ctx context.Context, request *IdeaUpdateRequest, params UpdateIdeaParams) (*IdeaResponse, error)
 	// UpdateInitiative invokes updateInitiative operation.
 	//
 	// Update an existing initiative.
@@ -3281,6 +3305,239 @@ func (c *Client) sendGetUser(ctx context.Context, params GetUserParams) (res *Us
 	return result, nil
 }
 
+// ListCustomFieldDefinitions invokes listCustomFieldDefinitions operation.
+//
+// Returns all custom field definitions across all products.
+//
+// GET /custom_field_definitions
+func (c *Client) ListCustomFieldDefinitions(ctx context.Context) (*CustomFieldDefinitionListResponse, error) {
+	res, err := c.sendListCustomFieldDefinitions(ctx)
+	return res, err
+}
+
+func (c *Client) sendListCustomFieldDefinitions(ctx context.Context) (res *CustomFieldDefinitionListResponse, err error) {
+	otelAttrs := []attribute.KeyValue{
+		otelogen.OperationID("listCustomFieldDefinitions"),
+		semconv.HTTPRequestMethodKey.String("GET"),
+		semconv.URLTemplateKey.String("/custom_field_definitions"),
+	}
+	otelAttrs = append(otelAttrs, c.cfg.Attributes...)
+
+	// Run stopwatch.
+	startTime := time.Now()
+	defer func() {
+		// Use floating point division here for higher precision (instead of Millisecond method).
+		elapsedDuration := time.Since(startTime)
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
+	}()
+
+	// Increment request counter.
+	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
+
+	// Start a span for this request.
+	ctx, span := c.cfg.Tracer.Start(ctx, ListCustomFieldDefinitionsOperation,
+		trace.WithAttributes(otelAttrs...),
+		clientSpanKind,
+	)
+	// Track stage for error reporting.
+	var stage string
+	defer func() {
+		if err != nil {
+			span.RecordError(err)
+			span.SetStatus(codes.Error, stage)
+			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
+		}
+		span.End()
+	}()
+
+	stage = "BuildURL"
+	u := uri.Clone(c.requestURL(ctx))
+	var pathParts [1]string
+	pathParts[0] = "/custom_field_definitions"
+	uri.AddPathParts(u, pathParts[:]...)
+
+	stage = "EncodeRequest"
+	r, err := ht.NewRequest(ctx, "GET", u)
+	if err != nil {
+		return res, errors.Wrap(err, "create request")
+	}
+
+	{
+		type bitset = [1]uint8
+		var satisfied bitset
+		{
+			stage = "Security:BearerAuth"
+			switch err := c.securityBearerAuth(ctx, ListCustomFieldDefinitionsOperation, r); {
+			case err == nil: // if NO error
+				satisfied[0] |= 1 << 0
+			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
+				// Skip this security.
+			default:
+				return res, errors.Wrap(err, "security \"BearerAuth\"")
+			}
+		}
+
+		if ok := func() bool {
+		nextRequirement:
+			for _, requirement := range []bitset{
+				{0b00000001},
+			} {
+				for i, mask := range requirement {
+					if satisfied[i]&mask != mask {
+						continue nextRequirement
+					}
+				}
+				return true
+			}
+			return false
+		}(); !ok {
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
+		}
+	}
+
+	stage = "SendRequest"
+	resp, err := c.cfg.Client.Do(r)
+	if err != nil {
+		return res, errors.Wrap(err, "do request")
+	}
+	body := resp.Body
+	defer body.Close()
+
+	stage = "DecodeResponse"
+	result, err := decodeListCustomFieldDefinitionsResponse(resp)
+	if err != nil {
+		return res, errors.Wrap(err, "decode response")
+	}
+
+	return result, nil
+}
+
+// ListCustomFieldOptions invokes listCustomFieldOptions operation.
+//
+// Returns available options for select/choice custom fields.
+//
+// GET /custom_field_definitions/{id}/options
+func (c *Client) ListCustomFieldOptions(ctx context.Context, params ListCustomFieldOptionsParams) (*CustomFieldOptionListResponse, error) {
+	res, err := c.sendListCustomFieldOptions(ctx, params)
+	return res, err
+}
+
+func (c *Client) sendListCustomFieldOptions(ctx context.Context, params ListCustomFieldOptionsParams) (res *CustomFieldOptionListResponse, err error) {
+	otelAttrs := []attribute.KeyValue{
+		otelogen.OperationID("listCustomFieldOptions"),
+		semconv.HTTPRequestMethodKey.String("GET"),
+		semconv.URLTemplateKey.String("/custom_field_definitions/{id}/options"),
+	}
+	otelAttrs = append(otelAttrs, c.cfg.Attributes...)
+
+	// Run stopwatch.
+	startTime := time.Now()
+	defer func() {
+		// Use floating point division here for higher precision (instead of Millisecond method).
+		elapsedDuration := time.Since(startTime)
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
+	}()
+
+	// Increment request counter.
+	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
+
+	// Start a span for this request.
+	ctx, span := c.cfg.Tracer.Start(ctx, ListCustomFieldOptionsOperation,
+		trace.WithAttributes(otelAttrs...),
+		clientSpanKind,
+	)
+	// Track stage for error reporting.
+	var stage string
+	defer func() {
+		if err != nil {
+			span.RecordError(err)
+			span.SetStatus(codes.Error, stage)
+			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
+		}
+		span.End()
+	}()
+
+	stage = "BuildURL"
+	u := uri.Clone(c.requestURL(ctx))
+	var pathParts [3]string
+	pathParts[0] = "/custom_field_definitions/"
+	{
+		// Encode "id" parameter.
+		e := uri.NewPathEncoder(uri.PathEncoderConfig{
+			Param:   "id",
+			Style:   uri.PathStyleSimple,
+			Explode: false,
+		})
+		if err := func() error {
+			return e.EncodeValue(conv.StringToString(params.ID))
+		}(); err != nil {
+			return res, errors.Wrap(err, "encode path")
+		}
+		encoded, err := e.Result()
+		if err != nil {
+			return res, errors.Wrap(err, "encode path")
+		}
+		pathParts[1] = encoded
+	}
+	pathParts[2] = "/options"
+	uri.AddPathParts(u, pathParts[:]...)
+
+	stage = "EncodeRequest"
+	r, err := ht.NewRequest(ctx, "GET", u)
+	if err != nil {
+		return res, errors.Wrap(err, "create request")
+	}
+
+	{
+		type bitset = [1]uint8
+		var satisfied bitset
+		{
+			stage = "Security:BearerAuth"
+			switch err := c.securityBearerAuth(ctx, ListCustomFieldOptionsOperation, r); {
+			case err == nil: // if NO error
+				satisfied[0] |= 1 << 0
+			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
+				// Skip this security.
+			default:
+				return res, errors.Wrap(err, "security \"BearerAuth\"")
+			}
+		}
+
+		if ok := func() bool {
+		nextRequirement:
+			for _, requirement := range []bitset{
+				{0b00000001},
+			} {
+				for i, mask := range requirement {
+					if satisfied[i]&mask != mask {
+						continue nextRequirement
+					}
+				}
+				return true
+			}
+			return false
+		}(); !ok {
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
+		}
+	}
+
+	stage = "SendRequest"
+	resp, err := c.cfg.Client.Do(r)
+	if err != nil {
+		return res, errors.Wrap(err, "do request")
+	}
+	body := resp.Body
+	defer body.Close()
+
+	stage = "DecodeResponse"
+	result, err := decodeListCustomFieldOptionsResponse(resp)
+	if err != nil {
+		return res, errors.Wrap(err, "decode response")
+	}
+
+	return result, nil
+}
+
 // ListEpicComments invokes listEpicComments operation.
 //
 // Get all comments on an epic.
@@ -5487,6 +5744,132 @@ func (c *Client) sendListProductComments(ctx context.Context, params ListProduct
 
 	stage = "DecodeResponse"
 	result, err := decodeListProductCommentsResponse(resp)
+	if err != nil {
+		return res, errors.Wrap(err, "decode response")
+	}
+
+	return result, nil
+}
+
+// ListProductCustomFieldDefinitions invokes listProductCustomFieldDefinitions operation.
+//
+// Returns custom field definitions for a specific product.
+//
+// GET /products/{product_id}/custom_field_definitions
+func (c *Client) ListProductCustomFieldDefinitions(ctx context.Context, params ListProductCustomFieldDefinitionsParams) (*CustomFieldDefinitionListResponse, error) {
+	res, err := c.sendListProductCustomFieldDefinitions(ctx, params)
+	return res, err
+}
+
+func (c *Client) sendListProductCustomFieldDefinitions(ctx context.Context, params ListProductCustomFieldDefinitionsParams) (res *CustomFieldDefinitionListResponse, err error) {
+	otelAttrs := []attribute.KeyValue{
+		otelogen.OperationID("listProductCustomFieldDefinitions"),
+		semconv.HTTPRequestMethodKey.String("GET"),
+		semconv.URLTemplateKey.String("/products/{product_id}/custom_field_definitions"),
+	}
+	otelAttrs = append(otelAttrs, c.cfg.Attributes...)
+
+	// Run stopwatch.
+	startTime := time.Now()
+	defer func() {
+		// Use floating point division here for higher precision (instead of Millisecond method).
+		elapsedDuration := time.Since(startTime)
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
+	}()
+
+	// Increment request counter.
+	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
+
+	// Start a span for this request.
+	ctx, span := c.cfg.Tracer.Start(ctx, ListProductCustomFieldDefinitionsOperation,
+		trace.WithAttributes(otelAttrs...),
+		clientSpanKind,
+	)
+	// Track stage for error reporting.
+	var stage string
+	defer func() {
+		if err != nil {
+			span.RecordError(err)
+			span.SetStatus(codes.Error, stage)
+			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
+		}
+		span.End()
+	}()
+
+	stage = "BuildURL"
+	u := uri.Clone(c.requestURL(ctx))
+	var pathParts [3]string
+	pathParts[0] = "/products/"
+	{
+		// Encode "product_id" parameter.
+		e := uri.NewPathEncoder(uri.PathEncoderConfig{
+			Param:   "product_id",
+			Style:   uri.PathStyleSimple,
+			Explode: false,
+		})
+		if err := func() error {
+			return e.EncodeValue(conv.StringToString(params.ProductID))
+		}(); err != nil {
+			return res, errors.Wrap(err, "encode path")
+		}
+		encoded, err := e.Result()
+		if err != nil {
+			return res, errors.Wrap(err, "encode path")
+		}
+		pathParts[1] = encoded
+	}
+	pathParts[2] = "/custom_field_definitions"
+	uri.AddPathParts(u, pathParts[:]...)
+
+	stage = "EncodeRequest"
+	r, err := ht.NewRequest(ctx, "GET", u)
+	if err != nil {
+		return res, errors.Wrap(err, "create request")
+	}
+
+	{
+		type bitset = [1]uint8
+		var satisfied bitset
+		{
+			stage = "Security:BearerAuth"
+			switch err := c.securityBearerAuth(ctx, ListProductCustomFieldDefinitionsOperation, r); {
+			case err == nil: // if NO error
+				satisfied[0] |= 1 << 0
+			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
+				// Skip this security.
+			default:
+				return res, errors.Wrap(err, "security \"BearerAuth\"")
+			}
+		}
+
+		if ok := func() bool {
+		nextRequirement:
+			for _, requirement := range []bitset{
+				{0b00000001},
+			} {
+				for i, mask := range requirement {
+					if satisfied[i]&mask != mask {
+						continue nextRequirement
+					}
+				}
+				return true
+			}
+			return false
+		}(); !ok {
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
+		}
+	}
+
+	stage = "SendRequest"
+	resp, err := c.cfg.Client.Do(r)
+	if err != nil {
+		return res, errors.Wrap(err, "do request")
+	}
+	body := resp.Body
+	defer body.Close()
+
+	stage = "DecodeResponse"
+	result, err := decodeListProductCustomFieldDefinitionsResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
 	}
@@ -7776,6 +8159,134 @@ func (c *Client) sendUpdateGoal(ctx context.Context, request *GoalUpdateRequest,
 
 	stage = "DecodeResponse"
 	result, err := decodeUpdateGoalResponse(resp)
+	if err != nil {
+		return res, errors.Wrap(err, "decode response")
+	}
+
+	return result, nil
+}
+
+// UpdateIdea invokes updateIdea operation.
+//
+// Update an existing idea.
+//
+// PUT /ideas/{idea_id}
+func (c *Client) UpdateIdea(ctx context.Context, request *IdeaUpdateRequest, params UpdateIdeaParams) (*IdeaResponse, error) {
+	res, err := c.sendUpdateIdea(ctx, request, params)
+	return res, err
+}
+
+func (c *Client) sendUpdateIdea(ctx context.Context, request *IdeaUpdateRequest, params UpdateIdeaParams) (res *IdeaResponse, err error) {
+	otelAttrs := []attribute.KeyValue{
+		otelogen.OperationID("updateIdea"),
+		semconv.HTTPRequestMethodKey.String("PUT"),
+		semconv.URLTemplateKey.String("/ideas/{idea_id}"),
+	}
+	otelAttrs = append(otelAttrs, c.cfg.Attributes...)
+
+	// Run stopwatch.
+	startTime := time.Now()
+	defer func() {
+		// Use floating point division here for higher precision (instead of Millisecond method).
+		elapsedDuration := time.Since(startTime)
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
+	}()
+
+	// Increment request counter.
+	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
+
+	// Start a span for this request.
+	ctx, span := c.cfg.Tracer.Start(ctx, UpdateIdeaOperation,
+		trace.WithAttributes(otelAttrs...),
+		clientSpanKind,
+	)
+	// Track stage for error reporting.
+	var stage string
+	defer func() {
+		if err != nil {
+			span.RecordError(err)
+			span.SetStatus(codes.Error, stage)
+			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
+		}
+		span.End()
+	}()
+
+	stage = "BuildURL"
+	u := uri.Clone(c.requestURL(ctx))
+	var pathParts [2]string
+	pathParts[0] = "/ideas/"
+	{
+		// Encode "idea_id" parameter.
+		e := uri.NewPathEncoder(uri.PathEncoderConfig{
+			Param:   "idea_id",
+			Style:   uri.PathStyleSimple,
+			Explode: false,
+		})
+		if err := func() error {
+			return e.EncodeValue(conv.StringToString(params.IdeaID))
+		}(); err != nil {
+			return res, errors.Wrap(err, "encode path")
+		}
+		encoded, err := e.Result()
+		if err != nil {
+			return res, errors.Wrap(err, "encode path")
+		}
+		pathParts[1] = encoded
+	}
+	uri.AddPathParts(u, pathParts[:]...)
+
+	stage = "EncodeRequest"
+	r, err := ht.NewRequest(ctx, "PUT", u)
+	if err != nil {
+		return res, errors.Wrap(err, "create request")
+	}
+	if err := encodeUpdateIdeaRequest(request, r); err != nil {
+		return res, errors.Wrap(err, "encode request")
+	}
+
+	{
+		type bitset = [1]uint8
+		var satisfied bitset
+		{
+			stage = "Security:BearerAuth"
+			switch err := c.securityBearerAuth(ctx, UpdateIdeaOperation, r); {
+			case err == nil: // if NO error
+				satisfied[0] |= 1 << 0
+			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
+				// Skip this security.
+			default:
+				return res, errors.Wrap(err, "security \"BearerAuth\"")
+			}
+		}
+
+		if ok := func() bool {
+		nextRequirement:
+			for _, requirement := range []bitset{
+				{0b00000001},
+			} {
+				for i, mask := range requirement {
+					if satisfied[i]&mask != mask {
+						continue nextRequirement
+					}
+				}
+				return true
+			}
+			return false
+		}(); !ok {
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
+		}
+	}
+
+	stage = "SendRequest"
+	resp, err := c.cfg.Client.Do(r)
+	if err != nil {
+		return res, errors.Wrap(err, "do request")
+	}
+	body := resp.Body
+	defer body.Close()
+
+	stage = "DecodeResponse"
+	result, err := decodeUpdateIdeaResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
 	}

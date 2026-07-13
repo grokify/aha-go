@@ -542,6 +542,195 @@ func (s *CustomField) SetType(val OptString) {
 	s.Type = val
 }
 
+// Ref: #/components/schemas/CustomFieldDefinition
+type CustomFieldDefinition struct {
+	ID string `json:"id"`
+	// Display name of the field.
+	Name string `json:"name"`
+	// Internal reference key.
+	Key string `json:"key"`
+	// Field type (e.g., CustomFieldDefinitions::SelectConstant).
+	Type string `json:"type"`
+	// Record type the field applies to (Feature, Initiative, etc.).
+	CustomFieldableType string `json:"custom_fieldable_type"`
+	// Internal system name.
+	InternalName OptNilString `json:"internal_name"`
+	// Display order position.
+	Position OptInt `json:"position"`
+	// API type for the field.
+	APIType OptString `json:"api_type"`
+	// Whether "Other" option is allowed for select fields.
+	AllowsOtherOption OptBool `json:"allows_other_option"`
+}
+
+// GetID returns the value of ID.
+func (s *CustomFieldDefinition) GetID() string {
+	return s.ID
+}
+
+// GetName returns the value of Name.
+func (s *CustomFieldDefinition) GetName() string {
+	return s.Name
+}
+
+// GetKey returns the value of Key.
+func (s *CustomFieldDefinition) GetKey() string {
+	return s.Key
+}
+
+// GetType returns the value of Type.
+func (s *CustomFieldDefinition) GetType() string {
+	return s.Type
+}
+
+// GetCustomFieldableType returns the value of CustomFieldableType.
+func (s *CustomFieldDefinition) GetCustomFieldableType() string {
+	return s.CustomFieldableType
+}
+
+// GetInternalName returns the value of InternalName.
+func (s *CustomFieldDefinition) GetInternalName() OptNilString {
+	return s.InternalName
+}
+
+// GetPosition returns the value of Position.
+func (s *CustomFieldDefinition) GetPosition() OptInt {
+	return s.Position
+}
+
+// GetAPIType returns the value of APIType.
+func (s *CustomFieldDefinition) GetAPIType() OptString {
+	return s.APIType
+}
+
+// GetAllowsOtherOption returns the value of AllowsOtherOption.
+func (s *CustomFieldDefinition) GetAllowsOtherOption() OptBool {
+	return s.AllowsOtherOption
+}
+
+// SetID sets the value of ID.
+func (s *CustomFieldDefinition) SetID(val string) {
+	s.ID = val
+}
+
+// SetName sets the value of Name.
+func (s *CustomFieldDefinition) SetName(val string) {
+	s.Name = val
+}
+
+// SetKey sets the value of Key.
+func (s *CustomFieldDefinition) SetKey(val string) {
+	s.Key = val
+}
+
+// SetType sets the value of Type.
+func (s *CustomFieldDefinition) SetType(val string) {
+	s.Type = val
+}
+
+// SetCustomFieldableType sets the value of CustomFieldableType.
+func (s *CustomFieldDefinition) SetCustomFieldableType(val string) {
+	s.CustomFieldableType = val
+}
+
+// SetInternalName sets the value of InternalName.
+func (s *CustomFieldDefinition) SetInternalName(val OptNilString) {
+	s.InternalName = val
+}
+
+// SetPosition sets the value of Position.
+func (s *CustomFieldDefinition) SetPosition(val OptInt) {
+	s.Position = val
+}
+
+// SetAPIType sets the value of APIType.
+func (s *CustomFieldDefinition) SetAPIType(val OptString) {
+	s.APIType = val
+}
+
+// SetAllowsOtherOption sets the value of AllowsOtherOption.
+func (s *CustomFieldDefinition) SetAllowsOtherOption(val OptBool) {
+	s.AllowsOtherOption = val
+}
+
+// Ref: #/components/schemas/CustomFieldDefinitionListResponse
+type CustomFieldDefinitionListResponse struct {
+	CustomFieldDefinitions []CustomFieldDefinition `json:"custom_field_definitions"`
+}
+
+// GetCustomFieldDefinitions returns the value of CustomFieldDefinitions.
+func (s *CustomFieldDefinitionListResponse) GetCustomFieldDefinitions() []CustomFieldDefinition {
+	return s.CustomFieldDefinitions
+}
+
+// SetCustomFieldDefinitions sets the value of CustomFieldDefinitions.
+func (s *CustomFieldDefinitionListResponse) SetCustomFieldDefinitions(val []CustomFieldDefinition) {
+	s.CustomFieldDefinitions = val
+}
+
+// Ref: #/components/schemas/CustomFieldOption
+type CustomFieldOption struct {
+	ID       OptString    `json:"id"`
+	Value    OptString    `json:"value"`
+	Position OptInt       `json:"position"`
+	Color    OptNilString `json:"color"`
+}
+
+// GetID returns the value of ID.
+func (s *CustomFieldOption) GetID() OptString {
+	return s.ID
+}
+
+// GetValue returns the value of Value.
+func (s *CustomFieldOption) GetValue() OptString {
+	return s.Value
+}
+
+// GetPosition returns the value of Position.
+func (s *CustomFieldOption) GetPosition() OptInt {
+	return s.Position
+}
+
+// GetColor returns the value of Color.
+func (s *CustomFieldOption) GetColor() OptNilString {
+	return s.Color
+}
+
+// SetID sets the value of ID.
+func (s *CustomFieldOption) SetID(val OptString) {
+	s.ID = val
+}
+
+// SetValue sets the value of Value.
+func (s *CustomFieldOption) SetValue(val OptString) {
+	s.Value = val
+}
+
+// SetPosition sets the value of Position.
+func (s *CustomFieldOption) SetPosition(val OptInt) {
+	s.Position = val
+}
+
+// SetColor sets the value of Color.
+func (s *CustomFieldOption) SetColor(val OptNilString) {
+	s.Color = val
+}
+
+// Ref: #/components/schemas/CustomFieldOptionListResponse
+type CustomFieldOptionListResponse struct {
+	CustomFieldOptions []CustomFieldOption `json:"custom_field_options"`
+}
+
+// GetCustomFieldOptions returns the value of CustomFieldOptions.
+func (s *CustomFieldOptionListResponse) GetCustomFieldOptions() []CustomFieldOption {
+	return s.CustomFieldOptions
+}
+
+// SetCustomFieldOptions sets the value of CustomFieldOptions.
+func (s *CustomFieldOptionListResponse) SetCustomFieldOptions(val []CustomFieldOption) {
+	s.CustomFieldOptions = val
+}
+
 // DeleteCommentNoContent is response for DeleteComment operation.
 type DeleteCommentNoContent struct{}
 
@@ -2472,6 +2661,83 @@ func (s *IdeaResponse) SetIdea(val OptIdea) {
 	s.Idea = val
 }
 
+// Ref: #/components/schemas/IdeaUpdate
+type IdeaUpdate struct {
+	Name        OptString `json:"name"`
+	Description OptString `json:"description"`
+	// Workflow status ID or name.
+	WorkflowStatus OptString `json:"workflow_status"`
+	// Category IDs or names.
+	Categories []string `json:"categories"`
+	// Visibility (e.g., public, private).
+	Visibility OptString `json:"visibility"`
+}
+
+// GetName returns the value of Name.
+func (s *IdeaUpdate) GetName() OptString {
+	return s.Name
+}
+
+// GetDescription returns the value of Description.
+func (s *IdeaUpdate) GetDescription() OptString {
+	return s.Description
+}
+
+// GetWorkflowStatus returns the value of WorkflowStatus.
+func (s *IdeaUpdate) GetWorkflowStatus() OptString {
+	return s.WorkflowStatus
+}
+
+// GetCategories returns the value of Categories.
+func (s *IdeaUpdate) GetCategories() []string {
+	return s.Categories
+}
+
+// GetVisibility returns the value of Visibility.
+func (s *IdeaUpdate) GetVisibility() OptString {
+	return s.Visibility
+}
+
+// SetName sets the value of Name.
+func (s *IdeaUpdate) SetName(val OptString) {
+	s.Name = val
+}
+
+// SetDescription sets the value of Description.
+func (s *IdeaUpdate) SetDescription(val OptString) {
+	s.Description = val
+}
+
+// SetWorkflowStatus sets the value of WorkflowStatus.
+func (s *IdeaUpdate) SetWorkflowStatus(val OptString) {
+	s.WorkflowStatus = val
+}
+
+// SetCategories sets the value of Categories.
+func (s *IdeaUpdate) SetCategories(val []string) {
+	s.Categories = val
+}
+
+// SetVisibility sets the value of Visibility.
+func (s *IdeaUpdate) SetVisibility(val OptString) {
+	s.Visibility = val
+}
+
+// Ref: #/components/schemas/IdeaUpdateRequest
+type IdeaUpdateRequest struct {
+	Idea IdeaUpdate `json:"idea"`
+}
+
+// GetIdea returns the value of Idea.
+func (s *IdeaUpdateRequest) GetIdea() IdeaUpdate {
+	return s.Idea
+}
+
+// SetIdea sets the value of Idea.
+func (s *IdeaUpdateRequest) SetIdea(val IdeaUpdate) {
+	s.Idea = val
+}
+
 // Ref: #/components/schemas/IdeasResponse
 type IdeasResponse struct {
 	Ideas      []Idea        `json:"ideas"`
@@ -2500,19 +2766,19 @@ func (s *IdeasResponse) SetPagination(val OptPagination) {
 
 // Ref: #/components/schemas/Initiative
 type Initiative struct {
-	ID             string     `json:"id"`
-	ReferenceNum   string     `json:"reference_num"`
-	Name           string     `json:"name"`
-	Description    OptString  `json:"description"`
-	Color          OptString  `json:"color"`
-	Position       OptInt64   `json:"position"`
-	Value          OptFloat64 `json:"value"`
-	Effort         OptFloat64 `json:"effort"`
-	Presented      OptBool    `json:"presented"`
-	StartDate      OptNilDate `json:"start_date"`
-	EndDate        OptNilDate `json:"end_date"`
-	Progress       OptFloat64 `json:"progress"`
-	ProgressSource OptString  `json:"progress_source"`
+	ID             string               `json:"id"`
+	ReferenceNum   string               `json:"reference_num"`
+	Name           string               `json:"name"`
+	Description    OptDescriptionObject `json:"description"`
+	Color          OptString            `json:"color"`
+	Position       OptInt64             `json:"position"`
+	Value          OptFloat64           `json:"value"`
+	Effort         OptFloat64           `json:"effort"`
+	Presented      OptBool              `json:"presented"`
+	StartDate      OptNilDate           `json:"start_date"`
+	EndDate        OptNilDate           `json:"end_date"`
+	Progress       OptNilFloat64        `json:"progress"`
+	ProgressSource OptString            `json:"progress_source"`
 	// Web UI URL.
 	URL OptString `json:"url"`
 	// API URL.
@@ -2540,7 +2806,7 @@ func (s *Initiative) GetName() string {
 }
 
 // GetDescription returns the value of Description.
-func (s *Initiative) GetDescription() OptString {
+func (s *Initiative) GetDescription() OptDescriptionObject {
 	return s.Description
 }
 
@@ -2580,7 +2846,7 @@ func (s *Initiative) GetEndDate() OptNilDate {
 }
 
 // GetProgress returns the value of Progress.
-func (s *Initiative) GetProgress() OptFloat64 {
+func (s *Initiative) GetProgress() OptNilFloat64 {
 	return s.Progress
 }
 
@@ -2640,7 +2906,7 @@ func (s *Initiative) SetName(val string) {
 }
 
 // SetDescription sets the value of Description.
-func (s *Initiative) SetDescription(val OptString) {
+func (s *Initiative) SetDescription(val OptDescriptionObject) {
 	s.Description = val
 }
 
@@ -2680,7 +2946,7 @@ func (s *Initiative) SetEndDate(val OptNilDate) {
 }
 
 // SetProgress sets the value of Progress.
-func (s *Initiative) SetProgress(val OptFloat64) {
+func (s *Initiative) SetProgress(val OptNilFloat64) {
 	s.Progress = val
 }
 
@@ -4217,6 +4483,132 @@ func (o OptNilDate) Get() (v time.Time, ok bool) {
 
 // Or returns value if set, or given parameter if does not.
 func (o OptNilDate) Or(d time.Time) time.Time {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptNilFloat64 returns new OptNilFloat64 with value set to v.
+func NewOptNilFloat64(v float64) OptNilFloat64 {
+	return OptNilFloat64{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptNilFloat64 is optional nullable float64.
+type OptNilFloat64 struct {
+	Value float64
+	Set   bool
+	Null  bool
+}
+
+// IsSet returns true if OptNilFloat64 was set.
+func (o OptNilFloat64) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptNilFloat64) Reset() {
+	var v float64
+	o.Value = v
+	o.Set = false
+	o.Null = false
+}
+
+// SetTo sets value to v.
+func (o *OptNilFloat64) SetTo(v float64) {
+	o.Set = true
+	o.Null = false
+	o.Value = v
+}
+
+// IsNull returns true if value is Null.
+func (o OptNilFloat64) IsNull() bool { return o.Null }
+
+// SetToNull sets value to null.
+func (o *OptNilFloat64) SetToNull() {
+	o.Set = true
+	o.Null = true
+	var v float64
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptNilFloat64) Get() (v float64, ok bool) {
+	if o.Null {
+		return v, false
+	}
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptNilFloat64) Or(d float64) float64 {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptNilString returns new OptNilString with value set to v.
+func NewOptNilString(v string) OptNilString {
+	return OptNilString{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptNilString is optional nullable string.
+type OptNilString struct {
+	Value string
+	Set   bool
+	Null  bool
+}
+
+// IsSet returns true if OptNilString was set.
+func (o OptNilString) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptNilString) Reset() {
+	var v string
+	o.Value = v
+	o.Set = false
+	o.Null = false
+}
+
+// SetTo sets value to v.
+func (o *OptNilString) SetTo(v string) {
+	o.Set = true
+	o.Null = false
+	o.Value = v
+}
+
+// IsNull returns true if value is Null.
+func (o OptNilString) IsNull() bool { return o.Null }
+
+// SetToNull sets value to null.
+func (o *OptNilString) SetToNull() {
+	o.Set = true
+	o.Null = true
+	var v string
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptNilString) Get() (v string, ok bool) {
+	if o.Null {
+		return v, false
+	}
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptNilString) Or(d string) string {
 	if v, ok := o.Get(); ok {
 		return v
 	}

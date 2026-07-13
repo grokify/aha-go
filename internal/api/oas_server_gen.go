@@ -146,6 +146,18 @@ type Handler interface {
 	//
 	// GET /users/{user_id}
 	GetUser(ctx context.Context, params GetUserParams) (*UserResponse, error)
+	// ListCustomFieldDefinitions implements listCustomFieldDefinitions operation.
+	//
+	// Returns all custom field definitions across all products.
+	//
+	// GET /custom_field_definitions
+	ListCustomFieldDefinitions(ctx context.Context) (*CustomFieldDefinitionListResponse, error)
+	// ListCustomFieldOptions implements listCustomFieldOptions operation.
+	//
+	// Returns available options for select/choice custom fields.
+	//
+	// GET /custom_field_definitions/{id}/options
+	ListCustomFieldOptions(ctx context.Context, params ListCustomFieldOptionsParams) (*CustomFieldOptionListResponse, error)
 	// ListEpicComments implements listEpicComments operation.
 	//
 	// Get all comments on an epic.
@@ -218,6 +230,12 @@ type Handler interface {
 	//
 	// GET /products/{product_id}/comments
 	ListProductComments(ctx context.Context, params ListProductCommentsParams) (*CommentsResponse, error)
+	// ListProductCustomFieldDefinitions implements listProductCustomFieldDefinitions operation.
+	//
+	// Returns custom field definitions for a specific product.
+	//
+	// GET /products/{product_id}/custom_field_definitions
+	ListProductCustomFieldDefinitions(ctx context.Context, params ListProductCustomFieldDefinitionsParams) (*CustomFieldDefinitionListResponse, error)
 	// ListProductEpics implements listProductEpics operation.
 	//
 	// Get all epics for a product.
@@ -308,6 +326,12 @@ type Handler interface {
 	//
 	// PUT /goals/{goal_id}
 	UpdateGoal(ctx context.Context, req *GoalUpdateRequest, params UpdateGoalParams) (*GoalResponse, error)
+	// UpdateIdea implements updateIdea operation.
+	//
+	// Update an existing idea.
+	//
+	// PUT /ideas/{idea_id}
+	UpdateIdea(ctx context.Context, req *IdeaUpdateRequest, params UpdateIdeaParams) (*IdeaResponse, error)
 	// UpdateInitiative implements updateInitiative operation.
 	//
 	// Update an existing initiative.

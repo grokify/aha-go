@@ -220,6 +220,24 @@ func (UnimplementedHandler) GetUser(ctx context.Context, params GetUserParams) (
 	return r, ht.ErrNotImplemented
 }
 
+// ListCustomFieldDefinitions implements listCustomFieldDefinitions operation.
+//
+// Returns all custom field definitions across all products.
+//
+// GET /custom_field_definitions
+func (UnimplementedHandler) ListCustomFieldDefinitions(ctx context.Context) (r *CustomFieldDefinitionListResponse, _ error) {
+	return r, ht.ErrNotImplemented
+}
+
+// ListCustomFieldOptions implements listCustomFieldOptions operation.
+//
+// Returns available options for select/choice custom fields.
+//
+// GET /custom_field_definitions/{id}/options
+func (UnimplementedHandler) ListCustomFieldOptions(ctx context.Context, params ListCustomFieldOptionsParams) (r *CustomFieldOptionListResponse, _ error) {
+	return r, ht.ErrNotImplemented
+}
+
 // ListEpicComments implements listEpicComments operation.
 //
 // Get all comments on an epic.
@@ -325,6 +343,15 @@ func (UnimplementedHandler) ListInitiatives(ctx context.Context, params ListInit
 //
 // GET /products/{product_id}/comments
 func (UnimplementedHandler) ListProductComments(ctx context.Context, params ListProductCommentsParams) (r *CommentsResponse, _ error) {
+	return r, ht.ErrNotImplemented
+}
+
+// ListProductCustomFieldDefinitions implements listProductCustomFieldDefinitions operation.
+//
+// Returns custom field definitions for a specific product.
+//
+// GET /products/{product_id}/custom_field_definitions
+func (UnimplementedHandler) ListProductCustomFieldDefinitions(ctx context.Context, params ListProductCustomFieldDefinitionsParams) (r *CustomFieldDefinitionListResponse, _ error) {
 	return r, ht.ErrNotImplemented
 }
 
@@ -460,6 +487,15 @@ func (UnimplementedHandler) UpdateFeature(ctx context.Context, req *FeatureUpdat
 //
 // PUT /goals/{goal_id}
 func (UnimplementedHandler) UpdateGoal(ctx context.Context, req *GoalUpdateRequest, params UpdateGoalParams) (r *GoalResponse, _ error) {
+	return r, ht.ErrNotImplemented
+}
+
+// UpdateIdea implements updateIdea operation.
+//
+// Update an existing idea.
+//
+// PUT /ideas/{idea_id}
+func (UnimplementedHandler) UpdateIdea(ctx context.Context, req *IdeaUpdateRequest, params UpdateIdeaParams) (r *IdeaResponse, _ error) {
 	return r, ht.ErrNotImplemented
 }
 
