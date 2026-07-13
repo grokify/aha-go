@@ -169,6 +169,17 @@ func (c *Client) UpdateFeature(ctx context.Context, ref string, req UpdateFeatur
 ```go
 func (c *Client) ListIdeas(ctx context.Context, productID string, opts ...Option) ([]Idea, error)
 func (c *Client) GetIdea(ctx context.Context, ref string) (*Idea, error)
+func (c *Client) UpdateIdea(ctx context.Context, id string, opts ...UpdateIdeaOption) (*Idea, error)
+```
+
+#### Update Idea Options
+
+```go
+func WithUpdateIdeaName(name string) UpdateIdeaOption
+func WithUpdateIdeaDescription(desc string) UpdateIdeaOption
+func WithUpdateIdeaStatus(status string) UpdateIdeaOption
+func WithUpdateIdeaCategories(categories []string) UpdateIdeaOption
+func WithUpdateIdeaVisibility(visibility string) UpdateIdeaOption
 ```
 
 ### Releases
