@@ -2,94 +2,98 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://grokify.github.io/aha-go/</loc>
-         <lastmod>2026-06-20</lastmod>
+         <lastmod>2026-07-13</lastmod>
     </url>
     <url>
          <loc>https://grokify.github.io/aha-go/api-reference/</loc>
-         <lastmod>2026-06-20</lastmod>
+         <lastmod>2026-07-13</lastmod>
     </url>
     <url>
          <loc>https://grokify.github.io/aha-go/cli/</loc>
-         <lastmod>2026-06-20</lastmod>
+         <lastmod>2026-07-13</lastmod>
     </url>
     <url>
          <loc>https://grokify.github.io/aha-go/cli/commands/</loc>
-         <lastmod>2026-06-20</lastmod>
+         <lastmod>2026-07-13</lastmod>
     </url>
     <url>
          <loc>https://grokify.github.io/aha-go/getting-started/authentication/</loc>
-         <lastmod>2026-06-20</lastmod>
+         <lastmod>2026-07-13</lastmod>
     </url>
     <url>
          <loc>https://grokify.github.io/aha-go/getting-started/installation/</loc>
-         <lastmod>2026-06-20</lastmod>
+         <lastmod>2026-07-13</lastmod>
     </url>
     <url>
          <loc>https://grokify.github.io/aha-go/getting-started/quickstart/</loc>
-         <lastmod>2026-06-20</lastmod>
+         <lastmod>2026-07-13</lastmod>
     </url>
     <url>
          <loc>https://grokify.github.io/aha-go/packages/</loc>
-         <lastmod>2026-06-20</lastmod>
+         <lastmod>2026-07-13</lastmod>
     </url>
     <url>
          <loc>https://grokify.github.io/aha-go/packages/browser/</loc>
-         <lastmod>2026-06-20</lastmod>
+         <lastmod>2026-07-13</lastmod>
     </url>
     <url>
          <loc>https://grokify.github.io/aha-go/packages/canvas/</loc>
-         <lastmod>2026-06-20</lastmod>
+         <lastmod>2026-07-13</lastmod>
     </url>
     <url>
          <loc>https://grokify.github.io/aha-go/packages/graphql/</loc>
-         <lastmod>2026-06-20</lastmod>
+         <lastmod>2026-07-13</lastmod>
     </url>
     <url>
          <loc>https://grokify.github.io/aha-go/packages/render/</loc>
-         <lastmod>2026-06-20</lastmod>
+         <lastmod>2026-07-13</lastmod>
     </url>
     <url>
          <loc>https://grokify.github.io/aha-go/releases/v0.1.0/</loc>
-         <lastmod>2026-06-20</lastmod>
+         <lastmod>2026-07-13</lastmod>
     </url>
     <url>
          <loc>https://grokify.github.io/aha-go/releases/v0.2.0/</loc>
-         <lastmod>2026-06-20</lastmod>
+         <lastmod>2026-07-13</lastmod>
     </url>
     <url>
          <loc>https://grokify.github.io/aha-go/releases/v0.3.0/</loc>
-         <lastmod>2026-06-20</lastmod>
+         <lastmod>2026-07-13</lastmod>
     </url>
     <url>
          <loc>https://grokify.github.io/aha-go/releases/v0.4.0/</loc>
-         <lastmod>2026-06-20</lastmod>
+         <lastmod>2026-07-13</lastmod>
     </url>
     <url>
          <loc>https://grokify.github.io/aha-go/releases/v0.5.0/</loc>
-         <lastmod>2026-06-20</lastmod>
+         <lastmod>2026-07-13</lastmod>
+    </url>
+    <url>
+         <loc>https://grokify.github.io/aha-go/releases/v0.6.0/</loc>
+         <lastmod>2026-07-13</lastmod>
     </url>
     <url>
          <loc>https://grokify.github.io/aha-go/specs/ROADMAP/</loc>
-         <lastmod>2026-06-20</lastmod>
+         <lastmod>2026-07-13</lastmod>
     </url>
     <url>
          <loc>https://grokify.github.io/aha-go/use-cases/</loc>
-         <lastmod>2026-06-20</lastmod>
+         <lastmod>2026-07-13</lastmod>
     </url>
     <url>
          <loc>https://grokify.github.io/aha-go/use-cases/canvases/</loc>
-         <lastmod>2026-06-20</lastmod>
+         <lastmod>2026-07-13</lastmod>
     </url>
     <url>
          <loc>https://grokify.github.io/aha-go/use-cases/diagrams/</loc>
-         <lastmod>2026-06-20</lastmod>
+         <lastmod>2026-07-13</lastmod>
     </url>
     <url>
          <loc>https://grokify.github.io/aha-go/use-cases/features/</loc>
-         <lastmod>2026-06-20</lastmod>
+         <lastmod>2026-07-13</lastmod>
     </url>
     <url>
          <loc>https://grokify.github.io/aha-go/use-cases/ideas/</loc>
-         <lastmod>2026-06-20</lastmod>
+         <lastmod>2026-07-13</lastmod>
     </url>
 </urlset>
