@@ -195,6 +195,84 @@ func (c *Client) ListIdeas(ctx context.Context, opts ...ListIdeasOption) (*IdeaL
 	return ideaListFromAPI(resp), nil
 }
 
+// UpdateIdeaOptions configures UpdateIdea.
+type UpdateIdeaOptions struct {
+	Name           string
+	Description    string
+	WorkflowStatus string
+	Categories     []string
+	Visibility     string
+}
+
+// UpdateIdeaOption configures an UpdateIdea call.
+type UpdateIdeaOption func(*UpdateIdeaOptions)
+
+// WithUpdateIdeaName sets the idea name.
+func WithUpdateIdeaName(name string) UpdateIdeaOption {
+	return func(o *UpdateIdeaOptions) { o.Name = name }
+}
+
+// WithUpdateIdeaDescription sets the idea description.
+func WithUpdateIdeaDescription(desc string) UpdateIdeaOption {
+	return func(o *UpdateIdeaOptions) { o.Description = desc }
+}
+
+// WithUpdateIdeaStatus sets the workflow status.
+func WithUpdateIdeaStatus(status string) UpdateIdeaOption {
+	return func(o *UpdateIdeaOptions) { o.WorkflowStatus = status }
+}
+
+// WithUpdateIdeaCategories sets the categories.
+func WithUpdateIdeaCategories(categories []string) UpdateIdeaOption {
+	return func(o *UpdateIdeaOptions) { o.Categories = categories }
+}
+
+// WithUpdateIdeaVisibility sets the visibility.
+func WithUpdateIdeaVisibility(visibility string) UpdateIdeaOption {
+	return func(o *UpdateIdeaOptions) { o.Visibility = visibility }
+}
+
+// UpdateIdea updates an existing idea.
+func (c *Client) UpdateIdea(ctx context.Context, id string, opts ...UpdateIdeaOption) (*Idea, error) {
+	cfg := &UpdateIdeaOptions{}
+	for _, opt := range opts {
+		opt(cfg)
+	}
+
+	idea := api.IdeaUpdate{}
+	if cfg.Name != "" {
+		idea.Name = api.NewOptString(cfg.Name)
+	}
+	if cfg.Description != "" {
+		idea.Description = api.NewOptString(cfg.Description)
+	}
+	if cfg.WorkflowStatus != "" {
+		idea.WorkflowStatus = api.NewOptString(cfg.WorkflowStatus)
+	}
+	if len(cfg.Categories) > 0 {
+		idea.Categories = cfg.Categories
+	}
+	if cfg.Visibility != "" {
+		idea.Visibility = api.NewOptString(cfg.Visibility)
+	}
+
+	req := &api.IdeaUpdateRequest{
+		Idea: idea,
+	}
+
+	resp, err := c.apiClient.UpdateIdea(ctx, req, api.UpdateIdeaParams{
+		IdeaID: id,
+	})
+	if err != nil {
+		return nil, wrapError("UpdateIdea", err)
+	}
+
+	if i, ok := resp.Idea.Get(); ok {
+		return ideaFromAPI(i), nil
+	}
+	return nil, &APIError{StatusCode: 500, Message: "unexpected response: idea not returned"}
+}
+
 // ideaFromAPI converts an API idea to a domain idea.
 func ideaFromAPI(i api.Idea) *Idea {
 	idea := &Idea{
