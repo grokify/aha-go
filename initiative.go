@@ -288,6 +288,51 @@ type UpdateInitiativeOptions struct {
 // UpdateInitiativeOption configures an UpdateInitiative call.
 type UpdateInitiativeOption func(*UpdateInitiativeOptions)
 
+// WithUpdateInitiativeName sets the name.
+func WithUpdateInitiativeName(name string) UpdateInitiativeOption {
+	return func(o *UpdateInitiativeOptions) { o.Name = name }
+}
+
+// WithUpdateInitiativeDescription sets the description.
+func WithUpdateInitiativeDescription(desc string) UpdateInitiativeOption {
+	return func(o *UpdateInitiativeOptions) { o.Description = desc }
+}
+
+// WithUpdateInitiativeStatus sets the workflow status.
+func WithUpdateInitiativeStatus(status string) UpdateInitiativeOption {
+	return func(o *UpdateInitiativeOptions) { o.WorkflowStatus = status }
+}
+
+// WithUpdateInitiativeStartDate sets the start date.
+func WithUpdateInitiativeStartDate(t time.Time) UpdateInitiativeOption {
+	return func(o *UpdateInitiativeOptions) { o.StartDate = &t }
+}
+
+// WithUpdateInitiativeEndDate sets the end date.
+func WithUpdateInitiativeEndDate(t time.Time) UpdateInitiativeOption {
+	return func(o *UpdateInitiativeOptions) { o.EndDate = &t }
+}
+
+// WithUpdateInitiativeValue sets the value score.
+func WithUpdateInitiativeValue(value float64) UpdateInitiativeOption {
+	return func(o *UpdateInitiativeOptions) { o.Value = &value }
+}
+
+// WithUpdateInitiativeEffort sets the effort score.
+func WithUpdateInitiativeEffort(effort float64) UpdateInitiativeOption {
+	return func(o *UpdateInitiativeOptions) { o.Effort = &effort }
+}
+
+// WithUpdateInitiativeColor sets the color.
+func WithUpdateInitiativeColor(color string) UpdateInitiativeOption {
+	return func(o *UpdateInitiativeOptions) { o.Color = color }
+}
+
+// WithUpdateInitiativePresented sets the presented flag.
+func WithUpdateInitiativePresented(presented bool) UpdateInitiativeOption {
+	return func(o *UpdateInitiativeOptions) { o.Presented = &presented }
+}
+
 // UpdateInitiative updates an existing initiative.
 func (c *Client) UpdateInitiative(ctx context.Context, id string, opts ...UpdateInitiativeOption) (*Initiative, error) {
 	cfg := &UpdateInitiativeOptions{}

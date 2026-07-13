@@ -205,6 +205,16 @@ type UpdateStrategicModelOptions struct {
 // UpdateStrategicModelOption configures an UpdateStrategicModel call.
 type UpdateStrategicModelOption func(*UpdateStrategicModelOptions)
 
+// WithUpdateStrategicModelName sets the strategic model name.
+func WithUpdateStrategicModelName(name string) UpdateStrategicModelOption {
+	return func(o *UpdateStrategicModelOptions) { o.Name = name }
+}
+
+// WithUpdateStrategicModelDescription sets the strategic model description.
+func WithUpdateStrategicModelDescription(desc string) UpdateStrategicModelOption {
+	return func(o *UpdateStrategicModelOptions) { o.Description = desc }
+}
+
 // UpdateStrategicModel updates an existing strategic model.
 func (c *Client) UpdateStrategicModel(ctx context.Context, id string, opts ...UpdateStrategicModelOption) (*StrategicModel, error) {
 	cfg := &UpdateStrategicModelOptions{}
