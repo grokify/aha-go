@@ -7,6 +7,47 @@
   "maintainers": ["grokify"],
   "releases": [
     {
+      "version": "v0.7.0",
+      "date": "2026-07-20",
+      "commit": "70fbba3",
+      "highlights": [
+        { "description": "ListIdeas now returns votes, categories, and score by default instead of always zero/empty" },
+        { "description": "GetInitiative now decodes custom fields directly via the generated client, replacing an unreliable manual workaround" }
+      ],
+      "fixed": [
+        {
+          "description": "ListIdeas returned Votes: 0 and empty Categories for every idea because Aha's list endpoint omits those fields unless explicitly requested via a fields parameter",
+          "commit": "5a03160"
+        },
+        {
+          "description": "OpenAPI: add fields query parameter to GET /ideas and score to the Idea schema; mark Category.parent_id nullable to match null values Aha returns for top-level categories",
+          "commit": "c7aa90a"
+        },
+        {
+          "description": "GetInitiative populated CustomFields via a redundant second HTTP call that silently swallowed all errors and left CreateInitiative/UpdateInitiative with empty CustomFields",
+          "commit": "45642c1"
+        },
+        {
+          "description": "OpenAPI: add custom_fields to the Initiative schema so ogen decodes it the same way it already does for Feature and Idea",
+          "commit": "dfcee6f"
+        }
+      ],
+      "added": [
+        { "description": "Idea.Score field", "commit": "5a03160" },
+        { "description": "WithIdeaFields ListIdeasOption to override the optional idea fields requested from the API", "commit": "5a03160" }
+      ],
+      "tests": [
+        { "description": "Cover ListIdeas default and overridden fields parameters", "commit": "916dd73" },
+        { "description": "Cover GetInitiative custom fields decode", "commit": "70fbba3" }
+      ],
+      "dependencies": [
+        { "description": "Bump actions/setup-go from 6 to 7", "commit": "9ad0c44" }
+      ],
+      "documentation": [
+        { "description": "Mark custom field support complete in ROADMAP.md", "commit": "067ab7f" }
+      ]
+    },
+    {
       "version": "v0.6.0",
       "date": "2026-07-13",
       "commit": "8f62642",
