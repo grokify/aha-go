@@ -3099,6 +3099,10 @@ type ListIdeasParams struct {
 	IdeaUserID OptString `json:",omitempty,omitzero"`
 	Page       OptInt32  `json:",omitempty,omitzero"`
 	PerPage    OptInt32  `json:",omitempty,omitzero"`
+	// Comma-separated list of additional idea fields to include in each list item (e.g. "votes,
+	// categories,score"). Aha's list endpoint omits these by default; passing this parameter overrides
+	// Aha's default field set rather than adding to it.
+	Fields OptString `json:",omitempty,omitzero"`
 }
 
 func unpackListIdeasParams(packed middleware.Parameters) (params ListIdeasParams) {
@@ -3208,6 +3212,15 @@ func unpackListIdeasParams(packed middleware.Parameters) (params ListIdeasParams
 		}
 		if v, ok := packed[key]; ok {
 			params.PerPage = v.(OptInt32)
+		}
+	}
+	{
+		key := middleware.ParameterKey{
+			Name: "fields",
+			In:   "query",
+		}
+		if v, ok := packed[key]; ok {
+			params.Fields = v.(OptString)
 		}
 	}
 	return params
@@ -3718,6 +3731,47 @@ func decodeListIdeasParams(args [0]string, argsEscaped bool, r *http.Request) (p
 	}(); err != nil {
 		return params, &ogenerrors.DecodeParamError{
 			Name: "per_page",
+			In:   "query",
+			Err:  err,
+		}
+	}
+	// Decode query: fields.
+	if err := func() error {
+		cfg := uri.QueryParameterDecodingConfig{
+			Name:    "fields",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.HasParam(cfg); err == nil {
+			if err := q.DecodeParam(cfg, func(d uri.Decoder) error {
+				var paramsDotFieldsVal string
+				if err := func() error {
+					val, err := d.DecodeValue()
+					if err != nil {
+						return err
+					}
+
+					c, err := conv.ToString(val)
+					if err != nil {
+						return err
+					}
+
+					paramsDotFieldsVal = c
+					return nil
+				}(); err != nil {
+					return err
+				}
+				params.Fields.SetTo(paramsDotFieldsVal)
+				return nil
+			}); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		return params, &ogenerrors.DecodeParamError{
+			Name: "fields",
 			In:   "query",
 			Err:  err,
 		}

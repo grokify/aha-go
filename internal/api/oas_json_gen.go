@@ -5921,6 +5921,12 @@ func (s *Idea) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
+		if s.Score.Set {
+			e.FieldStart("score")
+			s.Score.Encode(e)
+		}
+	}
+	{
 		e.FieldStart("created_at")
 		json.EncodeDateTime(e, s.CreatedAt)
 	}
@@ -5958,18 +5964,19 @@ func (s *Idea) encodeFields(e *jx.Encoder) {
 	}
 }
 
-var jsonFieldsNameOfIdea = [11]string{
+var jsonFieldsNameOfIdea = [12]string{
 	0:  "id",
 	1:  "reference_num",
 	2:  "name",
 	3:  "description",
 	4:  "votes",
-	5:  "created_at",
-	6:  "updated_at",
-	7:  "status_changed_at",
-	8:  "workflow_status",
-	9:  "categories",
-	10: "feature",
+	5:  "score",
+	6:  "created_at",
+	7:  "updated_at",
+	8:  "status_changed_at",
+	9:  "workflow_status",
+	10: "categories",
+	11: "feature",
 }
 
 // Decode decodes Idea from json.
@@ -6037,8 +6044,18 @@ func (s *Idea) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"votes\"")
 			}
+		case "score":
+			if err := func() error {
+				s.Score.Reset()
+				if err := s.Score.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"score\"")
+			}
 		case "created_at":
-			requiredBitSet[0] |= 1 << 5
+			requiredBitSet[0] |= 1 << 6
 			if err := func() error {
 				v, err := json.DecodeDateTime(d)
 				s.CreatedAt = v
@@ -6050,7 +6067,7 @@ func (s *Idea) Decode(d *jx.Decoder) error {
 				return errors.Wrap(err, "decode field \"created_at\"")
 			}
 		case "updated_at":
-			requiredBitSet[0] |= 1 << 6
+			requiredBitSet[0] |= 1 << 7
 			if err := func() error {
 				v, err := json.DecodeDateTime(d)
 				s.UpdatedAt = v
@@ -6118,7 +6135,7 @@ func (s *Idea) Decode(d *jx.Decoder) error {
 	// Validate required fields.
 	var failures []validate.FieldError
 	for i, mask := range [2]uint8{
-		0b01100111,
+		0b11000111,
 		0b00000000,
 	} {
 		if result := (requiredBitSet[i] & mask) ^ mask; result != 0 {

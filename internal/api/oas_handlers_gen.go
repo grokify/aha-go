@@ -6569,6 +6569,10 @@ func (s *Server) handleListIdeasRequest(args [0]string, argsEscaped bool, w http
 					Name: "per_page",
 					In:   "query",
 				}: params.PerPage,
+				{
+					Name: "fields",
+					In:   "query",
+				}: params.Fields,
 			},
 			Raw: r,
 		}

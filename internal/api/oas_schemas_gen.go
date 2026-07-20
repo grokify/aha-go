@@ -95,11 +95,11 @@ func (s *BearerAuth) SetRoles(val []string) {
 
 // Ref: #/components/schemas/Category
 type Category struct {
-	ID        OptString   `json:"id"`
-	Name      OptString   `json:"name"`
-	ParentID  OptString   `json:"parent_id"`
-	ProjectID OptString   `json:"project_id"`
-	CreatedAt OptDateTime `json:"created_at"`
+	ID        OptString    `json:"id"`
+	Name      OptString    `json:"name"`
+	ParentID  OptNilString `json:"parent_id"`
+	ProjectID OptString    `json:"project_id"`
+	CreatedAt OptDateTime  `json:"created_at"`
 }
 
 // GetID returns the value of ID.
@@ -113,7 +113,7 @@ func (s *Category) GetName() OptString {
 }
 
 // GetParentID returns the value of ParentID.
-func (s *Category) GetParentID() OptString {
+func (s *Category) GetParentID() OptNilString {
 	return s.ParentID
 }
 
@@ -138,7 +138,7 @@ func (s *Category) SetName(val OptString) {
 }
 
 // SetParentID sets the value of ParentID.
-func (s *Category) SetParentID(val OptString) {
+func (s *Category) SetParentID(val OptNilString) {
 	s.ParentID = val
 }
 
@@ -2447,6 +2447,7 @@ type Idea struct {
 	Name            string               `json:"name"`
 	Description     OptDescriptionObject `json:"description"`
 	Votes           OptInt               `json:"votes"`
+	Score           OptInt               `json:"score"`
 	CreatedAt       time.Time            `json:"created_at"`
 	UpdatedAt       time.Time            `json:"updated_at"`
 	StatusChangedAt OptDateTime          `json:"status_changed_at"`
@@ -2478,6 +2479,11 @@ func (s *Idea) GetDescription() OptDescriptionObject {
 // GetVotes returns the value of Votes.
 func (s *Idea) GetVotes() OptInt {
 	return s.Votes
+}
+
+// GetScore returns the value of Score.
+func (s *Idea) GetScore() OptInt {
+	return s.Score
 }
 
 // GetCreatedAt returns the value of CreatedAt.
@@ -2533,6 +2539,11 @@ func (s *Idea) SetDescription(val OptDescriptionObject) {
 // SetVotes sets the value of Votes.
 func (s *Idea) SetVotes(val OptInt) {
 	s.Votes = val
+}
+
+// SetScore sets the value of Score.
+func (s *Idea) SetScore(val OptInt) {
+	s.Score = val
 }
 
 // SetCreatedAt sets the value of CreatedAt.

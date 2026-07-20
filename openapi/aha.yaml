@@ -432,6 +432,15 @@ paths:
           schema:
             type: integer
             format: int32
+        - name: fields
+          in: query
+          description: >-
+            Comma-separated list of additional idea fields to include in each
+            list item (e.g. "votes,categories,score"). Aha's list endpoint
+            omits these by default; passing this parameter overrides Aha's
+            default field set rather than adding to it.
+          schema:
+            type: string
       responses:
         "200":
           description: A list of ideas
@@ -2166,6 +2175,8 @@ components:
           $ref: "#/components/schemas/DescriptionObject"
         votes:
           type: integer
+        score:
+          type: integer
         created_at:
           type: string
           format: date-time
@@ -3171,6 +3182,7 @@ components:
           type: string
         parent_id:
           type: string
+          nullable: true
         project_id:
           type: string
         created_at:
