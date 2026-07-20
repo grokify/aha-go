@@ -24,6 +24,7 @@ This document tracks planned enhancements for the aha-go CLI.
 - [x] CLI unit tests
 - [x] Browser automation for template creation (go-rod)
 - [x] Predefined canvas templates (capability-stack, maturity-model, opportunity-patton, feature-canvas)
+- [x] Custom field support (definitions/options API, decoding on Feature/Idea/Initiative)
 
 ## In Progress
 
@@ -44,7 +45,6 @@ Enable querying features by release date or name, supporting aha-studio's cached
 - Interactive TUI mode
 - Bulk operations (import/export)
 - Webhook management
-- Custom field support
 - Tasks/To-dos (list, get, create, update, delete)
 - Pages (list, get)
 
