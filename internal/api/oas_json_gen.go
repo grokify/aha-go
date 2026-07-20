@@ -6864,9 +6864,19 @@ func (s *Initiative) encodeFields(e *jx.Encoder) {
 			e.ArrEnd()
 		}
 	}
+	{
+		if s.CustomFields != nil {
+			e.FieldStart("custom_fields")
+			e.ArrStart()
+			for _, elem := range s.CustomFields {
+				elem.Encode(e)
+			}
+			e.ArrEnd()
+		}
+	}
 }
 
-var jsonFieldsNameOfInitiative = [20]string{
+var jsonFieldsNameOfInitiative = [21]string{
 	0:  "id",
 	1:  "reference_num",
 	2:  "name",
@@ -6887,6 +6897,7 @@ var jsonFieldsNameOfInitiative = [20]string{
 	17: "workflow_status",
 	18: "epic",
 	19: "features",
+	20: "custom_fields",
 }
 
 // Decode decodes Initiative from json.
@@ -7112,6 +7123,23 @@ func (s *Initiative) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"features\"")
+			}
+		case "custom_fields":
+			if err := func() error {
+				s.CustomFields = make([]CustomField, 0)
+				if err := d.Arr(func(d *jx.Decoder) error {
+					var elem CustomField
+					if err := elem.Decode(d); err != nil {
+						return err
+					}
+					s.CustomFields = append(s.CustomFields, elem)
+					return nil
+				}); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"custom_fields\"")
 			}
 		default:
 			return d.Skip()

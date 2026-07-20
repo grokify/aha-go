@@ -2799,6 +2799,7 @@ type Initiative struct {
 	WorkflowStatus OptWorkflowStatus `json:"workflow_status"`
 	Epic           OptEpicMeta       `json:"epic"`
 	Features       []FeatureMeta     `json:"features"`
+	CustomFields   []CustomField     `json:"custom_fields"`
 }
 
 // GetID returns the value of ID.
@@ -2901,6 +2902,11 @@ func (s *Initiative) GetFeatures() []FeatureMeta {
 	return s.Features
 }
 
+// GetCustomFields returns the value of CustomFields.
+func (s *Initiative) GetCustomFields() []CustomField {
+	return s.CustomFields
+}
+
 // SetID sets the value of ID.
 func (s *Initiative) SetID(val string) {
 	s.ID = val
@@ -2999,6 +3005,11 @@ func (s *Initiative) SetEpic(val OptEpicMeta) {
 // SetFeatures sets the value of Features.
 func (s *Initiative) SetFeatures(val []FeatureMeta) {
 	s.Features = val
+}
+
+// SetCustomFields sets the value of CustomFields.
+func (s *Initiative) SetCustomFields(val []CustomField) {
+	s.CustomFields = val
 }
 
 // Ref: #/components/schemas/InitiativeCreate

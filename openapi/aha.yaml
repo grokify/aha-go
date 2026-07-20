@@ -2987,6 +2987,10 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/FeatureMeta"
+        custom_fields:
+          type: array
+          items:
+            $ref: "#/components/schemas/CustomField"
 
     InitiativeMeta:
       type: object
