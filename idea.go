@@ -2,6 +2,7 @@ package aha
 
 import (
 	"context"
+	"strings"
 	"time"
 
 	"github.com/grokify/aha-go/internal/api"
@@ -14,12 +15,27 @@ type Idea struct {
 	Name            string
 	Description     string
 	Votes           int
+	Score           int
 	CreatedAt       time.Time
 	UpdatedAt       time.Time
 	StatusChangedAt *time.Time
 	WorkflowStatus  *WorkflowStatus
 	Categories      []Category
 	Feature         *IdeaFeature
+}
+
+// requiredIdeaFields are always requested from the Aha API regardless of
+// caller-supplied fields, since Idea's non-optional struct fields depend on
+// them being present in the response.
+var requiredIdeaFields = []string{"name", "reference_num", "created_at", "updated_at"}
+
+// defaultOptionalIdeaFields are requested when the caller does not use
+// WithIdeaFields. Aha's list ideas endpoint omits votes/categories/score by
+// default, so these are included here to populate them without requiring
+// every caller to opt in.
+var defaultOptionalIdeaFields = []string{
+	"description", "votes", "categories", "score", "status_changed_at",
+	"workflow_status", "feature", "url", "resource",
 }
 
 // Category represents an idea category.
@@ -77,6 +93,7 @@ type ListIdeasOptions struct {
 	UpdatedSince   *time.Time
 	Page           int
 	PerPage        int
+	Fields         []string
 }
 
 // ListIdeasOption configures a ListIdeas call.
@@ -142,6 +159,15 @@ func WithIdeaCreatedBefore(t time.Time) ListIdeasOption {
 	return func(o *ListIdeasOptions) { o.CreatedBefore = &t }
 }
 
+// WithIdeaFields overrides the optional idea fields requested from the Aha
+// API (votes, categories, score, description, status_changed_at,
+// workflow_status, feature, url, resource by default). Fields required to
+// populate Idea's non-optional struct fields are always requested regardless
+// of this option.
+func WithIdeaFields(fields ...string) ListIdeasOption {
+	return func(o *ListIdeasOptions) { o.Fields = fields }
+}
+
 // ListIdeas lists ideas with optional filtering.
 func (c *Client) ListIdeas(ctx context.Context, opts ...ListIdeasOption) (*IdeaList, error) {
 	cfg := &ListIdeasOptions{}
@@ -186,6 +212,12 @@ func (c *Client) ListIdeas(ctx context.Context, opts ...ListIdeasOption) (*IdeaL
 	if cfg.PerPage > 0 {
 		params.PerPage = api.NewOptInt32(int32(cfg.PerPage)) //nolint:gosec // G115: PerPage bounded by API limits
 	}
+
+	optionalFields := cfg.Fields
+	if len(optionalFields) == 0 {
+		optionalFields = defaultOptionalIdeaFields
+	}
+	params.Fields = api.NewOptString(strings.Join(append(append([]string{}, requiredIdeaFields...), optionalFields...), ","))
 
 	resp, err := c.apiClient.ListIdeas(ctx, params)
 	if err != nil {
@@ -285,6 +317,9 @@ func ideaFromAPI(i api.Idea) *Idea {
 
 	if v, ok := i.Votes.Get(); ok {
 		idea.Votes = v
+	}
+	if v, ok := i.Score.Get(); ok {
+		idea.Score = v
 	}
 	if v, ok := i.Description.Get(); ok {
 		// Description is now an object with Body and HtmlBody fields
