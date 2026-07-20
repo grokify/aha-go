@@ -29,6 +29,7 @@ type Initiative struct {
 	WorkflowStatus *WorkflowStatus
 	Epic           *EpicMeta
 	Features       []FeatureMeta
+	CustomFields   []CustomField
 }
 
 // EpicMeta represents epic metadata.
@@ -446,6 +447,7 @@ func initiativeFromAPI(i api.Initiative) *Initiative {
 	for idx, f := range i.Features {
 		initiative.Features[idx] = featureMetaFromAPI(f)
 	}
+	initiative.CustomFields = customFieldsFromAPI(i.CustomFields)
 
 	return initiative
 }
