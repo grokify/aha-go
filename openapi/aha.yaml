@@ -2871,6 +2871,8 @@ components:
           type: boolean
         parking_lot:
           type: boolean
+        theme:
+          $ref: "#/components/schemas/DescriptionObject"
         url:
           type: string
         resource:
@@ -2922,6 +2924,9 @@ components:
           format: date
         parking_lot:
           type: boolean
+        theme:
+          type: string
+          description: Theme of the release (may include HTML formatting). Also shown as the release description in the Aha! UI.
 
     # Initiative schemas
     Initiative:

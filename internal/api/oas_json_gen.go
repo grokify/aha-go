@@ -10702,6 +10702,12 @@ func (s *Release) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
+		if s.Theme.Set {
+			e.FieldStart("theme")
+			s.Theme.Encode(e)
+		}
+	}
+	{
 		if s.URL.Set {
 			e.FieldStart("url")
 			s.URL.Encode(e)
@@ -10715,17 +10721,18 @@ func (s *Release) encodeFields(e *jx.Encoder) {
 	}
 }
 
-var jsonFieldsNameOfRelease = [10]string{
-	0: "id",
-	1: "reference_num",
-	2: "name",
-	3: "start_date",
-	4: "release_date",
-	5: "external_release_date",
-	6: "released",
-	7: "parking_lot",
-	8: "url",
-	9: "resource",
+var jsonFieldsNameOfRelease = [11]string{
+	0:  "id",
+	1:  "reference_num",
+	2:  "name",
+	3:  "start_date",
+	4:  "release_date",
+	5:  "external_release_date",
+	6:  "released",
+	7:  "parking_lot",
+	8:  "theme",
+	9:  "url",
+	10: "resource",
 }
 
 // Decode decodes Release from json.
@@ -10815,6 +10822,16 @@ func (s *Release) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"parking_lot\"")
+			}
+		case "theme":
+			if err := func() error {
+				s.Theme.Reset()
+				if err := s.Theme.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"theme\"")
 			}
 		case "url":
 			if err := func() error {
@@ -10968,15 +10985,22 @@ func (s *ReleaseUpdate) encodeFields(e *jx.Encoder) {
 			s.ParkingLot.Encode(e)
 		}
 	}
+	{
+		if s.Theme.Set {
+			e.FieldStart("theme")
+			s.Theme.Encode(e)
+		}
+	}
 }
 
-var jsonFieldsNameOfReleaseUpdate = [6]string{
+var jsonFieldsNameOfReleaseUpdate = [7]string{
 	0: "name",
 	1: "start_date",
 	2: "release_date",
 	3: "external_release_date",
 	4: "development_started_on",
 	5: "parking_lot",
+	6: "theme",
 }
 
 // Decode decodes ReleaseUpdate from json.
@@ -11046,6 +11070,16 @@ func (s *ReleaseUpdate) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"parking_lot\"")
+			}
+		case "theme":
+			if err := func() error {
+				s.Theme.Reset()
+				if err := s.Theme.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"theme\"")
 			}
 		default:
 			return d.Skip()

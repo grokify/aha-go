@@ -5672,16 +5672,17 @@ func (s *ProductsResponse) SetPagination(val OptPagination) {
 
 // Ref: #/components/schemas/Release
 type Release struct {
-	ID                  OptString  `json:"id"`
-	ReferenceNum        OptString  `json:"reference_num"`
-	Name                OptString  `json:"name"`
-	StartDate           OptNilDate `json:"start_date"`
-	ReleaseDate         OptNilDate `json:"release_date"`
-	ExternalReleaseDate OptNilDate `json:"external_release_date"`
-	Released            OptBool    `json:"released"`
-	ParkingLot          OptBool    `json:"parking_lot"`
-	URL                 OptString  `json:"url"`
-	Resource            OptString  `json:"resource"`
+	ID                  OptString            `json:"id"`
+	ReferenceNum        OptString            `json:"reference_num"`
+	Name                OptString            `json:"name"`
+	StartDate           OptNilDate           `json:"start_date"`
+	ReleaseDate         OptNilDate           `json:"release_date"`
+	ExternalReleaseDate OptNilDate           `json:"external_release_date"`
+	Released            OptBool              `json:"released"`
+	ParkingLot          OptBool              `json:"parking_lot"`
+	Theme               OptDescriptionObject `json:"theme"`
+	URL                 OptString            `json:"url"`
+	Resource            OptString            `json:"resource"`
 }
 
 // GetID returns the value of ID.
@@ -5722,6 +5723,11 @@ func (s *Release) GetReleased() OptBool {
 // GetParkingLot returns the value of ParkingLot.
 func (s *Release) GetParkingLot() OptBool {
 	return s.ParkingLot
+}
+
+// GetTheme returns the value of Theme.
+func (s *Release) GetTheme() OptDescriptionObject {
+	return s.Theme
 }
 
 // GetURL returns the value of URL.
@@ -5774,6 +5780,11 @@ func (s *Release) SetParkingLot(val OptBool) {
 	s.ParkingLot = val
 }
 
+// SetTheme sets the value of Theme.
+func (s *Release) SetTheme(val OptDescriptionObject) {
+	s.Theme = val
+}
+
 // SetURL sets the value of URL.
 func (s *Release) SetURL(val OptString) {
 	s.URL = val
@@ -5807,6 +5818,9 @@ type ReleaseUpdate struct {
 	ExternalReleaseDate  OptNilDate `json:"external_release_date"`
 	DevelopmentStartedOn OptDate    `json:"development_started_on"`
 	ParkingLot           OptBool    `json:"parking_lot"`
+	// Theme of the release (may include HTML formatting). Also shown as the release description in the
+	// Aha! UI.
+	Theme OptString `json:"theme"`
 }
 
 // GetName returns the value of Name.
@@ -5839,6 +5853,11 @@ func (s *ReleaseUpdate) GetParkingLot() OptBool {
 	return s.ParkingLot
 }
 
+// GetTheme returns the value of Theme.
+func (s *ReleaseUpdate) GetTheme() OptString {
+	return s.Theme
+}
+
 // SetName sets the value of Name.
 func (s *ReleaseUpdate) SetName(val OptString) {
 	s.Name = val
@@ -5867,6 +5886,11 @@ func (s *ReleaseUpdate) SetDevelopmentStartedOn(val OptDate) {
 // SetParkingLot sets the value of ParkingLot.
 func (s *ReleaseUpdate) SetParkingLot(val OptBool) {
 	s.ParkingLot = val
+}
+
+// SetTheme sets the value of Theme.
+func (s *ReleaseUpdate) SetTheme(val OptString) {
+	s.Theme = val
 }
 
 // Ref: #/components/schemas/ReleaseUpdateRequest
