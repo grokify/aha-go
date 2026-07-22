@@ -17,6 +17,7 @@ type Release struct {
 	ExternalReleaseDate *time.Time
 	Released            bool
 	ParkingLot          bool
+	Theme               string
 	URL                 string
 	Resource            string
 }
@@ -72,6 +73,7 @@ type UpdateReleaseOptions struct {
 	ExternalReleaseDate  *time.Time
 	DevelopmentStartedOn *time.Time
 	ParkingLot           *bool
+	Theme                string
 }
 
 // UpdateReleaseOption configures an UpdateRelease call.
@@ -95,6 +97,12 @@ func WithReleaseDate(t time.Time) UpdateReleaseOption {
 // WithReleaseParkingLot sets whether this is a parking lot release.
 func WithReleaseParkingLot(parkingLot bool) UpdateReleaseOption {
 	return func(o *UpdateReleaseOptions) { o.ParkingLot = &parkingLot }
+}
+
+// WithReleaseTheme sets the release's theme (shown as the release description
+// in the Aha! UI; may include HTML formatting).
+func WithReleaseTheme(theme string) UpdateReleaseOption {
+	return func(o *UpdateReleaseOptions) { o.Theme = theme }
 }
 
 // UpdateRelease updates an existing release.
@@ -122,6 +130,9 @@ func (c *Client) UpdateRelease(ctx context.Context, id string, opts ...UpdateRel
 	}
 	if cfg.ParkingLot != nil {
 		release.ParkingLot = api.NewOptBool(*cfg.ParkingLot)
+	}
+	if cfg.Theme != "" {
+		release.Theme = api.NewOptString(cfg.Theme)
 	}
 
 	req := &api.ReleaseUpdateRequest{
@@ -167,6 +178,11 @@ func releaseFromAPI(r api.Release) *Release {
 	}
 	if v, ok := r.ParkingLot.Get(); ok {
 		release.ParkingLot = v
+	}
+	if v, ok := r.Theme.Get(); ok {
+		if body, ok := v.Body.Get(); ok {
+			release.Theme = body
+		}
 	}
 	if v, ok := r.URL.Get(); ok {
 		release.URL = v
