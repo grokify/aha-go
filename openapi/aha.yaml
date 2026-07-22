@@ -1815,7 +1815,7 @@ components:
         name:
           type: string
         description:
-          type: string
+          $ref: "#/components/schemas/DescriptionObject"
         created_at:
           type: string
           format: date-time
@@ -1857,7 +1857,9 @@ components:
         release:
           $ref: "#/components/schemas/Release"
         assigned_to_user:
-          $ref: "#/components/schemas/User"
+          nullable: true
+          allOf:
+            - $ref: "#/components/schemas/User"
         custom_fields:
           type: array
           items:
@@ -2246,10 +2248,11 @@ components:
         name:
           type: string
         description:
-          type: string
+          $ref: "#/components/schemas/DescriptionObject"
         progress:
           type: number
           format: float
+          nullable: true
           description: Progress percentage (0-100)
         progress_source:
           type: string
@@ -2419,10 +2422,11 @@ components:
         name:
           type: string
         description:
-          type: string
+          $ref: "#/components/schemas/DescriptionObject"
         progress:
           type: number
           format: float
+          nullable: true
           description: Progress percentage (0-100)
         progress_source:
           type: string
@@ -2579,7 +2583,7 @@ components:
         name:
           type: string
         description:
-          type: string
+          $ref: "#/components/schemas/DescriptionObject"
           description: Product description (HTML allowed)
         product_line:
           type: boolean
@@ -2717,19 +2721,22 @@ components:
         name:
           type: string
         description:
-          type: string
+          $ref: "#/components/schemas/DescriptionObject"
         position:
           type: integer
           format: int64
         original_estimate:
           type: number
           format: float
+          nullable: true
         remaining_estimate:
           type: number
           format: float
+          nullable: true
         work_done:
           type: number
           format: float
+          nullable: true
         created_at:
           type: string
           format: date-time
@@ -2745,7 +2752,9 @@ components:
         workflow_status:
           $ref: "#/components/schemas/WorkflowStatus"
         assigned_to_user:
-          $ref: "#/components/schemas/User"
+          nullable: true
+          allOf:
+            - $ref: "#/components/schemas/User"
         feature:
           $ref: "#/components/schemas/FeatureMeta"
 
@@ -3312,7 +3321,7 @@ components:
           type: string
           description: "Type of canvas (e.g., Opportunity, Lean Canvas, Business Model)"
         description:
-          type: string
+          $ref: "#/components/schemas/DescriptionObject"
         url:
           type: string
           description: Web UI URL

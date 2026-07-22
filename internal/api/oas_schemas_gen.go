@@ -767,12 +767,12 @@ func (s *DescriptionObject) SetHTMLBody(val OptString) {
 
 // Ref: #/components/schemas/Epic
 type Epic struct {
-	ID           string    `json:"id"`
-	ReferenceNum string    `json:"reference_num"`
-	Name         string    `json:"name"`
-	Description  OptString `json:"description"`
+	ID           string               `json:"id"`
+	ReferenceNum string               `json:"reference_num"`
+	Name         string               `json:"name"`
+	Description  OptDescriptionObject `json:"description"`
 	// Progress percentage (0-100).
-	Progress OptFloat32 `json:"progress"`
+	Progress OptNilFloat32 `json:"progress"`
 	// Source of progress calculation.
 	ProgressSource OptString   `json:"progress_source"`
 	StartDate      OptNilDate  `json:"start_date"`
@@ -808,12 +808,12 @@ func (s *Epic) GetName() string {
 }
 
 // GetDescription returns the value of Description.
-func (s *Epic) GetDescription() OptString {
+func (s *Epic) GetDescription() OptDescriptionObject {
 	return s.Description
 }
 
 // GetProgress returns the value of Progress.
-func (s *Epic) GetProgress() OptFloat32 {
+func (s *Epic) GetProgress() OptNilFloat32 {
 	return s.Progress
 }
 
@@ -903,12 +903,12 @@ func (s *Epic) SetName(val string) {
 }
 
 // SetDescription sets the value of Description.
-func (s *Epic) SetDescription(val OptString) {
+func (s *Epic) SetDescription(val OptDescriptionObject) {
 	s.Description = val
 }
 
 // SetProgress sets the value of Progress.
-func (s *Epic) SetProgress(val OptFloat32) {
+func (s *Epic) SetProgress(val OptNilFloat32) {
 	s.Progress = val
 }
 
@@ -1312,15 +1312,15 @@ func (s *EpicsResponse) SetPagination(val OptPagination) {
 
 // Ref: #/components/schemas/Feature
 type Feature struct {
-	ID           string      `json:"id"`
-	ReferenceNum string      `json:"reference_num"`
-	Name         string      `json:"name"`
-	Description  OptString   `json:"description"`
-	CreatedAt    time.Time   `json:"created_at"`
-	UpdatedAt    OptDateTime `json:"updated_at"`
-	StartDate    OptNilDate  `json:"start_date"`
-	DueDate      OptNilDate  `json:"due_date"`
-	ProductID    OptString   `json:"product_id"`
+	ID           string               `json:"id"`
+	ReferenceNum string               `json:"reference_num"`
+	Name         string               `json:"name"`
+	Description  OptDescriptionObject `json:"description"`
+	CreatedAt    time.Time            `json:"created_at"`
+	UpdatedAt    OptDateTime          `json:"updated_at"`
+	StartDate    OptNilDate           `json:"start_date"`
+	DueDate      OptNilDate           `json:"due_date"`
+	ProductID    OptString            `json:"product_id"`
 	// Web UI URL.
 	URL OptString `json:"url"`
 	// API URL.
@@ -1332,7 +1332,7 @@ type Feature struct {
 	Tags                     []string           `json:"tags"`
 	WorkflowStatus           OptWorkflowStatus  `json:"workflow_status"`
 	Release                  OptRelease         `json:"release"`
-	AssignedToUser           OptUser            `json:"assigned_to_user"`
+	AssignedToUser           OptNilUser         `json:"assigned_to_user"`
 	CustomFields             []CustomField      `json:"custom_fields"`
 	IntegrationFields        []IntegrationField `json:"integration_fields"`
 }
@@ -1353,7 +1353,7 @@ func (s *Feature) GetName() string {
 }
 
 // GetDescription returns the value of Description.
-func (s *Feature) GetDescription() OptString {
+func (s *Feature) GetDescription() OptDescriptionObject {
 	return s.Description
 }
 
@@ -1428,7 +1428,7 @@ func (s *Feature) GetRelease() OptRelease {
 }
 
 // GetAssignedToUser returns the value of AssignedToUser.
-func (s *Feature) GetAssignedToUser() OptUser {
+func (s *Feature) GetAssignedToUser() OptNilUser {
 	return s.AssignedToUser
 }
 
@@ -1458,7 +1458,7 @@ func (s *Feature) SetName(val string) {
 }
 
 // SetDescription sets the value of Description.
-func (s *Feature) SetDescription(val OptString) {
+func (s *Feature) SetDescription(val OptDescriptionObject) {
 	s.Description = val
 }
 
@@ -1533,7 +1533,7 @@ func (s *Feature) SetRelease(val OptRelease) {
 }
 
 // SetAssignedToUser sets the value of AssignedToUser.
-func (s *Feature) SetAssignedToUser(val OptUser) {
+func (s *Feature) SetAssignedToUser(val OptNilUser) {
 	s.AssignedToUser = val
 }
 
@@ -1974,12 +1974,12 @@ func (*GetStrategicModelNotFound) getStrategicModelRes() {}
 
 // Ref: #/components/schemas/Goal
 type Goal struct {
-	ID           string    `json:"id"`
-	ReferenceNum string    `json:"reference_num"`
-	Name         string    `json:"name"`
-	Description  OptString `json:"description"`
+	ID           string               `json:"id"`
+	ReferenceNum string               `json:"reference_num"`
+	Name         string               `json:"name"`
+	Description  OptDescriptionObject `json:"description"`
 	// Progress percentage (0-100).
-	Progress OptFloat32 `json:"progress"`
+	Progress OptNilFloat32 `json:"progress"`
 	// Source of progress calculation.
 	ProgressSource OptString `json:"progress_source"`
 	// Goal status.
@@ -2013,12 +2013,12 @@ func (s *Goal) GetName() string {
 }
 
 // GetDescription returns the value of Description.
-func (s *Goal) GetDescription() OptString {
+func (s *Goal) GetDescription() OptDescriptionObject {
 	return s.Description
 }
 
 // GetProgress returns the value of Progress.
-func (s *Goal) GetProgress() OptFloat32 {
+func (s *Goal) GetProgress() OptNilFloat32 {
 	return s.Progress
 }
 
@@ -2093,12 +2093,12 @@ func (s *Goal) SetName(val string) {
 }
 
 // SetDescription sets the value of Description.
-func (s *Goal) SetDescription(val OptString) {
+func (s *Goal) SetDescription(val OptDescriptionObject) {
 	s.Description = val
 }
 
 // SetProgress sets the value of Progress.
-func (s *Goal) SetProgress(val OptFloat32) {
+func (s *Goal) SetProgress(val OptNilFloat32) {
 	s.Progress = val
 }
 
@@ -4511,6 +4511,69 @@ func (o OptNilDate) Or(d time.Time) time.Time {
 	return d
 }
 
+// NewOptNilFloat32 returns new OptNilFloat32 with value set to v.
+func NewOptNilFloat32(v float32) OptNilFloat32 {
+	return OptNilFloat32{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptNilFloat32 is optional nullable float32.
+type OptNilFloat32 struct {
+	Value float32
+	Set   bool
+	Null  bool
+}
+
+// IsSet returns true if OptNilFloat32 was set.
+func (o OptNilFloat32) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptNilFloat32) Reset() {
+	var v float32
+	o.Value = v
+	o.Set = false
+	o.Null = false
+}
+
+// SetTo sets value to v.
+func (o *OptNilFloat32) SetTo(v float32) {
+	o.Set = true
+	o.Null = false
+	o.Value = v
+}
+
+// IsNull returns true if value is Null.
+func (o OptNilFloat32) IsNull() bool { return o.Null }
+
+// SetToNull sets value to null.
+func (o *OptNilFloat32) SetToNull() {
+	o.Set = true
+	o.Null = true
+	var v float32
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptNilFloat32) Get() (v float32, ok bool) {
+	if o.Null {
+		return v, false
+	}
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptNilFloat32) Or(d float32) float32 {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
 // NewOptNilFloat64 returns new OptNilFloat64 with value set to v.
 func NewOptNilFloat64(v float64) OptNilFloat64 {
 	return OptNilFloat64{
@@ -4631,6 +4694,69 @@ func (o OptNilString) Get() (v string, ok bool) {
 
 // Or returns value if set, or given parameter if does not.
 func (o OptNilString) Or(d string) string {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptNilUser returns new OptNilUser with value set to v.
+func NewOptNilUser(v User) OptNilUser {
+	return OptNilUser{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptNilUser is optional nullable User.
+type OptNilUser struct {
+	Value User
+	Set   bool
+	Null  bool
+}
+
+// IsSet returns true if OptNilUser was set.
+func (o OptNilUser) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptNilUser) Reset() {
+	var v User
+	o.Value = v
+	o.Set = false
+	o.Null = false
+}
+
+// SetTo sets value to v.
+func (o *OptNilUser) SetTo(v User) {
+	o.Set = true
+	o.Null = false
+	o.Value = v
+}
+
+// IsNull returns true if value is Null.
+func (o OptNilUser) IsNull() bool { return o.Null }
+
+// SetToNull sets value to null.
+func (o *OptNilUser) SetToNull() {
+	o.Set = true
+	o.Null = true
+	var v User
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptNilUser) Get() (v User, ok bool) {
+	if o.Null {
+		return v, false
+	}
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptNilUser) Or(d User) User {
 	if v, ok := o.Get(); ok {
 		return v
 	}
@@ -5232,8 +5358,8 @@ type Product struct {
 	ReferencePrefix OptString `json:"reference_prefix"`
 	Name            OptString `json:"name"`
 	// Product description (HTML allowed).
-	Description OptString `json:"description"`
-	ProductLine OptBool   `json:"product_line"`
+	Description OptDescriptionObject `json:"description"`
+	ProductLine OptBool              `json:"product_line"`
 	// ID of the parent product line.
 	ParentID OptString `json:"parent_id"`
 	// Type of workspace (product_workspace, it_workspace, marketing_workspace, etc.).
@@ -5262,7 +5388,7 @@ func (s *Product) GetName() OptString {
 }
 
 // GetDescription returns the value of Description.
-func (s *Product) GetDescription() OptString {
+func (s *Product) GetDescription() OptDescriptionObject {
 	return s.Description
 }
 
@@ -5327,7 +5453,7 @@ func (s *Product) SetName(val OptString) {
 }
 
 // SetDescription sets the value of Description.
-func (s *Product) SetDescription(val OptString) {
+func (s *Product) SetDescription(val OptDescriptionObject) {
 	s.Description = val
 }
 
@@ -5936,22 +6062,22 @@ func (s *ReleasesResponse) SetPagination(val OptPagination) {
 
 // Ref: #/components/schemas/Requirement
 type Requirement struct {
-	ID                string      `json:"id"`
-	ReferenceNum      string      `json:"reference_num"`
-	Name              string      `json:"name"`
-	Description       OptString   `json:"description"`
-	Position          OptInt64    `json:"position"`
-	OriginalEstimate  OptFloat32  `json:"original_estimate"`
-	RemainingEstimate OptFloat32  `json:"remaining_estimate"`
-	WorkDone          OptFloat32  `json:"work_done"`
-	CreatedAt         time.Time   `json:"created_at"`
-	UpdatedAt         OptDateTime `json:"updated_at"`
+	ID                string               `json:"id"`
+	ReferenceNum      string               `json:"reference_num"`
+	Name              string               `json:"name"`
+	Description       OptDescriptionObject `json:"description"`
+	Position          OptInt64             `json:"position"`
+	OriginalEstimate  OptNilFloat32        `json:"original_estimate"`
+	RemainingEstimate OptNilFloat32        `json:"remaining_estimate"`
+	WorkDone          OptNilFloat32        `json:"work_done"`
+	CreatedAt         time.Time            `json:"created_at"`
+	UpdatedAt         OptDateTime          `json:"updated_at"`
 	// Web UI URL.
 	URL OptString `json:"url"`
 	// API URL.
 	Resource       OptString         `json:"resource"`
 	WorkflowStatus OptWorkflowStatus `json:"workflow_status"`
-	AssignedToUser OptUser           `json:"assigned_to_user"`
+	AssignedToUser OptNilUser        `json:"assigned_to_user"`
 	Feature        OptFeatureMeta    `json:"feature"`
 }
 
@@ -5971,7 +6097,7 @@ func (s *Requirement) GetName() string {
 }
 
 // GetDescription returns the value of Description.
-func (s *Requirement) GetDescription() OptString {
+func (s *Requirement) GetDescription() OptDescriptionObject {
 	return s.Description
 }
 
@@ -5981,17 +6107,17 @@ func (s *Requirement) GetPosition() OptInt64 {
 }
 
 // GetOriginalEstimate returns the value of OriginalEstimate.
-func (s *Requirement) GetOriginalEstimate() OptFloat32 {
+func (s *Requirement) GetOriginalEstimate() OptNilFloat32 {
 	return s.OriginalEstimate
 }
 
 // GetRemainingEstimate returns the value of RemainingEstimate.
-func (s *Requirement) GetRemainingEstimate() OptFloat32 {
+func (s *Requirement) GetRemainingEstimate() OptNilFloat32 {
 	return s.RemainingEstimate
 }
 
 // GetWorkDone returns the value of WorkDone.
-func (s *Requirement) GetWorkDone() OptFloat32 {
+func (s *Requirement) GetWorkDone() OptNilFloat32 {
 	return s.WorkDone
 }
 
@@ -6021,7 +6147,7 @@ func (s *Requirement) GetWorkflowStatus() OptWorkflowStatus {
 }
 
 // GetAssignedToUser returns the value of AssignedToUser.
-func (s *Requirement) GetAssignedToUser() OptUser {
+func (s *Requirement) GetAssignedToUser() OptNilUser {
 	return s.AssignedToUser
 }
 
@@ -6046,7 +6172,7 @@ func (s *Requirement) SetName(val string) {
 }
 
 // SetDescription sets the value of Description.
-func (s *Requirement) SetDescription(val OptString) {
+func (s *Requirement) SetDescription(val OptDescriptionObject) {
 	s.Description = val
 }
 
@@ -6056,17 +6182,17 @@ func (s *Requirement) SetPosition(val OptInt64) {
 }
 
 // SetOriginalEstimate sets the value of OriginalEstimate.
-func (s *Requirement) SetOriginalEstimate(val OptFloat32) {
+func (s *Requirement) SetOriginalEstimate(val OptNilFloat32) {
 	s.OriginalEstimate = val
 }
 
 // SetRemainingEstimate sets the value of RemainingEstimate.
-func (s *Requirement) SetRemainingEstimate(val OptFloat32) {
+func (s *Requirement) SetRemainingEstimate(val OptNilFloat32) {
 	s.RemainingEstimate = val
 }
 
 // SetWorkDone sets the value of WorkDone.
-func (s *Requirement) SetWorkDone(val OptFloat32) {
+func (s *Requirement) SetWorkDone(val OptNilFloat32) {
 	s.WorkDone = val
 }
 
@@ -6096,7 +6222,7 @@ func (s *Requirement) SetWorkflowStatus(val OptWorkflowStatus) {
 }
 
 // SetAssignedToUser sets the value of AssignedToUser.
-func (s *Requirement) SetAssignedToUser(val OptUser) {
+func (s *Requirement) SetAssignedToUser(val OptNilUser) {
 	s.AssignedToUser = val
 }
 
@@ -6403,8 +6529,8 @@ type StrategicModel struct {
 	ReferenceNum string `json:"reference_num"`
 	Name         string `json:"name"`
 	// Type of canvas (e.g., Opportunity, Lean Canvas, Business Model).
-	Kind        string    `json:"kind"`
-	Description OptString `json:"description"`
+	Kind        string               `json:"kind"`
+	Description OptDescriptionObject `json:"description"`
 	// Web UI URL.
 	URL OptString `json:"url"`
 	// API URL.
@@ -6436,7 +6562,7 @@ func (s *StrategicModel) GetKind() string {
 }
 
 // GetDescription returns the value of Description.
-func (s *StrategicModel) GetDescription() OptString {
+func (s *StrategicModel) GetDescription() OptDescriptionObject {
 	return s.Description
 }
 
@@ -6491,7 +6617,7 @@ func (s *StrategicModel) SetKind(val string) {
 }
 
 // SetDescription sets the value of Description.
-func (s *StrategicModel) SetDescription(val OptString) {
+func (s *StrategicModel) SetDescription(val OptDescriptionObject) {
 	s.Description = val
 }
 
