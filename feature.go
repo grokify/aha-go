@@ -444,7 +444,9 @@ func featureFromAPI(f api.Feature) *Feature {
 	}
 
 	if v, ok := f.Description.Get(); ok {
-		feature.Description = v
+		if body, ok := v.Body.Get(); ok {
+			feature.Description = body
+		}
 	}
 	if v, ok := f.ProductID.Get(); ok {
 		feature.ProductID = v

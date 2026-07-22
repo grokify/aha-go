@@ -283,7 +283,9 @@ func strategicModelFromAPI(sm api.StrategicModel) *StrategicModel {
 	}
 
 	if v, ok := sm.Description.Get(); ok {
-		model.Description = v
+		if body, ok := v.Body.Get(); ok {
+			model.Description = body
+		}
 	}
 	if v, ok := sm.URL.Get(); ok {
 		model.URL = v

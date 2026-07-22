@@ -304,7 +304,9 @@ func productFromAPI(p api.Product) *Product {
 		product.Name = v
 	}
 	if v, ok := p.Description.Get(); ok {
-		product.Description = v
+		if body, ok := v.Body.Get(); ok {
+			product.Description = body
+		}
 	}
 	if v, ok := p.ProductLine.Get(); ok {
 		product.ProductLine = v

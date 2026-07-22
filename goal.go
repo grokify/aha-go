@@ -320,7 +320,9 @@ func goalFromAPI(g api.Goal) *Goal {
 	}
 
 	if v, ok := g.Description.Get(); ok {
-		goal.Description = v
+		if body, ok := v.Body.Get(); ok {
+			goal.Description = body
+		}
 	}
 	if v, ok := g.Progress.Get(); ok {
 		goal.Progress = float64(v)

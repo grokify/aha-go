@@ -335,7 +335,9 @@ func epicFromAPI(e api.Epic) *Epic {
 	}
 
 	if v, ok := e.Description.Get(); ok {
-		epic.Description = v
+		if body, ok := v.Body.Get(); ok {
+			epic.Description = body
+		}
 	}
 	if v, ok := e.Progress.Get(); ok {
 		epic.Progress = float64(v)

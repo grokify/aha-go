@@ -268,7 +268,9 @@ func requirementFromAPI(r api.Requirement) *Requirement {
 	}
 
 	if v, ok := r.Description.Get(); ok {
-		req.Description = v
+		if body, ok := v.Body.Get(); ok {
+			req.Description = body
+		}
 	}
 	if v, ok := r.Position.Get(); ok {
 		req.Position = v
