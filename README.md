@@ -213,6 +213,12 @@ releases, err := client.ListProductReleases(ctx, "PROD")
 
 // Get a release
 release, err := client.GetRelease(ctx, "PROD-R-1")
+fmt.Println(release.Theme) // shown as the release's description in the Aha! UI
+
+// Update a release's theme
+release, err := client.UpdateRelease(ctx, "PROD-R-1",
+    aha.WithReleaseTheme("Focus on performance and reliability improvements."),
+)
 ```
 
 ### Strategic Models (Canvases)
