@@ -22,7 +22,7 @@ require (
 
 require (
 	github.com/grokify/goauth v0.23.30
-	github.com/grokify/prism-roadmap v0.14.1
+	github.com/grokify/prism-roadmap v0.16.0
 	github.com/ogen-go/ogen v1.23.0
 	github.com/spf13/cobra v1.10.2
 )
