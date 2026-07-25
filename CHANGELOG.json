@@ -7,6 +7,42 @@
   "maintainers": ["grokify"],
   "releases": [
     {
+      "version": "v0.8.0",
+      "date": "2026-07-25",
+      "commit": "5cf6074",
+      "highlights": [
+        { "description": "Release.Theme field and WithReleaseTheme option for reading and updating a release's theme, shown as the release description in the Aha! UI" },
+        { "description": "Fixed description decoding for Feature, Epic, Goal, Product, Requirement, and StrategicModel, which previously failed to parse the DescriptionObject the API actually returns" }
+      ],
+      "added": [
+        { "description": "Release.Theme field, decoded from the API's theme.body (same pattern as Idea/Feature description)", "commit": "0c08c1c" },
+        { "description": "WithReleaseTheme UpdateReleaseOption to update a release's theme", "commit": "0c08c1c" },
+        { "description": "OpenAPI: theme field on Release (as DescriptionObject) and ReleaseUpdate (as a plain string)", "commit": "0d9c3f9" },
+        { "description": "OpenAPI: regenerate client to fix Feature.description and nullable field schemas (assigned_to_user, progress, estimates)", "commit": "8c97ddb" }
+      ],
+      "fixed": [
+        {
+          "description": "featureFromAPI, epicFromAPI, goalFromAPI, productFromAPI, requirementFromAPI, and strategicModelFromAPI now extract the description body from DescriptionObject instead of treating description as a plain string",
+          "commit": "aacc9fb"
+        },
+        {
+          "description": "OpenAPI: Feature.description (and Epic/Goal/Product/Requirement/StrategicModel) corrected from plain string to DescriptionObject, matching what the API actually returns",
+          "commit": "8c97ddb"
+        },
+        {
+          "description": "OpenAPI: mark Feature/Requirement assigned_to_user, Epic/Goal progress, and Requirement original_estimate/remaining_estimate/work_done nullable to match null values returned by the API",
+          "commit": "8c97ddb"
+        },
+        { "description": "Pin fetchup v0.2.4 for go-rod v0.116.2 compatibility", "commit": "5cf6074" }
+      ],
+      "tests": [
+        { "description": "Add regression coverage for description/nullable-field decoding across Feature, Epic, and Requirement", "commit": "450302d" }
+      ],
+      "dependencies": [
+        { "description": "Bump github.com/grokify/prism-roadmap from 0.14.1 to 0.16.0", "commit": "2ee114a" }
+      ]
+    },
+    {
       "version": "v0.7.0",
       "date": "2026-07-20",
       "commit": "70fbba3",
