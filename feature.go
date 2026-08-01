@@ -584,3 +584,102 @@ func paginationFromAPI(p api.Pagination) Pagination {
 	}
 	return pg
 }
+
+// ListFeatureIdeasOptions configures ListFeatureIdeas.
+type ListFeatureIdeasOptions struct {
+	Page    int
+	PerPage int
+}
+
+// ListFeatureIdeasOption configures a ListFeatureIdeas call.
+type ListFeatureIdeasOption func(*ListFeatureIdeasOptions)
+
+// WithFeatureIdeasPage sets the page number.
+func WithFeatureIdeasPage(page int) ListFeatureIdeasOption {
+	return func(o *ListFeatureIdeasOptions) { o.Page = page }
+}
+
+// WithFeatureIdeasPerPage sets the number of results per page.
+func WithFeatureIdeasPerPage(perPage int) ListFeatureIdeasOption {
+	return func(o *ListFeatureIdeasOptions) { o.PerPage = perPage }
+}
+
+// FeatureIdea represents an idea linked to a feature.
+type FeatureIdea struct {
+	ID             string
+	ReferenceNum   string
+	Name           string
+	Description    string
+	Votes          int
+	Score          int
+	CreatedAt      time.Time
+	UpdatedAt      time.Time
+	WorkflowStatus *WorkflowStatus
+}
+
+// FeatureIdeaList represents a paginated list of ideas linked to a feature.
+type FeatureIdeaList struct {
+	Ideas      []FeatureIdea
+	Pagination Pagination
+}
+
+// ListFeatureIdeas lists ideas linked to a feature.
+func (c *Client) ListFeatureIdeas(ctx context.Context, featureID string, opts ...ListFeatureIdeasOption) (*FeatureIdeaList, error) {
+	cfg := &ListFeatureIdeasOptions{}
+	for _, opt := range opts {
+		opt(cfg)
+	}
+
+	params := api.ListFeatureIdeasParams{
+		FeatureID: featureID,
+	}
+	if cfg.Page > 0 {
+		params.Page = api.NewOptInt32(int32(cfg.Page)) //nolint:gosec // G115: Page number bounded by API limits
+	}
+	if cfg.PerPage > 0 {
+		params.PerPage = api.NewOptInt32(int32(cfg.PerPage)) //nolint:gosec // G115: PerPage bounded by API limits
+	}
+
+	resp, err := c.apiClient.ListFeatureIdeas(ctx, params)
+	if err != nil {
+		return nil, wrapError("ListFeatureIdeas", err)
+	}
+
+	return featureIdeaListFromAPI(resp), nil
+}
+
+// featureIdeaListFromAPI converts an API ideas response to a feature idea list.
+func featureIdeaListFromAPI(resp *api.IdeasResponse) *FeatureIdeaList {
+	list := &FeatureIdeaList{}
+
+	list.Ideas = make([]FeatureIdea, len(resp.Ideas))
+	for i, idea := range resp.Ideas {
+		list.Ideas[i] = FeatureIdea{
+			ID:           idea.ID,
+			ReferenceNum: idea.ReferenceNum,
+			Name:         idea.Name,
+			CreatedAt:    idea.CreatedAt,
+			UpdatedAt:    idea.UpdatedAt,
+		}
+		if v, ok := idea.Votes.Get(); ok {
+			list.Ideas[i].Votes = v
+		}
+		if v, ok := idea.Score.Get(); ok {
+			list.Ideas[i].Score = v
+		}
+		if v, ok := idea.Description.Get(); ok {
+			if body, hasBody := v.Body.Get(); hasBody {
+				list.Ideas[i].Description = body
+			}
+		}
+		if v, ok := idea.WorkflowStatus.Get(); ok {
+			list.Ideas[i].WorkflowStatus = workflowStatusFromAPI(v)
+		}
+	}
+
+	if v, ok := resp.Pagination.Get(); ok {
+		list.Pagination = paginationFromAPI(v)
+	}
+
+	return list
+}
