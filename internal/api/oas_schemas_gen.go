@@ -734,6 +734,9 @@ func (s *CustomFieldOptionListResponse) SetCustomFieldOptions(val []CustomFieldO
 // DeleteCommentNoContent is response for DeleteComment operation.
 type DeleteCommentNoContent struct{}
 
+// DeleteIdeaNoContent is response for DeleteIdea operation.
+type DeleteIdeaNoContent struct{}
+
 // DeleteRequirementNoContent is response for DeleteRequirement operation.
 type DeleteRequirementNoContent struct{}
 
@@ -2574,6 +2577,91 @@ func (s *Idea) SetCategories(val []Category) {
 // SetFeature sets the value of Feature.
 func (s *Idea) SetFeature(val OptIdeaFeature) {
 	s.Feature = val
+}
+
+// Ref: #/components/schemas/IdeaCategoriesResponse
+type IdeaCategoriesResponse struct {
+	IdeaCategories []IdeaCategory `json:"idea_categories"`
+	Pagination     OptPagination  `json:"pagination"`
+}
+
+// GetIdeaCategories returns the value of IdeaCategories.
+func (s *IdeaCategoriesResponse) GetIdeaCategories() []IdeaCategory {
+	return s.IdeaCategories
+}
+
+// GetPagination returns the value of Pagination.
+func (s *IdeaCategoriesResponse) GetPagination() OptPagination {
+	return s.Pagination
+}
+
+// SetIdeaCategories sets the value of IdeaCategories.
+func (s *IdeaCategoriesResponse) SetIdeaCategories(val []IdeaCategory) {
+	s.IdeaCategories = val
+}
+
+// SetPagination sets the value of Pagination.
+func (s *IdeaCategoriesResponse) SetPagination(val OptPagination) {
+	s.Pagination = val
+}
+
+// Ref: #/components/schemas/IdeaCategory
+type IdeaCategory struct {
+	ID        OptString    `json:"id"`
+	Name      OptString    `json:"name"`
+	ParentID  OptNilString `json:"parent_id"`
+	ProjectID OptString    `json:"project_id"`
+	CreatedAt OptDateTime  `json:"created_at"`
+}
+
+// GetID returns the value of ID.
+func (s *IdeaCategory) GetID() OptString {
+	return s.ID
+}
+
+// GetName returns the value of Name.
+func (s *IdeaCategory) GetName() OptString {
+	return s.Name
+}
+
+// GetParentID returns the value of ParentID.
+func (s *IdeaCategory) GetParentID() OptNilString {
+	return s.ParentID
+}
+
+// GetProjectID returns the value of ProjectID.
+func (s *IdeaCategory) GetProjectID() OptString {
+	return s.ProjectID
+}
+
+// GetCreatedAt returns the value of CreatedAt.
+func (s *IdeaCategory) GetCreatedAt() OptDateTime {
+	return s.CreatedAt
+}
+
+// SetID sets the value of ID.
+func (s *IdeaCategory) SetID(val OptString) {
+	s.ID = val
+}
+
+// SetName sets the value of Name.
+func (s *IdeaCategory) SetName(val OptString) {
+	s.Name = val
+}
+
+// SetParentID sets the value of ParentID.
+func (s *IdeaCategory) SetParentID(val OptNilString) {
+	s.ParentID = val
+}
+
+// SetProjectID sets the value of ProjectID.
+func (s *IdeaCategory) SetProjectID(val OptString) {
+	s.ProjectID = val
+}
+
+// SetCreatedAt sets the value of CreatedAt.
+func (s *IdeaCategory) SetCreatedAt(val OptDateTime) {
+	s.CreatedAt = val
 }
 
 // Ref: #/components/schemas/IdeaFeature
@@ -5919,6 +6007,103 @@ func (s *Release) SetURL(val OptString) {
 // SetResource sets the value of Resource.
 func (s *Release) SetResource(val OptString) {
 	s.Resource = val
+}
+
+// Ref: #/components/schemas/ReleaseCreate
+type ReleaseCreate struct {
+	Name                 string  `json:"name"`
+	StartDate            OptDate `json:"start_date"`
+	ReleaseDate          OptDate `json:"release_date"`
+	ExternalReleaseDate  OptDate `json:"external_release_date"`
+	DevelopmentStartedOn OptDate `json:"development_started_on"`
+	ParkingLot           OptBool `json:"parking_lot"`
+	// Theme of the release (may include HTML formatting).
+	Theme OptString `json:"theme"`
+}
+
+// GetName returns the value of Name.
+func (s *ReleaseCreate) GetName() string {
+	return s.Name
+}
+
+// GetStartDate returns the value of StartDate.
+func (s *ReleaseCreate) GetStartDate() OptDate {
+	return s.StartDate
+}
+
+// GetReleaseDate returns the value of ReleaseDate.
+func (s *ReleaseCreate) GetReleaseDate() OptDate {
+	return s.ReleaseDate
+}
+
+// GetExternalReleaseDate returns the value of ExternalReleaseDate.
+func (s *ReleaseCreate) GetExternalReleaseDate() OptDate {
+	return s.ExternalReleaseDate
+}
+
+// GetDevelopmentStartedOn returns the value of DevelopmentStartedOn.
+func (s *ReleaseCreate) GetDevelopmentStartedOn() OptDate {
+	return s.DevelopmentStartedOn
+}
+
+// GetParkingLot returns the value of ParkingLot.
+func (s *ReleaseCreate) GetParkingLot() OptBool {
+	return s.ParkingLot
+}
+
+// GetTheme returns the value of Theme.
+func (s *ReleaseCreate) GetTheme() OptString {
+	return s.Theme
+}
+
+// SetName sets the value of Name.
+func (s *ReleaseCreate) SetName(val string) {
+	s.Name = val
+}
+
+// SetStartDate sets the value of StartDate.
+func (s *ReleaseCreate) SetStartDate(val OptDate) {
+	s.StartDate = val
+}
+
+// SetReleaseDate sets the value of ReleaseDate.
+func (s *ReleaseCreate) SetReleaseDate(val OptDate) {
+	s.ReleaseDate = val
+}
+
+// SetExternalReleaseDate sets the value of ExternalReleaseDate.
+func (s *ReleaseCreate) SetExternalReleaseDate(val OptDate) {
+	s.ExternalReleaseDate = val
+}
+
+// SetDevelopmentStartedOn sets the value of DevelopmentStartedOn.
+func (s *ReleaseCreate) SetDevelopmentStartedOn(val OptDate) {
+	s.DevelopmentStartedOn = val
+}
+
+// SetParkingLot sets the value of ParkingLot.
+func (s *ReleaseCreate) SetParkingLot(val OptBool) {
+	s.ParkingLot = val
+}
+
+// SetTheme sets the value of Theme.
+func (s *ReleaseCreate) SetTheme(val OptString) {
+	s.Theme = val
+}
+
+// Ref: #/components/schemas/ReleaseCreateRequest
+type ReleaseCreateRequest struct {
+	Release ReleaseCreate `json:"release"`
+}
+
+// GetRelease returns the value of Release.
+func (s *ReleaseCreateRequest) GetRelease() ReleaseCreate {
+	return s.Release
+}
+
+// SetRelease sets the value of Release.
+func (s *ReleaseCreateRequest) SetRelease(val ReleaseCreate) {
+	s.Release = val
 }
 
 // Ref: #/components/schemas/ReleaseResponse

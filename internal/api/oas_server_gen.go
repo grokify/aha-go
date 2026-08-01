@@ -50,6 +50,12 @@ type Handler interface {
 	//
 	// POST /products/{product_id}/strategy_models
 	CreateProductStrategicModel(ctx context.Context, req *StrategicModelCreateRequest, params CreateProductStrategicModelParams) (*StrategicModelResponse, error)
+	// CreateRelease implements createRelease operation.
+	//
+	// Create a new release for a product.
+	//
+	// POST /products/{product_id}/releases
+	CreateRelease(ctx context.Context, req *ReleaseCreateRequest, params CreateReleaseParams) (*ReleaseResponse, error)
 	// CreateReleaseEpic implements createReleaseEpic operation.
 	//
 	// Create a new epic in a release.
@@ -68,6 +74,12 @@ type Handler interface {
 	//
 	// DELETE /comments/{comment_id}
 	DeleteComment(ctx context.Context, params DeleteCommentParams) error
+	// DeleteIdea implements deleteIdea operation.
+	//
+	// Delete an idea by ID.
+	//
+	// DELETE /ideas/{idea_id}
+	DeleteIdea(ctx context.Context, params DeleteIdeaParams) error
 	// DeleteRequirement implements deleteRequirement operation.
 	//
 	// Delete a requirement.
@@ -176,6 +188,12 @@ type Handler interface {
 	//
 	// GET /features/{feature_id}/comments
 	ListFeatureComments(ctx context.Context, params ListFeatureCommentsParams) (*CommentsResponse, error)
+	// ListFeatureIdeas implements listFeatureIdeas operation.
+	//
+	// Get all ideas that have been promoted to or linked with a feature.
+	//
+	// GET /features/{feature_id}/ideas
+	ListFeatureIdeas(ctx context.Context, params ListFeatureIdeasParams) (*IdeasResponse, error)
 	// ListFeatureRequirements implements listFeatureRequirements operation.
 	//
 	// Get all requirements for a feature.
@@ -248,6 +266,12 @@ type Handler interface {
 	//
 	// GET /products/{product_id}/goals
 	ListProductGoals(ctx context.Context, params ListProductGoalsParams) (*GoalsResponse, error)
+	// ListProductIdeaCategories implements listProductIdeaCategories operation.
+	//
+	// Get all idea categories for a product.
+	//
+	// GET /products/{product_id}/idea_categories
+	ListProductIdeaCategories(ctx context.Context, params ListProductIdeaCategoriesParams) (*IdeaCategoriesResponse, error)
 	// ListProductInitiatives implements listProductInitiatives operation.
 	//
 	// Get all initiatives for a product.

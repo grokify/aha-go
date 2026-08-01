@@ -411,6 +411,72 @@ func decodeCreateProductStrategicModelParams(args [1]string, argsEscaped bool, r
 	return params, nil
 }
 
+// CreateReleaseParams is parameters of createRelease operation.
+type CreateReleaseParams struct {
+	// Product ID or reference prefix.
+	ProductID string
+}
+
+func unpackCreateReleaseParams(packed middleware.Parameters) (params CreateReleaseParams) {
+	{
+		key := middleware.ParameterKey{
+			Name: "product_id",
+			In:   "path",
+		}
+		params.ProductID = packed[key].(string)
+	}
+	return params
+}
+
+func decodeCreateReleaseParams(args [1]string, argsEscaped bool, r *http.Request) (params CreateReleaseParams, _ error) {
+	// Decode path: product_id.
+	if err := func() error {
+		param := args[0]
+		if argsEscaped {
+			unescaped, err := url.PathUnescape(args[0])
+			if err != nil {
+				return errors.Wrap(err, "unescape path")
+			}
+			param = unescaped
+		}
+		if len(param) > 0 {
+			d := uri.NewPathDecoder(uri.PathDecoderConfig{
+				Param:   "product_id",
+				Value:   param,
+				Style:   uri.PathStyleSimple,
+				Explode: false,
+			})
+
+			if err := func() error {
+				val, err := d.DecodeValue()
+				if err != nil {
+					return err
+				}
+
+				c, err := conv.ToString(val)
+				if err != nil {
+					return err
+				}
+
+				params.ProductID = c
+				return nil
+			}(); err != nil {
+				return err
+			}
+		} else {
+			return validate.ErrFieldRequired
+		}
+		return nil
+	}(); err != nil {
+		return params, &ogenerrors.DecodeParamError{
+			Name: "product_id",
+			In:   "path",
+			Err:  err,
+		}
+	}
+	return params, nil
+}
+
 // CreateReleaseEpicParams is parameters of createReleaseEpic operation.
 type CreateReleaseEpicParams struct {
 	// Release ID or reference number.
@@ -602,6 +668,72 @@ func decodeDeleteCommentParams(args [1]string, argsEscaped bool, r *http.Request
 	}(); err != nil {
 		return params, &ogenerrors.DecodeParamError{
 			Name: "comment_id",
+			In:   "path",
+			Err:  err,
+		}
+	}
+	return params, nil
+}
+
+// DeleteIdeaParams is parameters of deleteIdea operation.
+type DeleteIdeaParams struct {
+	// Idea ID or reference number.
+	IdeaID string
+}
+
+func unpackDeleteIdeaParams(packed middleware.Parameters) (params DeleteIdeaParams) {
+	{
+		key := middleware.ParameterKey{
+			Name: "idea_id",
+			In:   "path",
+		}
+		params.IdeaID = packed[key].(string)
+	}
+	return params
+}
+
+func decodeDeleteIdeaParams(args [1]string, argsEscaped bool, r *http.Request) (params DeleteIdeaParams, _ error) {
+	// Decode path: idea_id.
+	if err := func() error {
+		param := args[0]
+		if argsEscaped {
+			unescaped, err := url.PathUnescape(args[0])
+			if err != nil {
+				return errors.Wrap(err, "unescape path")
+			}
+			param = unescaped
+		}
+		if len(param) > 0 {
+			d := uri.NewPathDecoder(uri.PathDecoderConfig{
+				Param:   "idea_id",
+				Value:   param,
+				Style:   uri.PathStyleSimple,
+				Explode: false,
+			})
+
+			if err := func() error {
+				val, err := d.DecodeValue()
+				if err != nil {
+					return err
+				}
+
+				c, err := conv.ToString(val)
+				if err != nil {
+					return err
+				}
+
+				params.IdeaID = c
+				return nil
+			}(); err != nil {
+				return err
+			}
+		} else {
+			return validate.ErrFieldRequired
+		}
+		return nil
+	}(); err != nil {
+		return params, &ogenerrors.DecodeParamError{
+			Name: "idea_id",
 			In:   "path",
 			Err:  err,
 		}
@@ -1893,6 +2025,175 @@ func unpackListFeatureCommentsParams(packed middleware.Parameters) (params ListF
 }
 
 func decodeListFeatureCommentsParams(args [1]string, argsEscaped bool, r *http.Request) (params ListFeatureCommentsParams, _ error) {
+	q := uri.NewQueryDecoder(r.URL.Query())
+	// Decode path: feature_id.
+	if err := func() error {
+		param := args[0]
+		if argsEscaped {
+			unescaped, err := url.PathUnescape(args[0])
+			if err != nil {
+				return errors.Wrap(err, "unescape path")
+			}
+			param = unescaped
+		}
+		if len(param) > 0 {
+			d := uri.NewPathDecoder(uri.PathDecoderConfig{
+				Param:   "feature_id",
+				Value:   param,
+				Style:   uri.PathStyleSimple,
+				Explode: false,
+			})
+
+			if err := func() error {
+				val, err := d.DecodeValue()
+				if err != nil {
+					return err
+				}
+
+				c, err := conv.ToString(val)
+				if err != nil {
+					return err
+				}
+
+				params.FeatureID = c
+				return nil
+			}(); err != nil {
+				return err
+			}
+		} else {
+			return validate.ErrFieldRequired
+		}
+		return nil
+	}(); err != nil {
+		return params, &ogenerrors.DecodeParamError{
+			Name: "feature_id",
+			In:   "path",
+			Err:  err,
+		}
+	}
+	// Decode query: page.
+	if err := func() error {
+		cfg := uri.QueryParameterDecodingConfig{
+			Name:    "page",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.HasParam(cfg); err == nil {
+			if err := q.DecodeParam(cfg, func(d uri.Decoder) error {
+				var paramsDotPageVal int32
+				if err := func() error {
+					val, err := d.DecodeValue()
+					if err != nil {
+						return err
+					}
+
+					c, err := conv.ToInt32(val)
+					if err != nil {
+						return err
+					}
+
+					paramsDotPageVal = c
+					return nil
+				}(); err != nil {
+					return err
+				}
+				params.Page.SetTo(paramsDotPageVal)
+				return nil
+			}); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		return params, &ogenerrors.DecodeParamError{
+			Name: "page",
+			In:   "query",
+			Err:  err,
+		}
+	}
+	// Decode query: per_page.
+	if err := func() error {
+		cfg := uri.QueryParameterDecodingConfig{
+			Name:    "per_page",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.HasParam(cfg); err == nil {
+			if err := q.DecodeParam(cfg, func(d uri.Decoder) error {
+				var paramsDotPerPageVal int32
+				if err := func() error {
+					val, err := d.DecodeValue()
+					if err != nil {
+						return err
+					}
+
+					c, err := conv.ToInt32(val)
+					if err != nil {
+						return err
+					}
+
+					paramsDotPerPageVal = c
+					return nil
+				}(); err != nil {
+					return err
+				}
+				params.PerPage.SetTo(paramsDotPerPageVal)
+				return nil
+			}); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		return params, &ogenerrors.DecodeParamError{
+			Name: "per_page",
+			In:   "query",
+			Err:  err,
+		}
+	}
+	return params, nil
+}
+
+// ListFeatureIdeasParams is parameters of listFeatureIdeas operation.
+type ListFeatureIdeasParams struct {
+	// Feature ID or reference number.
+	FeatureID string
+	Page      OptInt32 `json:",omitempty,omitzero"`
+	PerPage   OptInt32 `json:",omitempty,omitzero"`
+}
+
+func unpackListFeatureIdeasParams(packed middleware.Parameters) (params ListFeatureIdeasParams) {
+	{
+		key := middleware.ParameterKey{
+			Name: "feature_id",
+			In:   "path",
+		}
+		params.FeatureID = packed[key].(string)
+	}
+	{
+		key := middleware.ParameterKey{
+			Name: "page",
+			In:   "query",
+		}
+		if v, ok := packed[key]; ok {
+			params.Page = v.(OptInt32)
+		}
+	}
+	{
+		key := middleware.ParameterKey{
+			Name: "per_page",
+			In:   "query",
+		}
+		if v, ok := packed[key]; ok {
+			params.PerPage = v.(OptInt32)
+		}
+	}
+	return params
+}
+
+func decodeListFeatureIdeasParams(args [1]string, argsEscaped bool, r *http.Request) (params ListFeatureIdeasParams, _ error) {
 	q := uri.NewQueryDecoder(r.URL.Query())
 	// Decode path: feature_id.
 	if err := func() error {
@@ -4734,6 +5035,72 @@ func decodeListProductGoalsParams(args [1]string, argsEscaped bool, r *http.Requ
 		return params, &ogenerrors.DecodeParamError{
 			Name: "per_page",
 			In:   "query",
+			Err:  err,
+		}
+	}
+	return params, nil
+}
+
+// ListProductIdeaCategoriesParams is parameters of listProductIdeaCategories operation.
+type ListProductIdeaCategoriesParams struct {
+	// Product ID or reference prefix.
+	ProductID string
+}
+
+func unpackListProductIdeaCategoriesParams(packed middleware.Parameters) (params ListProductIdeaCategoriesParams) {
+	{
+		key := middleware.ParameterKey{
+			Name: "product_id",
+			In:   "path",
+		}
+		params.ProductID = packed[key].(string)
+	}
+	return params
+}
+
+func decodeListProductIdeaCategoriesParams(args [1]string, argsEscaped bool, r *http.Request) (params ListProductIdeaCategoriesParams, _ error) {
+	// Decode path: product_id.
+	if err := func() error {
+		param := args[0]
+		if argsEscaped {
+			unescaped, err := url.PathUnescape(args[0])
+			if err != nil {
+				return errors.Wrap(err, "unescape path")
+			}
+			param = unescaped
+		}
+		if len(param) > 0 {
+			d := uri.NewPathDecoder(uri.PathDecoderConfig{
+				Param:   "product_id",
+				Value:   param,
+				Style:   uri.PathStyleSimple,
+				Explode: false,
+			})
+
+			if err := func() error {
+				val, err := d.DecodeValue()
+				if err != nil {
+					return err
+				}
+
+				c, err := conv.ToString(val)
+				if err != nil {
+					return err
+				}
+
+				params.ProductID = c
+				return nil
+			}(); err != nil {
+				return err
+			}
+		} else {
+			return validate.ErrFieldRequired
+		}
+		return nil
+	}(); err != nil {
+		return params, &ogenerrors.DecodeParamError{
+			Name: "product_id",
+			In:   "path",
 			Err:  err,
 		}
 	}

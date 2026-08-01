@@ -76,6 +76,15 @@ func (UnimplementedHandler) CreateProductStrategicModel(ctx context.Context, req
 	return r, ht.ErrNotImplemented
 }
 
+// CreateRelease implements createRelease operation.
+//
+// Create a new release for a product.
+//
+// POST /products/{product_id}/releases
+func (UnimplementedHandler) CreateRelease(ctx context.Context, req *ReleaseCreateRequest, params CreateReleaseParams) (r *ReleaseResponse, _ error) {
+	return r, ht.ErrNotImplemented
+}
+
 // CreateReleaseEpic implements createReleaseEpic operation.
 //
 // Create a new epic in a release.
@@ -100,6 +109,15 @@ func (UnimplementedHandler) CreateReleaseFeature(ctx context.Context, req *Featu
 //
 // DELETE /comments/{comment_id}
 func (UnimplementedHandler) DeleteComment(ctx context.Context, params DeleteCommentParams) error {
+	return ht.ErrNotImplemented
+}
+
+// DeleteIdea implements deleteIdea operation.
+//
+// Delete an idea by ID.
+//
+// DELETE /ideas/{idea_id}
+func (UnimplementedHandler) DeleteIdea(ctx context.Context, params DeleteIdeaParams) error {
 	return ht.ErrNotImplemented
 }
 
@@ -265,6 +283,15 @@ func (UnimplementedHandler) ListFeatureComments(ctx context.Context, params List
 	return r, ht.ErrNotImplemented
 }
 
+// ListFeatureIdeas implements listFeatureIdeas operation.
+//
+// Get all ideas that have been promoted to or linked with a feature.
+//
+// GET /features/{feature_id}/ideas
+func (UnimplementedHandler) ListFeatureIdeas(ctx context.Context, params ListFeatureIdeasParams) (r *IdeasResponse, _ error) {
+	return r, ht.ErrNotImplemented
+}
+
 // ListFeatureRequirements implements listFeatureRequirements operation.
 //
 // Get all requirements for a feature.
@@ -370,6 +397,15 @@ func (UnimplementedHandler) ListProductEpics(ctx context.Context, params ListPro
 //
 // GET /products/{product_id}/goals
 func (UnimplementedHandler) ListProductGoals(ctx context.Context, params ListProductGoalsParams) (r *GoalsResponse, _ error) {
+	return r, ht.ErrNotImplemented
+}
+
+// ListProductIdeaCategories implements listProductIdeaCategories operation.
+//
+// Get all idea categories for a product.
+//
+// GET /products/{product_id}/idea_categories
+func (UnimplementedHandler) ListProductIdeaCategories(ctx context.Context, params ListProductIdeaCategoriesParams) (r *IdeaCategoriesResponse, _ error) {
 	return r, ht.ErrNotImplemented
 }
 
