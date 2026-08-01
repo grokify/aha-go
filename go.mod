@@ -22,7 +22,7 @@ require (
 
 require (
 	github.com/grokify/goauth v0.23.30
-	github.com/grokify/prism-roadmap v0.16.0
+	github.com/grokify/prism-roadmap v0.16.1
 	github.com/ogen-go/ogen v1.23.0
 	github.com/spf13/cobra v1.10.2
 )
@@ -46,7 +46,7 @@ require (
 	github.com/googleapis/gax-go/v2 v2.23.0 // indirect
 	github.com/grokify/mogo v0.74.6 // indirect
 	github.com/grokify/priority-frameworks v0.2.0 // indirect
-	github.com/grokify/prism-core v0.3.0 // indirect
+	github.com/grokify/prism-core v0.4.0 // indirect
 	github.com/huandu/xstrings v1.5.0 // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/jessevdk/go-flags v1.6.1 // indirect
