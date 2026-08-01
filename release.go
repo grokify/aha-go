@@ -152,6 +152,91 @@ func (c *Client) UpdateRelease(ctx context.Context, id string, opts ...UpdateRel
 	return nil, &APIError{StatusCode: 500, Message: "unexpected response: release not returned"}
 }
 
+// CreateReleaseOptions configures CreateRelease.
+type CreateReleaseOptions struct {
+	Name                 string
+	StartDate            *time.Time
+	ReleaseDate          *time.Time
+	ExternalReleaseDate  *time.Time
+	DevelopmentStartedOn *time.Time
+	ParkingLot           *bool
+	Theme                string
+}
+
+// CreateReleaseOption configures a CreateRelease call.
+type CreateReleaseOption func(*CreateReleaseOptions)
+
+// WithCreateReleaseName sets the release name.
+func WithCreateReleaseName(name string) CreateReleaseOption {
+	return func(o *CreateReleaseOptions) { o.Name = name }
+}
+
+// WithCreateReleaseStartDate sets the start date.
+func WithCreateReleaseStartDate(t time.Time) CreateReleaseOption {
+	return func(o *CreateReleaseOptions) { o.StartDate = &t }
+}
+
+// WithCreateReleaseDate sets the release date.
+func WithCreateReleaseDate(t time.Time) CreateReleaseOption {
+	return func(o *CreateReleaseOptions) { o.ReleaseDate = &t }
+}
+
+// WithCreateReleaseParkingLot sets whether this is a parking lot release.
+func WithCreateReleaseParkingLot(parkingLot bool) CreateReleaseOption {
+	return func(o *CreateReleaseOptions) { o.ParkingLot = &parkingLot }
+}
+
+// WithCreateReleaseTheme sets the release theme.
+func WithCreateReleaseTheme(theme string) CreateReleaseOption {
+	return func(o *CreateReleaseOptions) { o.Theme = theme }
+}
+
+// CreateRelease creates a new release for a product.
+func (c *Client) CreateRelease(ctx context.Context, productID string, name string, opts ...CreateReleaseOption) (*Release, error) {
+	cfg := &CreateReleaseOptions{Name: name}
+	for _, opt := range opts {
+		opt(cfg)
+	}
+
+	release := api.ReleaseCreate{
+		Name: cfg.Name,
+	}
+	if cfg.StartDate != nil {
+		release.StartDate = api.NewOptDate(*cfg.StartDate)
+	}
+	if cfg.ReleaseDate != nil {
+		release.ReleaseDate = api.NewOptDate(*cfg.ReleaseDate)
+	}
+	if cfg.ExternalReleaseDate != nil {
+		release.ExternalReleaseDate = api.NewOptDate(*cfg.ExternalReleaseDate)
+	}
+	if cfg.DevelopmentStartedOn != nil {
+		release.DevelopmentStartedOn = api.NewOptDate(*cfg.DevelopmentStartedOn)
+	}
+	if cfg.ParkingLot != nil {
+		release.ParkingLot = api.NewOptBool(*cfg.ParkingLot)
+	}
+	if cfg.Theme != "" {
+		release.Theme = api.NewOptString(cfg.Theme)
+	}
+
+	req := &api.ReleaseCreateRequest{
+		Release: release,
+	}
+
+	resp, err := c.apiClient.CreateRelease(ctx, req, api.CreateReleaseParams{
+		ProductID: productID,
+	})
+	if err != nil {
+		return nil, wrapError("CreateRelease", err)
+	}
+
+	if r, ok := resp.Release.Get(); ok {
+		return releaseFromAPI(r), nil
+	}
+	return nil, &APIError{StatusCode: 500, Message: "unexpected response: release not returned"}
+}
+
 // releaseFromAPI converts an API release to a domain release.
 func releaseFromAPI(r api.Release) *Release {
 	release := &Release{}
