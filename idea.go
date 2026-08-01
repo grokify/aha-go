@@ -407,3 +407,63 @@ func ideaFeatureFromAPI(f api.IdeaFeature) *IdeaFeature {
 	}
 	return feature
 }
+
+// DeleteIdea deletes an idea by ID or reference number.
+func (c *Client) DeleteIdea(ctx context.Context, id string) error {
+	err := c.apiClient.DeleteIdea(ctx, api.DeleteIdeaParams{
+		IdeaID: id,
+	})
+	if err != nil {
+		return wrapError("DeleteIdea", err)
+	}
+	return nil
+}
+
+// IdeaCategoryList represents a list of idea categories.
+type IdeaCategoryList struct {
+	Categories []Category
+	Pagination Pagination
+}
+
+// ListProductIdeaCategories lists idea categories for a product.
+func (c *Client) ListProductIdeaCategories(ctx context.Context, productID string) (*IdeaCategoryList, error) {
+	resp, err := c.apiClient.ListProductIdeaCategories(ctx, api.ListProductIdeaCategoriesParams{
+		ProductID: productID,
+	})
+	if err != nil {
+		return nil, wrapError("ListProductIdeaCategories", err)
+	}
+
+	return ideaCategoryListFromAPI(resp), nil
+}
+
+// ideaCategoryListFromAPI converts an API idea categories response to a domain list.
+func ideaCategoryListFromAPI(resp *api.IdeaCategoriesResponse) *IdeaCategoryList {
+	list := &IdeaCategoryList{}
+
+	list.Categories = make([]Category, len(resp.IdeaCategories))
+	for i, c := range resp.IdeaCategories {
+		list.Categories[i] = Category{}
+		if v, ok := c.ID.Get(); ok {
+			list.Categories[i].ID = v
+		}
+		if v, ok := c.Name.Get(); ok {
+			list.Categories[i].Name = v
+		}
+		if v, ok := c.ParentID.Get(); ok {
+			list.Categories[i].ParentID = v
+		}
+		if v, ok := c.ProjectID.Get(); ok {
+			list.Categories[i].ProjectID = v
+		}
+		if v, ok := c.CreatedAt.Get(); ok {
+			list.Categories[i].CreatedAt = v
+		}
+	}
+
+	if v, ok := resp.Pagination.Get(); ok {
+		list.Pagination = paginationFromAPI(v)
+	}
+
+	return list
+}
