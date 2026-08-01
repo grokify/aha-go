@@ -137,6 +137,12 @@ feature, err := client.UpdateFeature(ctx, "PROD-123",
     aha.WithFeatureStatus("In Progress"),
     aha.WithFeatureRelease("REL-456"),
 )
+
+// List ideas linked to a feature
+ideas, err := client.ListFeatureIdeas(ctx, "PROD-123",
+    aha.WithFeatureIdeasPage(1),
+    aha.WithFeatureIdeasPerPage(50),
+)
 ```
 
 ### Ideas
@@ -159,6 +165,12 @@ idea, err := client.UpdateIdea(ctx, "IDEA-123",
     aha.WithUpdateIdeaCategories([]string{"category-id"}),
     aha.WithUpdateIdeaVisibility("public"),
 )
+
+// Delete an idea
+err = client.DeleteIdea(ctx, "IDEA-123")
+
+// List idea categories for a product
+categories, err := client.ListProductIdeaCategories(ctx, "PROD")
 ```
 
 ### Custom Field Definitions
@@ -214,6 +226,13 @@ releases, err := client.ListProductReleases(ctx, "PROD")
 // Get a release
 release, err := client.GetRelease(ctx, "PROD-R-1")
 fmt.Println(release.Theme) // shown as the release's description in the Aha! UI
+
+// Create a release
+release, err := client.CreateRelease(ctx, "PROD", "Q4 2026 Release",
+    aha.WithCreateReleaseStartDate(time.Date(2026, 10, 1, 0, 0, 0, 0, time.UTC)),
+    aha.WithCreateReleaseDate(time.Date(2026, 12, 15, 0, 0, 0, 0, time.UTC)),
+    aha.WithCreateReleaseTheme("Performance improvements"),
+)
 
 // Update a release's theme
 release, err := client.UpdateRelease(ctx, "PROD-R-1",
