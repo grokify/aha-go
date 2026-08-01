@@ -498,6 +498,45 @@ paths:
               schema:
                 $ref: "#/components/schemas/IdeaResponse"
 
+    delete:
+      operationId: deleteIdea
+      summary: Delete idea
+      description: Delete an idea by ID
+      tags:
+        - Ideas
+      parameters:
+        - name: idea_id
+          in: path
+          required: true
+          description: Idea ID or reference number
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Idea deleted successfully
+
+  /products/{product_id}/idea_categories:
+    get:
+      operationId: listProductIdeaCategories
+      summary: List idea categories
+      description: Get all idea categories for a product
+      tags:
+        - Ideas
+      parameters:
+        - name: product_id
+          in: path
+          required: true
+          description: Product ID or reference prefix
+          schema:
+            type: string
+      responses:
+        "200":
+          description: A list of idea categories
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/IdeaCategoriesResponse"
+
   /products:
     get:
       operationId: listProducts
@@ -635,6 +674,33 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ReleasesResponse"
+
+    post:
+      operationId: createRelease
+      summary: Create release
+      description: Create a new release for a product
+      tags:
+        - Releases
+      parameters:
+        - name: product_id
+          in: path
+          required: true
+          description: Product ID or reference prefix
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ReleaseCreateRequest"
+      responses:
+        "200":
+          description: Created release
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReleaseResponse"
 
   /products/{product_id}/workflows:
     get:
@@ -992,6 +1058,38 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/CommentResponse"
+
+  /features/{feature_id}/ideas:
+    get:
+      operationId: listFeatureIdeas
+      summary: List ideas linked to a feature
+      description: Get all ideas that have been promoted to or linked with a feature
+      tags:
+        - Features
+      parameters:
+        - name: feature_id
+          in: path
+          required: true
+          description: Feature ID or reference number
+          schema:
+            type: string
+        - name: page
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: per_page
+          in: query
+          schema:
+            type: integer
+            format: int32
+      responses:
+        "200":
+          description: A list of ideas linked to the feature
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/IdeasResponse"
 
   /ideas/{idea_id}/comments:
     get:
@@ -2232,6 +2330,32 @@ components:
         pagination:
           $ref: "#/components/schemas/Pagination"
 
+    IdeaCategoriesResponse:
+      type: object
+      properties:
+        idea_categories:
+          type: array
+          items:
+            $ref: "#/components/schemas/IdeaCategory"
+        pagination:
+          $ref: "#/components/schemas/Pagination"
+
+    IdeaCategory:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        parent_id:
+          type: string
+          nullable: true
+        project_id:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+
     # Epic schemas
     Epic:
       type: object
@@ -2936,6 +3060,39 @@ components:
         theme:
           type: string
           description: Theme of the release (may include HTML formatting). Also shown as the release description in the Aha! UI.
+
+    ReleaseCreateRequest:
+      type: object
+      required:
+        - release
+      properties:
+        release:
+          $ref: "#/components/schemas/ReleaseCreate"
+
+    ReleaseCreate:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+        start_date:
+          type: string
+          format: date
+        release_date:
+          type: string
+          format: date
+        external_release_date:
+          type: string
+          format: date
+        development_started_on:
+          type: string
+          format: date
+        parking_lot:
+          type: boolean
+        theme:
+          type: string
+          description: Theme of the release (may include HTML formatting)
 
     # Initiative schemas
     Initiative:
