@@ -43,6 +43,30 @@ func WithBaseURL(baseURL string) Option {
 	}
 }
 
+// WithRetryDisabled disables automatic retry of 429/5xx responses.
+func WithRetryDisabled() Option {
+	return func(c *Config) {
+		c.RetryDisabled = true
+	}
+}
+
+// WithMaxRetries sets the maximum number of retry attempts for 429/5xx
+// responses. Has no effect if retry is disabled via WithRetryDisabled.
+func WithMaxRetries(n int) Option {
+	return func(c *Config) {
+		c.MaxRetries = n
+	}
+}
+
+// WithRequestsPerSecond throttles outgoing requests to at most rps requests
+// per second using a token bucket. Use this for bulk operations to
+// proactively stay under Aha's rate limits (20 req/s, 300 req/min).
+func WithRequestsPerSecond(rps float64) Option {
+	return func(c *Config) {
+		c.RequestsPerSecond = rps
+	}
+}
+
 // ListOptions configures list operations.
 type ListOptions struct {
 	Page    int

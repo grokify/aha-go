@@ -25,6 +25,22 @@ type Config struct {
 	// BaseURL overrides the default API URL.
 	// If empty, https://{subdomain}.aha.io/api/v1 is used.
 	BaseURL string
+
+	// RetryDisabled disables automatic retry of 429/5xx responses.
+	// By default, requests are retried with exponential backoff and jitter.
+	RetryDisabled bool
+
+	// MaxRetries is the maximum number of retry attempts for 429/5xx
+	// responses. Default is 3. Ignored if RetryDisabled is true.
+	MaxRetries int
+
+	// RequestsPerSecond, if set (> 0), throttles outgoing requests to at
+	// most this rate using a token bucket. Default is 0 (unlimited), since
+	// Aha's REST API already allows up to 20 requests/second and 300
+	// requests/minute per source IP; set this for bulk operations (e.g.
+	// syncing many records one at a time) to proactively stay under those
+	// limits instead of relying solely on retry-after-429.
+	RequestsPerSecond float64
 }
 
 // loadDefaults sets default values for unset fields.

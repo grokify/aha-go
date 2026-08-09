@@ -7,6 +7,8 @@ import (
 	"net/http"
 
 	"github.com/grokify/aha-go/internal/api"
+	"github.com/grokify/mogo/net/http/retryhttp"
+	"golang.org/x/time/rate"
 )
 
 const (
@@ -45,6 +47,13 @@ func NewClient(opts ...Option) (*Client, error) {
 	// Create security source for authentication
 	secSource := &securitySource{apiKey: cfg.APIKey}
 
+	// Wrap the configured HTTP client's transport with rate limiting and
+	// retry, so both the typed ogen client and DoRaw() benefit. Order
+	// matters: retry wraps rate-limiting (not the reverse), so each retry
+	// attempt also waits for a token — every actual HTTP send counts against
+	// Aha's rate limit, retried or not.
+	cfg.HTTPClient = wrapTransport(cfg.HTTPClient, cfg)
+
 	// Create custom HTTP client with SDK headers
 	httpClient := &sdkHTTPClient{
 		client: cfg.HTTPClient,
@@ -63,6 +72,49 @@ func NewClient(opts ...Option) (*Client, error) {
 		config:    cfg,
 		apiClient: apiClient,
 	}, nil
+}
+
+// wrapTransport returns a new *http.Client based on client with rate
+// limiting and/or retry applied to its transport, per the given config.
+// The original client is left untouched.
+func wrapTransport(client *http.Client, cfg *Config) *http.Client {
+	if cfg.RequestsPerSecond <= 0 && cfg.RetryDisabled {
+		return client
+	}
+
+	transport := client.Transport
+	if transport == nil {
+		transport = http.DefaultTransport
+	}
+
+	if cfg.RequestsPerSecond > 0 {
+		burst := int(cfg.RequestsPerSecond)
+		if burst < 1 {
+			burst = 1
+		}
+		transport = &rateLimitedTransport{
+			next:    transport,
+			limiter: rate.NewLimiter(rate.Limit(cfg.RequestsPerSecond), burst),
+		}
+	}
+
+	if !cfg.RetryDisabled {
+		maxRetries := cfg.MaxRetries
+		if maxRetries <= 0 {
+			maxRetries = 3
+		}
+		transport = retryhttp.NewWithOptions(
+			retryhttp.WithTransport(transport),
+			retryhttp.WithMaxRetries(maxRetries),
+		)
+	}
+
+	return &http.Client{
+		Transport:     transport,
+		CheckRedirect: client.CheckRedirect,
+		Jar:           client.Jar,
+		Timeout:       client.Timeout,
+	}
 }
 
 // Subdomain returns the configured Aha subdomain.

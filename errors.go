@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"net/http"
 	"strings"
+
+	"github.com/ogen-go/ogen/validate"
 )
 
 // Sentinel errors for configuration and validation.
@@ -18,6 +20,12 @@ type APIError struct {
 	StatusCode int
 	Message    string
 	RequestID  string
+
+	// RateLimit carries Aha's rate limit headers when available. It is nil
+	// unless the underlying response included them (e.g. wrapError could not
+	// determine the response, or the error did not originate from an HTTP
+	// response).
+	RateLimit *RateLimitInfo
 }
 
 // Error implements the error interface.
@@ -78,6 +86,22 @@ func IsServerError(err error) bool {
 func wrapError(operation string, err error) error {
 	if err == nil {
 		return nil
+	}
+
+	// Prefer the real status code and response headers from ogen's
+	// UnexpectedStatusCodeError, which retains the full *http.Response
+	// (including Aha's X-Ratelimit-* headers) rather than guessing from the
+	// error message.
+	var statusErr *validate.UnexpectedStatusCodeError
+	if errors.As(err, &statusErr) {
+		apiErr := &APIError{
+			StatusCode: statusErr.StatusCode,
+			Message:    fmt.Sprintf("%s: %v", operation, err),
+		}
+		if statusErr.Payload != nil {
+			apiErr.RateLimit = rateLimitFromHeaders(statusErr.Payload.Header)
+		}
+		return apiErr
 	}
 
 	// Extract HTTP status code from error message if present
