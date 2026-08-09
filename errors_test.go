@@ -6,6 +6,9 @@ import (
 	"fmt"
 	"net/http"
 	"testing"
+	"time"
+
+	"github.com/ogen-go/ogen/validate"
 )
 
 func TestAPIErrorError(t *testing.T) {
@@ -403,6 +406,71 @@ func TestWrapError(t *testing.T) {
 				}
 			}
 		})
+	}
+}
+
+func TestWrapError_UnexpectedStatusCodeError(t *testing.T) {
+	statusErr := &validate.UnexpectedStatusCodeError{
+		StatusCode: http.StatusTooManyRequests,
+		Payload: &http.Response{
+			Header: http.Header{
+				"X-Ratelimit-Limit":     []string{"300"},
+				"X-Ratelimit-Remaining": []string{"0"},
+				"X-Ratelimit-Reset":     []string{"1498005537"},
+			},
+		},
+	}
+
+	// ogen wraps decoder/validation failures around UnexpectedStatusCodeError;
+	// simulate that wrapping to confirm errors.As still unwraps it correctly.
+	wrapped := fmt.Errorf("decode response: %w", error(statusErr))
+
+	got := wrapError("list initiatives", wrapped)
+
+	var apiErr *APIError
+	if !errors.As(got, &apiErr) {
+		t.Fatalf("wrapError() did not return *APIError, got %T", got)
+	}
+	if apiErr.StatusCode != http.StatusTooManyRequests {
+		t.Errorf("StatusCode = %d, want %d", apiErr.StatusCode, http.StatusTooManyRequests)
+	}
+	if apiErr.RateLimit == nil {
+		t.Fatal("RateLimit = nil, want populated")
+	}
+	if apiErr.RateLimit.Limit != 300 {
+		t.Errorf("RateLimit.Limit = %d, want 300", apiErr.RateLimit.Limit)
+	}
+	if apiErr.RateLimit.Remaining != 0 {
+		t.Errorf("RateLimit.Remaining = %d, want 0", apiErr.RateLimit.Remaining)
+	}
+	wantReset := time.Unix(1498005537, 0)
+	if !apiErr.RateLimit.Reset.Equal(wantReset) {
+		t.Errorf("RateLimit.Reset = %v, want %v", apiErr.RateLimit.Reset, wantReset)
+	}
+	if !IsRateLimited(got) {
+		t.Error("IsRateLimited() = false, want true")
+	}
+}
+
+func TestWrapError_UnexpectedStatusCodeError_NoHeaders(t *testing.T) {
+	statusErr := &validate.UnexpectedStatusCodeError{
+		StatusCode: http.StatusNotFound,
+		Payload: &http.Response{
+			Header: http.Header{},
+		},
+	}
+
+	got := wrapError("get feature", error(statusErr))
+
+	var apiErr *APIError
+	if !errors.As(got, &apiErr) {
+		t.Fatalf("wrapError() did not return *APIError, got %T", got)
+	}
+	if apiErr.StatusCode != http.StatusNotFound {
+		t.Errorf("StatusCode = %d, want %d", apiErr.StatusCode, http.StatusNotFound)
+	}
+	if apiErr.RateLimit != nil {
+		t.Errorf("RateLimit = %+v, want nil", apiErr.RateLimit)
 	}
 }
 
