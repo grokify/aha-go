@@ -8,8 +8,11 @@ require (
 	github.com/go-faster/jx v1.2.0
 
 	// Browser automation for template creation (no API available).
-	// go-rod v0.116.2 (July 2024) requires fetchup v0.2.4; newer fetchup versions
-	// have breaking API changes. go-rod appears unmaintained since 2024.
+	// go-rod v0.116.2 (July 2024) requires fetchup v0.2.4; fetchup v0.3.0+
+	// changed fetchup.New's signature (breaking go-rod's launcher package).
+	// go-rod appears unmaintained since 2024, so the pin below is enforced
+	// via a `replace` directive (a plain require pin gets overwritten by
+	// `go get -u ./...`; replace does not).
 	// TODO: Consider migrating to chromedp with a high-level wrapper.
 	// See: docs/specs/ROADMAP.md for migration plan.
 	github.com/go-rod/rod v0.116.2
@@ -17,7 +20,7 @@ require (
 	github.com/grokify/prism-roadmap v0.16.1
 	github.com/ogen-go/ogen v1.24.0
 	github.com/spf13/cobra v1.10.2
-	github.com/ysmood/fetchup v0.2.4 // indirect; pinned for go-rod v0.116.2 compatibility
+	github.com/ysmood/fetchup v0.2.4 // indirect; pinned for go-rod v0.116.2 compatibility, see replace below
 	go.opentelemetry.io/otel v1.45.0
 	go.opentelemetry.io/otel/metric v1.45.0
 	go.opentelemetry.io/otel/trace v1.45.0
@@ -74,3 +77,5 @@ require (
 	google.golang.org/protobuf v1.36.11 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
+
+replace github.com/ysmood/fetchup => github.com/ysmood/fetchup v0.2.4
