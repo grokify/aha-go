@@ -17,7 +17,7 @@ require (
 	// See: docs/specs/ROADMAP.md for migration plan.
 	github.com/go-rod/rod v0.116.2
 	github.com/grokify/goauth v0.23.30
-	github.com/grokify/mogo v0.74.6
+	github.com/grokify/mogo v0.74.7
 	github.com/grokify/prism-roadmap v0.16.1
 	github.com/ogen-go/ogen v1.24.0
 	github.com/spf13/cobra v1.10.2
