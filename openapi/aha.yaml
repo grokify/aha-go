@@ -1150,6 +1150,131 @@ paths:
               schema:
                 $ref: "#/components/schemas/CommentResponse"
 
+  /ideas/{idea_id}/endorsements:
+    get:
+      operationId: listIdeaEndorsements
+      summary: List endorsements (votes) on an idea
+      description: Get all endorsements (votes) on an idea, including voter identity
+      tags:
+        - Ideas
+      parameters:
+        - name: idea_id
+          in: path
+          required: true
+          description: Idea ID or reference number
+          schema:
+            type: string
+        - name: page
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: per_page
+          in: query
+          schema:
+            type: integer
+            format: int32
+      responses:
+        "200":
+          description: A list of idea endorsements
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/IdeaEndorsementsResponse"
+
+  /idea_users:
+    get:
+      operationId: listIdeaUsers
+      summary: List idea users (voter identities)
+      description: Get all idea users (voter identities, account-wide, not idea-scoped)
+      tags:
+        - Ideas
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: per_page
+          in: query
+          schema:
+            type: integer
+            format: int32
+      responses:
+        "200":
+          description: A list of idea users
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/IdeaUsersResponse"
+
+  /idea_users/{idea_user_id}:
+    get:
+      operationId: getIdeaUser
+      summary: Get an idea user by ID
+      tags:
+        - Ideas
+      parameters:
+        - name: idea_user_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: An idea user
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/IdeaUserResponse"
+
+  /idea_organizations:
+    get:
+      operationId: listIdeaOrganizations
+      summary: List idea organizations (customer/account records)
+      description: Get all idea organizations (account-wide, not idea-scoped). The list response omits email_domains/revenue/endorsements_count -- use getIdeaOrganization for those.
+      tags:
+        - Ideas
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: per_page
+          in: query
+          schema:
+            type: integer
+            format: int32
+      responses:
+        "200":
+          description: A list of idea organizations
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/IdeaOrganizationsResponse"
+
+  /idea_organizations/{idea_organization_id}:
+    get:
+      operationId: getIdeaOrganization
+      summary: Get an idea organization by ID
+      description: Full detail, including email_domains and revenue, not present in the list response.
+      tags:
+        - Ideas
+      parameters:
+        - name: idea_organization_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: An idea organization
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/IdeaOrganizationResponse"
+
   /releases/{release_id}/comments:
     get:
       operationId: listReleaseComments
@@ -1941,6 +2066,10 @@ components:
           format: int64
         progress_source:
           type: string
+        progress:
+          type: number
+          format: double
+          nullable: true
         work_units:
           type: integer
           format: int64
@@ -2083,6 +2212,14 @@ components:
           type: string
         release_phase:
           type: string
+        progress_source:
+          type: string
+        progress:
+          type: number
+          format: double
+        epic:
+          type: string
+          description: Epic ID or name
 
     # Idea update schemas
     IdeaUpdateRequest:
@@ -2355,6 +2492,179 @@ components:
         created_at:
           type: string
           format: date-time
+
+    # Idea endorsement (vote) schemas. "Votes" in the Aha UI/portal are
+    # called "endorsements" in the API. Each endorsement carries two
+    # near-identical voter identity records: the portal-side account
+    # (endorsed_by_portal_user) and Aha's internal contact record
+    # (endorsed_by_idea_user) -- distinct from the User schema above, which
+    # models internal Aha seat holders (first_name/last_name/role), not
+    # portal voters.
+    IdeaEndorsementsResponse:
+      type: object
+      properties:
+        idea_endorsements:
+          type: array
+          items:
+            $ref: "#/components/schemas/IdeaEndorsement"
+        pagination:
+          $ref: "#/components/schemas/Pagination"
+
+    IdeaEndorsement:
+      type: object
+      properties:
+        id:
+          type: string
+        idea_id:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        value:
+          type: string
+          nullable: true
+        link:
+          type: string
+          nullable: true
+        weight:
+          type: integer
+        endorsed_by_portal_user:
+          $ref: "#/components/schemas/EndorsementPortalUser"
+        endorsed_by_idea_user:
+          $ref: "#/components/schemas/EndorsementIdeaUser"
+
+    EndorsementPortalUser:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        created_at:
+          type: string
+          format: date-time
+
+    EndorsementIdeaUser:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        created_at:
+          type: string
+          format: date-time
+        title:
+          type: string
+          nullable: true
+
+    # Idea user (voter identity) and idea organization (customer/account)
+    # schemas. Both are account-wide, bulk-listable resources, not scoped to
+    # a single idea -- like Users/Products, not like Comments/Endorsements.
+    # IdeaOrganizationRef is the light shape embedded on IdeaUser and
+    # returned by the idea_organizations list endpoint; IdeaOrganization
+    # (full detail, via the single-GET endpoint only) adds email_domains,
+    # revenue, endorsements_count, reference_num, and description.
+    IdeaOrganizationRef:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        url:
+          type: string
+        resource:
+          type: string
+
+    IdeaUser:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        created_at:
+          type: string
+          format: date-time
+        idea_organizations:
+          type: array
+          items:
+            $ref: "#/components/schemas/IdeaOrganizationRef"
+
+    IdeaUserResponse:
+      type: object
+      properties:
+        idea_user:
+          $ref: "#/components/schemas/IdeaUser"
+
+    IdeaUsersResponse:
+      type: object
+      properties:
+        idea_users:
+          type: array
+          items:
+            $ref: "#/components/schemas/IdeaUser"
+        pagination:
+          $ref: "#/components/schemas/Pagination"
+
+    IdeaOrganizationsResponse:
+      type: object
+      properties:
+        idea_organizations:
+          type: array
+          items:
+            $ref: "#/components/schemas/IdeaOrganizationRef"
+        pagination:
+          $ref: "#/components/schemas/Pagination"
+
+    IdeaOrganization:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        reference_num:
+          type: string
+        url:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        endorsements_count:
+          type: integer
+        email_domains:
+          type: string
+          nullable: true
+        revenue:
+          type: number
+          format: double
+          nullable: true
+
+    IdeaOrganizationResponse:
+      type: object
+      properties:
+        idea_organization:
+          $ref: "#/components/schemas/IdeaOrganization"
 
     # Epic schemas
     Epic:
@@ -3006,6 +3316,14 @@ components:
           type: boolean
         theme:
           $ref: "#/components/schemas/DescriptionObject"
+        progress_source:
+          type: string
+        progress:
+          type: number
+          format: double
+          nullable: true
+        workflow_status:
+          $ref: "#/components/schemas/WorkflowStatus"
         url:
           type: string
         resource:
@@ -3060,6 +3378,14 @@ components:
         theme:
           type: string
           description: Theme of the release (may include HTML formatting). Also shown as the release description in the Aha! UI.
+        progress_source:
+          type: string
+        progress:
+          type: number
+          format: double
+        workflow_status:
+          type: string
+          description: Workflow status ID or name. Transitioning to the status the product's workflow defines as "released" is how a release becomes Released.
 
     ReleaseCreateRequest:
       type: object
@@ -3272,6 +3598,11 @@ components:
           type: string
         presented:
           type: boolean
+        progress_source:
+          type: string
+        progress:
+          type: number
+          format: double
 
     # User schemas
     User:
