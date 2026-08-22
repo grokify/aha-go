@@ -122,6 +122,18 @@ type Handler interface {
 	//
 	// GET /ideas/{idea_id}
 	GetIdea(ctx context.Context, params GetIdeaParams) (*IdeaResponse, error)
+	// GetIdeaOrganization implements getIdeaOrganization operation.
+	//
+	// Full detail, including email_domains and revenue, not present in the list response.
+	//
+	// GET /idea_organizations/{idea_organization_id}
+	GetIdeaOrganization(ctx context.Context, params GetIdeaOrganizationParams) (*IdeaOrganizationResponse, error)
+	// GetIdeaUser implements getIdeaUser operation.
+	//
+	// Get an idea user by ID.
+	//
+	// GET /idea_users/{idea_user_id}
+	GetIdeaUser(ctx context.Context, params GetIdeaUserParams) (*IdeaUserResponse, error)
 	// GetInitiative implements getInitiative operation.
 	//
 	// Get a specific initiative by ID or reference number.
@@ -224,6 +236,25 @@ type Handler interface {
 	//
 	// GET /ideas/{idea_id}/comments
 	ListIdeaComments(ctx context.Context, params ListIdeaCommentsParams) (*CommentsResponse, error)
+	// ListIdeaEndorsements implements listIdeaEndorsements operation.
+	//
+	// Get all endorsements (votes) on an idea, including voter identity.
+	//
+	// GET /ideas/{idea_id}/endorsements
+	ListIdeaEndorsements(ctx context.Context, params ListIdeaEndorsementsParams) (*IdeaEndorsementsResponse, error)
+	// ListIdeaOrganizations implements listIdeaOrganizations operation.
+	//
+	// Get all idea organizations (account-wide, not idea-scoped). The list response omits
+	// email_domains/revenue/endorsements_count -- use getIdeaOrganization for those.
+	//
+	// GET /idea_organizations
+	ListIdeaOrganizations(ctx context.Context, params ListIdeaOrganizationsParams) (*IdeaOrganizationsResponse, error)
+	// ListIdeaUsers implements listIdeaUsers operation.
+	//
+	// Get all idea users (voter identities, account-wide, not idea-scoped).
+	//
+	// GET /idea_users
+	ListIdeaUsers(ctx context.Context, params ListIdeaUsersParams) (*IdeaUsersResponse, error)
 	// ListIdeas implements listIdeas operation.
 	//
 	// Get all ideas with optional filtering.

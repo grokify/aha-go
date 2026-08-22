@@ -184,6 +184,24 @@ func (UnimplementedHandler) GetIdea(ctx context.Context, params GetIdeaParams) (
 	return r, ht.ErrNotImplemented
 }
 
+// GetIdeaOrganization implements getIdeaOrganization operation.
+//
+// Full detail, including email_domains and revenue, not present in the list response.
+//
+// GET /idea_organizations/{idea_organization_id}
+func (UnimplementedHandler) GetIdeaOrganization(ctx context.Context, params GetIdeaOrganizationParams) (r *IdeaOrganizationResponse, _ error) {
+	return r, ht.ErrNotImplemented
+}
+
+// GetIdeaUser implements getIdeaUser operation.
+//
+// Get an idea user by ID.
+//
+// GET /idea_users/{idea_user_id}
+func (UnimplementedHandler) GetIdeaUser(ctx context.Context, params GetIdeaUserParams) (r *IdeaUserResponse, _ error) {
+	return r, ht.ErrNotImplemented
+}
+
 // GetInitiative implements getInitiative operation.
 //
 // Get a specific initiative by ID or reference number.
@@ -334,6 +352,34 @@ func (UnimplementedHandler) ListGoals(ctx context.Context, params ListGoalsParam
 //
 // GET /ideas/{idea_id}/comments
 func (UnimplementedHandler) ListIdeaComments(ctx context.Context, params ListIdeaCommentsParams) (r *CommentsResponse, _ error) {
+	return r, ht.ErrNotImplemented
+}
+
+// ListIdeaEndorsements implements listIdeaEndorsements operation.
+//
+// Get all endorsements (votes) on an idea, including voter identity.
+//
+// GET /ideas/{idea_id}/endorsements
+func (UnimplementedHandler) ListIdeaEndorsements(ctx context.Context, params ListIdeaEndorsementsParams) (r *IdeaEndorsementsResponse, _ error) {
+	return r, ht.ErrNotImplemented
+}
+
+// ListIdeaOrganizations implements listIdeaOrganizations operation.
+//
+// Get all idea organizations (account-wide, not idea-scoped). The list response omits
+// email_domains/revenue/endorsements_count -- use getIdeaOrganization for those.
+//
+// GET /idea_organizations
+func (UnimplementedHandler) ListIdeaOrganizations(ctx context.Context, params ListIdeaOrganizationsParams) (r *IdeaOrganizationsResponse, _ error) {
+	return r, ht.ErrNotImplemented
+}
+
+// ListIdeaUsers implements listIdeaUsers operation.
+//
+// Get all idea users (voter identities, account-wide, not idea-scoped).
+//
+// GET /idea_users
+func (UnimplementedHandler) ListIdeaUsers(ctx context.Context, params ListIdeaUsersParams) (r *IdeaUsersResponse, _ error) {
 	return r, ht.ErrNotImplemented
 }
 

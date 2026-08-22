@@ -768,6 +768,113 @@ func (s *DescriptionObject) SetHTMLBody(val OptString) {
 	s.HTMLBody = val
 }
 
+// Ref: #/components/schemas/EndorsementIdeaUser
+type EndorsementIdeaUser struct {
+	ID        OptString    `json:"id"`
+	Name      OptString    `json:"name"`
+	Email     OptString    `json:"email"`
+	CreatedAt OptDateTime  `json:"created_at"`
+	Title     OptNilString `json:"title"`
+}
+
+// GetID returns the value of ID.
+func (s *EndorsementIdeaUser) GetID() OptString {
+	return s.ID
+}
+
+// GetName returns the value of Name.
+func (s *EndorsementIdeaUser) GetName() OptString {
+	return s.Name
+}
+
+// GetEmail returns the value of Email.
+func (s *EndorsementIdeaUser) GetEmail() OptString {
+	return s.Email
+}
+
+// GetCreatedAt returns the value of CreatedAt.
+func (s *EndorsementIdeaUser) GetCreatedAt() OptDateTime {
+	return s.CreatedAt
+}
+
+// GetTitle returns the value of Title.
+func (s *EndorsementIdeaUser) GetTitle() OptNilString {
+	return s.Title
+}
+
+// SetID sets the value of ID.
+func (s *EndorsementIdeaUser) SetID(val OptString) {
+	s.ID = val
+}
+
+// SetName sets the value of Name.
+func (s *EndorsementIdeaUser) SetName(val OptString) {
+	s.Name = val
+}
+
+// SetEmail sets the value of Email.
+func (s *EndorsementIdeaUser) SetEmail(val OptString) {
+	s.Email = val
+}
+
+// SetCreatedAt sets the value of CreatedAt.
+func (s *EndorsementIdeaUser) SetCreatedAt(val OptDateTime) {
+	s.CreatedAt = val
+}
+
+// SetTitle sets the value of Title.
+func (s *EndorsementIdeaUser) SetTitle(val OptNilString) {
+	s.Title = val
+}
+
+// Ref: #/components/schemas/EndorsementPortalUser
+type EndorsementPortalUser struct {
+	ID        OptString   `json:"id"`
+	Name      OptString   `json:"name"`
+	Email     OptString   `json:"email"`
+	CreatedAt OptDateTime `json:"created_at"`
+}
+
+// GetID returns the value of ID.
+func (s *EndorsementPortalUser) GetID() OptString {
+	return s.ID
+}
+
+// GetName returns the value of Name.
+func (s *EndorsementPortalUser) GetName() OptString {
+	return s.Name
+}
+
+// GetEmail returns the value of Email.
+func (s *EndorsementPortalUser) GetEmail() OptString {
+	return s.Email
+}
+
+// GetCreatedAt returns the value of CreatedAt.
+func (s *EndorsementPortalUser) GetCreatedAt() OptDateTime {
+	return s.CreatedAt
+}
+
+// SetID sets the value of ID.
+func (s *EndorsementPortalUser) SetID(val OptString) {
+	s.ID = val
+}
+
+// SetName sets the value of Name.
+func (s *EndorsementPortalUser) SetName(val OptString) {
+	s.Name = val
+}
+
+// SetEmail sets the value of Email.
+func (s *EndorsementPortalUser) SetEmail(val OptString) {
+	s.Email = val
+}
+
+// SetCreatedAt sets the value of CreatedAt.
+func (s *EndorsementPortalUser) SetCreatedAt(val OptDateTime) {
+	s.CreatedAt = val
+}
+
 // Ref: #/components/schemas/Epic
 type Epic struct {
 	ID           string               `json:"id"`
@@ -1330,6 +1437,7 @@ type Feature struct {
 	Resource                 OptString          `json:"resource"`
 	CommentsCount            OptInt64           `json:"comments_count"`
 	ProgressSource           OptString          `json:"progress_source"`
+	Progress                 OptNilFloat64      `json:"progress"`
 	WorkUnits                OptInt64           `json:"work_units"`
 	UseRequirementsEstimates OptBool            `json:"use_requirements_estimates"`
 	Tags                     []string           `json:"tags"`
@@ -1403,6 +1511,11 @@ func (s *Feature) GetCommentsCount() OptInt64 {
 // GetProgressSource returns the value of ProgressSource.
 func (s *Feature) GetProgressSource() OptString {
 	return s.ProgressSource
+}
+
+// GetProgress returns the value of Progress.
+func (s *Feature) GetProgress() OptNilFloat64 {
+	return s.Progress
 }
 
 // GetWorkUnits returns the value of WorkUnits.
@@ -1508,6 +1621,11 @@ func (s *Feature) SetCommentsCount(val OptInt64) {
 // SetProgressSource sets the value of ProgressSource.
 func (s *Feature) SetProgressSource(val OptString) {
 	s.ProgressSource = val
+}
+
+// SetProgress sets the value of Progress.
+func (s *Feature) SetProgress(val OptNilFloat64) {
+	s.Progress = val
 }
 
 // SetWorkUnits sets the value of WorkUnits.
@@ -1772,11 +1890,15 @@ type FeatureUpdate struct {
 	StartDate      OptNilDate `json:"start_date"`
 	DueDate        OptNilDate `json:"due_date"`
 	// Release ID to move feature to.
-	Release               OptString `json:"release"`
-	OriginalEstimateText  OptString `json:"original_estimate_text"`
-	RemainingEstimateText OptString `json:"remaining_estimate_text"`
-	Initiative            OptString `json:"initiative"`
-	ReleasePhase          OptString `json:"release_phase"`
+	Release               OptString  `json:"release"`
+	OriginalEstimateText  OptString  `json:"original_estimate_text"`
+	RemainingEstimateText OptString  `json:"remaining_estimate_text"`
+	Initiative            OptString  `json:"initiative"`
+	ReleasePhase          OptString  `json:"release_phase"`
+	ProgressSource        OptString  `json:"progress_source"`
+	Progress              OptFloat64 `json:"progress"`
+	// Epic ID or name.
+	Epic OptString `json:"epic"`
 }
 
 // GetName returns the value of Name.
@@ -1839,6 +1961,21 @@ func (s *FeatureUpdate) GetReleasePhase() OptString {
 	return s.ReleasePhase
 }
 
+// GetProgressSource returns the value of ProgressSource.
+func (s *FeatureUpdate) GetProgressSource() OptString {
+	return s.ProgressSource
+}
+
+// GetProgress returns the value of Progress.
+func (s *FeatureUpdate) GetProgress() OptFloat64 {
+	return s.Progress
+}
+
+// GetEpic returns the value of Epic.
+func (s *FeatureUpdate) GetEpic() OptString {
+	return s.Epic
+}
+
 // SetName sets the value of Name.
 func (s *FeatureUpdate) SetName(val OptString) {
 	s.Name = val
@@ -1897,6 +2034,21 @@ func (s *FeatureUpdate) SetInitiative(val OptString) {
 // SetReleasePhase sets the value of ReleasePhase.
 func (s *FeatureUpdate) SetReleasePhase(val OptString) {
 	s.ReleasePhase = val
+}
+
+// SetProgressSource sets the value of ProgressSource.
+func (s *FeatureUpdate) SetProgressSource(val OptString) {
+	s.ProgressSource = val
+}
+
+// SetProgress sets the value of Progress.
+func (s *FeatureUpdate) SetProgress(val OptFloat64) {
+	s.Progress = val
+}
+
+// SetEpic sets the value of Epic.
+func (s *FeatureUpdate) SetEpic(val OptString) {
+	s.Epic = val
 }
 
 // Ref: #/components/schemas/FeatureUpdateRequest
@@ -2664,6 +2816,135 @@ func (s *IdeaCategory) SetCreatedAt(val OptDateTime) {
 	s.CreatedAt = val
 }
 
+// Ref: #/components/schemas/IdeaEndorsement
+type IdeaEndorsement struct {
+	ID                   OptString                `json:"id"`
+	IdeaID               OptString                `json:"idea_id"`
+	CreatedAt            OptDateTime              `json:"created_at"`
+	UpdatedAt            OptDateTime              `json:"updated_at"`
+	Value                OptNilString             `json:"value"`
+	Link                 OptNilString             `json:"link"`
+	Weight               OptInt                   `json:"weight"`
+	EndorsedByPortalUser OptEndorsementPortalUser `json:"endorsed_by_portal_user"`
+	EndorsedByIdeaUser   OptEndorsementIdeaUser   `json:"endorsed_by_idea_user"`
+}
+
+// GetID returns the value of ID.
+func (s *IdeaEndorsement) GetID() OptString {
+	return s.ID
+}
+
+// GetIdeaID returns the value of IdeaID.
+func (s *IdeaEndorsement) GetIdeaID() OptString {
+	return s.IdeaID
+}
+
+// GetCreatedAt returns the value of CreatedAt.
+func (s *IdeaEndorsement) GetCreatedAt() OptDateTime {
+	return s.CreatedAt
+}
+
+// GetUpdatedAt returns the value of UpdatedAt.
+func (s *IdeaEndorsement) GetUpdatedAt() OptDateTime {
+	return s.UpdatedAt
+}
+
+// GetValue returns the value of Value.
+func (s *IdeaEndorsement) GetValue() OptNilString {
+	return s.Value
+}
+
+// GetLink returns the value of Link.
+func (s *IdeaEndorsement) GetLink() OptNilString {
+	return s.Link
+}
+
+// GetWeight returns the value of Weight.
+func (s *IdeaEndorsement) GetWeight() OptInt {
+	return s.Weight
+}
+
+// GetEndorsedByPortalUser returns the value of EndorsedByPortalUser.
+func (s *IdeaEndorsement) GetEndorsedByPortalUser() OptEndorsementPortalUser {
+	return s.EndorsedByPortalUser
+}
+
+// GetEndorsedByIdeaUser returns the value of EndorsedByIdeaUser.
+func (s *IdeaEndorsement) GetEndorsedByIdeaUser() OptEndorsementIdeaUser {
+	return s.EndorsedByIdeaUser
+}
+
+// SetID sets the value of ID.
+func (s *IdeaEndorsement) SetID(val OptString) {
+	s.ID = val
+}
+
+// SetIdeaID sets the value of IdeaID.
+func (s *IdeaEndorsement) SetIdeaID(val OptString) {
+	s.IdeaID = val
+}
+
+// SetCreatedAt sets the value of CreatedAt.
+func (s *IdeaEndorsement) SetCreatedAt(val OptDateTime) {
+	s.CreatedAt = val
+}
+
+// SetUpdatedAt sets the value of UpdatedAt.
+func (s *IdeaEndorsement) SetUpdatedAt(val OptDateTime) {
+	s.UpdatedAt = val
+}
+
+// SetValue sets the value of Value.
+func (s *IdeaEndorsement) SetValue(val OptNilString) {
+	s.Value = val
+}
+
+// SetLink sets the value of Link.
+func (s *IdeaEndorsement) SetLink(val OptNilString) {
+	s.Link = val
+}
+
+// SetWeight sets the value of Weight.
+func (s *IdeaEndorsement) SetWeight(val OptInt) {
+	s.Weight = val
+}
+
+// SetEndorsedByPortalUser sets the value of EndorsedByPortalUser.
+func (s *IdeaEndorsement) SetEndorsedByPortalUser(val OptEndorsementPortalUser) {
+	s.EndorsedByPortalUser = val
+}
+
+// SetEndorsedByIdeaUser sets the value of EndorsedByIdeaUser.
+func (s *IdeaEndorsement) SetEndorsedByIdeaUser(val OptEndorsementIdeaUser) {
+	s.EndorsedByIdeaUser = val
+}
+
+// Ref: #/components/schemas/IdeaEndorsementsResponse
+type IdeaEndorsementsResponse struct {
+	IdeaEndorsements []IdeaEndorsement `json:"idea_endorsements"`
+	Pagination       OptPagination     `json:"pagination"`
+}
+
+// GetIdeaEndorsements returns the value of IdeaEndorsements.
+func (s *IdeaEndorsementsResponse) GetIdeaEndorsements() []IdeaEndorsement {
+	return s.IdeaEndorsements
+}
+
+// GetPagination returns the value of Pagination.
+func (s *IdeaEndorsementsResponse) GetPagination() OptPagination {
+	return s.Pagination
+}
+
+// SetIdeaEndorsements sets the value of IdeaEndorsements.
+func (s *IdeaEndorsementsResponse) SetIdeaEndorsements(val []IdeaEndorsement) {
+	s.IdeaEndorsements = val
+}
+
+// SetPagination sets the value of Pagination.
+func (s *IdeaEndorsementsResponse) SetPagination(val OptPagination) {
+	s.Pagination = val
+}
+
 // Ref: #/components/schemas/IdeaFeature
 type IdeaFeature struct {
 	ID           OptString   `json:"id"`
@@ -2743,6 +3024,209 @@ func (s *IdeaFeature) SetResource(val OptString) {
 // SetProductID sets the value of ProductID.
 func (s *IdeaFeature) SetProductID(val OptString) {
 	s.ProductID = val
+}
+
+// Ref: #/components/schemas/IdeaOrganization
+type IdeaOrganization struct {
+	ID                OptString     `json:"id"`
+	Name              OptString     `json:"name"`
+	ReferenceNum      OptString     `json:"reference_num"`
+	URL               OptString     `json:"url"`
+	CreatedAt         OptDateTime   `json:"created_at"`
+	UpdatedAt         OptDateTime   `json:"updated_at"`
+	EndorsementsCount OptInt        `json:"endorsements_count"`
+	EmailDomains      OptNilString  `json:"email_domains"`
+	Revenue           OptNilFloat64 `json:"revenue"`
+}
+
+// GetID returns the value of ID.
+func (s *IdeaOrganization) GetID() OptString {
+	return s.ID
+}
+
+// GetName returns the value of Name.
+func (s *IdeaOrganization) GetName() OptString {
+	return s.Name
+}
+
+// GetReferenceNum returns the value of ReferenceNum.
+func (s *IdeaOrganization) GetReferenceNum() OptString {
+	return s.ReferenceNum
+}
+
+// GetURL returns the value of URL.
+func (s *IdeaOrganization) GetURL() OptString {
+	return s.URL
+}
+
+// GetCreatedAt returns the value of CreatedAt.
+func (s *IdeaOrganization) GetCreatedAt() OptDateTime {
+	return s.CreatedAt
+}
+
+// GetUpdatedAt returns the value of UpdatedAt.
+func (s *IdeaOrganization) GetUpdatedAt() OptDateTime {
+	return s.UpdatedAt
+}
+
+// GetEndorsementsCount returns the value of EndorsementsCount.
+func (s *IdeaOrganization) GetEndorsementsCount() OptInt {
+	return s.EndorsementsCount
+}
+
+// GetEmailDomains returns the value of EmailDomains.
+func (s *IdeaOrganization) GetEmailDomains() OptNilString {
+	return s.EmailDomains
+}
+
+// GetRevenue returns the value of Revenue.
+func (s *IdeaOrganization) GetRevenue() OptNilFloat64 {
+	return s.Revenue
+}
+
+// SetID sets the value of ID.
+func (s *IdeaOrganization) SetID(val OptString) {
+	s.ID = val
+}
+
+// SetName sets the value of Name.
+func (s *IdeaOrganization) SetName(val OptString) {
+	s.Name = val
+}
+
+// SetReferenceNum sets the value of ReferenceNum.
+func (s *IdeaOrganization) SetReferenceNum(val OptString) {
+	s.ReferenceNum = val
+}
+
+// SetURL sets the value of URL.
+func (s *IdeaOrganization) SetURL(val OptString) {
+	s.URL = val
+}
+
+// SetCreatedAt sets the value of CreatedAt.
+func (s *IdeaOrganization) SetCreatedAt(val OptDateTime) {
+	s.CreatedAt = val
+}
+
+// SetUpdatedAt sets the value of UpdatedAt.
+func (s *IdeaOrganization) SetUpdatedAt(val OptDateTime) {
+	s.UpdatedAt = val
+}
+
+// SetEndorsementsCount sets the value of EndorsementsCount.
+func (s *IdeaOrganization) SetEndorsementsCount(val OptInt) {
+	s.EndorsementsCount = val
+}
+
+// SetEmailDomains sets the value of EmailDomains.
+func (s *IdeaOrganization) SetEmailDomains(val OptNilString) {
+	s.EmailDomains = val
+}
+
+// SetRevenue sets the value of Revenue.
+func (s *IdeaOrganization) SetRevenue(val OptNilFloat64) {
+	s.Revenue = val
+}
+
+// Ref: #/components/schemas/IdeaOrganizationRef
+type IdeaOrganizationRef struct {
+	ID        OptString   `json:"id"`
+	Name      OptString   `json:"name"`
+	CreatedAt OptDateTime `json:"created_at"`
+	URL       OptString   `json:"url"`
+	Resource  OptString   `json:"resource"`
+}
+
+// GetID returns the value of ID.
+func (s *IdeaOrganizationRef) GetID() OptString {
+	return s.ID
+}
+
+// GetName returns the value of Name.
+func (s *IdeaOrganizationRef) GetName() OptString {
+	return s.Name
+}
+
+// GetCreatedAt returns the value of CreatedAt.
+func (s *IdeaOrganizationRef) GetCreatedAt() OptDateTime {
+	return s.CreatedAt
+}
+
+// GetURL returns the value of URL.
+func (s *IdeaOrganizationRef) GetURL() OptString {
+	return s.URL
+}
+
+// GetResource returns the value of Resource.
+func (s *IdeaOrganizationRef) GetResource() OptString {
+	return s.Resource
+}
+
+// SetID sets the value of ID.
+func (s *IdeaOrganizationRef) SetID(val OptString) {
+	s.ID = val
+}
+
+// SetName sets the value of Name.
+func (s *IdeaOrganizationRef) SetName(val OptString) {
+	s.Name = val
+}
+
+// SetCreatedAt sets the value of CreatedAt.
+func (s *IdeaOrganizationRef) SetCreatedAt(val OptDateTime) {
+	s.CreatedAt = val
+}
+
+// SetURL sets the value of URL.
+func (s *IdeaOrganizationRef) SetURL(val OptString) {
+	s.URL = val
+}
+
+// SetResource sets the value of Resource.
+func (s *IdeaOrganizationRef) SetResource(val OptString) {
+	s.Resource = val
+}
+
+// Ref: #/components/schemas/IdeaOrganizationResponse
+type IdeaOrganizationResponse struct {
+	IdeaOrganization OptIdeaOrganization `json:"idea_organization"`
+}
+
+// GetIdeaOrganization returns the value of IdeaOrganization.
+func (s *IdeaOrganizationResponse) GetIdeaOrganization() OptIdeaOrganization {
+	return s.IdeaOrganization
+}
+
+// SetIdeaOrganization sets the value of IdeaOrganization.
+func (s *IdeaOrganizationResponse) SetIdeaOrganization(val OptIdeaOrganization) {
+	s.IdeaOrganization = val
+}
+
+// Ref: #/components/schemas/IdeaOrganizationsResponse
+type IdeaOrganizationsResponse struct {
+	IdeaOrganizations []IdeaOrganizationRef `json:"idea_organizations"`
+	Pagination        OptPagination         `json:"pagination"`
+}
+
+// GetIdeaOrganizations returns the value of IdeaOrganizations.
+func (s *IdeaOrganizationsResponse) GetIdeaOrganizations() []IdeaOrganizationRef {
+	return s.IdeaOrganizations
+}
+
+// GetPagination returns the value of Pagination.
+func (s *IdeaOrganizationsResponse) GetPagination() OptPagination {
+	return s.Pagination
+}
+
+// SetIdeaOrganizations sets the value of IdeaOrganizations.
+func (s *IdeaOrganizationsResponse) SetIdeaOrganizations(val []IdeaOrganizationRef) {
+	s.IdeaOrganizations = val
+}
+
+// SetPagination sets the value of Pagination.
+func (s *IdeaOrganizationsResponse) SetPagination(val OptPagination) {
+	s.Pagination = val
 }
 
 // Ref: #/components/schemas/IdeaResponse
@@ -2835,6 +3319,106 @@ func (s *IdeaUpdateRequest) GetIdea() IdeaUpdate {
 // SetIdea sets the value of Idea.
 func (s *IdeaUpdateRequest) SetIdea(val IdeaUpdate) {
 	s.Idea = val
+}
+
+// Ref: #/components/schemas/IdeaUser
+type IdeaUser struct {
+	ID                OptString             `json:"id"`
+	Name              OptString             `json:"name"`
+	Email             OptString             `json:"email"`
+	CreatedAt         OptDateTime           `json:"created_at"`
+	IdeaOrganizations []IdeaOrganizationRef `json:"idea_organizations"`
+}
+
+// GetID returns the value of ID.
+func (s *IdeaUser) GetID() OptString {
+	return s.ID
+}
+
+// GetName returns the value of Name.
+func (s *IdeaUser) GetName() OptString {
+	return s.Name
+}
+
+// GetEmail returns the value of Email.
+func (s *IdeaUser) GetEmail() OptString {
+	return s.Email
+}
+
+// GetCreatedAt returns the value of CreatedAt.
+func (s *IdeaUser) GetCreatedAt() OptDateTime {
+	return s.CreatedAt
+}
+
+// GetIdeaOrganizations returns the value of IdeaOrganizations.
+func (s *IdeaUser) GetIdeaOrganizations() []IdeaOrganizationRef {
+	return s.IdeaOrganizations
+}
+
+// SetID sets the value of ID.
+func (s *IdeaUser) SetID(val OptString) {
+	s.ID = val
+}
+
+// SetName sets the value of Name.
+func (s *IdeaUser) SetName(val OptString) {
+	s.Name = val
+}
+
+// SetEmail sets the value of Email.
+func (s *IdeaUser) SetEmail(val OptString) {
+	s.Email = val
+}
+
+// SetCreatedAt sets the value of CreatedAt.
+func (s *IdeaUser) SetCreatedAt(val OptDateTime) {
+	s.CreatedAt = val
+}
+
+// SetIdeaOrganizations sets the value of IdeaOrganizations.
+func (s *IdeaUser) SetIdeaOrganizations(val []IdeaOrganizationRef) {
+	s.IdeaOrganizations = val
+}
+
+// Ref: #/components/schemas/IdeaUserResponse
+type IdeaUserResponse struct {
+	IdeaUser OptIdeaUser `json:"idea_user"`
+}
+
+// GetIdeaUser returns the value of IdeaUser.
+func (s *IdeaUserResponse) GetIdeaUser() OptIdeaUser {
+	return s.IdeaUser
+}
+
+// SetIdeaUser sets the value of IdeaUser.
+func (s *IdeaUserResponse) SetIdeaUser(val OptIdeaUser) {
+	s.IdeaUser = val
+}
+
+// Ref: #/components/schemas/IdeaUsersResponse
+type IdeaUsersResponse struct {
+	IdeaUsers  []IdeaUser    `json:"idea_users"`
+	Pagination OptPagination `json:"pagination"`
+}
+
+// GetIdeaUsers returns the value of IdeaUsers.
+func (s *IdeaUsersResponse) GetIdeaUsers() []IdeaUser {
+	return s.IdeaUsers
+}
+
+// GetPagination returns the value of Pagination.
+func (s *IdeaUsersResponse) GetPagination() OptPagination {
+	return s.Pagination
+}
+
+// SetIdeaUsers sets the value of IdeaUsers.
+func (s *IdeaUsersResponse) SetIdeaUsers(val []IdeaUser) {
+	s.IdeaUsers = val
+}
+
+// SetPagination sets the value of Pagination.
+func (s *IdeaUsersResponse) SetPagination(val OptPagination) {
+	s.Pagination = val
 }
 
 // Ref: #/components/schemas/IdeasResponse
@@ -3319,6 +3903,8 @@ type InitiativeUpdate struct {
 	Effort         OptFloat64 `json:"effort"`
 	Color          OptString  `json:"color"`
 	Presented      OptBool    `json:"presented"`
+	ProgressSource OptString  `json:"progress_source"`
+	Progress       OptFloat64 `json:"progress"`
 }
 
 // GetName returns the value of Name.
@@ -3366,6 +3952,16 @@ func (s *InitiativeUpdate) GetPresented() OptBool {
 	return s.Presented
 }
 
+// GetProgressSource returns the value of ProgressSource.
+func (s *InitiativeUpdate) GetProgressSource() OptString {
+	return s.ProgressSource
+}
+
+// GetProgress returns the value of Progress.
+func (s *InitiativeUpdate) GetProgress() OptFloat64 {
+	return s.Progress
+}
+
 // SetName sets the value of Name.
 func (s *InitiativeUpdate) SetName(val OptString) {
 	s.Name = val
@@ -3409,6 +4005,16 @@ func (s *InitiativeUpdate) SetColor(val OptString) {
 // SetPresented sets the value of Presented.
 func (s *InitiativeUpdate) SetPresented(val OptBool) {
 	s.Presented = val
+}
+
+// SetProgressSource sets the value of ProgressSource.
+func (s *InitiativeUpdate) SetProgressSource(val OptString) {
+	s.ProgressSource = val
+}
+
+// SetProgress sets the value of Progress.
+func (s *InitiativeUpdate) SetProgress(val OptFloat64) {
+	s.Progress = val
 }
 
 // Ref: #/components/schemas/InitiativeUpdateRequest
@@ -3846,6 +4452,98 @@ func (o OptDescriptionObject) Or(d DescriptionObject) DescriptionObject {
 	return d
 }
 
+// NewOptEndorsementIdeaUser returns new OptEndorsementIdeaUser with value set to v.
+func NewOptEndorsementIdeaUser(v EndorsementIdeaUser) OptEndorsementIdeaUser {
+	return OptEndorsementIdeaUser{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptEndorsementIdeaUser is optional EndorsementIdeaUser.
+type OptEndorsementIdeaUser struct {
+	Value EndorsementIdeaUser
+	Set   bool
+}
+
+// IsSet returns true if OptEndorsementIdeaUser was set.
+func (o OptEndorsementIdeaUser) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptEndorsementIdeaUser) Reset() {
+	var v EndorsementIdeaUser
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptEndorsementIdeaUser) SetTo(v EndorsementIdeaUser) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptEndorsementIdeaUser) Get() (v EndorsementIdeaUser, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptEndorsementIdeaUser) Or(d EndorsementIdeaUser) EndorsementIdeaUser {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptEndorsementPortalUser returns new OptEndorsementPortalUser with value set to v.
+func NewOptEndorsementPortalUser(v EndorsementPortalUser) OptEndorsementPortalUser {
+	return OptEndorsementPortalUser{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptEndorsementPortalUser is optional EndorsementPortalUser.
+type OptEndorsementPortalUser struct {
+	Value EndorsementPortalUser
+	Set   bool
+}
+
+// IsSet returns true if OptEndorsementPortalUser was set.
+func (o OptEndorsementPortalUser) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptEndorsementPortalUser) Reset() {
+	var v EndorsementPortalUser
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptEndorsementPortalUser) SetTo(v EndorsementPortalUser) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptEndorsementPortalUser) Get() (v EndorsementPortalUser, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptEndorsementPortalUser) Or(d EndorsementPortalUser) EndorsementPortalUser {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
 // NewOptEpic returns new OptEpic with value set to v.
 func NewOptEpic(v Epic) OptEpic {
 	return OptEpic{
@@ -4260,6 +4958,98 @@ func (o OptIdeaFeature) Or(d IdeaFeature) IdeaFeature {
 	return d
 }
 
+// NewOptIdeaOrganization returns new OptIdeaOrganization with value set to v.
+func NewOptIdeaOrganization(v IdeaOrganization) OptIdeaOrganization {
+	return OptIdeaOrganization{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptIdeaOrganization is optional IdeaOrganization.
+type OptIdeaOrganization struct {
+	Value IdeaOrganization
+	Set   bool
+}
+
+// IsSet returns true if OptIdeaOrganization was set.
+func (o OptIdeaOrganization) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptIdeaOrganization) Reset() {
+	var v IdeaOrganization
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptIdeaOrganization) SetTo(v IdeaOrganization) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptIdeaOrganization) Get() (v IdeaOrganization, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptIdeaOrganization) Or(d IdeaOrganization) IdeaOrganization {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptIdeaUser returns new OptIdeaUser with value set to v.
+func NewOptIdeaUser(v IdeaUser) OptIdeaUser {
+	return OptIdeaUser{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptIdeaUser is optional IdeaUser.
+type OptIdeaUser struct {
+	Value IdeaUser
+	Set   bool
+}
+
+// IsSet returns true if OptIdeaUser was set.
+func (o OptIdeaUser) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptIdeaUser) Reset() {
+	var v IdeaUser
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptIdeaUser) SetTo(v IdeaUser) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptIdeaUser) Get() (v IdeaUser, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptIdeaUser) Or(d IdeaUser) IdeaUser {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
 // NewOptInitiative returns new OptInitiative with value set to v.
 func NewOptInitiative(v Initiative) OptInitiative {
 	return OptInitiative{
@@ -4580,6 +5370,11 @@ func (o *OptNilDate) SetToNull() {
 	o.Value = v
 }
 
+// IsEmpty returns true if the field was omitted from the payload (not Set and not Null).
+func (o OptNilDate) IsEmpty() bool {
+	return !o.Set && !o.Null
+}
+
 // Get returns value and boolean that denotes whether value was set.
 func (o OptNilDate) Get() (v time.Time, ok bool) {
 	if o.Null {
@@ -4641,6 +5436,11 @@ func (o *OptNilFloat32) SetToNull() {
 	o.Null = true
 	var v float32
 	o.Value = v
+}
+
+// IsEmpty returns true if the field was omitted from the payload (not Set and not Null).
+func (o OptNilFloat32) IsEmpty() bool {
+	return !o.Set && !o.Null
 }
 
 // Get returns value and boolean that denotes whether value was set.
@@ -4706,6 +5506,11 @@ func (o *OptNilFloat64) SetToNull() {
 	o.Value = v
 }
 
+// IsEmpty returns true if the field was omitted from the payload (not Set and not Null).
+func (o OptNilFloat64) IsEmpty() bool {
+	return !o.Set && !o.Null
+}
+
 // Get returns value and boolean that denotes whether value was set.
 func (o OptNilFloat64) Get() (v float64, ok bool) {
 	if o.Null {
@@ -4769,6 +5574,11 @@ func (o *OptNilString) SetToNull() {
 	o.Value = v
 }
 
+// IsEmpty returns true if the field was omitted from the payload (not Set and not Null).
+func (o OptNilString) IsEmpty() bool {
+	return !o.Set && !o.Null
+}
+
 // Get returns value and boolean that denotes whether value was set.
 func (o OptNilString) Get() (v string, ok bool) {
 	if o.Null {
@@ -4830,6 +5640,11 @@ func (o *OptNilUser) SetToNull() {
 	o.Null = true
 	var v User
 	o.Value = v
+}
+
+// IsEmpty returns true if the field was omitted from the payload (not Set and not Null).
+func (o OptNilUser) IsEmpty() bool {
+	return !o.Set && !o.Null
 }
 
 // Get returns value and boolean that denotes whether value was set.
@@ -5895,6 +6710,9 @@ type Release struct {
 	Released            OptBool              `json:"released"`
 	ParkingLot          OptBool              `json:"parking_lot"`
 	Theme               OptDescriptionObject `json:"theme"`
+	ProgressSource      OptString            `json:"progress_source"`
+	Progress            OptNilFloat64        `json:"progress"`
+	WorkflowStatus      OptWorkflowStatus    `json:"workflow_status"`
 	URL                 OptString            `json:"url"`
 	Resource            OptString            `json:"resource"`
 }
@@ -5942,6 +6760,21 @@ func (s *Release) GetParkingLot() OptBool {
 // GetTheme returns the value of Theme.
 func (s *Release) GetTheme() OptDescriptionObject {
 	return s.Theme
+}
+
+// GetProgressSource returns the value of ProgressSource.
+func (s *Release) GetProgressSource() OptString {
+	return s.ProgressSource
+}
+
+// GetProgress returns the value of Progress.
+func (s *Release) GetProgress() OptNilFloat64 {
+	return s.Progress
+}
+
+// GetWorkflowStatus returns the value of WorkflowStatus.
+func (s *Release) GetWorkflowStatus() OptWorkflowStatus {
+	return s.WorkflowStatus
 }
 
 // GetURL returns the value of URL.
@@ -5997,6 +6830,21 @@ func (s *Release) SetParkingLot(val OptBool) {
 // SetTheme sets the value of Theme.
 func (s *Release) SetTheme(val OptDescriptionObject) {
 	s.Theme = val
+}
+
+// SetProgressSource sets the value of ProgressSource.
+func (s *Release) SetProgressSource(val OptString) {
+	s.ProgressSource = val
+}
+
+// SetProgress sets the value of Progress.
+func (s *Release) SetProgress(val OptNilFloat64) {
+	s.Progress = val
+}
+
+// SetWorkflowStatus sets the value of WorkflowStatus.
+func (s *Release) SetWorkflowStatus(val OptWorkflowStatus) {
+	s.WorkflowStatus = val
 }
 
 // SetURL sets the value of URL.
@@ -6131,7 +6979,12 @@ type ReleaseUpdate struct {
 	ParkingLot           OptBool    `json:"parking_lot"`
 	// Theme of the release (may include HTML formatting). Also shown as the release description in the
 	// Aha! UI.
-	Theme OptString `json:"theme"`
+	Theme          OptString  `json:"theme"`
+	ProgressSource OptString  `json:"progress_source"`
+	Progress       OptFloat64 `json:"progress"`
+	// Workflow status ID or name. Transitioning to the status the product's workflow defines as "released"
+	// is how a release becomes Released.
+	WorkflowStatus OptString `json:"workflow_status"`
 }
 
 // GetName returns the value of Name.
@@ -6169,6 +7022,21 @@ func (s *ReleaseUpdate) GetTheme() OptString {
 	return s.Theme
 }
 
+// GetProgressSource returns the value of ProgressSource.
+func (s *ReleaseUpdate) GetProgressSource() OptString {
+	return s.ProgressSource
+}
+
+// GetProgress returns the value of Progress.
+func (s *ReleaseUpdate) GetProgress() OptFloat64 {
+	return s.Progress
+}
+
+// GetWorkflowStatus returns the value of WorkflowStatus.
+func (s *ReleaseUpdate) GetWorkflowStatus() OptString {
+	return s.WorkflowStatus
+}
+
 // SetName sets the value of Name.
 func (s *ReleaseUpdate) SetName(val OptString) {
 	s.Name = val
@@ -6202,6 +7070,21 @@ func (s *ReleaseUpdate) SetParkingLot(val OptBool) {
 // SetTheme sets the value of Theme.
 func (s *ReleaseUpdate) SetTheme(val OptString) {
 	s.Theme = val
+}
+
+// SetProgressSource sets the value of ProgressSource.
+func (s *ReleaseUpdate) SetProgressSource(val OptString) {
+	s.ProgressSource = val
+}
+
+// SetProgress sets the value of Progress.
+func (s *ReleaseUpdate) SetProgress(val OptFloat64) {
+	s.Progress = val
+}
+
+// SetWorkflowStatus sets the value of WorkflowStatus.
+func (s *ReleaseUpdate) SetWorkflowStatus(val OptString) {
+	s.WorkflowStatus = val
 }
 
 // Ref: #/components/schemas/ReleaseUpdateRequest
