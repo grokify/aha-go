@@ -4,6 +4,7 @@ package generated_test
 
 import (
 	"context"
+	"os"
 	"testing"
 
 	"github.com/grokify/aha-go/graphql"
@@ -55,4 +56,40 @@ func TestGenqlientQueries(t *testing.T) {
 			t.Logf("  - %s (%s)", name, node.SearchableType)
 		}
 	})
+}
+
+// TestSetCustomFieldValuesLive writes a real custom field value to a real
+// Aha record - unlike the read-only tests above, this MUTATES data, so it
+// requires an explicit target record ID (never a guessed/discovered one)
+// and a real custom field key known to exist on that record's screen. Set
+// via:
+//
+//	AHA_TEST_CUSTOM_FIELD_RECORD_ID    - the record's ID or reference number
+//	AHA_TEST_CUSTOM_FIELD_KEY          - a custom field API key on that record
+//	AHA_TEST_CUSTOM_FIELD_VALUE        - the (string) value to set
+//
+// Skips (does not fail) if these aren't set, even when other credentials
+// are present, so `go test -tags=integration` never mutates data by
+// accident. Also resolves the open question of whether recordId accepts a
+// reference number or requires the internal ID.
+func TestSetCustomFieldValuesLive(t *testing.T) {
+	creds, err := graphql.LoadTestCredentials()
+	if err != nil {
+		t.Skip(graphql.SkipReason())
+	}
+
+	recordID := os.Getenv("AHA_TEST_CUSTOM_FIELD_RECORD_ID")
+	key := os.Getenv("AHA_TEST_CUSTOM_FIELD_KEY")
+	value := os.Getenv("AHA_TEST_CUSTOM_FIELD_VALUE")
+	if recordID == "" || key == "" || value == "" {
+		t.Skip("AHA_TEST_CUSTOM_FIELD_RECORD_ID/_KEY/_VALUE not set, skipping live custom field write")
+	}
+
+	client := graphql.NewGenqlientClient(creds.Subdomain, creds.APIKey)
+	got, err := graphql.SetCustomFieldValues(context.Background(), client,
+		recordID, generated.CustomFieldableTypeEnumFeature, map[string]any{key: value})
+	if err != nil {
+		t.Fatalf("SetCustomFieldValues failed: %v", err)
+	}
+	t.Logf("SetCustomFieldValues result: %+v", got)
 }
