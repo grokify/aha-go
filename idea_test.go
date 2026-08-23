@@ -1,6 +1,8 @@
 package aha
 
 import (
+	"encoding/json"
+	"io"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -21,6 +23,24 @@ func newTestClient(t *testing.T, handler http.HandlerFunc) *Client {
 		t.Fatalf("NewClient: %v", err)
 	}
 	return client
+}
+
+// newUpdateCaptureClient returns a test client that decodes the next
+// request body into gotBody and responds with fixture. Used by Update*
+// tests to assert on exactly what was sent to the API.
+func newUpdateCaptureClient(t *testing.T, fixture string, gotBody *map[string]any) *Client {
+	t.Helper()
+	return newTestClient(t, func(w http.ResponseWriter, r *http.Request) {
+		body, err := io.ReadAll(r.Body)
+		if err != nil {
+			t.Fatalf("reading request body: %v", err)
+		}
+		if err := json.Unmarshal(body, gotBody); err != nil {
+			t.Fatalf("unmarshaling request body: %v", err)
+		}
+		w.Header().Set("Content-Type", "application/json")
+		_, _ = w.Write([]byte(fixture))
+	})
 }
 
 const listIdeasFixture = `{

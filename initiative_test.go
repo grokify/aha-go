@@ -74,6 +74,29 @@ func TestGetInitiativeCustomFields(t *testing.T) {
 	}
 }
 
+func TestUpdateInitiativeProgress(t *testing.T) {
+	var gotBody map[string]any
+	client := newUpdateCaptureClient(t, getInitiativeFixture, &gotBody)
+
+	if _, err := client.UpdateInitiative(t.Context(), "SAVIN-S-76",
+		WithUpdateInitiativeProgressSource("progress_manual"),
+		WithUpdateInitiativeProgress(30),
+	); err != nil {
+		t.Fatalf("UpdateInitiative: %v", err)
+	}
+
+	initiative, ok := gotBody["initiative"].(map[string]any)
+	if !ok {
+		t.Fatalf("request body missing initiative object: %v", gotBody)
+	}
+	if v, _ := initiative["progress_source"].(string); v != "progress_manual" {
+		t.Errorf("request progress_source = %q, want %q", v, "progress_manual")
+	}
+	if v, _ := initiative["progress"].(float64); v != 30 {
+		t.Errorf("request progress = %v, want 30", v)
+	}
+}
+
 // rawValue asserts a custom field value is raw JSON and returns it as a string.
 func rawValue(t *testing.T, v any) string {
 	t.Helper()
