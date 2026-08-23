@@ -18,6 +18,9 @@ type Release struct {
 	Released            bool
 	ParkingLot          bool
 	Theme               string
+	ProgressSource      string
+	Progress            *float64
+	WorkflowStatus      *WorkflowStatus
 	URL                 string
 	Resource            string
 }
@@ -74,6 +77,9 @@ type UpdateReleaseOptions struct {
 	DevelopmentStartedOn *time.Time
 	ParkingLot           *bool
 	Theme                string
+	ProgressSource       string
+	Progress             *float64
+	WorkflowStatus       string
 }
 
 // UpdateReleaseOption configures an UpdateRelease call.
@@ -94,6 +100,16 @@ func WithReleaseDate(t time.Time) UpdateReleaseOption {
 	return func(o *UpdateReleaseOptions) { o.ReleaseDate = &t }
 }
 
+// WithReleaseExternalReleaseDate sets the external release date.
+func WithReleaseExternalReleaseDate(t time.Time) UpdateReleaseOption {
+	return func(o *UpdateReleaseOptions) { o.ExternalReleaseDate = &t }
+}
+
+// WithReleaseDevelopmentStartedOn sets the date development started.
+func WithReleaseDevelopmentStartedOn(t time.Time) UpdateReleaseOption {
+	return func(o *UpdateReleaseOptions) { o.DevelopmentStartedOn = &t }
+}
+
 // WithReleaseParkingLot sets whether this is a parking lot release.
 func WithReleaseParkingLot(parkingLot bool) UpdateReleaseOption {
 	return func(o *UpdateReleaseOptions) { o.ParkingLot = &parkingLot }
@@ -103,6 +119,28 @@ func WithReleaseParkingLot(parkingLot bool) UpdateReleaseOption {
 // in the Aha! UI; may include HTML formatting).
 func WithReleaseTheme(theme string) UpdateReleaseOption {
 	return func(o *UpdateReleaseOptions) { o.Theme = theme }
+}
+
+// WithReleaseProgressSource sets the progress calculation source. Valid
+// values are account-dependent per Aha's docs and are not validated
+// client-side. Progress only takes effect when the source is a "*_manual"
+// value.
+func WithReleaseProgressSource(source string) UpdateReleaseOption {
+	return func(o *UpdateReleaseOptions) { o.ProgressSource = source }
+}
+
+// WithReleaseProgress sets the manual progress percentage. Only takes effect
+// when ProgressSource is a "*_manual" value.
+func WithReleaseProgress(progress float64) UpdateReleaseOption {
+	return func(o *UpdateReleaseOptions) { o.Progress = &progress }
+}
+
+// WithReleaseWorkflowStatus transitions the release to the given workflow
+// status (ID or name). There is no standalone "released" flag in Aha's
+// API — Released is derived from whichever workflow status the product's
+// workflow defines as released, so this is how you mark a release shipped.
+func WithReleaseWorkflowStatus(status string) UpdateReleaseOption {
+	return func(o *UpdateReleaseOptions) { o.WorkflowStatus = status }
 }
 
 // UpdateRelease updates an existing release.
@@ -133,6 +171,15 @@ func (c *Client) UpdateRelease(ctx context.Context, id string, opts ...UpdateRel
 	}
 	if cfg.Theme != "" {
 		release.Theme = api.NewOptString(cfg.Theme)
+	}
+	if cfg.ProgressSource != "" {
+		release.ProgressSource = api.NewOptString(cfg.ProgressSource)
+	}
+	if cfg.Progress != nil {
+		release.Progress = api.NewOptFloat64(*cfg.Progress)
+	}
+	if cfg.WorkflowStatus != "" {
+		release.WorkflowStatus = api.NewOptString(cfg.WorkflowStatus)
 	}
 
 	req := &api.ReleaseUpdateRequest{
@@ -268,6 +315,15 @@ func releaseFromAPI(r api.Release) *Release {
 		if body, ok := v.Body.Get(); ok {
 			release.Theme = body
 		}
+	}
+	if v, ok := r.ProgressSource.Get(); ok {
+		release.ProgressSource = v
+	}
+	if v, ok := r.Progress.Get(); ok {
+		release.Progress = &v
+	}
+	if v, ok := r.WorkflowStatus.Get(); ok {
+		release.WorkflowStatus = workflowStatusFromAPI(v)
 	}
 	if v, ok := r.URL.Get(); ok {
 		release.URL = v
