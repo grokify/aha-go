@@ -7,6 +7,54 @@
   "maintainers": ["grokify"],
   "releases": [
     {
+      "version": "v0.10.0",
+      "date": "2026-08-23",
+      "commit": "da5511a",
+      "highlights": [
+        { "description": "Automatic retry and rate limiting for the Client (WithMaxRetries, WithRequestsPerSecond, RateLimitFromError)" },
+        { "description": "Idea endorsements, portal users, and organizations resources (ListIdeaEndorsements, ListIdeaUsers/GetIdeaUser, ListIdeaOrganizations/GetIdeaOrganization)" },
+        { "description": "Manual progress and workflow-status fields on Feature, Initiative, and Release" },
+        { "description": "graphql.SetCustomFieldValues wrapper surfacing payload-level validation errors" },
+        { "description": "New omniroadmap package implementing omniroadmap-core's provider.Provider interface" }
+      ],
+      "added": [
+        { "description": "Client: automatic retry on 429/5xx with backoff/jitter, plus optional proactive rate limiting via WithMaxRetries/WithRequestsPerSecond/WithRetryDisabled; RateLimitFromError extracts Aha's X-Ratelimit-* headers from an error", "commit": "9c6659e" },
+        { "description": "OpenAPI: idea endorsements, idea_users, and idea_organizations endpoints", "commit": "e9c3b04" },
+        { "description": "ListIdeaEndorsements, ListIdeaUsers/GetIdeaUser, ListIdeaOrganizations/GetIdeaOrganization SDK methods", "commit": "c0f19e7" },
+        { "description": "Feature: Progress field and WithUpdateFeatureProgressSource/Progress/Epic/OriginalEstimate/RemainingEstimate/ReleasePhase options", "commit": "5361ef2" },
+        { "description": "Initiative: Progress field and WithUpdateInitiativeProgressSource/Progress options", "commit": "b528074" },
+        { "description": "Release: Progress and WorkflowStatus fields, plus WithReleaseProgressSource/Progress/WorkflowStatus/ExternalReleaseDate/DevelopmentStartedOn options", "commit": "c66b309" },
+        { "description": "graphql.SetCustomFieldValues wrapper that surfaces field-level validation errors returned inside an otherwise-successful mutation response", "commit": "7356fdd" },
+        { "description": "New omniroadmap package: Aha provider adapter implementing omniroadmap-core's provider.Provider interface", "commit": "1c257e7" }
+      ],
+      "fixed": [
+        { "description": "Pin ysmood/fetchup via replace directive so a routine go get -u sweep can't re-break go-rod v0.116.2 compatibility", "commit": "961676c" },
+        { "description": "GraphQL: CustomFieldValueInput.value/CustomFieldValue.value scalar binding corrected from the global JSON->map[string]any binding to `any`, fixing bare scalar custom field values (the common case) failing to unmarshal", "commit": "65e8cfe" }
+      ],
+      "changed": [
+        { "description": "Regenerate ogen client for idea voter/organization resources", "commit": "7b93159" }
+      ],
+      "tests": [
+        { "description": "Cover retry, rate limiting, and rate-limit error parsing", "commit": "c54d8f7" },
+        { "description": "Cover endorsement, idea user, and idea organization methods", "commit": "e1ca536" },
+        { "description": "Cover feature, initiative, and release progress/workflow updates", "commit": "7c30fb6" },
+        { "description": "Cover the SetCustomFieldValues wrapper and the scalar binding fix", "commit": "d81b885" }
+      ],
+      "documentation": [
+        { "description": "Document the OpenAPI hand-maintained workflow and SetCustomFieldValues wrapper usage in README/graphql.md", "commit": "367671d" },
+        { "description": "Add repo CLAUDE.md guidance for Claude Code", "commit": "7a04194" },
+        { "description": "Document the omniroadmap provider adapter package (docs/packages/omniroadmap.md)", "commit": "dfd4513" },
+        { "description": "Cover retry/rate limiting, progress fields, and idea voter resources in README; note the omniroadmap adapter layer and shared test helper in CLAUDE.md", "commit": "da5511a" }
+      ],
+      "dependencies": [
+        { "description": "Add github.com/grokify/omniroadmap-core v0.1.0 and pick up a few transitive bumps via go mod tidy", "commit": "1c257e7" },
+        { "description": "Bump github.com/grokify/mogo from 0.74.6 to 0.74.7", "commit": "fdf6515" },
+        { "description": "Bump github.com/grokify/prism-roadmap from 0.16.1 to 0.18.0", "commit": "eb7d321" },
+        { "description": "Bump go.opentelemetry.io/otel, otel/metric, and otel/trace from 1.44.0 to 1.45.0", "commit": "c0dd919" },
+        { "description": "Bump transitive dependency versions (cloud.google.com/go/auth, enterprise-certificate-proxy, ogen-go/ogen, otelhttp, google api, genproto)", "commit": "f34d79e" }
+      ]
+    },
+    {
       "version": "v0.9.0",
       "date": "2026-08-01",
       "commit": "eba7f7c",
