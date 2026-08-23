@@ -18,6 +18,7 @@ type Feature struct {
 	Resource       string
 	CommentsCount  int64
 	ProgressSource string
+	Progress       *float64
 	WorkUnits      int64
 	StartDate      *time.Time
 	DueDate        *time.Time
@@ -322,6 +323,9 @@ type UpdateFeatureOptions struct {
 	RemainingEstimate string
 	Initiative        string
 	ReleasePhase      string
+	ProgressSource    string
+	Progress          *float64
+	Epic              string
 }
 
 // UpdateFeatureOption configures an UpdateFeature call.
@@ -372,6 +376,40 @@ func WithUpdateFeatureInitiative(initiative string) UpdateFeatureOption {
 	return func(o *UpdateFeatureOptions) { o.Initiative = initiative }
 }
 
+// WithUpdateFeatureOriginalEstimate sets the original estimate (e.g., "2d", "4h").
+func WithUpdateFeatureOriginalEstimate(estimate string) UpdateFeatureOption {
+	return func(o *UpdateFeatureOptions) { o.OriginalEstimate = estimate }
+}
+
+// WithUpdateFeatureRemainingEstimate sets the remaining estimate (e.g., "2d", "4h").
+func WithUpdateFeatureRemainingEstimate(estimate string) UpdateFeatureOption {
+	return func(o *UpdateFeatureOptions) { o.RemainingEstimate = estimate }
+}
+
+// WithUpdateFeatureReleasePhase sets the release phase.
+func WithUpdateFeatureReleasePhase(phase string) UpdateFeatureOption {
+	return func(o *UpdateFeatureOptions) { o.ReleasePhase = phase }
+}
+
+// WithUpdateFeatureProgressSource sets the progress calculation source.
+// Valid values are account-dependent per Aha's docs and are not validated
+// client-side. Progress only takes effect when the source is a "*_manual"
+// value.
+func WithUpdateFeatureProgressSource(source string) UpdateFeatureOption {
+	return func(o *UpdateFeatureOptions) { o.ProgressSource = source }
+}
+
+// WithUpdateFeatureProgress sets the manual progress percentage. Only takes
+// effect when ProgressSource is a "*_manual" value.
+func WithUpdateFeatureProgress(progress float64) UpdateFeatureOption {
+	return func(o *UpdateFeatureOptions) { o.Progress = &progress }
+}
+
+// WithUpdateFeatureEpic sets the epic (ID or name).
+func WithUpdateFeatureEpic(epic string) UpdateFeatureOption {
+	return func(o *UpdateFeatureOptions) { o.Epic = epic }
+}
+
 // UpdateFeature updates an existing feature.
 func (c *Client) UpdateFeature(ctx context.Context, id string, opts ...UpdateFeatureOption) (*Feature, error) {
 	cfg := &UpdateFeatureOptions{}
@@ -415,6 +453,15 @@ func (c *Client) UpdateFeature(ctx context.Context, id string, opts ...UpdateFea
 	}
 	if cfg.ReleasePhase != "" {
 		feature.ReleasePhase = api.NewOptString(cfg.ReleasePhase)
+	}
+	if cfg.ProgressSource != "" {
+		feature.ProgressSource = api.NewOptString(cfg.ProgressSource)
+	}
+	if cfg.Progress != nil {
+		feature.Progress = api.NewOptFloat64(*cfg.Progress)
+	}
+	if cfg.Epic != "" {
+		feature.Epic = api.NewOptString(cfg.Epic)
 	}
 
 	req := &api.FeatureUpdateRequest{
@@ -462,6 +509,9 @@ func featureFromAPI(f api.Feature) *Feature {
 	}
 	if v, ok := f.ProgressSource.Get(); ok {
 		feature.ProgressSource = v
+	}
+	if v, ok := f.Progress.Get(); ok {
+		feature.Progress = &v
 	}
 	if v, ok := f.WorkUnits.Get(); ok {
 		feature.WorkUnits = v
