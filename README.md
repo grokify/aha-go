@@ -735,9 +735,21 @@ make help           # Show all available targets
 
 ### Generate API Client
 
+Aha does not publish an OpenAPI spec of its own, so `openapi/aha.yaml` is
+hand-authored and verified against Aha's actual documented and observed
+behavior — it isn't vendored or auto-generated from anything Aha ships.
+Producing (and proving out) that spec is itself part of what this SDK
+offers. To add or change an endpoint: edit `openapi/aha.yaml`, then
+regenerate:
+
 ```bash
 make generate
 ```
+
+This runs `ogen` against the spec to regenerate `internal/api` (never edit
+those files directly), then wire any new fields into the hand-written
+wrapper types (`feature.go`, `initiative.go`, `release.go`, etc.) that
+translate them to/from the public API.
 
 ### Run Tests
 

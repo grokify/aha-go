@@ -193,22 +193,32 @@ fmt.Printf("Created: %s\n", resp.CreateIdea.Idea.ReferenceNum)
 
 ### Setting Custom Fields
 
-Set custom field values on any record type:
+Set custom field values on any record type using the `graphql.SetCustomFieldValues`
+wrapper. Unlike calling the generated mutation directly, the wrapper also checks
+the mutation's response payload for field-level validation errors (Aha can return
+these inside a transport-level-successful response) and returns them as a normal
+Go `error`, so a rejected/unknown custom field key never looks like a silent success:
 
 ```go
-resp, err := generated.SetCustomFieldValues(ctx, client,
+values, err := graphql.SetCustomFieldValues(ctx, client,
     "FEATURE-ID",
     generated.CustomFieldableTypeEnumFeature,
-    []generated.CustomFieldValueInput{
-        {Key: "priority_score", Value: 85},
-        {Key: "customer_segment", Value: "Enterprise"},
-        {Key: "target_date", Value: "2024-06-15"},
+    map[string]any{
+        "priority_score":   85,
+        "customer_segment": "Enterprise",
+        "target_date":      "2024-06-15",
     },
 )
 if err != nil {
     log.Fatal(err)
 }
+for _, v := range values {
+    fmt.Printf("%s = %v (%s)\n", v.Key, v.Value, v.HumanValue)
+}
 ```
+
+Custom field values are usually plain scalars (string/number/bool) matching the
+custom field's type in Aha, not JSON objects — pass them as-is in the `map[string]any`.
 
 Supported record types for custom fields:
 
