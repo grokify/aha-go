@@ -284,6 +284,8 @@ type UpdateInitiativeOptions struct {
 	Effort         *float64
 	Color          string
 	Presented      *bool
+	ProgressSource string
+	Progress       *float64
 }
 
 // UpdateInitiativeOption configures an UpdateInitiative call.
@@ -334,6 +336,24 @@ func WithUpdateInitiativePresented(presented bool) UpdateInitiativeOption {
 	return func(o *UpdateInitiativeOptions) { o.Presented = &presented }
 }
 
+// WithUpdateInitiativeProgressSource sets the progress calculation source
+// (e.g. "progress_manual", "progress_from_features", "progress_from_releases",
+// "progress_from_children", "progress_from_epics", each with a
+// "_with_dependents" variant, or "progress_from_features_completed" /
+// "progress_from_epics_completed_with_dependents"). Valid values are
+// account/entity-type-dependent per Aha's docs and are not validated
+// client-side. Progress only takes effect when the source is a "*_manual"
+// value.
+func WithUpdateInitiativeProgressSource(source string) UpdateInitiativeOption {
+	return func(o *UpdateInitiativeOptions) { o.ProgressSource = source }
+}
+
+// WithUpdateInitiativeProgress sets the manual progress percentage. Only
+// takes effect when ProgressSource is a "*_manual" value.
+func WithUpdateInitiativeProgress(progress float64) UpdateInitiativeOption {
+	return func(o *UpdateInitiativeOptions) { o.Progress = &progress }
+}
+
 // UpdateInitiative updates an existing initiative.
 func (c *Client) UpdateInitiative(ctx context.Context, id string, opts ...UpdateInitiativeOption) (*Initiative, error) {
 	cfg := &UpdateInitiativeOptions{}
@@ -368,6 +388,12 @@ func (c *Client) UpdateInitiative(ctx context.Context, id string, opts ...Update
 	}
 	if cfg.Presented != nil {
 		initiative.Presented = api.NewOptBool(*cfg.Presented)
+	}
+	if cfg.ProgressSource != "" {
+		initiative.ProgressSource = api.NewOptString(cfg.ProgressSource)
+	}
+	if cfg.Progress != nil {
+		initiative.Progress = api.NewOptFloat64(*cfg.Progress)
 	}
 
 	req := &api.InitiativeUpdateRequest{
