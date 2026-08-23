@@ -1452,15 +1452,15 @@ var AllCustomFieldDefinitionTypeEnum = []CustomFieldDefinitionTypeEnum{
 
 // A custom field key-value pair
 type CustomFieldValueInput struct {
-	Key   string          `json:"key"`
-	Value *map[string]any `json:"value"`
+	Key   string `json:"key"`
+	Value any    `json:"value"`
 }
 
 // GetKey returns CustomFieldValueInput.Key, and is useful for accessing the field via an interface.
 func (v *CustomFieldValueInput) GetKey() string { return v.Key }
 
 // GetValue returns CustomFieldValueInput.Value, and is useful for accessing the field via an interface.
-func (v *CustomFieldValueInput) GetValue() *map[string]any { return v.Value }
+func (v *CustomFieldValueInput) GetValue() any { return v.Value }
 
 type CustomFieldableTypeEnum string
 
@@ -4533,7 +4533,7 @@ type SetCustomFieldValuesSetCustomFieldValuesSetCustomFieldValuesPayloadCustomFi
 	// The API key for the custom field
 	Key string `json:"key"`
 	// The value for the custom field
-	Value *map[string]any `json:"value"`
+	Value any `json:"value"`
 	// The human readable value for the custom field
 	HumanValue *string `json:"humanValue"`
 }
@@ -4549,7 +4549,7 @@ func (v *SetCustomFieldValuesSetCustomFieldValuesSetCustomFieldValuesPayloadCust
 }
 
 // GetValue returns SetCustomFieldValuesSetCustomFieldValuesSetCustomFieldValuesPayloadCustomFieldValuesCustomFieldValue.Value, and is useful for accessing the field via an interface.
-func (v *SetCustomFieldValuesSetCustomFieldValuesSetCustomFieldValuesPayloadCustomFieldValuesCustomFieldValue) GetValue() *map[string]any {
+func (v *SetCustomFieldValuesSetCustomFieldValuesSetCustomFieldValuesPayloadCustomFieldValuesCustomFieldValue) GetValue() any {
 	return v.Value
 }
 
@@ -7298,6 +7298,11 @@ mutation SetCustomFieldValues ($recordId: ID!, $recordTypename: CustomFieldableT
 
 // Set custom field values on a record
 // typename must be one of: Feature, Idea, Epic, Release, Goal, Initiative, etc.
+//
+// Custom field values are usually plain scalars (string/number/bool), not
+// JSON objects, so the global JSON->map[string]any scalar binding
+// (genqlient.yaml) is wrong for this specific field on both the input and
+// the response side - override it to `any` here.
 func SetCustomFieldValues(
 	ctx_ context.Context,
 	client_ graphql.Client,

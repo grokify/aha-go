@@ -554,6 +554,13 @@ mutation CreateIdea(
 
 # Set custom field values on a record
 # typename must be one of: Feature, Idea, Epic, Release, Goal, Initiative, etc.
+#
+# Custom field values are usually plain scalars (string/number/bool), not
+# JSON objects, so the global JSON->map[string]any scalar binding
+# (genqlient.yaml) is wrong for this specific field on both the input and
+# the response side - override it to `any` here.
+# @genqlient(for: "CustomFieldValueInput.value", bind: "any")
+# @genqlient(for: "CustomFieldValue.value", bind: "any")
 mutation SetCustomFieldValues(
   $recordId: ID!
   $recordTypename: CustomFieldableTypeEnum!
