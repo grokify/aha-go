@@ -11,6 +11,7 @@
 | `canvas` | `github.com/grokify/aha-go/canvas` | Strategic canvas operations |
 | `browser` | `github.com/grokify/aha-go/browser` | HTML entity browser |
 | `render` | `github.com/grokify/aha-go/render` | Diagram generation |
+| `omniroadmap` | `github.com/grokify/aha-go/omniroadmap` | `omniroadmap-core` provider adapter |
 
 ## Core Package
 
@@ -89,6 +90,28 @@ mermaid := render.ReleasesToMermaid(releases, render.MermaidOptions{})
 ```
 
 [Full render documentation](render.md)
+
+### omniroadmap
+
+Adapts `*aha.Client` to [`omniroadmap-core`](https://github.com/grokify/omniroadmap-core)'s
+`provider.Provider` interface, for use by roadmap-aggregation tools (e.g.
+`plexusone/dashforge`) that consume multiple product-management providers
+through one contract.
+
+```go
+import (
+    aha "github.com/grokify/aha-go"
+    "github.com/grokify/aha-go/omniroadmap"
+    "github.com/grokify/omniroadmap-core/provider"
+)
+
+client, err := aha.NewClient()
+p := omniroadmap.NewProvider(client, omniroadmap.WithProductID("PROD"))
+
+items, err := p.ListItems(ctx, &provider.ListItemsRequest{})
+```
+
+[Full omniroadmap documentation](omniroadmap.md)
 
 ## API Reference
 
