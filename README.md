@@ -100,6 +100,9 @@ The client can be configured via environment variables or options:
 |---------------------|--------|-------------|
 | `AHA_SUBDOMAIN` | `WithSubdomain()` | Your Aha account subdomain |
 | `AHA_API_KEY` | `WithAPIKey()` | Your Aha API key |
+| - | `WithMaxRetries()` | Max retry attempts for 429/5xx responses (default: 3) |
+| - | `WithRequestsPerSecond()` | Proactive outgoing request rate limit (default: 0, unlimited) |
+| - | `WithRetryDisabled()` | Disable automatic retry |
 
 Options take precedence over environment variables.
 
@@ -108,6 +111,30 @@ Options take precedence over environment variables.
 1. Log in to your Aha account
 2. Go to Settings > Account > API keys
 3. Generate a new API key
+
+### Retry and Rate Limiting
+
+By default, the client retries 429/5xx responses with exponential backoff
+and jitter (up to 3 attempts). For bulk operations, proactively throttle
+outgoing requests to stay under Aha's limits (20 req/s, 300 req/min)
+instead of relying solely on retry-after-429:
+
+```go
+client, err := aha.NewClient(
+    aha.WithMaxRetries(5),            // default: 3
+    aha.WithRequestsPerSecond(15),    // default: 0 (unlimited/reactive only)
+    // aha.WithRetryDisabled(),       // opt out of retry entirely
+)
+```
+
+When a request still fails, `RateLimitFromError` extracts Aha's
+`X-Ratelimit-*` response headers (returns `nil` if err carries none):
+
+```go
+if rl := aha.RateLimitFromError(err); rl != nil {
+    fmt.Printf("%d/%d remaining, resets at %s\n", rl.Remaining, rl.Limit, rl.Reset)
+}
+```
 
 ## API Coverage
 
@@ -143,6 +170,14 @@ ideas, err := client.ListFeatureIdeas(ctx, "PROD-123",
     aha.WithFeatureIdeasPage(1),
     aha.WithFeatureIdeasPerPage(50),
 )
+
+// Update manual progress, epic, and estimates
+feature, err := client.UpdateFeature(ctx, "PROD-123",
+    aha.WithUpdateFeatureProgressSource("progress_manual"),
+    aha.WithUpdateFeatureProgress(75),
+    aha.WithUpdateFeatureEpic("PROD-E-1"),
+    aha.WithUpdateFeatureOriginalEstimate("2d"),
+)
 ```
 
 ### Ideas
@@ -171,6 +206,15 @@ err = client.DeleteIdea(ctx, "IDEA-123")
 
 // List idea categories for a product
 categories, err := client.ListProductIdeaCategories(ctx, "PROD")
+
+// List endorsements (votes) on an idea, with voter identity
+endorsements, err := client.ListIdeaEndorsements(ctx, "IDEA-123")
+
+// List/get idea portal users and organizations (voter/customer identity)
+users, err := client.ListIdeaUsers(ctx)
+user, err := client.GetIdeaUser(ctx, "USER-ID")
+orgs, err := client.ListIdeaOrganizations(ctx)
+org, err := client.GetIdeaOrganization(ctx, "ORG-ID")
 ```
 
 ### Custom Field Definitions
@@ -237,6 +281,31 @@ release, err := client.CreateRelease(ctx, "PROD", "Q4 2026 Release",
 // Update a release's theme
 release, err := client.UpdateRelease(ctx, "PROD-R-1",
     aha.WithReleaseTheme("Focus on performance and reliability improvements."),
+)
+
+// Update manual progress and mark a release shipped via workflow status
+// (there's no standalone "released" flag - Released is derived from
+// whichever workflow status the product's workflow defines as released)
+release, err = client.UpdateRelease(ctx, "PROD-R-1",
+    aha.WithReleaseProgressSource("progress_manual"),
+    aha.WithReleaseProgress(90),
+    aha.WithReleaseWorkflowStatus("Shipped"),
+)
+```
+
+### Initiatives
+
+```go
+// Get an initiative
+initiative, err := client.GetInitiative(ctx, "PROD-I-1")
+
+// List initiatives for a product
+initiatives, err := client.ListProductInitiatives(ctx, "PROD")
+
+// Update an initiative's manual progress
+initiative, err = client.UpdateInitiative(ctx, "PROD-I-1",
+    aha.WithUpdateInitiativeProgressSource("progress_manual"),
+    aha.WithUpdateInitiativeProgress(30),
 )
 ```
 
@@ -629,14 +698,20 @@ ideaResp, err := generated.CreateIdea(ctx, client,
 
 ### Custom Fields
 
+Use the `graphql.SetCustomFieldValues` wrapper, not the generated mutation
+directly - it also checks the response payload for field-level validation
+errors (Aha can return these inside a transport-level-successful response)
+and returns them as a normal Go `error`:
+
 ```go
-// Set custom fields on a feature
-resp, err := generated.SetCustomFieldValues(ctx, client,
+import "github.com/grokify/aha-go/graphql"
+
+values, err := graphql.SetCustomFieldValues(ctx, client,
     "FEATURE-ID",
     generated.CustomFieldableTypeEnumFeature,
-    []generated.CustomFieldValueInput{
-        {Key: "priority_score", Value: 85},
-        {Key: "customer_segment", Value: "Enterprise"},
+    map[string]any{
+        "priority_score":   85,
+        "customer_segment": "Enterprise",
     },
 )
 ```

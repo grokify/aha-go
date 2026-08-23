@@ -17,6 +17,12 @@ Prefer the REST wrapper for a given field/entity unless GraphQL is the only
 path Aha exposes for it (check `openapi/aha.yaml` and Aha's docs at
 https://www.aha.io/api first).
 
+`omniroadmap/` is a third, narrower layer: it adapts `*aha.Client` to
+`omniroadmap-core`'s `provider.Provider` interface for external roadmap-
+aggregation consumers (e.g. `plexusone/dashforge`). It only wraps existing
+REST wrapper methods — it never talks to `internal/api` directly, and
+changes to it don't touch the OpenAPI spec.
+
 ## The OpenAPI spec is hand-maintained — on purpose
 
 **Aha does not publish an OpenAPI spec.** `openapi/aha.yaml` is authored and
@@ -51,3 +57,7 @@ Workflow for adding/changing a field or endpoint:
 
 - Unit tests only, `httptest`-based — no live Aha credentials required.
 - Test file per entity (`feature_test.go`, `release_test.go`, ...).
+- Use the shared `newUpdateCaptureClient` helper (`idea_test.go`) for
+  Update* tests that need to assert on exactly what was sent — it decodes
+  the request body into `map[string]any` and responds with a given
+  fixture, replacing what used to be a duplicated inline pattern per file.
