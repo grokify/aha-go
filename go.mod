@@ -1,6 +1,6 @@
 module github.com/grokify/aha-go
 
-go 1.26.0
+go 1.26.5
 
 require (
 	github.com/Khan/genqlient v0.8.1
@@ -19,7 +19,7 @@ require (
 	github.com/grokify/goauth v0.24.0
 	github.com/grokify/mogo v0.74.8
 	github.com/grokify/omniroadmap-core v0.1.0
-	github.com/grokify/prism-roadmap v0.18.0
+	github.com/grokify/prism-roadmap v0.20.0
 	github.com/ogen-go/ogen v1.24.0
 	github.com/spf13/cobra v1.10.2
 	go.opentelemetry.io/otel v1.45.0
