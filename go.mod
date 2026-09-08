@@ -22,9 +22,9 @@ require (
 	github.com/grokify/prism-roadmap v0.18.0
 	github.com/ogen-go/ogen v1.24.0
 	github.com/spf13/cobra v1.10.2
-	go.opentelemetry.io/otel v1.45.0
-	go.opentelemetry.io/otel/metric v1.45.0
-	go.opentelemetry.io/otel/trace v1.45.0
+	go.opentelemetry.io/otel v1.46.0
+	go.opentelemetry.io/otel/metric v1.46.0
+	go.opentelemetry.io/otel/trace v1.46.0
 	golang.org/x/time v0.15.0
 	gopkg.in/yaml.v3 v3.0.1
 )
