@@ -17,7 +17,7 @@ require (
 	// See: docs/specs/ROADMAP.md for migration plan.
 	github.com/go-rod/rod v0.116.2
 	github.com/grokify/goauth v0.24.0
-	github.com/grokify/mogo v0.74.8
+	github.com/grokify/mogo v0.74.9
 	github.com/grokify/omniroadmap-core v0.1.0
 	github.com/grokify/prism-roadmap v0.21.0
 	github.com/ogen-go/ogen v1.24.0
@@ -48,7 +48,7 @@ require (
 	github.com/googleapis/gax-go/v2 v2.24.1 // indirect
 	github.com/grokify/priority-frameworks v0.3.0 // indirect
 	github.com/grokify/prism-core v0.5.0 // indirect
-	github.com/huandu/xstrings v1.5.0 // indirect
+	github.com/huandu/xstrings v1.6.0 // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/jessevdk/go-flags v1.6.1 // indirect
 	github.com/mattn/go-colorable v0.1.15 // indirect
@@ -66,13 +66,13 @@ require (
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.71.0 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	go.uber.org/zap v1.28.0 // indirect
-	golang.org/x/crypto v0.56.0 // indirect
-	golang.org/x/exp v0.0.0-20260824195058-e88cd73687aa // indirect
-	golang.org/x/net v0.58.0 // indirect
+	golang.org/x/crypto v0.57.0 // indirect
+	golang.org/x/exp v0.0.0-20260908205506-85c1c2202aba // indirect
+	golang.org/x/net v0.59.0 // indirect
 	golang.org/x/oauth2 v0.37.0 // indirect
 	golang.org/x/sync v0.23.0 // indirect
 	golang.org/x/sys v0.48.0 // indirect
-	golang.org/x/text v0.41.0 // indirect
+	golang.org/x/text v0.42.0 // indirect
 	google.golang.org/api v0.297.0 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20260908043556-f8649ddbbfe6 // indirect
 	google.golang.org/grpc v1.83.2 // indirect
