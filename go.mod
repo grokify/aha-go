@@ -17,7 +17,7 @@ require (
 	// See: docs/specs/ROADMAP.md for migration plan.
 	github.com/go-rod/rod v0.116.2
 	github.com/grokify/goauth v0.24.0
-	github.com/grokify/mogo v0.74.9
+	github.com/grokify/mogo v0.75.0
 	github.com/grokify/omniroadmap-core v0.1.0
 	github.com/grokify/prism-roadmap v0.21.0
 	github.com/ogen-go/ogen v1.24.0
@@ -48,7 +48,7 @@ require (
 	github.com/googleapis/gax-go/v2 v2.24.1 // indirect
 	github.com/grokify/priority-frameworks v0.3.0 // indirect
 	github.com/grokify/prism-core v0.5.0 // indirect
-	github.com/huandu/xstrings v1.6.0 // indirect
+	github.com/huandu/xstrings v1.6.1 // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/jessevdk/go-flags v1.6.1 // indirect
 	github.com/mattn/go-colorable v0.1.15 // indirect
